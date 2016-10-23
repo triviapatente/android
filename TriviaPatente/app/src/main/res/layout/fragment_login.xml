@@ -1,0 +1,78 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ted_developers.triviapatente.app.views.first_access.LoginFragment"
+    android:background="@color/mainColor"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <EditText
+            android:hint="@string/username"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/username_field"
+            android:background="@android:color/white"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_marginLeft="@dimen/field_margin"
+            android:layout_marginStart="@dimen/field_margin"
+            android:layout_marginRight="@dimen/field_margin"
+            android:layout_marginEnd="@dimen/field_margin"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:hint="@string/password"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password_field"
+            android:background="@android:color/white"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_marginLeft="@dimen/field_margin"
+            android:layout_marginStart="@dimen/field_margin"
+            android:layout_marginRight="@dimen/field_margin"
+            android:layout_marginEnd="@dimen/field_margin"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/login_button"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:background="@color/mainColor2"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_marginLeft="@dimen/field_margin"
+            android:layout_marginStart="@dimen/field_margin"
+            android:layout_marginRight="@dimen/field_margin"
+            android:layout_marginEnd="@dimen/field_margin"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="---- oppure ----"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/facebook_button"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fb_logo"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+</FrameLayout>
