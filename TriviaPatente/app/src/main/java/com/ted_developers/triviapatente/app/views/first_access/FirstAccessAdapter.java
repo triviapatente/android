@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.ted_developers.triviapatente.app.views.first_access.Login.LoginFragment;
+import com.ted_developers.triviapatente.app.views.first_access.Register.RegisterFragment;
+
 /**
  * Created by Antonio on 22/10/16.
  */

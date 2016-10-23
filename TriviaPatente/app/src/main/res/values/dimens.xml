@@ -6,4 +6,6 @@
     <dimen name="element_margin">20dp</dimen>
     <dimen name="field_height">35dp</dimen>
     <dimen name="field_margin">50dp</dimen>
+    <dimen name="loading_size">25dp</dimen>
+    <dimen name="corner_radius">5dp</dimen>
 </resources>

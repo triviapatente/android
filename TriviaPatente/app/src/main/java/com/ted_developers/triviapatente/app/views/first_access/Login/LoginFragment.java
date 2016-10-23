@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.first_access;
+package com.ted_developers.triviapatente.app.views.first_access.Login;
 
 
 import android.os.Bundle;
@@ -6,8 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +21,10 @@ import com.ted_developers.triviapatente.R;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+    @BindView(R.id.username_field) EditText usernameField;
+    @BindView(R.id.password_field) EditText passwordField;
+    @BindView(R.id.login_button) LoadingButton loginButton;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -39,7 +49,13 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        ButterKnife.bind(this, v);
+        return v;
     }
 
+    @OnClick(R.id.login_button)
+    public void login() {
+        LoginPresenter.login(usernameField.getText().toString(), passwordField.getText().toString(), loginButton);
+    }
 }
