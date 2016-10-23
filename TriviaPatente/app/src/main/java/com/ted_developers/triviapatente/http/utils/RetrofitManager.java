@@ -53,24 +53,34 @@ public class RetrofitManager {
                 .build();
     }
 
+    private static HTTPAuthEndpoint httpAuthEndpoint;
     public static HTTPAuthEndpoint getHTTPAuthEndpoint() {
-        return retrofit.create(HTTPAuthEndpoint.class);
+        if (httpAuthEndpoint == null) { httpAuthEndpoint = retrofit.create(HTTPAuthEndpoint.class); }
+        return httpAuthEndpoint;
     }
 
+    private static HTTPGameEndpoint httpGameEndpoint;
     public static HTTPGameEndpoint getHTTPGameEndpoint() {
-        return retrofit.create(HTTPGameEndpoint.class);
+        if (httpGameEndpoint == null) { httpGameEndpoint = retrofit.create(HTTPGameEndpoint.class); }
+        return httpGameEndpoint;
     }
 
+    private static HTTPMessageEndpoint httpMessageEndpoint;
     public static HTTPMessageEndpoint getHTTPMessageEndpoint() {
-        return retrofit.create(HTTPMessageEndpoint.class);
+        if (httpMessageEndpoint == null) { httpMessageEndpoint = retrofit.create(HTTPMessageEndpoint.class); }
+        return httpMessageEndpoint;
     }
 
+    private static HTTPPreferencesEndpoint httpPreferencesEndpoint;
     public static HTTPPreferencesEndpoint getHTTPPreferencesEndpoint() {
-        return retrofit.create(HTTPPreferencesEndpoint.class);
+        if (httpPreferencesEndpoint == null) { httpPreferencesEndpoint = retrofit.create(HTTPPreferencesEndpoint.class); }
+        return httpPreferencesEndpoint;
     }
 
+    private static HTTPPurchasesEndpoint httpPurchasesEndpoint;
     public static HTTPPurchasesEndpoint getHTTPPurchasesEndpoint() {
-        return retrofit.create(HTTPPurchasesEndpoint.class);
+        if (httpPurchasesEndpoint == null) { httpPurchasesEndpoint = retrofit.create(HTTPPurchasesEndpoint.class); }
+        return httpPurchasesEndpoint;
     }
 
 
