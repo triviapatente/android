@@ -12,69 +12,45 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/field_height"
-            android:inputType="textPersonName"
-            android:hint="@string/username"
-            android:ems="10"
+        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/username_field"
-            android:background="@drawable/input_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/element_margin"
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"/>
+            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/field_height"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:hint="@string/email"
+        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/email_field"
-            android:background="@drawable/input_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/element_margin"
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"/>
+            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/field_height"
-            android:inputType="textPassword"
-            android:ems="10"
+        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/password_field"
-            android:background="@drawable/input_rounded"
-            android:hint="@string/password"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center" />
-
-        <EditText
             android:layout_width="match_parent"
-            android:layout_height="@dimen/field_height"
-            android:id="@+id/repeat_password_field"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:hint="@string/repeat_password"
-            android:background="@drawable/input_rounded"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/element_margin"
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center" />
+            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
+
+        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
+            android:id="@+id/repeat_password_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_marginLeft="@dimen/field_margin"
+            android:layout_marginStart="@dimen/field_margin"
+            android:layout_marginRight="@dimen/field_margin"
+            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
         <RelativeLayout
             android:id="@+id/buttonPanel"

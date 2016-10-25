@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
 
 import butterknife.BindView;
@@ -22,10 +23,10 @@ import butterknife.Unbinder;
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
-    @BindView(R.id.username_field) EditText usernameField;
-    @BindView(R.id.password_field) EditText passwordField;
-    @BindView(R.id.repeat_password_field) EditText repeatPasswordField;
-    @BindView(R.id.email_field) EditText emailField;
+    @BindView(R.id.username_field) LabeledInput usernameField;
+    @BindView(R.id.password_field) LabeledInput passwordField;
+    @BindView(R.id.repeat_password_field) LabeledInput repeatPasswordField;
+    @BindView(R.id.email_field) LabeledInput emailField;
     @BindView(R.id.register_button) LoadingButton registerButton;
     private Unbinder unbinder;
 

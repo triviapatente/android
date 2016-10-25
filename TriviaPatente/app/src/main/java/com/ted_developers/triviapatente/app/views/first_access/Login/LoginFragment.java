@@ -14,6 +14,7 @@ import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingBu
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +25,7 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.username_field) EditText usernameField;
     @BindView(R.id.password_field) EditText passwordField;
     @BindView(R.id.login_button) LoadingButton loginButton;
+    private Unbinder unbinder;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -50,12 +52,17 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        ButterKnife.bind(this, v);
+        unbinder = ButterKnife.bind(this, v);
         return v;
     }
 
     @OnClick(R.id.login_button)
     public void login() {
         LoginPresenter.login(usernameField.getText().toString(), passwordField.getText().toString(), loginButton);
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

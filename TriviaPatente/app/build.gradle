@@ -32,5 +32,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
 
 }

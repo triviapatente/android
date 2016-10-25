@@ -12,19 +12,29 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.viewpagerindicator.CirclePageIndicator;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FirstAccessActivity extends AppCompatActivity {
 
-    private ViewPager mViewPager;
+    @BindView(R.id.pager) ViewPager mViewPager;
+    @BindView(R.id.pagerIndicator) CirclePageIndicator mIndicator;
     private FirstAccessAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_access);
+        ButterKnife.bind(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        // View pager
         mAdapter = new FirstAccessAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
+        // ViewPager Indicator
+        mIndicator.setViewPager(mViewPager);
+        // Start from welcome page
+        mViewPager.setCurrentItem(1);
     }
 }

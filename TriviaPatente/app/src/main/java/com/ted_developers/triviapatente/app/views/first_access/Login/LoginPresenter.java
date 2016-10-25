@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.ManageLoading;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.responses.UserToken;
+import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,17 +16,17 @@ import retrofit2.Response;
 public class LoginPresenter {
     public static void login(String user, String password, final ManageLoading loadingManager) {
         loadingManager.startLoading();
-        Call<UserToken> call = RetrofitManager.getHTTPAuthEndpoint().login(user, password);
-        call.enqueue(new Callback<UserToken>() {
+        Call<SuccessUserToken> call = RetrofitManager.getHTTPAuthEndpoint().login(user, password);
+        call.enqueue(new Callback<SuccessUserToken>() {
             @Override
-            public void onResponse(Call<UserToken> call, Response<UserToken> response) {
+            public void onResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
                 Log.i("TEST", response.body().user.username);
                 Log.i("TEST", response.body().token);
                 loadingManager.stopLoading();
             }
 
             @Override
-            public void onFailure(Call<UserToken> call, Throwable t) {
+            public void onFailure(Call<SuccessUserToken> call, Throwable t) {
                 Log.i("TEST", "FAILURE");
                 loadingManager.stopLoading();
             }
