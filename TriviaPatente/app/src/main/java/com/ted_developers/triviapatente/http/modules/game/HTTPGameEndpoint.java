@@ -4,7 +4,6 @@ import com.ted_developers.triviapatente.models.responses.SuccessBadge;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
-import com.ted_developers.triviapatente.models.responses.UserToken;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
