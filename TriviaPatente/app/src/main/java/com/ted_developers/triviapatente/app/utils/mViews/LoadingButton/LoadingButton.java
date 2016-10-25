@@ -47,8 +47,11 @@ public class LoadingButton extends Button implements ManageLoading {
     public void startLoading() {
         prevText = this.getText().toString();
         this.setText("");
-        if (progressBar == null) {
+        if(progressBar == null) {
             init();
+        }
+        else if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 
