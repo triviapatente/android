@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,9 +24,11 @@ import butterknife.Unbinder;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
-    @BindView(R.id.username_field) EditText usernameField;
-    @BindView(R.id.password_field) EditText passwordField;
+    @BindView(R.id.username_field) LabeledInput usernameField;
+    @BindView(R.id.password_field) LabeledInput passwordField;
     @BindView(R.id.login_button) LoadingButton loginButton;
+    @BindString(R.string.password) String passwordHint;
+    @BindString(R.string.username) String usernameHint;
     private Unbinder unbinder;
 
     public LoginFragment() {
@@ -53,7 +57,14 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, v);
+        initLabeledInputs();
         return v;
+    }
+
+    private void initLabeledInputs() {
+        usernameField.setHint(usernameHint);
+        passwordField.setHint(passwordHint);
+        passwordField.setPassword(true);
     }
 
     @OnClick(R.id.login_button)

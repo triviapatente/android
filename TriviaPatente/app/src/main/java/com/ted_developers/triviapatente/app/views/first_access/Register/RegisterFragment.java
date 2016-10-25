@@ -12,6 +12,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +29,10 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.repeat_password_field) LabeledInput repeatPasswordField;
     @BindView(R.id.email_field) LabeledInput emailField;
     @BindView(R.id.register_button) LoadingButton registerButton;
+    @BindString(R.string.password) String passwordHint;
+    @BindString(R.string.username) String usernameHint;
+    @BindString(R.string.email) String emailHint;
+    @BindString(R.string.repeat_password) String repeatPasswordHint;
     private Unbinder unbinder;
 
     public RegisterFragment() {
@@ -56,7 +61,17 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_register, container, false);
         unbinder = ButterKnife.bind(this, v);
+        initLabeledInputs();
         return v;
+    }
+
+    private void initLabeledInputs() {
+        usernameField.setHint(usernameHint);
+        emailField.setHint(emailHint);
+        passwordField.setHint(passwordHint);
+        passwordField.setPassword(true);
+        repeatPasswordField.setHint(repeatPasswordHint);
+        repeatPasswordField.setPassword(true);
     }
 
     @OnClick(R.id.register_button)
