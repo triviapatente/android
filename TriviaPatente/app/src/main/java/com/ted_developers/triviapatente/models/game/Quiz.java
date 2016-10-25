@@ -15,9 +15,9 @@ public class Quiz extends CommonPK {
     @SerializedName("question")
     public String question;
     @SerializedName("answer")
-    public boolean answer;
+    public Boolean answer;
     @SerializedName("category_id")
-    public long category_id;
+    public Long category_id;
 
     public Quiz() {}
 }

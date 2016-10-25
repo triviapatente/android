@@ -11,13 +11,13 @@ import org.parceler.Parcel;
 @Parcel
 public class Invite extends Base {
     @SerializedName("accepted")
-    public boolean accepted;
+    public Boolean accepted;
     @SerializedName("receiver_id")
-    public long receiver_id;
+    public Long receiver_id;
     @SerializedName("sender_id")
-    public long sender_id;
+    public Long sender_id;
     @SerializedName("game_id")
-    public long game_id;
+    public Long game_id;
 
     public Invite() {}
 }

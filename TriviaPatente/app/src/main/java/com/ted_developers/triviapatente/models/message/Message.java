@@ -13,9 +13,9 @@ public class Message extends CommonPK {
     @SerializedName("content")
     public String content;
     @SerializedName("user_id")
-    public long user_id;
+    public Long user_id;
     @SerializedName("game_id")
-    public long game_id;
+    public Long game_id;
 
     public Message() {}
 }

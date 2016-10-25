@@ -9,7 +9,7 @@ import org.parceler.Parcel;
 @Parcel
 public class SuccessBadge extends Success {
     @SerializedName("badge")
-    public int badge;
+    public Integer badge;
 
     public SuccessBadge() {}
 }

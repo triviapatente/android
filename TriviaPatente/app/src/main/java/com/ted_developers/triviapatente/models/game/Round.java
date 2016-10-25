@@ -10,13 +10,13 @@ import org.parceler.Parcel;
 @Parcel
 public class Round extends CommonPK {
     @SerializedName("number")
-    public int number;
+    public Integer number;
     @SerializedName("game_id")
-    public long game_id;
+    public Long game_id;
     @SerializedName("cat_id")
-    public long cat_id;
+    public Long cat_id;
     @SerializedName("dealer_id")
-    public long dealer_id;
+    public Long dealer_id;
 
     public Round() {}
 }

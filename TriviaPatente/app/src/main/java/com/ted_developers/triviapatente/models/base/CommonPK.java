@@ -10,7 +10,7 @@ import org.parceler.Parcel;
 @Parcel
 public abstract class CommonPK extends  Base {
     @SerializedName("id")
-    public long id;
+    public Long id;
 
     public CommonPK() {}
 }

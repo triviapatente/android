@@ -11,11 +11,11 @@ import org.parceler.Parcel;
 @Parcel
 public class Game extends CommonPK {
     @SerializedName("creator_id")
-    public long creator_id;
+    public Long creator_id;
     @SerializedName("winner_id")
-    public long winner_id;
+    public Long winner_id;
     @SerializedName("ended")
-    public boolean ended;
+    public Boolean ended;
 
     public Game() {}
 }

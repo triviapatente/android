@@ -11,13 +11,13 @@ import org.parceler.Parcel;
 @Parcel
 public class Question extends CommonPK {
     @SerializedName("answer")
-    public boolean answer;
+    public Boolean answer;
     @SerializedName("quiz_id")
-    public long quiz_id;
+    public Long quiz_id;
     @SerializedName("round_id")
-    public long round_id;
+    public Long round_id;
     @SerializedName("user_id")
-    public long user_id;
+    public Long user_id;
 
     public Question() {}
 }

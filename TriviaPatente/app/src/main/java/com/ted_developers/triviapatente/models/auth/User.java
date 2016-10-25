@@ -22,7 +22,7 @@ public class User extends CommonPK {
     @SerializedName("image")
     public String image;
     @SerializedName("score")
-    public int score;
+    public Integer score;
 
     public User() {}
 }

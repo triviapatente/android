@@ -15,15 +15,15 @@ public class Preferences extends CommonPK {
     @SerializedName("chat")
     public String chat; // TODO make enum
     @SerializedName("user_id")
-    public long user_id;
+    public Long user_id;
     @SerializedName("notification_message")
-    public boolean notification_message;
+    public Boolean notification_message;
     @SerializedName("notification_round")
-    public boolean notification_round;
+    public Boolean notification_round;
     @SerializedName("notification_new_game")
-    public boolean notification_new_game;
+    public Boolean notification_new_game;
     @SerializedName("notification_full_hearts")
-    public boolean notification_full_hearts;
+    public Boolean notification_full_hearts;
 
     public Preferences() {}
 }
