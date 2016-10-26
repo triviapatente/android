@@ -88,6 +88,11 @@ public class LoginFragment extends Fragment {
         return v;
     }
 
+    private void initLoginButtonLayoutParams() {
+        loginButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, fieldHeight);
+        loginButton.setLayoutParams(loginButtonParams);
+    }
+
     // set hints and passwords (can't do this from xml)
     private void initLabeledInputs() {
         usernameField.setHint(usernameHint);

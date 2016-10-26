@@ -25,6 +25,11 @@ public class FirstAccessActivity extends AppCompatActivity {
     @BindView(R.id.pager) ViewPager mViewPager;
     @BindView(R.id.pagerIndicator) CirclePageIndicator mIndicator;
     // error messages
+    @BindString(R.string.field_required) public String field_required_error;
+    @BindString(R.string.blank_not_allowed) public String blank_not_allowed_error;
+    @BindString(R.string.not_matching_pwd) public String not_matching_pwd_error;
+    @BindString(R.string.not_valid_email) public String not_valid_email_error;
+
     private FirstAccessAdapter mAdapter;
 
     @Override
@@ -57,6 +62,52 @@ public class FirstAccessActivity extends AppCompatActivity {
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    // check input methods
+
+    // is or not a valid email
+    public boolean isValidEmail(LabeledInput input) {
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(input.toString()).matches()) {
+            input.showLabel(not_valid_email_error);
+            return false;
+        } else {
+            input.hideLabel();
+            return true;
+        }
+    }
+
+    // is empty or not
+    public boolean checkNotEmptyField(LabeledInput input) {
+        if(input.toString().replace(" ", "").equals("")) {
+            input.showLabel(field_required_error);
+            return false;
+        } else {
+            input.hideLabel();
+            return true;
+        }
+    }
+
+    // is without blank spaces
+    public boolean checkWithoutBlankSpacesField(LabeledInput input) {
+        if(input.toString().contains(" ")) {
+            input.showLabel(blank_not_allowed_error);
+            return false;
+        } else {
+            input.hideLabel();
+            return true;
+        }
+    }
+
+    // first input equals to the second
+    public boolean checkEquals(LabeledInput input1, LabeledInput input2) {
+        if(!input1.toString().equals(input2.toString())) {
+            input1.showLabel(not_matching_pwd_error);
+            return false;
+        } else {
+            input1.hideLabel();
+            return true;
         }
     }
 }

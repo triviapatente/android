@@ -26,22 +26,54 @@ import retrofit2.Response;
  * Created by Antonio on 23/10/16.
  */
 public class LoginPresenter {
-    public static void login(String user, String password, final ManageLoading loadingManager) {
-        loadingManager.startLoading();
-        Call<SuccessUserToken> call = RetrofitManager.getHTTPAuthEndpoint().login(user, password);
-        call.enqueue(new Callback<SuccessUserToken>() {
-            @Override
-            public void onResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
-                Log.i("TEST", response.body().user.username);
-                Log.i("TEST", response.body().token);
-                loadingManager.stopLoading();
-            }
+    public static void login(final LoginFragment lf) {
+        FirstAccessActivity a = (FirstAccessActivity) lf.getActivity();
+        LabeledInput user = lf.usernameField, password = lf.passwordField;
+        final ManageLoading loadingManager = (ManageLoading) lf.loginButton;
+        // hide alert and forgot button
+        // if they aren't shown it is managed from fragment
+        lf.hideAlert();
+        lf.hideForgotButton();
+        // check input
+        boolean valid = a.checkWithoutBlankSpacesField(user) && a.checkNotEmptyField(user);
+        valid = a.checkNotEmptyField(password) && valid;
+        if(valid) {
+            // if no error raised
+            // start loading
+            loadingManager.startLoading();
+            Call<SuccessUserToken> call = RetrofitManager.getHTTPAuthEndpoint().login(
+                    user.getText().toString(), password.getText().toString());
+            call.enqueue(new TPCallback<SuccessUserToken>() {
+                @Override
+                public void mOnResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
+                    // response received
+                    if (response.code() == 200) {
+                        // auth success
+                        // TODO save data
+                        // TODO open game page
+                        Log.i("TEST", response.body().user.username);
+                    } else if (response.code() == 401) {
+                        // unauthorized
+                        lf.showAlert(lf.forgotUsernamePassword);
+                        lf.showForgotButton();
+                    } else if (response.code() == 501) {
+                        // internal server error
+                        lf.showAlert(lf.operationFailed);
+                    }
+                }
 
-            @Override
-            public void onFailure(Call<SuccessUserToken> call, Throwable t) {
-                Log.i("TEST", "FAILURE");
-                loadingManager.stopLoading();
-            }
-        });
+                @Override
+                public void mOnFailure(Call<SuccessUserToken> call, Throwable t) {
+                    // response not received
+                    lf.showAlert(lf.operationFailed);
+                }
+
+                // then stop loading
+                @Override
+                public void then() {
+                    loadingManager.stopLoading();
+                }
+            });
+        }
     }
 }
