@@ -1,10 +1,22 @@
 package com.ted_developers.triviapatente.app.views.first_access.Login;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
+import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.ManageLoading;
+import com.ted_developers.triviapatente.app.utils.mViews.TPCallback.TPCallback;
+import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.EOFException;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;

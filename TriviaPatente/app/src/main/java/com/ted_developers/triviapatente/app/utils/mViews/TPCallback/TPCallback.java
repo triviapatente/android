@@ -20,7 +20,10 @@ public abstract class TPCallback<T> implements Callback<T> {
         then();
     }
 
+    // things to do on response
     public abstract void mOnResponse(Call<T> call, Response<T> response);
+    // things to do on failure
     public abstract void mOnFailure(Call<T> call, Throwable t);
+    // things to do finally
     public abstract void then();
 }

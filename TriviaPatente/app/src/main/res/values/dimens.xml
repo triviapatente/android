@@ -6,6 +6,20 @@
     <dimen name="element_margin">20dp</dimen>
     <dimen name="field_height">35dp</dimen>
     <dimen name="field_margin">50dp</dimen>
+    <dimen name="image_button_size">50dp</dimen>
+    <dimen name="circle_indicator_size">4.5dp</dimen>
+    <!--alert box-->
+    <dimen name="alert_height">100dp</dimen>
+    <dimen name="alert_image_size">40dp</dimen>
+    <!--padding between element inside alert box-->
+    <dimen name="alert_inside_padding">15dp</dimen>
+    <!--button forgot username password-->
+    <dimen name="forgot_username_password_margin">30dp</dimen>
+    <!--loading spin-->
     <dimen name="loading_size">25dp</dimen>
     <dimen name="corner_radius">5dp</dimen>
+    <!--or separator-->
+    <dimen name="or_padding">10dp</dimen>
+    <dimen name="line_length">50dp</dimen>
+    <dimen name="line_thickness">2dp</dimen>
 </resources>

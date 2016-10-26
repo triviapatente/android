@@ -48,6 +48,7 @@ public class LabeledInput extends LinearLayout {
         hideLabel();
     }
 
+    // to set if the edittext is for password input
     public void setPassword(boolean is) {
         if(!is) {
             input.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -56,27 +57,37 @@ public class LabeledInput extends LinearLayout {
         }
     }
 
+    // set edittext hint
     public void setHint(String hint) {
         input.setHint(hint);
     }
 
+    // hide label of labeled input
     public void hideLabel() {
         label.setVisibility(GONE);
         input.setBackgroundResource(R.drawable.edittext_rounded);
     }
 
+    // show label of labeled input with given text shown
     public void showLabel(String text) {
         label.setVisibility(VISIBLE);
         label.setText(text);
         input.setBackgroundResource(R.drawable.labeledinput_input);
     }
 
+    // show label of labeled input with given text shown, label and border of choosen color
     public void showLabel(String text, int labelColor) {
         // TODO find workaround to change color
         showLabel(text);
     }
 
+    // get edittext editable
     public Editable getText() {
         return input.getText();
+    }
+
+    // get edittext text
+    public String toString() {
+        return input.getText().toString();
     }
 }

@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity"
     tools:showIn="@layout/activity_first_access">
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
@@ -15,11 +16,11 @@
         android:id="@+id/pagerIndicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:radius="4.5dp"
+        app:radius="@dimen/circle_indicator_size"
         app:fillColor="@android:color/white"
-        app:pageColor="#6BD0FD"
+        app:pageColor="@color/mainColorTenue"
         app:strokeColor="@android:color/transparent"
-        android:padding="50dp"
+        android:padding="@dimen/field_margin"
         android:layout_alignBottom="@+id/pager"/>
 
 </RelativeLayout>

@@ -1,17 +1,25 @@
 package com.ted_developers.triviapatente.app.views.first_access.Register;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
+import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 
+import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,10 +47,7 @@ public class RegisterFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     */
+    // get fragment new instance in this way
     public static RegisterFragment newInstance() {
         RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
@@ -60,11 +65,16 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_register, container, false);
+        // bind butterknife
         unbinder = ButterKnife.bind(this, v);
+        // init labeled inputs
         initLabeledInputs();
+        // hide alert
+        hideAlert();
         return v;
     }
 
+    // set hints and passwords (can't do this from xml)
     private void initLabeledInputs() {
         usernameField.setHint(usernameHint);
         emailField.setHint(emailHint);
@@ -74,14 +84,9 @@ public class RegisterFragment extends Fragment {
         repeatPasswordField.setPassword(true);
     }
 
+    // do registration
     @OnClick(R.id.register_button)
     public void register() {
-        RegisterPresenter.register(
-                usernameField.getText().toString(),
-                emailField.getText().toString(),
-                passwordField.getText().toString(),
-                repeatPasswordField.getText().toString(),
-                registerButton);
         ((FirstAccessActivity) getActivity()).hideKeyboard();
     }
 

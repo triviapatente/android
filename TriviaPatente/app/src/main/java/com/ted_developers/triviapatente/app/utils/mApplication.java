@@ -11,6 +11,7 @@ public class mApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // init retrofit manager
         RetrofitManager.init(getBaseContext());
     }
 }

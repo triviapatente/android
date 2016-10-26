@@ -43,6 +43,7 @@ public class LoadingButton extends Button implements ManageLoading {
         ((RelativeLayout) this.getParent()).addView(progressBar);
     }
 
+    // start spinning
     @Override
     public void startLoading() {
         prevText = this.getText().toString();
@@ -55,6 +56,7 @@ public class LoadingButton extends Button implements ManageLoading {
         }
     }
 
+    // stop spinning
     @Override
     public void stopLoading() {
         if(progressBar != null) {

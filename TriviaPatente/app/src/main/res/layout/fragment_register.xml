@@ -12,6 +12,37 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
+        <!-- alert box -->
+        <LinearLayout
+            android:id="@+id/register_failed"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/alert_height"
+            android:background="@drawable/alertbox_rounded"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_marginLeft="@dimen/field_margin"
+            android:layout_marginStart="@dimen/field_margin"
+            android:layout_marginRight="@dimen/field_margin"
+            android:layout_marginEnd="@dimen/field_margin"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/alert_image_size"
+                android:layout_height="@dimen/alert_image_size"
+                android:src="@drawable/alert"
+                android:layout_marginLeft="@dimen/alert_inside_padding"
+                android:layout_marginRight="@dimen/alert_inside_padding"
+                android:layout_marginEnd="@dimen/alert_inside_padding"
+                android:layout_marginStart="@dimen/alert_inside_padding" />
+
+            <TextView
+                android:id="@+id/alertMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/alert_inside_padding"
+                android:layout_marginEnd="@dimen/alert_inside_padding" />
+        </LinearLayout>
+
+        <!-- username input -->
         <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/username_field"
             android:layout_width="match_parent"
@@ -22,6 +53,7 @@
             android:layout_marginRight="@dimen/field_margin"
             android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
+        <!-- email input -->
         <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/email_field"
             android:layout_width="match_parent"
@@ -32,6 +64,7 @@
             android:layout_marginRight="@dimen/field_margin"
             android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
+        <!-- password input -->
         <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/password_field"
             android:layout_width="match_parent"
@@ -42,6 +75,7 @@
             android:layout_marginRight="@dimen/field_margin"
             android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
+        <!-- repeat password input -->
         <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
             android:id="@+id/repeat_password_field"
             android:layout_width="match_parent"
@@ -52,6 +86,7 @@
             android:layout_marginRight="@dimen/field_margin"
             android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
 
+        <!-- layout required to loading button -->
         <RelativeLayout
             android:id="@+id/buttonPanel"
             android:layout_width="wrap_content"
@@ -59,6 +94,7 @@
             android:gravity="center"
             android:layout_marginBottom="@dimen/element_margin">
 
+            <!-- register loading button -->
             <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/field_height"
@@ -74,45 +110,48 @@
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
 
+        <!-- or separator -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/element_margin"
             android:layout_gravity="center">
 
+            <!-- line -->
             <View
-                android:layout_width="50dp"
-                android:layout_height= "2dp"
+                android:layout_width="@dimen/line_length"
+                android:layout_height= "@dimen/line_thickness"
                 android:background="@android:color/white"
                 android:layout_gravity="center_vertical"/>
 
+            <!-- or message -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="oppure"
+                android:text="@string/or"
                 android:textColor="@android:color/white"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"/>
+                android:paddingLeft="@dimen/or_padding"
+                android:paddingRight="@dimen/or_padding"
+                android:paddingStart="@dimen/or_padding"
+                android:paddingEnd="@dimen/or_padding"/>
 
+            <!-- line -->
             <View
-                android:layout_width="50dp"
-                android:layout_height= "2dp"
+                android:layout_width="@dimen/line_length"
+                android:layout_height= "@dimen/line_thickness"
                 android:background="@android:color/white"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
+        <!-- facebook login button -->
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
             android:id="@+id/facebook_button"
             android:scaleType="fitCenter"
             android:src="@mipmap/fb_logo"
             android:background="@android:color/transparent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/element_margin"/>
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
-
 </FrameLayout>
