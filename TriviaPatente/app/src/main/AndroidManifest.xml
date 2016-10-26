@@ -14,7 +14,8 @@
         <activity
             android:name=".app.views.first_access.FirstAccessActivity"
             android:label="Trivia Patente"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

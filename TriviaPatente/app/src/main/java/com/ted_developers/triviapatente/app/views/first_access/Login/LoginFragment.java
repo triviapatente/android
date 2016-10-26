@@ -70,6 +70,7 @@ public class LoginFragment extends Fragment {
     @OnClick(R.id.login_button)
     public void login() {
         LoginPresenter.login(usernameField.getText().toString(), passwordField.getText().toString(), loginButton);
+        ((FirstAccessActivity) getActivity()).hideKeyboard();
     }
 
     @Override public void onDestroyView() {

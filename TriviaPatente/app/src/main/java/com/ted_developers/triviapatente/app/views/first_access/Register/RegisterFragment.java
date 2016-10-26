@@ -82,6 +82,7 @@ public class RegisterFragment extends Fragment {
                 passwordField.getText().toString(),
                 repeatPasswordField.getText().toString(),
                 registerButton);
+        ((FirstAccessActivity) getActivity()).hideKeyboard();
     }
 
     @Override public void onDestroyView() {
