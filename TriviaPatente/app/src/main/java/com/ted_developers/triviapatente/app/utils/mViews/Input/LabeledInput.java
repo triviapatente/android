@@ -2,11 +2,14 @@ package com.ted_developers.triviapatente.app.utils.mViews.Input;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +43,7 @@ public class LabeledInput extends LinearLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         // input from template
         input = (EditText) inflater.inflate(R.layout.tp_edittext_template, null);
+        input.setHighlightColor((int) ContextCompat.getColor(context, R.color.mainColorTenue));
         input.setHeight((int) getResources().getDimension(R.dimen.field_height));
         // label from template
         label = (TextView) inflater.inflate(R.layout.tp_errorlabel_template, null);
