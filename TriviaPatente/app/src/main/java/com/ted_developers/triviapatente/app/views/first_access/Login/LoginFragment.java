@@ -106,8 +106,41 @@ public class LoginFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
     // show alert with given message
+    public void showAlert(String alertMessage) {
+        // show alert
+        if (loginFailedAlert.getVisibility() == View.GONE) {
+            alertMessageView.setText(alertMessage);
+            loginFailedAlert.setVisibility(View.VISIBLE);
+        }
+    }
+
     // show forgor username or password button
+    public void showForgotButton() {
+        // show forgot button
+        if (loginFailedButton.getVisibility() == View.GONE) {
+            // remove padding from login button
+            loginButtonParams.setMargins(fieldMargin, 0, fieldMargin, 0);
+            loginFailedButton.setVisibility(View.VISIBLE);
+        }
+    }
+
     // hide alert
+    public void hideAlert() {
+        // hide alert
+        if (loginFailedAlert.getVisibility() == View.VISIBLE) {
+            loginFailedAlert.setVisibility(View.GONE);
+        }
+    }
+
     // hide button
+    public void hideForgotButton() {
+        // hide forgot button
+        if (loginFailedButton.getVisibility() == View.VISIBLE) {
+            loginFailedButton.setVisibility(View.GONE);
+            // add padding from login button
+            loginButtonParams.setMargins(fieldMargin, 0, fieldMargin, marginBottom);
+        }
+    }
 }

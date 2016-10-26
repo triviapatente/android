@@ -32,15 +32,23 @@ import butterknife.Unbinder;
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
+    // dom elements
     @BindView(R.id.username_field) LabeledInput usernameField;
     @BindView(R.id.password_field) LabeledInput passwordField;
     @BindView(R.id.repeat_password_field) LabeledInput repeatPasswordField;
     @BindView(R.id.email_field) LabeledInput emailField;
     @BindView(R.id.register_button) LoadingButton registerButton;
+    @BindView(R.id.register_failed) LinearLayout registerFailedAlert;
+    @BindView(R.id.alertMessage) TextView alertMessageView;
+    // useful strings
     @BindString(R.string.password) String passwordHint;
     @BindString(R.string.username) String usernameHint;
     @BindString(R.string.email) String emailHint;
     @BindString(R.string.repeat_password) String repeatPasswordHint;
+    @BindString(R.string.operation_failed) String operationFailed;
+    @BindString(R.string.username_already_exist) String already_registered_username;
+    @BindString(R.string.email_already_exist) String already_registered_email;
+
     private Unbinder unbinder;
 
     public RegisterFragment() {
@@ -88,9 +96,28 @@ public class RegisterFragment extends Fragment {
     @OnClick(R.id.register_button)
     public void register() {
         ((FirstAccessActivity) getActivity()).hideKeyboard();
+        RegisterPresenter.register(this);
     }
 
-    @Override public void onDestroyView() {
+    // show alert with given message
+    public void showAlert(String alertMessage) {
+        // show alert
+        if (registerFailedAlert.getVisibility() == View.GONE) {
+            alertMessageView.setText(alertMessage);
+            registerFailedAlert.setVisibility(View.VISIBLE);
+        }
+    }
+
+    // hide alert
+    public void hideAlert() {
+        // hide alert
+        if (registerFailedAlert.getVisibility() == View.VISIBLE) {
+            registerFailedAlert.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }

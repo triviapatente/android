@@ -68,15 +68,19 @@ public class LabeledInput extends LinearLayout {
 
     // hide label of labeled input
     public void hideLabel() {
-        label.setVisibility(GONE);
-        input.setBackgroundResource(R.drawable.edittext_rounded);
+        if(label.getVisibility() == VISIBLE) {
+            label.setVisibility(GONE);
+            input.setBackgroundResource(R.drawable.edittext_rounded);
+        }
     }
 
     // show label of labeled input with given text shown
     public void showLabel(String text) {
-        label.setVisibility(VISIBLE);
+        if(label.getVisibility() == GONE) {
+            label.setVisibility(VISIBLE);
+            input.setBackgroundResource(R.drawable.labeledinput_input);
+        }
         label.setText(text);
-        input.setBackgroundResource(R.drawable.labeledinput_input);
     }
 
     // show label of labeled input with given text shown, label and border of choosen color
