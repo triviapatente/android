@@ -3,5 +3,14 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="@dimen/field_height"
+    android:textColor="@android:color/black"
+    android:textSelectHandle="@color/mainColor2"
+    android:textSelectHandleLeft="@color/mainColor2"
+    android:textSelectHandleRight="@color/mainColor2"
+    android:textColorHighlight="@color/mainColorTenue"
     android:background="@drawable/edittext_rounded"
+    android:maxLines="1"
+    android:inputType="textVisiblePassword"
+    android:maxLength="@integer/maxInputStringSize"
     android:layout_gravity="center_horizontal" />
+    <!-- TODO text|textNoSuggestion doesn't work.. textVisiblePassword is a workaround -->

@@ -30,18 +30,20 @@ public class RegisterPresenter {
         final LabeledInput username = rf.usernameField, email = rf.emailField,
                 password = rf.passwordField, repeatPassword = rf.repeatPasswordField;
         final ManageLoading loadingManager = rf.registerButton;
-        // hide alert
-        // if it isn't shown it is managed from fragment
-        rf.hideAlert();
         // because of java short circuit condition evaluation
         // check username
         boolean valid = a.checkWithoutBlankSpacesField(username) && a.checkNotEmptyField(username);
         // check email
         valid = a.isValidEmail(email) && valid;
         // check passwords
-        valid = a.checkNotEmptyField(password) && valid;
-        // in different and because is needed to evaluate at least one time every field
-        valid = a.checkNotEmptyField(repeatPassword) && a.checkEquals(repeatPassword, password) && valid;
+        if(!a.checkNotEmptyField(password)) {
+            valid = false;
+            // because i don't need to valid repeat password but i still need to hide the label
+            repeatPassword.hideLabel();
+        } else {
+            // if password is a valid field
+            valid = a.checkNotEmptyField(repeatPassword) && a.checkEquals(repeatPassword, password) && valid;
+        }
         if (valid) {
             // if no error raised
             // get values
@@ -59,6 +61,9 @@ public class RegisterPresenter {
                 public void mOnResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
                     // response received
                     if (response.code() == 200) {
+                        // success: if shown, hide alert
+                        // if it isn't shown it is managed from fragment
+                        rf.hideAlert();
                         // auth success
                         // TODO save data
                         // TODO open game page

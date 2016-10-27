@@ -29,6 +29,7 @@
     <style name="TPEditTextStyle" parent="android:Widget.Holo.EditText">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
+        <!--change handlers and cursor-->
         <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
     </style>
 

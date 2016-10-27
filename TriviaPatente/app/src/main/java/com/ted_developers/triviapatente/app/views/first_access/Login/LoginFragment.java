@@ -43,7 +43,7 @@ public class LoginFragment extends Fragment {
     // useful strings
     @BindString(R.string.password) String passwordHint;
     @BindString(R.string.username) String usernameHint;
-    @BindString(R.string.forgot_username_password) String forgotUsernamePassword;
+    @BindString(R.string.login_failed) String forgotUsernamePassword;
     @BindString(R.string.operation_failed) String operationFailed;
     // useful dimension
     @BindDimen(R.dimen.element_margin) int marginBottom;
@@ -115,8 +115,8 @@ public class LoginFragment extends Fragment {
     // show alert with given message
     public void showAlert(String alertMessage) {
         // show alert
+        alertMessageView.setText(alertMessage);
         if (loginFailedAlert.getVisibility() == View.GONE) {
-            alertMessageView.setText(alertMessage);
             loginFailedAlert.setVisibility(View.VISIBLE);
         }
     }
@@ -126,16 +126,7 @@ public class LoginFragment extends Fragment {
         // show forgot button
         if (loginFailedButton.getVisibility() == View.GONE) {
             // remove padding from login button
-            loginButtonParams.setMargins(fieldMargin, 0, fieldMargin, 0);
             loginFailedButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-    // hide alert
-    public void hideAlert() {
-        // hide alert
-        if (loginFailedAlert.getVisibility() == View.VISIBLE) {
-            loginFailedAlert.setVisibility(View.GONE);
         }
     }
 
@@ -144,8 +135,14 @@ public class LoginFragment extends Fragment {
         // hide forgot button
         if (loginFailedButton.getVisibility() == View.VISIBLE) {
             loginFailedButton.setVisibility(View.GONE);
-            // add padding from login button
-            loginButtonParams.setMargins(fieldMargin, 0, fieldMargin, marginBottom);
+        }
+    }
+
+    // hide alert
+    public void hideAlert() {
+        // hide alert
+        if (loginFailedAlert.getVisibility() == View.VISIBLE) {
+            loginFailedAlert.setVisibility(View.GONE);
         }
     }
 }

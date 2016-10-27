@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.first_access.Login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.LauncherApps;
 import android.util.Log;
 
 import com.ted_developers.triviapatente.R;
@@ -30,10 +31,6 @@ public class LoginPresenter {
         FirstAccessActivity a = (FirstAccessActivity) lf.getActivity();
         LabeledInput user = lf.usernameField, password = lf.passwordField;
         final ManageLoading loadingManager = (ManageLoading) lf.loginButton;
-        // hide alert and forgot button
-        // if they aren't shown it is managed from fragment
-        lf.hideAlert();
-        lf.hideForgotButton();
         // check input
         boolean valid = a.checkWithoutBlankSpacesField(user) && a.checkNotEmptyField(user);
         valid = a.checkNotEmptyField(password) && valid;
@@ -49,16 +46,27 @@ public class LoginPresenter {
                     // response received
                     if (response.code() == 200) {
                         // auth success
+                        // success: if shown, hide alert and forgot button
+                        // if they aren't shown it is managed from fragment
+                        lf.hideAlert();
+                        lf.hideForgotButton();
                         // TODO save data
                         // TODO open game page
                         Log.i("TEST", response.body().user.username);
                     } else if (response.code() == 401) {
                         // unauthorized
+                        // show alert and forgot button
                         lf.showAlert(lf.forgotUsernamePassword);
                         lf.showForgotButton();
                     } else if (response.code() == 501) {
                         // internal server error
                         lf.showAlert(lf.operationFailed);
+                        lf.hideForgotButton();
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
 

@@ -70,7 +70,12 @@
             android:id="@+id/buttonPanel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:layout_marginLeft="@dimen/field_margin"
+            android:layout_marginStart="@dimen/field_margin"
+            android:layout_marginRight="@dimen/field_margin"
+            android:layout_marginEnd="@dimen/field_margin">
 
             <!-- login loading button -->
             <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
@@ -79,13 +84,12 @@
                 android:text="@string/login"
                 android:id="@+id/login_button"
                 android:textAllCaps="false"
-                android:background="@drawable/button_rounded"
+                android:background="@drawable/button_pressed_rounded"
                 android:textColor="@android:color/white"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
         </RelativeLayout>
 
         <!-- forgot username or password button -->
-
         <Button
             android:id="@+id/forgot_button"
             android:layout_width="match_parent"
@@ -96,10 +100,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"></Button>
+            android:layout_marginTop="@dimen/negative_element_margin"></Button>
 
         <!-- or separator -->
         <LinearLayout

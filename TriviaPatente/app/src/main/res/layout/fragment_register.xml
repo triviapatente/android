@@ -101,7 +101,7 @@
                 android:text="@string/register"
                 android:id="@+id/register_button"
                 android:textAllCaps="false"
-                android:background="@drawable/button_rounded"
+                android:background="@drawable/button_pressed_rounded"
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="@dimen/field_margin"
                 android:layout_marginStart="@dimen/field_margin"

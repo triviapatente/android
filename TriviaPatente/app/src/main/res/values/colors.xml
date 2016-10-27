@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="mainColor">#00b0ff</color>
     <color name="mainColor2">#0182FF</color>
-    <color name="mainColorTenue">#00CCFF</color>
+    <color name="mainColor3">#0170FF</color>
+    <color name="mainColorTenue">#BBFFFF</color>
     <color name="error_color">#CD2D33</color>
     <color name="alert_background">#FFF2B3</color>
 </resources>
