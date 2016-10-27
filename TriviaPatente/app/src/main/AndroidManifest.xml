@@ -13,15 +13,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".app.views.first_access.FirstAccessActivity"
-            android:label="Trivia Patente"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".app.views.main_page.MainPageActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.first_access.Register;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.ted_developers.triviapatente.R;
@@ -8,6 +9,7 @@ import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.ManageLoading;
 import com.ted_developers.triviapatente.app.utils.mViews.TPCallback.TPCallback;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
@@ -26,7 +28,7 @@ import retrofit2.Response;
 public class RegisterPresenter {
     // get from parameters to provide scalability
     public static void register(final RegisterFragment rf) {
-        FirstAccessActivity a = (FirstAccessActivity) rf.getActivity();
+        final FirstAccessActivity a = (FirstAccessActivity) rf.getActivity();
         final LabeledInput username = rf.usernameField, email = rf.emailField,
                 password = rf.passwordField, repeatPassword = rf.repeatPasswordField;
         final ManageLoading loadingManager = rf.registerButton;
@@ -66,7 +68,8 @@ public class RegisterPresenter {
                         rf.hideAlert();
                         // auth success
                         // TODO save data
-                        // TODO open game page
+                        Intent myIntent = new Intent(a, MainPageActivity.class);
+                        a.startActivity(myIntent);
                         Log.i("TEST", response.body().user.username);
                     } else if (response.code() == 401) {
                         // unauthorized

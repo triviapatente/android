@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.first_access.Login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.LauncherApps;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.ManageLoading;
 import com.ted_developers.triviapatente.app.utils.mViews.TPCallback.TPCallback;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
@@ -28,8 +30,8 @@ import retrofit2.Response;
  */
 public class LoginPresenter {
     public static void login(final LoginFragment lf) {
-        FirstAccessActivity a = (FirstAccessActivity) lf.getActivity();
-        LabeledInput user = lf.usernameField, password = lf.passwordField;
+        final FirstAccessActivity a = (FirstAccessActivity) lf.getActivity();
+        final LabeledInput user = lf.usernameField, password = lf.passwordField;
         final ManageLoading loadingManager = (ManageLoading) lf.loginButton;
         // check input
         boolean valid = a.checkWithoutBlankSpacesField(user) && a.checkNotEmptyField(user);
@@ -51,8 +53,8 @@ public class LoginPresenter {
                         lf.hideAlert();
                         lf.hideForgotButton();
                         // TODO save data
-                        // TODO open game page
-                        Log.i("TEST", response.body().user.username);
+                        Intent myIntent = new Intent(a, MainPageActivity.class);
+                        a.startActivity(myIntent);
                     } else if (response.code() == 401) {
                         // unauthorized
                         // show alert and forgot button

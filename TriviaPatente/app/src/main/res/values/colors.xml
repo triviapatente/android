@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
     <color name="mainColor">#00b0ff</color>
-    <color name="mainColor2">#0182FF</color>
-    <color name="mainColor3">#0170FF</color>
+    <color name="mainColorDark">#0182FF</color>
+    <color name="mainColorDark2">#0170FF</color>
     <color name="mainColorTenue">#BBFFFF</color>
     <color name="error_color">#CD2D33</color>
     <color name="alert_background">#FFF2B3</color>
+    <color name="green">#53D769</color>
+    <color name="greenDark">#53C769</color>
+    <color name="orange">#FD9426</color>
+    <color name="orangeDark">#FD8426</color>
+    <color name="yellow">#FECB2F</color>
+    <color name="yellowDark">#FEBB2F</color>
+    <color name="red">#FC3D39</color>
+    <color name="redDark">#FC2D39</color>
+
 </resources>

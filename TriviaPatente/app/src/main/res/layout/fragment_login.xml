@@ -84,7 +84,7 @@
                 android:text="@string/login"
                 android:id="@+id/login_button"
                 android:textAllCaps="false"
-                android:background="@drawable/button_pressed_rounded"
+                android:background="@drawable/button_first_access"
                 android:textColor="@android:color/white"
                 android:layout_centerVertical="true" />
         </RelativeLayout>

@@ -24,4 +24,9 @@
     <!--failed register-->
     <string name="username_already_exist">Username non disponibile!</string>
     <string name="email_already_exist">Email non disponibile!</string>
+    <!-- main page strings -->
+    <string name="new_game">Nuova partita</string>
+    <string name="rank">Classifica</string>
+    <string name="stats">Statistiche</string>
+    <string name="shop">Negozio</string>
 </resources>
