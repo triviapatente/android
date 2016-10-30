@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:buttonStyle">@style/TPButtonTextStyle</item>
+        <item name="android:buttonStyle">@style/TPButtonStyle</item>
         <item name="editTextStyle">@style/TPEditTextStyle</item>
         <item name="android:textViewStyle">@style/TPTextViewStyle</item>
     </style>
@@ -16,21 +16,22 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="TPButtonTextStyle" parent="android:Widget.Holo.Button">
+    <style name="TPEditTextStyle" parent="@android:style/Widget.Holo.EditText">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
-    <style name="TPTextViewStyle" parent="android:Widget.Holo.TextView">
+    <style name="TPTextViewStyle" parent="@android:style/Widget.Holo.TextView">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
-    <style name="TPEditTextStyle" parent="android:Widget.Holo.EditText">
+    <style name="TPButtonStyle" parent="@android:style/Widget.Holo.Button">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
-        <!--change handlers and cursor-->
-        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
     </style>
 
 </resources>
