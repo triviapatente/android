@@ -1,19 +1,20 @@
 package com.ted_developers.triviapatente.app.views.first_access;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.ManageLoading;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
+import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
+import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.BindString;
@@ -29,6 +30,13 @@ public class FirstAccessActivity extends AppCompatActivity {
     @BindString(R.string.blank_not_allowed) public String blank_not_allowed_error;
     @BindString(R.string.not_matching_pwd) public String not_matching_pwd_error;
     @BindString(R.string.not_valid_email) public String not_valid_email_error;
+    // shared preferences
+    @BindString(R.string.shared_user) String shared_user;
+    @BindString(R.string.shared_token_key) String shared_token_key;
+    @BindString(R.string.shared_surname) String shared_surname;
+    @BindString(R.string.shared_name) String shared_name;
+    @BindString(R.string.shared_username) String shared_username;
+    @BindString(R.string.shared_email) String shared_email;
 
     private FirstAccessAdapter mAdapter;
 
@@ -109,5 +117,21 @@ public class FirstAccessActivity extends AppCompatActivity {
             input1.hideLabel();
             return true;
         }
+    }
+
+    // go to main page and save data
+    public static void openMainPage(FirstAccessActivity a, SuccessUserToken data) {
+        // save data
+        SharedPreferences sharedPref = a.getSharedPreferences(a.shared_user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(a.shared_token_key, data.token);
+        editor.putString(a.shared_username, data.user.username);
+        editor.putString(a.shared_name, data.user.name);
+        editor.putString(a.shared_surname, data.user.surname);
+        editor.putString(a.shared_email, data.user.email);
+        editor.commit();
+        // open main page
+        Intent myIntent = new Intent(a, MainPageActivity.class);
+        a.startActivity(myIntent);
     }
 }
