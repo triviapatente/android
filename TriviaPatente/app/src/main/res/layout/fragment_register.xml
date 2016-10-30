@@ -13,8 +13,8 @@
         android:layout_gravity="center">
 
         <!-- alert box -->
-        <LinearLayout
-            android:id="@+id/register_failed"
+        <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
+            android:id="@+id/alertMessage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/alert_height"
             android:background="@drawable/alertbox_rounded"
@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <!-- username input -->
-        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
+        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/username_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,10 +51,10 @@
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
+            android:layout_marginEnd="@dimen/field_margin"/>
 
         <!-- email input -->
-        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
+        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,10 +62,10 @@
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
+            android:layout_marginEnd="@dimen/field_margin"/>
 
         <!-- password input -->
-        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
+        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,10 +73,10 @@
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
+            android:layout_marginEnd="@dimen/field_margin"/>
 
         <!-- repeat password input -->
-        <com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput
+        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/repeat_password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"></com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput>
+            android:layout_marginEnd="@dimen/field_margin"/>
 
         <!-- layout required to loading button -->
         <RelativeLayout
@@ -95,10 +95,10 @@
             android:layout_marginBottom="@dimen/element_margin">
 
             <!-- register loading button -->
-            <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
+            <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.LoadingButton
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/field_height"
-                android:text="@string/register"
+                android:text="@string/button_register"
                 android:id="@+id/register_button"
                 android:textAllCaps="false"
                 android:background="@drawable/button_first_access"
