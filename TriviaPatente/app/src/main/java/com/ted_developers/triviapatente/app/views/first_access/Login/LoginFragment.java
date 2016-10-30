@@ -1,23 +1,20 @@
 package com.ted_developers.triviapatente.app.views.first_access.Login;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
+import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 
 import butterknife.BindDimen;
@@ -34,21 +31,32 @@ import butterknife.Unbinder;
  */
 public class LoginFragment extends Fragment {
     // dom elements
-    @BindView(R.id.username_field) LabeledInput usernameField;
-    @BindView(R.id.password_field) LabeledInput passwordField;
-    @BindView(R.id.login_button) LoadingButton loginButton;
-    @BindView(R.id.login_failed) LinearLayout loginFailedAlert;
-    @BindView(R.id.alertMessage) TextView alertMessageView;
-    @BindView(R.id.forgot_button) Button loginFailedButton;
+    @BindView(R.id.username_field)
+    LabeledInput usernameField;
+    @BindView(R.id.password_field)
+    LabeledInput passwordField;
+    @BindView(R.id.login_button)
+    LoadingButton loginButton;
+    @BindView(R.id.alertMessage)
+    MessageBox alertMessageView;
+    @BindView(R.id.forgot_button)
+    Button loginFailedButton;
     // useful strings
-    @BindString(R.string.password) String passwordHint;
-    @BindString(R.string.username) String usernameHint;
-    @BindString(R.string.login_failed) String forgotUsernamePassword;
-    @BindString(R.string.operation_failed) String operationFailed;
+    @BindString(R.string.hint_password)
+    String passwordHint;
+    @BindString(R.string.hint_username)
+    String usernameHint;
+    @BindString(R.string.login_failed)
+    String forgotUsernamePassword;
+    @BindString(R.string.operation_failed)
+    String operationFailed;
     // useful dimension
-    @BindDimen(R.dimen.element_margin) int marginBottom;
-    @BindDimen(R.dimen.field_height) int fieldHeight;
-    @BindDimen(R.dimen.field_margin) int fieldMargin;
+    @BindDimen(R.dimen.element_margin)
+    int marginBottom;
+    @BindDimen(R.dimen.field_height)
+    int fieldHeight;
+    @BindDimen(R.dimen.field_margin)
+    int fieldMargin;
     // Layout padding for login button
     RelativeLayout.LayoutParams loginButtonParams;
 
@@ -83,7 +91,7 @@ public class LoginFragment extends Fragment {
         // init login button layout params
         initLoginButtonLayoutParams();
         // hide alert and forgot button
-        hideAlert();
+        alertMessageView.hideAlert();
         hideForgotButton();
         return v;
     }
@@ -107,18 +115,10 @@ public class LoginFragment extends Fragment {
         LoginPresenter.login(this);
     }
 
-    @Override public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    // show alert with given message
-    public void showAlert(String alertMessage) {
-        // show alert
-        alertMessageView.setText(alertMessage);
-        if (loginFailedAlert.getVisibility() == View.GONE) {
-            loginFailedAlert.setVisibility(View.VISIBLE);
-        }
     }
 
     // show forgor username or password button
@@ -135,14 +135,6 @@ public class LoginFragment extends Fragment {
         // hide forgot button
         if (loginFailedButton.getVisibility() == View.VISIBLE) {
             loginFailedButton.setVisibility(View.GONE);
-        }
-    }
-
-    // hide alert
-    public void hideAlert() {
-        // hide alert
-        if (loginFailedAlert.getVisibility() == View.VISIBLE) {
-            loginFailedAlert.setVisibility(View.GONE);
         }
     }
 }

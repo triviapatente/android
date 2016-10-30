@@ -22,25 +22,7 @@
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="@dimen/alert_image_size"
-                android:layout_height="@dimen/alert_image_size"
-                android:src="@drawable/alert"
-                android:layout_marginLeft="@dimen/alert_inside_padding"
-                android:layout_marginRight="@dimen/alert_inside_padding"
-                android:layout_marginEnd="@dimen/alert_inside_padding"
-                android:layout_marginStart="@dimen/alert_inside_padding" />
-
-            <TextView
-                android:id="@+id/alertMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/alert_inside_padding"
-                android:layout_marginEnd="@dimen/alert_inside_padding" />
-        </LinearLayout>
+            android:layout_marginEnd="@dimen/field_margin"/>
 
         <!-- username input -->
         <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput

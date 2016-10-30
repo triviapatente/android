@@ -1,25 +1,20 @@
 package com.ted_developers.triviapatente.app.views.first_access.Register;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
+import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 
-import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,13 +33,12 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.repeat_password_field) LabeledInput repeatPasswordField;
     @BindView(R.id.email_field) LabeledInput emailField;
     @BindView(R.id.register_button) LoadingButton registerButton;
-    @BindView(R.id.register_failed) LinearLayout registerFailedAlert;
-    @BindView(R.id.alertMessage) TextView alertMessageView;
+    @BindView(R.id.alertMessage) MessageBox alertMessageView;
     // useful strings
-    @BindString(R.string.password) String passwordHint;
-    @BindString(R.string.username) String usernameHint;
-    @BindString(R.string.email) String emailHint;
-    @BindString(R.string.repeat_password) String repeatPasswordHint;
+    @BindString(R.string.hint_password) String passwordHint;
+    @BindString(R.string.hint_username) String usernameHint;
+    @BindString(R.string.hint_email) String emailHint;
+    @BindString(R.string.hint_repeat_password) String repeatPasswordHint;
     @BindString(R.string.operation_failed) String operationFailed;
     @BindString(R.string.username_already_exist) String already_registered_username;
     @BindString(R.string.email_already_exist) String already_registered_email;
@@ -78,7 +72,7 @@ public class RegisterFragment extends Fragment {
         // init labeled inputs
         initLabeledInputs();
         // hide alert
-        hideAlert();
+        alertMessageView.hideAlert();
         return v;
     }
 
@@ -97,23 +91,6 @@ public class RegisterFragment extends Fragment {
     public void register() {
         ((FirstAccessActivity) getActivity()).hideKeyboard();
         RegisterPresenter.register(this);
-    }
-
-    // show alert with given message
-    public void showAlert(String alertMessage) {
-        // show alert
-        if (registerFailedAlert.getVisibility() == View.GONE) {
-            alertMessageView.setText(alertMessage);
-            registerFailedAlert.setVisibility(View.VISIBLE);
-        }
-    }
-
-    // hide alert
-    public void hideAlert() {
-        // hide alert
-        if (registerFailedAlert.getVisibility() == View.VISIBLE) {
-            registerFailedAlert.setVisibility(View.GONE);
-        }
     }
 
     @Override

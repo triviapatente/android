@@ -1,15 +1,9 @@
 package com.ted_developers.triviapatente.app.views.first_access.Register;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
-import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.mViews.Input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.ManageLoading;
-import com.ted_developers.triviapatente.app.utils.mViews.TPCallback.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
+import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.ManageLoading;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
-import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
@@ -19,7 +13,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -32,6 +25,8 @@ public class RegisterPresenter {
         final LabeledInput username = rf.usernameField, email = rf.emailField,
                 password = rf.passwordField, repeatPassword = rf.repeatPasswordField;
         final ManageLoading loadingManager = rf.registerButton;
+        // hide alert
+        rf.alertMessageView.hideAlert();
         // because of java short circuit condition evaluation
         // check username
         boolean valid = a.checkWithoutBlankSpacesField(username) && a.checkNotEmptyField(username);
@@ -63,14 +58,10 @@ public class RegisterPresenter {
                 public void mOnResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
                     // response received
                     if (response.code() == 200) {
-                        // success: if shown, hide alert
-                        // if it isn't shown it is managed from fragment
-                        rf.hideAlert();
                         // auth success
-                        // TODO save data
-                        Intent myIntent = new Intent(a, MainPageActivity.class);
-                        a.startActivity(myIntent);
-                        Log.i("TEST", response.body().user.username);
+                        // do not stop loading if success
+                        doThen = false;
+                        FirstAccessActivity.openMainPage(a, response.body());
                     } else if (response.code() == 401) {
                         // unauthorized
                         String message = "";
@@ -82,17 +73,17 @@ public class RegisterPresenter {
                             if (message.contains("email")) {
                                 email.showLabel(rf.already_registered_email);
                             }
-                        } catch (JSONException | IOException e) {rf.showAlert(rf.operationFailed);}
+                        } catch (JSONException | IOException e) {rf.alertMessageView.showAlert(rf.operationFailed);}
                     } else if (response.code() == 501) {
                         // internal server error
-                        rf.showAlert(rf.operationFailed);
+                        rf.alertMessageView.showAlert(rf.operationFailed);
                     }
                 }
 
                 @Override
                 public void mOnFailure(Call<SuccessUserToken> call, Throwable t) {
                     // response not received
-                    rf.showAlert(rf.operationFailed);
+                    rf.alertMessageView.showAlert(rf.operationFailed);
                 }
 
                 // then stop loading
