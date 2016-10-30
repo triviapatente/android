@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.mViews.TPCallback;
+package com.ted_developers.triviapatente.app.utils.custom_classes.callbacks;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -8,16 +8,21 @@ import retrofit2.Response;
  * Created by Antonio on 25/10/16.
  */
 public abstract class TPCallback<T> implements Callback<T> {
+    protected boolean doThen = true;
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         mOnResponse(call, response);
-        then();
+        if(doThen) {
+            then();
+        }
     }
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
         mOnFailure(call, t);
-        then();
+        if(doThen) {
+            then();
+        }
     }
 
     // things to do on response

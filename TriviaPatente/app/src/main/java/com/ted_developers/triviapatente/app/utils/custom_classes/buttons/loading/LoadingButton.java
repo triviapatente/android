@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.mViews.LoadingButton;
+package com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -33,7 +33,8 @@ public class LoadingButton extends Button implements ManageLoading {
         // create progress bar
         progressBar = new ProgressBar(this.getContext());
         // set relative layout params
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) getResources().getDimension(R.dimen.loading_size), (int) getResources().getDimension(R.dimen.loading_size));
+        int loadingSize = (int) getResources().getDimension(R.dimen.first_access_loading_size);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(loadingSize, loadingSize);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         // add params
         progressBar.setLayoutParams(params);

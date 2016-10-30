@@ -1,8 +1,7 @@
-package com.ted_developers.triviapatente.app.utils.mViews.Input;
+package com.ted_developers.triviapatente.app.utils.custom_classes.input;
 
 import android.content.Context;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
