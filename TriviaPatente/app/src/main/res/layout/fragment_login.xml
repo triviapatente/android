@@ -100,41 +100,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/negative_element_margin"></Button>
+            android:layout_marginTop="@dimen/negative_element_margin"/>
 
         <!-- or separator -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_gravity="center">
-
-            <!-- line -->
-            <View
-                android:layout_width="@dimen/line_length"
-                android:layout_height= "@dimen/line_thickness"
-                android:background="@android:color/white"
-                android:layout_gravity="center_vertical"/>
-
-            <!-- or message -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/or"
-                android:textColor="@android:color/white"
-                android:paddingLeft="@dimen/or_padding"
-                android:paddingRight="@dimen/or_padding"
-                android:paddingStart="@dimen/or_padding"
-                android:paddingEnd="@dimen/or_padding"/>
-
-            <!-- line -->
-            <View
-                android:layout_width="@dimen/line_length"
-                android:layout_height= "@dimen/line_thickness"
-                android:background="@android:color/white"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
+        <include layout="@layout/or_layout"/>
 
         <!-- facebook login button -->
         <ImageButton
