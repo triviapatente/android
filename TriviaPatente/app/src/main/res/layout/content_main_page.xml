@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/option_panel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/field_margin"
         android:layout_marginLeft="@dimen/field_margin"
@@ -21,82 +21,33 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <!-- layout required to loading button -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:gravity="center">
+        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/new_game"
+            android:background="@drawable/new_game_main_page"
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
 
-            <!-- new_game loading button -->
-            <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
-                android:id="@+id/new_game"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/field_height"
-                android:layout_centerVertical="true"
-                android:background="@drawable/new_game_main_page"
-                android:text="@string/new_game"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-        </RelativeLayout>
+        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/stats"
+            android:background="@drawable/stats_main_page"
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
 
-        <!-- layout required to loading button -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:gravity="center">
+        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/shop"
+            android:background="@drawable/shop_main_page"
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
 
-            <!-- rank loading button -->
-            <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
-                android:id="@+id/rank"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/field_height"
-                android:layout_centerVertical="true"
-                android:background="@drawable/rank_main_page"
-                android:text="@string/rank"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-        </RelativeLayout>
-
-        <!-- layout required to loading button -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:gravity="center">
-
-            <!-- stats loading button -->
-            <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
-                android:id="@+id/stats"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/field_height"
-                android:layout_centerVertical="true"
-                android:background="@drawable/stats_main_page"
-                android:text="@string/stats"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-        </RelativeLayout>
-
-        <!-- layout required to loading button -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:gravity="center">
-
-            <!-- shop loading button -->
-            <com.ted_developers.triviapatente.app.utils.mViews.LoadingButton.LoadingButton
-                android:id="@+id/shop"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/field_height"
-                android:layout_centerVertical="true"
-                android:background="@drawable/shop_main_page"
-                android:text="@string/shop"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-        </RelativeLayout>
-
+        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/rank"
+            android:background="@drawable/rank_main_page"
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
     </LinearLayout>
 
 
