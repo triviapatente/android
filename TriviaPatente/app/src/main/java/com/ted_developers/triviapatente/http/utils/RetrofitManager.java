@@ -36,8 +36,11 @@ public class RetrofitManager {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-                SharedPreferences auth = RetrofitManager.context.getSharedPreferences(context.getString(R.string.shared_auth), Context.MODE_PRIVATE);
-                String token_name = context.getString(R.string.token_name);
+                SharedPreferences auth = RetrofitManager.context.getSharedPreferences(
+                        context.getString(R.string.shared_user),
+                        Context.MODE_PRIVATE
+                );
+                String token_name = context.getString(R.string.shared_token_key);
                 Request request = original.newBuilder()
                         .header(token_name, auth.getString(token_name, ""))
                         .method(original.method(), original.body())
