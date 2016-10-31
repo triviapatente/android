@@ -4,8 +4,9 @@
     <color name="mainColorDark">#0182FF</color>
     <color name="mainColorDark2">#0170FF</color>
     <color name="mainColorTenue">#BBFFFF</color>
-    <color name="error_color">#CD2D33</color>
-    <color name="alert_background">#FFF2B3</color>
+    <color name="backgroundFiltered">#30000000</color>
+    <color name="errorColor">#CD2D33</color>
+    <color name="alertBackground">#FFF2B3</color>
     <color name="green">#53D769</color>
     <color name="greenDark">#53C769</color>
     <color name="orange">#FD9426</color>
