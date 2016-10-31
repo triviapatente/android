@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading;
+package com.ted_developers.triviapatente.app.utils.custom_classes.loading;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

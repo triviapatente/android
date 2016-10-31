@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading;
+package com.ted_developers.triviapatente.app.utils.custom_classes.loading;
 
 /**
  * Created by Antonio on 24/10/16.

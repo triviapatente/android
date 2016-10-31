@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.input;
 
 import android.content.Context;
+import android.support.v4.widget.TextViewCompat;
 import android.text.Editable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -42,6 +43,7 @@ public class LabeledInput extends LinearLayout {
         input.setHeight((int) getResources().getDimension(R.dimen.field_height));
         // label from template
         label = (TextView) inflater.inflate(R.layout.tp_errorlabel_template, null);
+        TextViewCompat.setTextAppearance(label, R.style.TPTextStyleSmall);
         this.addView(label);
         this.addView(input);
         hideLabel();
@@ -80,7 +82,7 @@ public class LabeledInput extends LinearLayout {
 
     // show label of labeled input with given text shown, label and border of choosen color
     public void showLabel(String text, int labelColor) {
-        // TODO find workaround to change color
+        label.setTextColor(labelColor);
         showLabel(text);
     }
 
