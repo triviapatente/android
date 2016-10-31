@@ -12,6 +12,10 @@ import org.parceler.Parcel;
 public class Category extends CommonPK {
     @SerializedName("name")
     public String name;
+    @SerializedName("hint")
+    public String hint;
+    @SerializedName("percentage")
+    public int percentage;
 
     public Category() {}
 }

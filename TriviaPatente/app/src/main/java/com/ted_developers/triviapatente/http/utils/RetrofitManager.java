@@ -3,6 +3,8 @@ package com.ted_developers.triviapatente.http.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.http.modules.auth.HTTPAuthEndpoint;
@@ -25,11 +27,14 @@ import retrofit2.http.HTTP;
  * Created by Antonio on 22/10/16.
  */
 public class RetrofitManager {
+    public static Gson gson = null;
     private static Retrofit retrofit = null;
     public static Context context = null;
     // method called only one time on mApplication on create
     public static void init(Context c) {
         context = c;
+        gson = new GsonBuilder().create();
+        GsonConverterFactory factory = GsonConverterFactory.create(gson);
         // interceptor which adds token in header
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(new Interceptor() {
@@ -51,7 +56,7 @@ public class RetrofitManager {
         OkHttpClient client = httpClient.build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.baseUrl))
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(factory)
                 .client(client)
                 .build();
     }
