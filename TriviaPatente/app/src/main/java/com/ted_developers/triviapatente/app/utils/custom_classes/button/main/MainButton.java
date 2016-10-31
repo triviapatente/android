@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Build;
 import android.support.v4.widget.TextViewCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,7 +36,8 @@ public class MainButton extends LinearLayout {
     private String[] hintTexts;
     private ImageView image;
     private Activity activity = null;
-    private int rotationTime = 2000;
+    private int rotationTime = 5000;
+    private Timer rotator = null;
 
     public MainButton(Context context) {
         super(context);
@@ -61,7 +63,7 @@ public class MainButton extends LinearLayout {
     private void init(Context context) {
         LayoutParams params;
         int horizontalMargin = (int) getResources().getDimension(R.dimen.main_button_margin_horizontal);
-        int fieldHeight = (int) getResources().getDimension(R.dimen.field_height);
+        int fieldHeight = (int) getResources().getDimension(R.dimen.main_page_button_heigth);
 
         // image on the left
         image = new ImageView(context);
@@ -82,6 +84,7 @@ public class MainButton extends LinearLayout {
         mainTextView.setLayoutParams(params);
         // text
         mainTextView.setGravity(Gravity.CENTER);
+        TextViewCompat.setTextAppearance(mainTextView, R.style.TPTextStyleMedium);
         this.addView(mainTextView);
 
         // hints on the right
@@ -98,7 +101,6 @@ public class MainButton extends LinearLayout {
         params.gravity = Gravity.CENTER;
         hintTextSwitcher.setLayoutParams(params);
         this.addView(hintTextSwitcher);
-        hintStartRotation();
     }
 
     private void setHintFactory(final int color) {
@@ -107,7 +109,10 @@ public class MainButton extends LinearLayout {
             public View makeView() {
                 TextView myText = new TextView(getContext());
                 myText.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+                TextViewCompat.setTextAppearance(myText, R.style.TPTextStyleVerySmall);
                 myText.setTextColor(color);
+                myText.setSingleLine(true);
+                myText.setEllipsize(TextUtils.TruncateAt.MIDDLE);
                 return myText;
             }
         });
@@ -123,14 +128,18 @@ public class MainButton extends LinearLayout {
     }
 
     public void setHintText(String[] hintTexts) {
-        if(activity != null) {
-            this.hintTexts = hintTexts;
-        }
+        setHintText(hintTexts, Color.WHITE);
     }
 
     public void setHintText(String[] hintTexts, int color) {
-        setHintText(hintTexts);
-        setHintFactory(color);
+        if(activity != null && hintTexts != null && hintTexts.length > 0) {
+            setHintFactory(color);
+            if(hintTexts.length == 1) { hintTextSwitcher.setText(hintTexts[0]); }
+            else {
+                this.hintTexts = hintTexts;
+                hintStartRotation();
+            }
+        }
     }
 
     public void setActivity(Activity a) {
@@ -147,11 +156,15 @@ public class MainButton extends LinearLayout {
 
     private void hintStartRotation() {
         // start hints rotation
-        (new Timer()).scheduleAtFixedRate(
+        if(rotator != null) {
+            rotator.cancel();
+        }
+        rotator = new Timer();
+        rotator.scheduleAtFixedRate(
                 new TimerTask() {
                     int counter = 0;
                     public void run() {
-                        if(activity != null && hintTexts != null && hintTexts.length > 0) {
+                        if(activity != null && hintTexts != null && hintTexts.length > 1) {
                             activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
