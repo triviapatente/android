@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 
@@ -31,32 +29,20 @@ import butterknife.Unbinder;
  */
 public class LoginFragment extends Fragment {
     // dom elements
-    @BindView(R.id.username_field)
-    LabeledInput usernameField;
-    @BindView(R.id.password_field)
-    LabeledInput passwordField;
-    @BindView(R.id.login_button)
-    LoadingButton loginButton;
-    @BindView(R.id.alertMessage)
-    MessageBox alertMessageView;
-    @BindView(R.id.forgot_button)
-    Button loginFailedButton;
+    @BindView(R.id.username_field) LabeledInput usernameField;
+    @BindView(R.id.password_field) LabeledInput passwordField;
+    @BindView(R.id.login_button) LoadingButton loginButton;
+    @BindView(R.id.alertMessage) MessageBox alertMessageView;
+    @BindView(R.id.forgot_button) Button loginFailedButton;
     // useful strings
-    @BindString(R.string.hint_password)
-    String passwordHint;
-    @BindString(R.string.hint_username)
-    String usernameHint;
-    @BindString(R.string.login_failed)
-    String forgotUsernamePassword;
-    @BindString(R.string.operation_failed)
-    String operationFailed;
+    @BindString(R.string.hint_password) String passwordHint;
+    @BindString(R.string.hint_username) String usernameHint;
+    @BindString(R.string.login_failed) String forgotUsernamePassword;
+    @BindString(R.string.operation_failed) String operationFailed;
     // useful dimension
-    @BindDimen(R.dimen.element_margin)
-    int marginBottom;
-    @BindDimen(R.dimen.field_height)
-    int fieldHeight;
-    @BindDimen(R.dimen.field_margin)
-    int fieldMargin;
+    @BindDimen(R.dimen.element_margin) int marginBottom;
+    @BindDimen(R.dimen.field_height) int fieldHeight;
+    @BindDimen(R.dimen.field_margin) int fieldMargin;
     // Layout padding for login button
     RelativeLayout.LayoutParams loginButtonParams;
 

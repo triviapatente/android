@@ -1,7 +1,7 @@
 package com.ted_developers.triviapatente.app.views.first_access.Register;
 
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.ManageLoading;
+import com.ted_developers.triviapatente.app.utils.custom_classes.loading.ManageLoading;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;

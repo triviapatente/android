@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.first_access;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +73,7 @@ public class FirstAccessActivity extends AppCompatActivity {
     // is or not a valid email
     public boolean isValidEmail(LabeledInput input) {
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(input.toString()).matches()) {
-            input.showLabel(not_valid_email_error);
+            input.showLabel(not_valid_email_error, Color.WHITE);
             return false;
         } else {
             input.hideLabel();
@@ -83,7 +84,7 @@ public class FirstAccessActivity extends AppCompatActivity {
     // is empty or not
     public boolean checkNotEmptyField(LabeledInput input) {
         if(input.toString().replace(" ", "").equals("")) {
-            input.showLabel(field_required_error);
+            input.showLabel(field_required_error, Color.WHITE);
             return false;
         } else {
             input.hideLabel();
@@ -94,7 +95,7 @@ public class FirstAccessActivity extends AppCompatActivity {
     // is without blank spaces
     public boolean checkWithoutBlankSpacesField(LabeledInput input) {
         if(input.toString().contains(" ")) {
-            input.showLabel(blank_not_allowed_error);
+            input.showLabel(blank_not_allowed_error, Color.WHITE);
             return false;
         } else {
             input.hideLabel();
@@ -105,7 +106,7 @@ public class FirstAccessActivity extends AppCompatActivity {
     // first input equals to the second
     public boolean checkEquals(LabeledInput input1, LabeledInput input2) {
         if(!input1.toString().equals(input2.toString())) {
-            input1.showLabel(not_matching_pwd_error);
+            input1.showLabel(not_matching_pwd_error, Color.WHITE);
             return false;
         } else {
             input1.hideLabel();

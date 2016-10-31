@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 
