@@ -61,6 +61,7 @@ public class MessageBox extends LinearLayout {
         this.addView(image);
         // message of message box
         message = new TextView(context);
+        TextViewCompat.setTextAppearance(message, R.style.TPTextStyleSmall);
         // layout params
         params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.setMargins(margin, 0, margin, 0);
