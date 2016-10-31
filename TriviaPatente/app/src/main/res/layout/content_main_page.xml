@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainColor"
-    android:orientation="vertical"
     tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity"
     tools:showIn="@layout/activity_main_page">
+
+    <include layout="@layout/loading_view"/>
+
+    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tp_toolbar_height"
+        android:layout_alignParentTop="true"/>
 
     <LinearLayout
         android:id="@+id/option_panel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/field_margin"
-        android:layout_marginLeft="@dimen/field_margin"
-        android:layout_marginRight="@dimen/field_margin"
-        android:layout_marginStart="@dimen/field_margin"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/main_button_margin"
+        android:layout_marginLeft="@dimen/main_button_margin"
+        android:layout_marginRight="@dimen/main_button_margin"
+        android:layout_marginStart="@dimen/main_button_margin"
         android:layout_marginTop="@dimen/main_page_option_margin"
-        android:gravity="center"
+        android:layout_alignTop="@id/toolbar"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -26,6 +33,13 @@
             android:layout_height="@dimen/field_height"
             android:id="@+id/new_game"
             android:background="@drawable/new_game_main_page"
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
+
+        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/field_height"
+            android:id="@+id/rank"
+            android:background="@drawable/rank_main_page"
             android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
@@ -41,14 +55,7 @@
             android:id="@+id/shop"
             android:background="@drawable/shop_main_page"
             android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
-
-        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/field_height"
-            android:id="@+id/rank"
-            android:background="@drawable/rank_main_page"
-            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
