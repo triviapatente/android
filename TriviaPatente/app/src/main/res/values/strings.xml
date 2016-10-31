@@ -1,37 +1,5 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
-    <string name="baseUrl">http://192.168.1.140:8000/</string>
+    <string name="baseUrl">http://192.168.1.160:8000/</string>
     <string name="title_activity_first_access">FirstAccessActivity</string>
-    <!-- shared preferences -->
-    <string name="shared_user">user</string>
-    <string name="shared_token_key">tp-session-token</string>
-    <string name="shared_username">username</string>
-    <string name="shared_name">name</string>
-    <string name="shared_surname">surname</string>
-    <string name="shared_email">email</string>
-    <!-- first access strings-->
-    <string name="button_login">Accedi</string>
-    <string name="button_register">Registrati</string>
-    <string name="welcoming_message">Ciao!\n\nIniziamo?</string>
-    <string name="or">oppure</string>
-    <string name="hint_username">Username</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_repeat_password">Ripeti password</string>
-    <string name="hint_email">Email</string>
-    <!-- first access errors -->
-    <string name="field_required">Campo richiesto!</string>
-    <string name="blank_not_allowed">Non sono ammessi spazi!</string>
-    <string name="not_valid_email">Email non valida!</string>
-    <string name="not_matching_pwd">Le password non coincidono!</string>
-    <string name="login_failed">Login fallito.\nVerifica di aver inserito nome utente e password corretti, e che il tuo account sia attivo.</string>
-    <string name="forgot_username_password">Nome utente o password dimenticati?</string>
-    <string name="operation_failed">Ci dispiace ma i server sono in manutenzione..\nRiprova tra un po\'! :/</string>
-    <!--failed register-->
-    <string name="username_already_exist">Username non disponibile!</string>
-    <string name="email_already_exist">Email non disponibile!</string>
-    <!-- main page strings -->
-    <string name="button_new_game">Nuova partita</string>
-    <string name="button_rank">Classifica</string>
-    <string name="button_stats">Statistiche</string>
-    <string name="button_shop">Negozio</string>
 </resources>

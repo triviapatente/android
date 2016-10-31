@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- shared preferences -->
+    <string name="shared_preferences">TriviaPatente</string>
+    <string name="shared_token_key">tp-session-token</string>
+    <string name="shared_user">current-user</string>
+</resources>

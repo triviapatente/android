@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- main page strings -->
+    <string name="main_page_title">Trivia Patente</string>
+    <string name="button_new_game">Nuova partita</string>
+    <string name="button_rank">Classifica</string>
+    <string name="button_stats">Statistiche</string>
+    <string name="button_shop">Negozio</string>
+    <!-- main page hints -->
+    <string name="multiple_invites"> inviti a giocare</string>
+    <string name="single_invites"> invito a giocare</string>
+    <string name="global">Globale: </string>
+    <string name="friends">Amici: </string>
+    <!-- main page dimen -->
+    <dimen name="main_page_option_margin">80dp</dimen>
+    <dimen name="main_page_image_size">30dp</dimen>
+    <dimen name="main_page_button_heigth">50dp</dimen>
+    <dimen name="main_button_margin">20dp</dimen>
+    <dimen name="main_button_margin_horizontal">15dp</dimen>
+</resources>
