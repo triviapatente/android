@@ -36,11 +36,11 @@ public class LoadingButton extends Button implements ManageLoading {
         int loadingSize = (int) getResources().getDimension(R.dimen.first_access_loading_size);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(loadingSize, loadingSize);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-        // add params
+        // plus params
         progressBar.setLayoutParams(params);
         // set customized progress
         progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.progress));
-        // add progress bar
+        // plus progress bar
         ((RelativeLayout) this.getParent()).addView(progressBar);
     }
 

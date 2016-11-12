@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="first_access_title">FirstAccessActivity</string>
     <!-- first access strings-->
     <string name="button_login">Accedi</string>
     <string name="button_register">Registrati</string>
@@ -20,4 +21,13 @@
     <!--failed register-->
     <string name="username_already_exist">Username non disponibile!</string>
     <string name="email_already_exist">Email non disponibile!</string>
+    <!--or separator-->
+    <dimen name="or_padding">10dp</dimen>
+    <dimen name="line_length">50dp</dimen>
+    <dimen name="line_thickness">1dp</dimen>
+    <dimen name="or_bottom_padding">5dp</dimen>
+    <!--button forgot username password-->
+    <dimen name="forgot_username_password_margin">30dp</dimen>
+    <!-- loading spin -->
+    <dimen name="first_access_loading_size">25dp</dimen>
 </resources>
