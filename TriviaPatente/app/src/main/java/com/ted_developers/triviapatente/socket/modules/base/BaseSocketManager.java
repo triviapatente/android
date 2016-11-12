@@ -78,7 +78,6 @@ public class BaseSocketManager {
             public void call(Object... args) {
                 if(args.length > 0) {
                     JSONObject data = (JSONObject) args[0];
-                    Log.i("TEST", data.toString());
                     T response = RetrofitManager.gson.fromJson(data.toString(), output);
                     cb.response(response);
                 }

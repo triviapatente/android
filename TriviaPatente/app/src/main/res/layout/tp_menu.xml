@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/menu_width"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_element_heigth"
+        android:text="@string/menu_profile"
+        android:background="@drawable/menu_item"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_element_heigth"
+        android:text="@string/menu_preferences"
+        android:background="@drawable/menu_item"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_element_heigth"
+        android:text="@string/menu_us"
+        android:background="@drawable/menu_item"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_element_heigth"
+        android:text="@string/menu_logout"
+        android:background="@drawable/menu_item_rounded"
+        android:gravity="center"/>
+
+
+</LinearLayout>

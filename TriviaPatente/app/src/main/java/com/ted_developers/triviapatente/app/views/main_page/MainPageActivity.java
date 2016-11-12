@@ -79,7 +79,6 @@ public class MainPageActivity extends AppCompatActivity {
                 socketManager.authenticate(new SocketCallback<Hints>() {
                     @Override
                     public void response(final Hints response) {
-                        Log.i("TEST", response.success.toString());
                         if(response.success) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -105,7 +104,10 @@ public class MainPageActivity extends AppCompatActivity {
         // TODO get dinamically
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.antonioterpin));
         // set hearts box
-        // todo do
+        // todo do bene
+        toolbar.startTimer(this);
+        // set menu
+        toolbar.setMenu();
     }
 
     private void initOptionsButton() {

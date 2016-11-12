@@ -50,31 +50,22 @@
                 android:layout_width="@dimen/heart_image_size"
                 android:layout_height="@dimen/heart_image_size"/>
             <!-- life counter -->
-            <!-- TODO change to text switcher -->
-            <TextView
+            <TextSwitcher
                 android:id="@+id/lifeCounter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="top|center"
-                android:paddingTop="@dimen/text_size_very_small_padding"
                 android:layout_centerInParent="true"
-                android:textAppearance="@style/TPTextStyleSmall"
-                android:textSize="@dimen/life_counter_size"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
+                android:paddingTop="@dimen/text_size_very_small_padding"/>
 
         </RelativeLayout>
 
-        <!-- text -->
-        <!-- TODO change to text switcher -->
-        <TextView
+        <!-- timer -->
+        <TextSwitcher
             android:id="@+id/heartsTimer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/tp_toolbar_margin"
-            android:textColor="@android:color/white"/>
-        
+            android:layout_marginLeft="@dimen/tp_toolbar_margin" />
+
     </LinearLayout>
 
     <!-- title top bar -->
@@ -102,7 +93,7 @@
         <!-- settings -->
         <LinearLayout
             android:id="@+id/settings"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/settings_width"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- toolbar -->
+    <dimen name="tp_toolbar_height">75dp</dimen>
+    <dimen name="back_button_size">15dp</dimen>
+    <dimen name="tp_toolbar_margin">13dp</dimen>
+    <dimen name="heart_image_size">30dp</dimen>
+    <dimen name="text_size_very_small">12sp</dimen>
+    <dimen name="text_size_very_small_padding">3sp</dimen>
+    <dimen name="life_counter_size">18sp</dimen>
+    <dimen name="profile_image_size">40dp</dimen>
+    <dimen name="circle_settings_size">6dp</dimen>
+    <dimen name="margin_circle_settings">3dp</dimen>
+    <dimen name="menu_width">160dp</dimen>
+    <dimen name="menu_element_heigth">47dp</dimen>
+    <dimen name="settings_width">20dp</dimen>
+
+    <string name="menu_profile">Profilo</string>
+    <string name="menu_preferences">Preferenze</string>
+    <string name="menu_us">Chi siamo</string>
+    <string name="menu_logout">Logout</string>
+</resources>
