@@ -57,5 +57,12 @@
             android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
     </LinearLayout>
 
+    <fragment
+        android:id="@+id/recentGames"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:name="com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList">
+    </fragment>
 
 </RelativeLayout>

@@ -27,6 +27,7 @@ import android.widget.Toolbar;
 import android.widget.ViewSwitcher;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 
 /**
  * Created by Antonio on 31/10/16.
@@ -43,7 +44,7 @@ public class TPToolbar extends RelativeLayout {
     // title
     protected TextView toolbarTitle;
     // profile picture
-    protected ImageView profilePicture;
+    protected RoundedImageView profilePicture;
     // settings
     protected LinearLayout settings;
     // menu
@@ -139,7 +140,7 @@ public class TPToolbar extends RelativeLayout {
         // title
         toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
         // profile picture
-        profilePicture = (ImageView) findViewById(R.id.profilePicture);
+        profilePicture = (RoundedImageView) findViewById(R.id.profilePicture);
         // settings
         settings = (LinearLayout) findViewById(R.id.settings);
     }

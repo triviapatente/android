@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recent_game_height">60dp</dimen>
+    <dimen name="traffic_lights_height">38dp</dimen>
+    <dimen name="traffic_lights_width">17dp</dimen>
+    <dimen name="profile_picture_size">45dp</dimen>
+    <dimen name="recent_game_margin">20dp</dimen>
+    <dimen name="recent_game_button_width">100dp</dimen>
+    <dimen name="recent_game_button_heigth">30dp</dimen>
+    <!-- button texts -->
+    <string name="play_now_button_text">Gioca ora</string>
+    <string name="details_button_text">Dettagli</string>
+    <string name="new_game_button_text">Rivincita</string>
+    <!-- status -->
+    <string name="play_now_status">È il tuo turno!</string>
+    <string name="details_status">È il suo turno..</string>
+    <string name="new_game_status">Partita terminata.</string>
+</resources>

@@ -16,10 +16,13 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar;
+import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
+import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
@@ -59,6 +62,8 @@ public class MainPageActivity extends AppCompatActivity {
     @BindString(R.string.global) String globalRankHint;
     @BindString(R.string.multiple_invites) String multipleInvites;
     @BindString(R.string.single_invites) String singleInvites;
+    // recent games
+    TPExpandableList<Game> recentGames;
 
     private AuthSocketManager socketManager = new AuthSocketManager();
 
@@ -86,6 +91,7 @@ public class MainPageActivity extends AppCompatActivity {
                                     initOptionsButton();
                                     initOptionsHints(response);
                                     initToolbar();
+                                    loadRecentGames();
                                 }
                             });
                         } else {
@@ -169,6 +175,31 @@ public class MainPageActivity extends AppCompatActivity {
             buttonNewGame.setHintText(new String[] { hint });
         }
     }
+
+    private void loadRecentGames() {
+        recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
+        // todo request
+        List<Game> gameList = new ArrayList<Game>();
+        gameList.add(new Game());
+        gameList.add(new Game());
+        gameList.add(new Game());
+        Game g = gameList.get(0);
+        g.ended = true;
+        g.opponent_name = "Luigi";
+        gameList.set(0, g);
+        g = gameList.get(1);
+        g.ended = false;
+        g.opponent_name = "Ciul";
+        g.my_turn = true;
+        gameList.set(1, g);
+        g = gameList.get(2);
+        g.ended = false;
+        g.my_turn = false;
+        g.opponent_name = "Anto";
+        gameList.set(2, g);
+        recentGames.setGames(gameList, R.layout.recent_game, RecentGameHolder.class);
+    }
+
 
     private String[] listConverter(List<String> list) {
         return list.toArray(new String[] {});

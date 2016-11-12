@@ -86,10 +86,11 @@
         android:gravity="center_vertical">
 
         <!-- circular image view -->
-        <ImageView
+        <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
             android:id="@+id/profilePicture"
             android:layout_width="@dimen/profile_image_size"
             android:layout_height="@dimen/profile_image_size"/>
+
         <!-- settings -->
         <LinearLayout
             android:id="@+id/settings"

@@ -16,6 +16,14 @@ public class Game extends CommonPK {
     public Long winner_id;
     @SerializedName("ended")
     public Boolean ended;
+    @SerializedName("opponent_name")
+    public String opponent_name;
+    @SerializedName("opponent_id")
+    public String opponent_id;
+    @SerializedName("opponent_avatar")
+    public String opponent_avatar;
+    @SerializedName("my_turn")
+    public Boolean my_turn;
 
     public Game() {}
 }
