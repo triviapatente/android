@@ -6,7 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.CompoundButtonCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,8 @@ public class RecentGameHolder extends TPHolder<Game> {
     private RoundedImageView profilePicture;
     // play button
     private PlayButton playButton;
+    // context
+    Context context;
 
     public RecentGameHolder(View itemView) {
         super(itemView);
@@ -49,6 +54,7 @@ public class RecentGameHolder extends TPHolder<Game> {
     }
 
     private void bind(Context context) {
+        this.context = context;
         // status
         playNowStatus = context.getResources().getString(R.string.play_now_status);
         detailsStatus = context.getResources().getString(R.string.details_status);
@@ -62,7 +68,10 @@ public class RecentGameHolder extends TPHolder<Game> {
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         trafficLights = (ImageView) itemView.findViewById(R.id.trafficLightsimage);
         usernameText = (TextView) itemView.findViewById(R.id.username);
+        TextViewCompat.setTextAppearance(usernameText, R.style.TPTextStyleMedium);
+        usernameText.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
         statusText = (TextView) itemView.findViewById(R.id.status);
+        TextViewCompat.setTextAppearance(statusText, R.style.TPTextStyleSmall);
     }
 
     @Override
@@ -74,8 +83,14 @@ public class RecentGameHolder extends TPHolder<Game> {
         } else {
             setDetails();
         }
-        setUsernameText(element.opponent_name);
-        // todo set opponent picture
+        if(element.opponent_name != null || element.opponent_surname != null) {
+            setUsernameText(element.opponent_name + " " + element.opponent_surname);
+        } else { setUsernameText(element.opponent_username); }
+        if(element.opponent_image != null) {
+            // TODO get image
+        } else {
+            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
+        }
     }
 
     private void setPlayNow() {

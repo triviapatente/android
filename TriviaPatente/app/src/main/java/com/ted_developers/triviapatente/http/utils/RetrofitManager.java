@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.http.modules.auth.HTTPAuthEndpoint;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
@@ -41,13 +42,9 @@ public class RetrofitManager {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-                SharedPreferences auth = RetrofitManager.context.getSharedPreferences(
-                        context.getString(R.string.shared_user),
-                        Context.MODE_PRIVATE
-                );
                 String token_name = context.getString(R.string.shared_token_key);
                 Request request = original.newBuilder()
-                        .header(token_name, auth.getString(token_name, ""))
+                        .header(token_name, SharedTPPreferences.getToken())
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);

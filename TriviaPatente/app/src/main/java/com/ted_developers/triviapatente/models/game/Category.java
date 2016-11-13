@@ -14,8 +14,10 @@ public class Category extends CommonPK {
     public String name;
     @SerializedName("hint")
     public String hint;
-    @SerializedName("percentage")
-    public int percentage;
+    @SerializedName("total_answers")
+    public int total_answers;
+    @SerializedName("correct_answers")
+    public int correct_answers;
 
     public Category() {}
 }

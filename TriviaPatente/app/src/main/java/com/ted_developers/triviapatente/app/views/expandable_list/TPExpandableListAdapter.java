@@ -1,11 +1,13 @@
 package com.ted_developers.triviapatente.app.views.expandable_list;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
@@ -23,12 +25,14 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
     List<T> list;
     int layout;
     Class<? extends TPHolder<T>> holderClass;
+    int heigth;
 
     public TPExpandableListAdapter(Context context, List<T> list, int layout, Class<? extends TPHolder<T>> holderClass) {
         this.context = context;
         this.list = list;
         this.layout = layout;
         this.holderClass = holderClass;
+        this.heigth = (int) context.getResources().getDimension(R.dimen.recent_game_height);
     }
 
     @Override
@@ -43,6 +47,8 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((TPHolder) holder).bind(getItem(position));
+        TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, heigth); // (width, height)
+        holder.itemView.setLayoutParams(params);
     }
 
     public T getItem(int position) {

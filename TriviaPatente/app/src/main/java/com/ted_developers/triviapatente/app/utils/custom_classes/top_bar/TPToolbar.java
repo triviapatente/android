@@ -146,19 +146,21 @@ public class TPToolbar extends RelativeLayout {
     }
 
     public void setMenu() {
+        // get parent
+        final RelativeLayout parent = (RelativeLayout) getParent();
+        // inflate
         LayoutInflater inflater = LayoutInflater.from(getContext());
         menu = inflater.inflate(R.layout.tp_menu, null);
-        TPToolbar.this.menu.animate().alpha(0.0f).setDuration(0);
+        menu.setVisibility(GONE);
         show_menu = true;
+        // set on click
         settings.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(show_menu) {
-                    TPToolbar.this.menu.animate().alpha(1.0f).setDuration(200);
-                    show_menu = false;
+                    showMenu();
                 } else {
-                    TPToolbar.this.menu.animate().alpha(0.0f).setDuration(200);
-                    show_menu = true;
+                    hideMenu();
                 }
             }
         });
@@ -169,9 +171,18 @@ public class TPToolbar extends RelativeLayout {
         params.addRule(ALIGN_PARENT_RIGHT);
         params.addRule(RelativeLayout.BELOW, this.getId());
         menu.setLayoutParams(params);
-        // get parent
-        RelativeLayout parent = (RelativeLayout) getParent();
         parent.addView(menu);
+    }
+
+    public void showMenu() {
+        menu.setVisibility(VISIBLE);
+        TPToolbar.this.menu.animate().alpha(1.0f).setDuration(200);
+        show_menu = false;
+    }
+
+    public void hideMenu() {
+        TPToolbar.this.menu.animate().alpha(0.0f).setDuration(200);
+        show_menu = true;
     }
 
     public void setTitle(String title) {

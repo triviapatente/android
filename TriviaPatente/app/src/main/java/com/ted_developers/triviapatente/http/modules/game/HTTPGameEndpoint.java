@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.http.modules.game;
 
 import com.ted_developers.triviapatente.models.responses.SuccessBadge;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
+import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
 
@@ -32,4 +33,7 @@ public interface HTTPGameEndpoint {
     @FormUrlEncoded
     @POST("game/invites/{game_id}")
     Call<SuccessInvite> processInvite(@Path("game_id") long game_id, @Field("accepted") boolean accepted);
+
+    @GET("game/recents")
+    Call<SuccessGames> getRecentsGames();
 }

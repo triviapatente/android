@@ -7,8 +7,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -16,30 +18,38 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
+import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindDimen;
 import butterknife.BindDrawable;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class MainPageActivity extends AppCompatActivity {
     // top bar
     @BindView(R.id.toolbar) HeartsPictureSettingsTPToolbar toolbar;
     @BindString(R.string.main_page_title) String toolbarTitle;
+    @BindView(R.id.mainPageContainer) RelativeLayout mainPageContainer;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
@@ -48,6 +58,7 @@ public class MainPageActivity extends AppCompatActivity {
     @BindString(R.string.button_stats) String stats;
     @BindString(R.string.button_shop) String shop;
     // options button
+    @BindView(R.id.option_panel) LinearLayout optionPanel;
     @BindView(R.id.new_game) MainButton buttonNewGame;
     @BindView(R.id.stats) MainButton buttonShowStats;
     @BindView(R.id.shop) MainButton buttonShop;
@@ -63,7 +74,9 @@ public class MainPageActivity extends AppCompatActivity {
     @BindString(R.string.multiple_invites) String multipleInvites;
     @BindString(R.string.single_invites) String singleInvites;
     // recent games
+    @BindString(R.string.recent_games) String recentGamesTitle;
     TPExpandableList<Game> recentGames;
+    @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
 
     private AuthSocketManager socketManager = new AuthSocketManager();
 
@@ -71,8 +84,17 @@ public class MainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        ButterKnife.bind(this);
+        ButterKnife.bind(MainPageActivity.this);
+        recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // automatically hide menu
+        mainPageContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                MainPageActivity.this.toolbar.hideMenu();
+                return false;
+            }
+        });
         new ProgressTask().execute();
     }
 
@@ -108,7 +130,7 @@ public class MainPageActivity extends AppCompatActivity {
         toolbar.setTitle(toolbarTitle);
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.antonioterpin));
+        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
         // set hearts box
         // todo do bene
         toolbar.startTimer(this);
@@ -140,7 +162,7 @@ public class MainPageActivity extends AppCompatActivity {
             // build hints
             hintsStrings.clear();
             for(Category c : hints.stats) {
-                hintsStrings.add(c.hint + ": " + c.percentage + "%");
+                hintsStrings.add(c.hint + ": " + (c.correct_answers/((c.total_answers == 0)?1:c.total_answers)) + "%");
             }
             // activity required to rotate hints
             buttonShowStats.setActivity(this);
@@ -177,29 +199,35 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void loadRecentGames() {
-        recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
-        // todo request
-        List<Game> gameList = new ArrayList<Game>();
-        gameList.add(new Game());
-        gameList.add(new Game());
-        gameList.add(new Game());
-        Game g = gameList.get(0);
-        g.ended = true;
-        g.opponent_name = "Luigi";
-        gameList.set(0, g);
-        g = gameList.get(1);
-        g.ended = false;
-        g.opponent_name = "Ciul";
-        g.my_turn = true;
-        gameList.set(1, g);
-        g = gameList.get(2);
-        g.ended = false;
-        g.my_turn = false;
-        g.opponent_name = "Anto";
-        gameList.set(2, g);
-        recentGames.setGames(gameList, R.layout.recent_game, RecentGameHolder.class);
+        recentGames.setListTitle(recentGamesTitle);
+        // request recent games
+        Call<SuccessGames> call = RetrofitManager.getHTTPGameEndpoint().getRecentsGames();
+        call.enqueue(new TPCallback<SuccessGames>() {
+            @Override
+            public void mOnResponse(Call<SuccessGames> call, Response<SuccessGames> response) {
+                if(response.code() == 200 && response.body().success) {
+                    int counter = 0;
+                    if(response.body().recent_games != null) {
+                        recentGames.setGames(response.body().recent_games, R.layout.recent_game, RecentGameHolder.class);
+                        counter = response.body().recent_games.size();
+                    }
+                    recentGames.setListCounter(counter, recentGameHeight);
+                }
+            }
+
+            @Override
+            public void mOnFailure(Call<SuccessGames> call, Throwable t) {}
+
+            @Override
+            public void then() {}
+        });
     }
 
+    private void bulkVisibilitySetting(int visibility) {
+        toolbar.setVisibility(visibility);
+        recentGames.getView().setVisibility(visibility);
+        optionPanel.setVisibility(visibility);
+    }
 
     private String[] listConverter(List<String> list) {
         return list.toArray(new String[] {});
@@ -208,17 +236,24 @@ public class MainPageActivity extends AppCompatActivity {
     private class ProgressTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute(){
+            // start loading
             loadingView.setVisibility(View.VISIBLE);
+            // hide other elements
+            bulkVisibilitySetting(View.GONE);
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
+
             MainPageActivity.this.init();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            // show other elements
+            bulkVisibilitySetting(View.VISIBLE);
+            // stop loading
             loadingView.setVisibility(View.GONE);
         }
     }
