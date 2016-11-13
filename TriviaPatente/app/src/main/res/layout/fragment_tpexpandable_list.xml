@@ -3,28 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/mainColor"
     tools:context=".app.views.expandable_list.TPExpandableList">
         <RelativeLayout
             android:id="@+id/listHeader"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_heigth"
+            android:layout_height="@dimen/list_title_height"
             android:background="@color/mainColorDark">
 
-            <TextView
-                android:id="@+id/listTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_centerInParent="true"/>
+                <TextView
+                    android:id="@+id/listTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"/>
 
-            <TextView
-                android:id="@+id/listCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/list_rigth_margin_title"/>
+                <TextView
+                    android:id="@+id/listCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/list_rigth_margin_title"/>
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -33,5 +33,4 @@
             android:layout_height="match_parent"
             android:overScrollMode="never">
         </android.support.v7.widget.RecyclerView>
-
 </LinearLayout>

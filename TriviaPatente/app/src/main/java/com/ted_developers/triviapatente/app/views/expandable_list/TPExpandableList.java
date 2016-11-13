@@ -5,17 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.TPToolbar;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -31,7 +29,7 @@ public class TPExpandableList<T> extends Fragment {
     @BindView(R.id.listView) RecyclerView listView;
     @BindView(R.id.listHeader) RelativeLayout listHeader;
     // list dimens
-    @BindDimen(R.dimen.title_heigth) int titleHeight;
+    @BindDimen(R.dimen.list_title_height) int titleHeight;
     // expandable list utils
     int maximizedHeight, minimizedHeight, duration = 300;
     ResizeAnimation maximize, minimize;
@@ -74,8 +72,8 @@ public class TPExpandableList<T> extends Fragment {
         return v;
     }
 
-    public void setGames(List<T> list, int layout, Class<? extends TPHolder<T>> holderClass) {
-        TPExpandableListAdapter<T> adapter = new TPExpandableListAdapter<T>(getContext(), list, layout, holderClass);
+    public void setItems(List<T> list, int layout, Class<? extends TPHolder<T>> holderClass, String footer) {
+        TPExpandableListAdapter<T> adapter = new TPExpandableListAdapter<T>(getContext(), list, layout, holderClass, footer);
         listView.setAdapter(adapter);
     }
 
@@ -99,6 +97,7 @@ public class TPExpandableList<T> extends Fragment {
     public void setMinimizedHeightMode() {
         if(maximized) {
             getView().startAnimation(minimize);
+            listLayoutManager.scrollToPositionWithOffset(0, 0);
             listLayoutManager.setScrollEnabled(false);
             maximized = false;
         }
@@ -110,10 +109,6 @@ public class TPExpandableList<T> extends Fragment {
             listLayoutManager.setScrollEnabled(true);
             maximized = true;
         }
-    }
-
-    public RelativeLayout getListHeader() {
-        return listHeader;
     }
 
 }

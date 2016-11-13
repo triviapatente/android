@@ -76,6 +76,7 @@ public class MainPageActivity extends AppCompatActivity {
     @BindString(R.string.single_invites) String singleInvites;
     // recent games
     @BindString(R.string.recent_games) String recentGamesTitle;
+    @BindString(R.string.no_more_games) String recentGamesFooter;
     TPExpandableList<Game> recentGames;
     @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
 
@@ -216,7 +217,7 @@ public class MainPageActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().recent_games != null) {
-                        recentGames.setGames(response.body().recent_games, R.layout.recent_game, RecentGameHolder.class);
+                        recentGames.setItems(response.body().recent_games, R.layout.recent_game, RecentGameHolder.class, recentGamesFooter);
                         counter = response.body().recent_games.size();
                     }
                     recentGames.setListCounter(counter, recentGameHeight);
