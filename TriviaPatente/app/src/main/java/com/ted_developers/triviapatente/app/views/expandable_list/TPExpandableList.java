@@ -31,7 +31,7 @@ public class TPExpandableList<T> extends Fragment {
     // list dimens
     @BindDimen(R.dimen.list_title_height) int titleHeight;
     // expandable list utils
-    int maximizedHeight, minimizedHeight, duration = 300;
+    int maximizedHeight, minimizedHeight, duration = 300, elementHeight;
     ResizeAnimation maximize, minimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     private boolean maximized = false;
@@ -73,7 +73,7 @@ public class TPExpandableList<T> extends Fragment {
     }
 
     public void setItems(List<T> list, int layout, Class<? extends TPHolder<T>> holderClass, String footer) {
-        TPExpandableListAdapter<T> adapter = new TPExpandableListAdapter<T>(getContext(), list, layout, holderClass, footer);
+        TPExpandableListAdapter<T> adapter = new TPExpandableListAdapter<T>(getContext(), list, layout, holderClass, footer, this);
         listView.setAdapter(adapter);
     }
 
@@ -82,6 +82,7 @@ public class TPExpandableList<T> extends Fragment {
     }
 
     public void setListCounter(int counter, int elementHeight) {
+        this.elementHeight = elementHeight;
         listCounter.setText(String.valueOf(counter));
         minimizedHeight = ((counter > 3)? 3: counter) * elementHeight + titleHeight;
         maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
