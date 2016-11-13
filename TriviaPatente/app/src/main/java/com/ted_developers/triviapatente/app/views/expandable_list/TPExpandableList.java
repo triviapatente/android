@@ -1,48 +1,45 @@
 package com.ted_developers.triviapatente.app.views.expandable_list;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.TPToolbar;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnTouch;
 
 public class TPExpandableList<T> extends Fragment {
     // list elements
     @BindView(R.id.listTitle) TextView listTitle;
     @BindView(R.id.listCounter) TextView listCounter;
     @BindView(R.id.listView) RecyclerView listView;
+    @BindView(R.id.listHeader) RelativeLayout listHeader;
     // list dimens
     @BindDimen(R.dimen.title_heigth) int titleHeight;
     // expandable list utils
     int maximizedHeight, minimizedHeight, duration = 300;
     ResizeAnimation maximize, minimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
-    private boolean scrolling = false, up = false, maximized = false;
-
+    private boolean maximized = false;
+    mLinearLayoutManager listLayoutManager;
+    // to do operation on touch down
+    public Callable<Void> touchDownHandler;
 
     public TPExpandableList() {}
 
@@ -68,8 +65,12 @@ public class TPExpandableList<T> extends Fragment {
         TextViewCompat.setTextAppearance(listCounter, R.style.TPTextStyleMedium);
         listTitle.setTextColor(Color.WHITE);
         listCounter.setTextColor(Color.WHITE);
-        listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        listView.setLayoutManager(new LinearLayoutManager(getContext()));
+        listView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        listLayoutManager = new mLinearLayoutManager(getContext());
+        listView.setLayoutManager(listLayoutManager);
+        TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
+        listHeader.setOnTouchListener(swipeListener);
+        listView.setOnTouchListener(swipeListener);
         return v;
     }
 
@@ -95,47 +96,24 @@ public class TPExpandableList<T> extends Fragment {
         this.getView().setLayoutParams(params);
     }
 
-    private void setMinimizedHeightMode() {
-        getView().startAnimation(minimize);
-    }
-
-    private void setMaximizedHeightMode() {
-        getView().startAnimation(maximize);
-    }
-
-    @OnTouch(R.id.listView)
-    public boolean listTouched(View v, MotionEvent e) {
-        return expandOnScroll(v, e);
-    }
-
-    @OnTouch(R.id.expandableList)
-    public boolean titleTouched(View v, MotionEvent e) {
-        return expandOnScroll(v, e);
-    }
-
-    public boolean expandOnScroll(View v, MotionEvent e) {
-        switch (e.getAction()) {
-            case MotionEvent.ACTION_UP: {
-                if(scrolling) {
-                    if(up) {
-                        if(!maximized) {
-                            setMaximizedHeightMode();
-                            maximized = true;
-                        }
-                    } else {
-                        if(maximized) {
-                            setMinimizedHeightMode();
-                            maximized = false;
-                        }
-                    }
-                }
-            } break;
-            case MotionEvent.ACTION_MOVE: {
-                float dY = e.getY();
-                scrolling = dY != 0;
-                up = dY < 0;
-            }
+    public void setMinimizedHeightMode() {
+        if(maximized) {
+            getView().startAnimation(minimize);
+            listLayoutManager.setScrollEnabled(false);
+            maximized = false;
         }
-        return true;
     }
+
+    public void setMaximizedHeightMode() {
+        if(!maximized) {
+            getView().startAnimation(maximize);
+            listLayoutManager.setScrollEnabled(true);
+            maximized = true;
+        }
+    }
+
+    public RelativeLayout getListHeader() {
+        return listHeader;
+    }
+
 }

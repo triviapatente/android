@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.util.AttributeSet;
 import android.widget.Button;
 
@@ -44,6 +45,7 @@ public class PlayButton extends Button {
     }
 
     private void bindElements(Context context) {
+        TextViewCompat.setTextAppearance(this, R.style.TPTextStyleSmall);
         // bind strings
         playNow = getResources().getString(R.string.play_now_button_text);
         newGame = getResources().getString(R.string.new_game_button_text);

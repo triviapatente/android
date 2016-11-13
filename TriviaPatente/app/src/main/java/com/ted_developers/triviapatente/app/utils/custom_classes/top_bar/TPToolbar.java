@@ -29,6 +29,8 @@ import android.widget.ViewSwitcher;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 
+import java.util.concurrent.Callable;
+
 /**
  * Created by Antonio on 31/10/16.
  */
@@ -89,10 +91,6 @@ public class TPToolbar extends RelativeLayout {
 
     private void initElements(final Context context) {
         // init text switchers
-        Animation in = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
-        Animation out = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
-        lifeCounter.setInAnimation(in);
-        lifeCounter.setOutAnimation(out);
         lifeCounter.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -108,8 +106,6 @@ public class TPToolbar extends RelativeLayout {
                 return myText;
             }
         });
-        heartsTimer.setInAnimation(in);
-        heartsTimer.setOutAnimation(out);
         heartsTimer.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -176,12 +172,17 @@ public class TPToolbar extends RelativeLayout {
 
     public void showMenu() {
         menu.setVisibility(VISIBLE);
-        TPToolbar.this.menu.animate().alpha(1.0f).setDuration(200);
+        menu.animate().alpha(1.0f).setDuration(200);
         show_menu = false;
     }
 
     public void hideMenu() {
-        TPToolbar.this.menu.animate().alpha(0.0f).setDuration(200);
+        menu.animate().alpha(0.0f).setDuration(200).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                menu.setVisibility(GONE);
+            }
+        });
         show_menu = true;
     }
 

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
@@ -95,6 +96,13 @@ public class MainPageActivity extends AppCompatActivity {
                 return false;
             }
         });
+        recentGames.touchDownHandler = new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                MainPageActivity.this.toolbar.hideMenu();
+                return null;
+            }
+        };
         new ProgressTask().execute();
     }
 
