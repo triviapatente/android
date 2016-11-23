@@ -19,7 +19,7 @@ import java.util.List;
 public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
     Context context;
     List<T> items;
-    int layout, heigth, counter;
+    int layout, min_footer_height;
     Class<? extends TPHolder<T>> holderClass;
     String footer;
     TPExpandableList<T> expandableList;
@@ -29,13 +29,17 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
         this.items = list;
         this.layout = layout;
         this.holderClass = holderClass;
-        this.heigth = (int) context.getResources().getDimension(R.dimen.recent_game_height);
+        this.min_footer_height = (int) context.getResources().getDimension(R.dimen.min_footer_height);
         this.footer = footer;
         this.expandableList = expandableList;
     }
 
     private int computeFooterHeight() {
-        return expandableList.maximizedHeight - ((expandableList.elementHeight * (getItemCount() - 1)) - expandableList.listView.computeVerticalScrollOffset()) - expandableList.titleHeight;
+        int height = expandableList.maximizedHeight - ((expandableList.elementHeight * (getItemCount() - 1)) - expandableList.listView.computeVerticalScrollOffset()) - expandableList.titleHeight;
+        if(height > 0 && height < min_footer_height) {
+            height = min_footer_height;
+        }
+        return height;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
             } break;
             default: {
                 ((TPHolder) holder).bind(getNormalItem(position));
-                params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, heigth);
+                params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, expandableList.elementHeight);
             }
         }
         holder.itemView.setLayoutParams(params);
