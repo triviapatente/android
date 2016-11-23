@@ -1,7 +1,6 @@
 package com.ted_developers.triviapatente.app.views.expandable_list;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 
@@ -21,7 +20,6 @@ public class TPExpandableListOnSwipeListener<T> extends OnSwipeTouchListener {
     }
 
     public void onSwipeBottom() {
-        Log.i("TEST", String.valueOf(expandableList.listView.computeVerticalScrollOffset()));
         if(expandableList.listView.computeVerticalScrollOffset() == 0) {
             expandableList.setMinimizedHeightMode();
         }

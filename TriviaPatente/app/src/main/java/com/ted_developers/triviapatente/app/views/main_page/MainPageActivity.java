@@ -6,12 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
@@ -32,14 +30,11 @@ import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
-import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -253,7 +248,6 @@ public class MainPageActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             MainPageActivity.this.init();
             return null;
         }

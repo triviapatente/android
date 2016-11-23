@@ -4,7 +4,6 @@ package com.ted_developers.triviapatente.app.utils;
  * Created by Antonio on 13/11/16.
  */
 import android.content.Context;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
