@@ -1,13 +1,10 @@
 package com.ted_developers.triviapatente.socket.modules.base;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -17,33 +14,42 @@ import com.ted_developers.triviapatente.models.responses.Success;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * Created by Antonio on 31/10/16.
  */
 public class BaseSocketManager {
     protected static Socket mSocket;
+    public final static int timeout = 10000;
 
     public static void init(Context context) {
         try {
             mSocket = IO.socket(context.getString(R.string.baseUrl));
+            mSocket.io().timeout(timeout);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
 
-    public static void connect(final SimpleCallback cb) {
+    public static void connect(final SimpleCallback onConnectCallback, final SimpleCallback onTimeoutCallback) {
         if(mSocket.connected()) {
-            cb.execute();
+            onConnectCallback.execute();
         }
         else {
             mSocket.on("connect", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
                     mSocket.off("connect");
-                    cb.execute();
+                    mSocket.off(Socket.EVENT_CONNECT_ERROR);
+                    onConnectCallback.execute();
+                }
+            });
+            mSocket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    mSocket.off(Socket.EVENT_CONNECT_ERROR);
+                    mSocket.off("connect");
+                    onTimeoutCallback.execute();
                 }
             });
             mSocket.connect();

@@ -18,9 +18,11 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Simpl
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
@@ -74,6 +76,9 @@ public class MainPageActivity extends AppCompatActivity {
     @BindString(R.string.no_more_games) String recentGamesFooter;
     TPExpandableList<Game> recentGames;
     @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
+    // server down
+    @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
+    @BindString(R.string.server_down_message) String serverDownMessage;
 
     private AuthSocketManager socketManager = new AuthSocketManager();
 
@@ -84,45 +89,68 @@ public class MainPageActivity extends AppCompatActivity {
         ButterKnife.bind(MainPageActivity.this);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // automatically hide menu
-        mainPageContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                MainPageActivity.this.toolbar.hideMenu();
-                return false;
-            }
-        });
-        recentGames.touchDownHandler = new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                MainPageActivity.this.toolbar.hideMenu();
-                return null;
-            }
-        };
         new ProgressTask().execute();
     }
 
     private void init() {
         // connect to socket
         BaseSocketManager.connect(new SimpleCallback() {
+            // on connect
             @Override
             public void execute() {
                 socketManager.authenticate(new SocketCallback<Hints>() {
                     @Override
                     public void response(final Hints response) {
-                        if(response.success) {
+                        if (response.success) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    // init items
                                     initOptionsButton();
                                     initOptionsHints(response);
                                     initToolbar();
+                                    // automatically hide menu
+                                    mainPageContainer.setOnTouchListener(new View.OnTouchListener() {
+                                        @Override
+                                        public boolean onTouch(View v, MotionEvent event) {
+                                            MainPageActivity.this.toolbar.hideMenu();
+                                            return false;
+                                        }
+                                    });
+                                    recentGames.touchDownHandler = new Callable<Void>() {
+                                        @Override
+                                        public Void call() throws Exception {
+                                            MainPageActivity.this.toolbar.hideMenu();
+                                            return null;
+                                        }
+                                    };
+                                    // load recent games
                                     loadRecentGames();
+                                    // show items
+                                    bulkVisibilitySetting(View.VISIBLE);
+                                    // stop loading
+                                    loadingView.setVisibility(View.GONE);
                                 }
                             });
                         } else {
                             backToFirstAccess();
                         }
+                    }
+                });
+            }
+        }, new SimpleCallback() {
+            // on timeout
+            @Override
+            public void execute() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        serverDownAlert.showAlert(serverDownMessage);
+                        serverDownAlert.setVisibility(View.VISIBLE);
+                        // stop loading
+                        loadingView.setVisibility(View.GONE);
+                        // hide items (if triggered when items already displayed)
+                        bulkVisibilitySetting(View.GONE);
                     }
                 });
             }
@@ -253,12 +281,7 @@ public class MainPageActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            // show other elements
-            bulkVisibilitySetting(View.VISIBLE);
-            // stop loading
-            loadingView.setVisibility(View.GONE);
-        }
+        protected void onPostExecute(Void result) {}
     }
 
     private void backToFirstAccess() {
@@ -266,4 +289,11 @@ public class MainPageActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, FirstAccessActivity.class);
         startActivity(myIntent);
     }
+
+    // button clicks
+    public void openNewGame(View view) {
+        Intent intent = new Intent(this, NewGameActivity.class);
+        startActivity(intent);
+    }
+
 }
