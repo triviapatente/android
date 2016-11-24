@@ -85,6 +85,7 @@ public class TPExpandableList<T> extends Fragment {
         this.elementHeight = elementHeight;
         listCounter.setText(String.valueOf(counter));
         int numberOfShownItems = (getView().getHeight() - titleHeight) / elementHeight;
+        numberOfShownItems = (numberOfShownItems < counter)? numberOfShownItems : counter;
         minimizedHeight = ((numberOfShownItems > 3)? 3 : numberOfShownItems) * elementHeight + titleHeight;
         maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
         maximize = new ResizeAnimation(getView(), getView().getWidth(), minimizedHeight, getView().getWidth(), maximizedHeight);
