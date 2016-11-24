@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor">
+
+    <include layout="@layout/loading_view"/>
+
+    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tp_toolbar_height"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:id="@+id/option_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/main_button_margin"
+        android:layout_marginLeft="@dimen/main_button_margin"
+        android:layout_marginRight="@dimen/main_button_margin"
+        android:layout_marginStart="@dimen/main_button_margin"
+        android:layout_marginTop="@dimen/new_game_option_panel_margin">
+
+        <TextView
+            android:id="@+id/option_panel_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/new_game_option_title"/>
+
+        <Button
+            android:id="@+id/findOpponent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_game_button_height"
+            android:layout_marginTop="@dimen/new_game_option_panel_title_margin"
+            android:background="@drawable/green_button"
+            android:text="@string/find_your_opponent"/>
+
+        <Button
+            android:id="@+id/findRandomOpponent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/new_game_option_panel_margin"
+            android:layout_height="@dimen/new_game_button_height"
+            android:background="@drawable/orange_button"
+            android:text="@string/find_your_opponent"/>
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/invites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/option_panel"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/new_game_option_panel_margin"
+        android:name="com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList">
+    </fragment>
+
+</RelativeLayout>
