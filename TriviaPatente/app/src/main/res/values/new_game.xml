@@ -9,8 +9,4 @@
     <string name="find_your_random_opponent">Ricerca un avversario casuale</string>
     <string name="new_game_title">Gioca</string>
     <string name="new_game_option_title">Scegli la modalità di gioco</string>
-    <!-- invites -->
-    <dimen name="invite_height">30dp</dimen>
-    <string name="invites_title">Inviti a giocare</string>
-    <string name="no_more_invites">Non ci sono altri inviti a giocare al momento :)</string>
 </resources>

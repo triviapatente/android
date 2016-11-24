@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.InviteHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
@@ -88,15 +89,14 @@ public class NewGameActivity extends AppCompatActivity {
     private void loadInvites() {
         invites.setListTitle(invitesTitle);
         // request recent games
-        /*Call<SuccessInvites> call = RetrofitManager.getHTTPGameEndpoint().getPendingInvites();
+        Call<SuccessInvites> call = RetrofitManager.getHTTPGameEndpoint().getPendingInvites();
         call.enqueue(new TPCallback<SuccessInvites>() {
             @Override
             public void mOnResponse(Call<SuccessInvites> call, Response<SuccessInvites> response) {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().invites != null) {
-                        //invites.setItems(response.body().invites, R.layout.recent_game, null, invitesFooter);
-                        Log.i("TEST", String.valueOf(response.body().invites.get(0).sender_id));
+                        invites.setItems(response.body().invites, R.layout.invite, InviteHolder.class, invitesFooter);
                         counter = response.body().invites.size();
                     }
                     invites.setListCounter(counter, inviteHeight);
@@ -108,7 +108,7 @@ public class NewGameActivity extends AppCompatActivity {
 
             @Override
             public void then() {}
-        });*/
+        });
     }
 
     private void bulkVisibilitySetting(int visibility) {

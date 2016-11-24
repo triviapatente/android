@@ -6,6 +6,7 @@ import android.support.v4.util.Pair;
 import android.support.v4.widget.TextViewCompat;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
@@ -23,10 +24,10 @@ public class TPFooter extends TPHolder<Pair<String, Integer>> {
     }
     @Override
     public void bind(Pair<String, Integer> element) {
-        ((TextView) itemView).setText(element.first);
         if(element.second > 10) {
             itemView.setVisibility(View.GONE);
         } else {
+            ((TextView) itemView).setText(element.first);
             itemView.setVisibility(View.VISIBLE);
         }
     }
