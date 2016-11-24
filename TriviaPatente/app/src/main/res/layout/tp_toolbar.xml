@@ -24,8 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/text_size_very_small_padding"
-            android:text="indietro"
-            android:textSize="@dimen/text_size_very_small"
             android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
     </LinearLayout>

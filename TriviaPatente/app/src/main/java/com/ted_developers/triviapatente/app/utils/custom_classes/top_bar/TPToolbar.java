@@ -121,6 +121,8 @@ public class TPToolbar extends RelativeLayout {
                 return myText;
             }
         });
+        TextViewCompat.setTextAppearance(backButtonText, R.style.TPTextStyleSmall);
+        backButtonText.setTextColor(Color.WHITE);
     }
 
     // bind all elements through their id
@@ -212,4 +214,8 @@ public class TPToolbar extends RelativeLayout {
     }
 
     public void setBackButtonText(String text) { backButtonText.setText(text); }
+
+    public void setBackButtonOnClick(OnClickListener listener) {
+        backButton.setOnClickListener(listener);
+    }
 }
