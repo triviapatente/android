@@ -2,7 +2,6 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -51,9 +50,9 @@ public class PlayButton extends Button {
         newGame = getResources().getString(R.string.new_game_button_text);
         details = getResources().getString(R.string.details_button_text);
         // bind drawables
-        playNowDrawable = ContextCompat.getDrawable(context, R.drawable.play_now_white);
-        newGameDrawable = ContextCompat.getDrawable(context, R.drawable.new_game_white);
-        detailsDrawable = ContextCompat.getDrawable(context, R.drawable.details_white);
+        playNowDrawable = ContextCompat.getDrawable(context, R.drawable.green_on_white);
+        newGameDrawable = ContextCompat.getDrawable(context, R.drawable.red_on_white_button);
+        detailsDrawable = ContextCompat.getDrawable(context, R.drawable.yellow_on_white_button);
         // bind colors
         playNowColor = ContextCompat.getColor(context, R.color.green);
         newGameColor = ContextCompat.getColor(context, R.color.red);

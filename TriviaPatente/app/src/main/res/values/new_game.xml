@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- new game dimens -->
+    <dimen name="new_game_option_panel_margin">30dp</dimen>
+    <dimen name="new_game_option_panel_title_margin">10dp</dimen>
+    <dimen name="new_game_button_height">100dp</dimen>
+    <!-- strings -->
+    <string name="find_your_opponent">Trova il tuo avversario</string>
+    <string name="find_your_random_opponent">Ricerca un avversario casuale</string>
+    <string name="new_game_title">Gioca</string>
+    <string name="new_game_option_title">Scegli la modalità di gioco</string>
+    <!-- invites -->
+    <dimen name="invite_height">30dp</dimen>
+    <string name="invites_title">Inviti a giocare</string>
+    <string name="no_more_invites">Non ci sono altri inviti a giocare al momento :)</string>
+</resources>
