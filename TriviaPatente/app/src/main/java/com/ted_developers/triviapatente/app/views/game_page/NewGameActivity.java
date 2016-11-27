@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.In
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.views.find_opponent.not_random.FindOpponentActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Game;
@@ -31,6 +32,7 @@ import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -114,6 +116,12 @@ public class NewGameActivity extends AppCompatActivity {
             public void then() {
             }
         });
+    }
+
+    @OnClick(R.id.findOpponent)
+    public void findOpponent() {
+        Intent intent = new Intent(this, FindOpponentActivity.class);
+        this.startActivity(intent);
     }
 
     private void bulkVisibilitySetting(int visibility) {

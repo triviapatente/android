@@ -46,13 +46,6 @@ public class TPExpandableList<T> extends Fragment {
 
     public TPExpandableList() {}
 
-    public static TPExpandableList newInstance() {
-        TPExpandableList fragment = new TPExpandableList();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

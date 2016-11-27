@@ -15,7 +15,7 @@
             android:name=".app.views.first_access.FirstAccessActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".app.views.main_page.MainPageActivity"
             android:screenOrientation="portrait"
@@ -29,6 +29,10 @@
         </activity>
         <activity
             android:name=".app.views.game_page.NewGameActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".app.views.find_opponent.not_random.FindOpponentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
