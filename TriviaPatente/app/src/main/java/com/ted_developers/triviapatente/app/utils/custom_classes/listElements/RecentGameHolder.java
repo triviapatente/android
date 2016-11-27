@@ -21,7 +21,10 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableListAdapter;
 import com.ted_developers.triviapatente.models.game.Game;
+import com.ted_developers.triviapatente.models.game.Invite;
 
 /**
  * Created by Antonio on 12/11/16.
@@ -48,7 +51,7 @@ public class RecentGameHolder extends TPHolder<Game> {
         super(itemView);
     }
 
-    public RecentGameHolder(View itemView, Context context) {
+    public RecentGameHolder(View itemView, Context context, TPExpandableList<Game> expandableList) {
         super(itemView);
         bind(context);
     }
@@ -83,7 +86,7 @@ public class RecentGameHolder extends TPHolder<Game> {
         } else {
             setDetails();
         }
-        if(element.opponent_name != null || element.opponent_surname != null) {
+        if(element.opponent_name != null && element.opponent_surname != null) {
             setUsernameText(element.opponent_name + " " + element.opponent_surname);
         } else { setUsernameText(element.opponent_username); }
         if(element.opponent_image != null) {
