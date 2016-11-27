@@ -112,6 +112,8 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
         items.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, items.size());
+        // update footer to eventually fill the screen only if in maximized mode
+        if(expandableList.maximized) { notifyItemChanged(items.size()); }
         return items.size();
     }
 }
