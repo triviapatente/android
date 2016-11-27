@@ -4,4 +4,5 @@
     <dimen name="invite_height">60dp</dimen>
     <string name="invites_title">Inviti a giocare</string>
     <string name="no_more_invites">Nessun altro invito a giocare..</string>
+    <dimen name="invites_button_size">35dp</dimen>
 </resources>

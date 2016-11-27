@@ -67,6 +67,10 @@ public class NewGameActivity extends AppCompatActivity {
         TextViewCompat.setTextAppearance(optionPanelTitle, R.style.TPTextStyleSmall);
         optionPanelTitle.setTextColor(Color.WHITE);
         loadInvites();
+        // stop loading
+        loadingView.setVisibility(View.GONE);
+        // show other elements
+        bulkVisibilitySetting(View.VISIBLE);
     }
 
     private void initToolbar() {
@@ -107,7 +111,8 @@ public class NewGameActivity extends AppCompatActivity {
             public void mOnFailure(Call<SuccessInvites> call, Throwable t) {}
 
             @Override
-            public void then() {}
+            public void then() {
+            }
         });
     }
 
@@ -133,11 +138,6 @@ public class NewGameActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            // stop loading
-            loadingView.setVisibility(View.GONE);
-            // show other elements
-            bulkVisibilitySetting(View.VISIBLE);
-        }
+        protected void onPostExecute(Void result) {}
     }
 }
