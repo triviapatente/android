@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 
 public class TPExpandableList<T> extends Fragment {
     // list elements
+    public TPExpandableListAdapter<T> adapter;
     @BindView(R.id.listTitle) TextView listTitle;
     @BindView(R.id.listCounter) TextView listCounter;
     @BindView(R.id.listView) RecyclerView listView;
@@ -31,8 +32,8 @@ public class TPExpandableList<T> extends Fragment {
     // list dimens
     @BindDimen(R.dimen.list_title_height) int titleHeight;
     // expandable list utils
-    int maximizedHeight, minimizedHeight, duration = 300, elementHeight;
-    ResizeAnimation maximize, minimize;
+    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight;
+    ResizeAnimation maximize, minimize, forcedMinimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     private boolean maximized = false;
     mLinearLayoutManager listLayoutManager;
@@ -73,7 +74,7 @@ public class TPExpandableList<T> extends Fragment {
     }
 
     public void setItems(List<T> list, int layout, Class<? extends TPHolder<T>> holderClass, String footer) {
-        TPExpandableListAdapter<T> adapter = new TPExpandableListAdapter<T>(getContext(), list, layout, holderClass, footer, this);
+        adapter = new TPExpandableListAdapter<T>(getContext(), list, layout, holderClass, footer, this);
         listView.setAdapter(adapter);
     }
 
@@ -82,19 +83,34 @@ public class TPExpandableList<T> extends Fragment {
     }
 
     public void setListCounter(int counter, int elementHeight) {
+        setListCounter(counter, elementHeight, true);
+    }
+
+    public void setListCounter(int counter, int elementHeight, boolean firstTime) {
         this.elementHeight = elementHeight;
         listCounter.setText(String.valueOf(counter));
         int numberOfShownItems = (getView().getHeight() - titleHeight) / elementHeight;
         numberOfShownItems = (numberOfShownItems < counter)? numberOfShownItems : counter;
+        oldMinimizedHeight = minimizedHeight;
         minimizedHeight = ((numberOfShownItems > 3)? 3 : numberOfShownItems) * elementHeight + titleHeight;
+        if(oldMinimizedHeight == 0) { oldMinimizedHeight = minimizedHeight; }
         maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
         maximize = new ResizeAnimation(getView(), getView().getWidth(), minimizedHeight, getView().getWidth(), maximizedHeight);
         maximize.setDuration(duration);
         minimize = new ResizeAnimation(getView(), getView().getWidth(), maximizedHeight, getView().getWidth(), minimizedHeight);
         minimize.setDuration(duration);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, minimizedHeight);
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        this.getView().setLayoutParams(params);
+        forcedMinimize = new ResizeAnimation(getView(), getView().getWidth(), oldMinimizedHeight, getView().getWidth(), minimizedHeight);
+        if(firstTime) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, minimizedHeight);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            this.getView().setLayoutParams(params);
+        }
+    }
+
+    public void updateMinimized() {
+        if(!maximized) {
+            getView().startAnimation(forcedMinimize);
+        }
     }
 
     public void setMinimizedHeightMode() {

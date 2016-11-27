@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
  */
 public class BaseSocketManager {
     protected static Socket mSocket;
-    public final static int timeout = 10000;
+    public final static int timeout = 6000;
 
     public static void init(Context context) {
         try {
