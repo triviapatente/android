@@ -97,6 +97,8 @@ public class InviteHolder extends TPHolder<Invite> {
                     expandableList.adapter.removeItem(element);
                     // update counter
                     expandableList.setListCounter(expandableList.adapter.getItemCount() - 1, expandableList.elementHeight, false);
+                    // update footer only if in maximized mode
+                    if(expandableList.maximized) { expandableList.adapter.notifyItemChanged(expandableList.adapter.getItemCount() - 1); }
                     // eventually change height
                     expandableList.updateMinimized();
                 }

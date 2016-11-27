@@ -35,7 +35,7 @@ public class TPExpandableList<T> extends Fragment {
     public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight;
     ResizeAnimation maximize, minimize, forcedMinimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
-    private boolean maximized = false;
+    public boolean maximized = false;
     mLinearLayoutManager listLayoutManager;
     // to do operation on touch down
     public Callable<Void> touchDownHandler;
@@ -124,6 +124,7 @@ public class TPExpandableList<T> extends Fragment {
 
     public void setMaximizedHeightMode() {
         if(!maximized) {
+            adapter.notifyItemChanged(adapter.getItemCount() - 1); // update footer to eventually fill the screen
             getView().startAnimation(maximize);
             listLayoutManager.setScrollEnabled(true);
             maximized = true;
