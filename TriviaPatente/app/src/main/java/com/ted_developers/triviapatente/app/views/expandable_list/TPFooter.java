@@ -32,4 +32,8 @@ public class TPFooter extends TPHolder<Pair<String, Integer>> {
             itemView.setVisibility(View.VISIBLE);
         }
     }
+
+    public static void expand(View footer, int toHeight) {
+        footer.startAnimation(new ResizeAnimation(footer, footer.getWidth(), footer.getHeight(), footer.getWidth(), toHeight));
+    }
 }
