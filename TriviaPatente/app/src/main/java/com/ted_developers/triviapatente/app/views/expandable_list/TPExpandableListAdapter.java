@@ -51,7 +51,7 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
             default: {
                 v = LayoutInflater.from(context).inflate(layout, null);
                 try {
-                    return holderClass.getConstructor(View.class, Context.class).newInstance(v, context);
+                    return holderClass.getConstructor(View.class, Context.class, TPExpandableList.class).newInstance(v, context, expandableList);
                 } catch (Exception e) {}
             }
         }
@@ -105,5 +105,13 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
         public static final int Header = 1;
         public static final int Normal = 2;
         public static final int Footer = 3;
+    }
+
+    public int removeItem(T element) {
+        int position = items.indexOf(element);
+        items.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, items.size());
+        return items.size();
     }
 }
