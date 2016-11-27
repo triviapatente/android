@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.expandable_list;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TP
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +41,8 @@ public class TPExpandableList<T> extends Fragment {
     mLinearLayoutManager listLayoutManager;
     // to do operation on touch down
     public Callable<Void> touchDownHandler;
+    // separator color
+    @BindColor(R.color.mainColor) @ColorInt int mainColor;
 
     public TPExpandableList() {}
 
@@ -64,7 +68,7 @@ public class TPExpandableList<T> extends Fragment {
         TextViewCompat.setTextAppearance(listCounter, R.style.TPTextStyleMedium);
         listTitle.setTextColor(Color.WHITE);
         listCounter.setTextColor(Color.WHITE);
-        listView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        listView.addItemDecoration(new DividerItemDecoration(mainColor, v.getWidth()));
         listLayoutManager = new mLinearLayoutManager(getContext());
         listView.setLayoutManager(listLayoutManager);
         TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);

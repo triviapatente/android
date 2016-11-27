@@ -36,7 +36,7 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
     }
 
     private int computeFooterHeight() {
-        int height = expandableList.maximizedHeight - ((expandableList.elementHeight * (getItemCount() - 1)) - expandableList.listView.computeVerticalScrollOffset()) - expandableList.titleHeight;
+        int height = expandableList.maximizedHeight - expandableList.titleHeight - expandableList.elementHeight * items.size();
         if(height > 0 && height < min_footer_height) {
             height = min_footer_height;
         }
@@ -107,13 +107,13 @@ public class TPExpandableListAdapter<T> extends RecyclerView.Adapter {
         public static final int Footer = 3;
     }
 
-    public int removeItem(T element) {
+    public void removeItem(T element) {
         int position = items.indexOf(element);
         items.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, items.size());
         // update footer to eventually fill the screen only if in maximized mode
-        if(expandableList.maximized) { notifyItemChanged(items.size()); }
-        return items.size();
+        if(expandableList.maximized) {
+            TPFooter.expand(expandableList.listLayoutManager.findViewByPosition(getItemCount()), computeFooterHeight());
+        }
+        notifyItemRemoved(position);
     }
 }

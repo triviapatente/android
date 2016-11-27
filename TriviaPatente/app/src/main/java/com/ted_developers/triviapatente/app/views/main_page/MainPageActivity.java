@@ -215,6 +215,7 @@ public class MainPageActivity extends AppCompatActivity {
             // set hints
             buttonShowRank.setHintText(listConverter(hintsStrings));
         }
+        // it is sad to say "no invites" :(
         if(hints.invites > 0) {
             // build hints
             String hint = hints.invites + " ";
