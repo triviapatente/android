@@ -62,7 +62,7 @@ public class TPPLayersList<T> extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_tpexpandable_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_tpplayers_list, container, false);
         ButterKnife.bind(this, v);
         listView.addItemDecoration(new DividerItemDecoration(mainColor, v.getWidth()));
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
