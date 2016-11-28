@@ -33,17 +33,6 @@ public class FindOpponentActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
     @BindString(R.string.find_opponent_title) String toolbarTitle;
     @BindString(R.string.new_game_title) String backTitle;
-    // all or friends
-    @BindView(R.id.all_button) Button allButton;
-    @BindView(R.id.friends_button) Button friendsButton;
-    @BindDrawable(R.drawable.all_button_not_selected) Drawable allButtonNotSelected;
-    @BindDrawable(R.drawable.all_button_selected) Drawable allButtonSelected;
-    @BindDrawable(R.drawable.friends_button_not_selected) Drawable friendsButtonNotSelected;
-    @BindDrawable(R.drawable.friends_button_selected) Drawable friendsButtonSelected;
-    @BindColor(R.color.mainColor) @ColorInt int mainColor;
-    @BindColor(android.R.color.white) @ColorInt int whiteColor;
-    // search
-    @BindView(R.id.search_bar) LinearLayout searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,26 +63,6 @@ public class FindOpponentActivity extends AppCompatActivity {
                 FindOpponentActivity.this.startActivity(myIntent);
             }
         });
-    }
-
-    @OnClick(R.id.all_button)
-    public void allButtonClick() {
-        allButton.setBackground(allButtonSelected);
-        searchBar.setVisibility(View.VISIBLE);
-        friendsButton.setBackground(friendsButtonNotSelected);
-        allButton.setTextColor(whiteColor);
-        friendsButton.setTextColor(mainColor);
-        // todo do stuff
-    }
-
-    @OnClick(R.id.friends_button)
-    public void friendsButtonClick() {
-        friendsButton.setBackground(friendsButtonSelected);
-        allButton.setBackground(allButtonNotSelected);
-        searchBar.setVisibility(View.GONE);
-        allButton.setTextColor(mainColor);
-        friendsButton.setTextColor(whiteColor);
-        // todo do stuff
     }
 
 
