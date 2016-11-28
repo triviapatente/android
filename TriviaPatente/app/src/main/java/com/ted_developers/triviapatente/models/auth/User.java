@@ -11,18 +11,13 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class User extends CommonPK {
-    @SerializedName("username")
-    public String username;
-    @SerializedName("email")
-    public String email;
-    @SerializedName("name")
-    public String name;
-    @SerializedName("surname")
-    public String surname;
-    @SerializedName("image")
-    public String image;
-    @SerializedName("score")
-    public Integer score;
+    @SerializedName("username") public String username;
+    @SerializedName("email") public String email;
+    @SerializedName("name") public String name;
+    @SerializedName("surname") public String surname;
+    @SerializedName("image") public String image;
+    @SerializedName("score") public Integer score;
+    @SerializedName("last_game_won") public Boolean last_game_won;
 
     public User() {}
 }
