@@ -23,14 +23,19 @@ import java.util.List;
 public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
     TPExpandableList<T> expandableList;
 
-    public TPExpandableListAdapter(Context context, List<T> list, @LayoutRes int layout, Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass, int elementHeight, TPExpandableList<T> expandableList) {
+    public TPExpandableListAdapter(Context context, List<T> list, @LayoutRes int layout,
+                                   Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass,
+                                   int elementHeight, TPExpandableList<T> expandableList) {
         super(context, list, layout, holderClass, footerClass, elementHeight);
         this.expandableList = expandableList;
     }
 
     protected int computeFooterHeight() {
         int height = expandableList.maximizedHeight - expandableList.titleHeight - elementHeight * items.size();
-        if(height > 0 && height < min_footer_height) {
+        // if it less then zero it is not displayed
+        if(height < 0) {
+            height = 0;
+        } else if(height < min_footer_height){
             height = min_footer_height;
         }
         return height;
