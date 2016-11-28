@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.players_list;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.views.expandable_list.DividerItemDecoration;
+
+import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindDrawable;
@@ -39,7 +45,7 @@ public class TPPLayersList<T> extends Fragment {
     LinearLayout searchBar;
     // players list
     @BindView(R.id.listView) RecyclerView listView;
-    TPPlayersListAdapter<T> adapter;
+    TPListAdapter<T> adapter;
 
     public TPPLayersList() {}
 
@@ -59,8 +65,8 @@ public class TPPLayersList<T> extends Fragment {
         return v;
     }
 
-    public void setItems() {
-        adapter = new TPPlayersListAdapter<T>();
+    public void setItems(List<T> list, @LayoutRes int layout, Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass, int elementHeight) {
+        adapter = new TPListAdapter<T>(getContext(), list, layout, holderClass, footerClass, elementHeight);
         listView.setAdapter(adapter);
     }
 
