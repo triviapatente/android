@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/profile_picture_and_username"/>
+
+    <TextView
+        android:layout_width="@dimen/player_list_item_position_size"
+        android:layout_height="@dimen/player_list_item_position_size"/>
+</LinearLayout>

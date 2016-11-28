@@ -9,5 +9,8 @@
     <dimen name="all_or_friends_margin_horizontal">10dp</dimen>
     <string name="all_button_text">Tutti</string>
     <string name="friends_button_text">Amici</string>
+    <!-- player list item -->
+    <dimen name="player_list_item_height">60dp</dimen>
+    <dimen name="player_list_item_position_size">10dp</dimen>
 
 </resources>
