@@ -3,13 +3,6 @@
     <dimen name="recent_game_height">60dp</dimen>
     <dimen name="traffic_lights_height">38dp</dimen>
     <dimen name="traffic_lights_width">17dp</dimen>
-    <dimen name="profile_picture_size">35dp</dimen>
-    <dimen name="recent_game_margin">13dp</dimen>
-    <dimen name="recent_game_button_width">95dp</dimen>
-    <dimen name="recent_game_button_heigth">30dp</dimen>
-    <dimen name="recent_game_radius">10dp</dimen>
-    <dimen name="play_button_border_size">1dp</dimen>
-    <dimen name="recent_games_button_text_size">10sp</dimen>
     <!-- title -->
     <string name="recent_games">Partite recenti</string>
     <!-- button texts -->

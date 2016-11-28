@@ -3,10 +3,10 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners
-                android:topRightRadius="@dimen/recent_game_radius"
-                android:topLeftRadius="@dimen/recent_game_radius"
-                android:bottomRightRadius="@dimen/recent_game_radius"
-                android:bottomLeftRadius="@dimen/recent_game_radius"/>
+                android:topRightRadius="@dimen/play_button_radius"
+                android:topLeftRadius="@dimen/play_button_radius"
+                android:bottomRightRadius="@dimen/play_button_radius"
+                android:bottomLeftRadius="@dimen/play_button_radius"/>
             <solid android:color="@color/red"/>
             <stroke android:width="@dimen/play_button_border_size" android:color="@android:color/white" />
         </shape>
@@ -14,10 +14,10 @@
     <item android:state_focused="true">
         <shape android:shape="rectangle">
             <corners
-                android:topRightRadius="@dimen/recent_game_radius"
-                android:topLeftRadius="@dimen/recent_game_radius"
-                android:bottomRightRadius="@dimen/recent_game_radius"
-                android:bottomLeftRadius="@dimen/recent_game_radius"/>
+                android:topRightRadius="@dimen/play_button_radius"
+                android:topLeftRadius="@dimen/play_button_radius"
+                android:bottomRightRadius="@dimen/play_button_radius"
+                android:bottomLeftRadius="@dimen/play_button_radius"/>
             <solid android:color="@android:color/white"/>
             <stroke android:width="@dimen/play_button_border_size" android:color="@color/red" />
         </shape>
@@ -25,10 +25,10 @@
     <item >
         <shape android:shape="rectangle">
             <corners
-                android:topRightRadius="@dimen/recent_game_radius"
-                android:topLeftRadius="@dimen/recent_game_radius"
-                android:bottomRightRadius="@dimen/recent_game_radius"
-                android:bottomLeftRadius="@dimen/recent_game_radius"/>
+                android:topRightRadius="@dimen/play_button_radius"
+                android:topLeftRadius="@dimen/play_button_radius"
+                android:bottomRightRadius="@dimen/play_button_radius"
+                android:bottomLeftRadius="@dimen/play_button_radius"/>
             <solid android:color="@android:color/white"/>
             <stroke android:width="@dimen/play_button_border_size" android:color="@color/red" />
         </shape>
