@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 
 import com.ted_developers.triviapatente.R;
@@ -28,7 +29,9 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     Class<? extends TPFooter> footerClass;
     Class<? extends TPHolder<T>> holderClass;
 
-    public TPListAdapter(Context context, List<T> list, @LayoutRes int layout, Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass, int elementHeight) {
+    public TPListAdapter(Context context, List<T> list, @LayoutRes int layout,
+                         Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass,
+                         int elementHeight) {
         this.context = context;
         this.items = list;
         this.layout = layout;
@@ -44,7 +47,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
 
     protected RecyclerView.ViewHolder createFooterHolder() {
         try {
-            return footerClass.getConstructor(View.class).newInstance(new LinearLayout(context));
+            return footerClass.getConstructor(View.class).newInstance(new RelativeLayout(context));
         } catch (Exception e){ return null; }
     }
 

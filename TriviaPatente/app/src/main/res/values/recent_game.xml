@@ -5,10 +5,6 @@
     <dimen name="traffic_lights_width">17dp</dimen>
     <!-- title -->
     <string name="recent_games">Partite recenti</string>
-    <!-- button texts -->
-    <string name="play_now_button_text">Gioca ora</string>
-    <string name="details_button_text">Dettagli</string>
-    <string name="new_game_button_text">Rivincita</string>
     <!-- status -->
     <string name="play_now_status">È il tuo turno!</string>
     <string name="details_status">È il suo turno..</string>

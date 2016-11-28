@@ -14,11 +14,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPRecentGamesFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPTellFriendFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
+import com.ted_developers.triviapatente.app.views.players_list.TPPLayersList;
+import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.game.Invite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindColor;
+import butterknife.BindDimen;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -33,19 +45,38 @@ public class FindOpponentActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
     @BindString(R.string.find_opponent_title) String toolbarTitle;
     @BindString(R.string.new_game_title) String backTitle;
+    // players
+    TPPLayersList<User> playersList;
+    @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_opponent);
         ButterKnife.bind(this);
+        playersList = (TPPLayersList<User>) getSupportFragmentManager().findFragmentById(R.id.players);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         new ProgressTask().execute();
     }
 
     private void init() {
         initToolbar();
+        loadPlayers();
         loadingView.setVisibility(View.GONE);
+    }
+
+    private void loadPlayers() {
+        List<User> userList = new ArrayList<>();
+        User u = new User();
+        u.last_game_won = true;
+        u.username = "Antonio Terpin";
+        userList.add(u);
+        u = new User();
+        u.last_game_won = false;
+        u.username = "Luigi Donadel";
+        userList.add(u);
+        for(int i = 0; i < 10; i ++) {userList.add(u);}
+        playersList.setItems(userList, R.layout.proposed_opponent, ProposedOpponentHolder.class, TPTellFriendFooter.class, playerListItemHeight);
     }
 
     private void initToolbar() {

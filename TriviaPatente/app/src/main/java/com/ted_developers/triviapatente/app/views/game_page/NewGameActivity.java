@@ -98,7 +98,7 @@ public class NewGameActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().invites != null) {
-                        invites.setItems(response.body().invites, R.layout.invite, InviteHolder.class, TPInvitesFooter.class, inviteHeight);
+                        invites.setItems(response.body().invites, R.layout.invite, InviteHolder.class, TPInvitesFooter.class ,inviteHeight);
                         counter = response.body().invites.size();
                     }
                     invites.setListCounter(counter);

@@ -5,4 +5,8 @@
     <dimen name="play_button_radius">10dp</dimen>
     <dimen name="play_button_border_size">1dp</dimen>
     <dimen name="play_button_text_size">10sp</dimen>
+    <!-- button texts -->
+    <string name="play_now_button_text">Gioca ora</string>
+    <string name="details_button_text">Dettagli</string>
+    <string name="new_game_button_text">Rivincita</string>
 </resources>

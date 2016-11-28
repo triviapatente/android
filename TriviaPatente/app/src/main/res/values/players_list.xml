@@ -12,5 +12,9 @@
     <!-- player list item -->
     <dimen name="player_list_item_height">60dp</dimen>
     <dimen name="player_list_item_position_size">10dp</dimen>
+    <!-- player list footer -->
+    <string name="tell_a_friend_button_text">Invita i tuoi amici!</string>
+    <dimen name="tell_a_friend_button_padding">10dp</dimen>
+    <dimen name="tell_a_friend_button_height">30dp</dimen>
 
 </resources>

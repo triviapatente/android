@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
@@ -25,7 +26,7 @@ public class TPRecentGamesFooter extends TPFooter {
         view.setTextColor(Color.WHITE);
         view.setText(c.getResources().getText(R.string.no_more_games));
         view.setGravity(Gravity.CENTER);
-        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        ((LinearLayout)itemView).addView(view);
+        view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+        ((RelativeLayout)itemView).addView(view);
     }
 }
