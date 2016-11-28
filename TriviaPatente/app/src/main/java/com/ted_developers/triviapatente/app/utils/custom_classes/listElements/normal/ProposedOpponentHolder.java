@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.n
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         this.context = context;
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameTextField = (TextView) itemView.findViewById(R.id.username);
+        TextViewCompat.setTextAppearance(usernameTextField, R.style.TPTextStyleMedium);
+        usernameTextField.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
         playButton = (PlayButton) itemView.findViewById(R.id.playButton);
     }
 
