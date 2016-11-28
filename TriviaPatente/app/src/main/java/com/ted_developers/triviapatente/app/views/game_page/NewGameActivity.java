@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,16 +15,14 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.InviteHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPInvitesFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.not_random.FindOpponentActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.game.Invite;
-import com.ted_developers.triviapatente.models.responses.SuccessInvite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
 
 import butterknife.BindDimen;
@@ -51,7 +48,6 @@ public class NewGameActivity extends AppCompatActivity {
     // invites
     TPExpandableList<Invite> invites;
     @BindString(R.string.invites_title) String invitesTitle;
-    @BindString(R.string.no_more_invites) String invitesFooter;
     @BindDimen(R.dimen.invite_height) int inviteHeight;
 
     @Override
@@ -69,10 +65,10 @@ public class NewGameActivity extends AppCompatActivity {
         TextViewCompat.setTextAppearance(optionPanelTitle, R.style.TPTextStyleSmall);
         optionPanelTitle.setTextColor(Color.WHITE);
         loadInvites();
-        // stop loading
-        loadingView.setVisibility(View.GONE);
         // show other elements
         bulkVisibilitySetting(View.VISIBLE);
+        // stop loading
+        loadingView.setVisibility(View.GONE);
     }
 
     private void initToolbar() {
@@ -102,10 +98,10 @@ public class NewGameActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().invites != null) {
-                        invites.setItems(response.body().invites, R.layout.invite, InviteHolder.class, invitesFooter);
+                        invites.setItems(response.body().invites, R.layout.invite, InviteHolder.class, TPInvitesFooter.class, inviteHeight);
                         counter = response.body().invites.size();
                     }
-                    invites.setListCounter(counter, inviteHeight);
+                    invites.setListCounter(counter);
                 }
             }
 
@@ -133,10 +129,10 @@ public class NewGameActivity extends AppCompatActivity {
     private class ProgressTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute(){
-            // start loading
-            loadingView.setVisibility(View.VISIBLE);
             // hide other elements
             bulkVisibilitySetting(View.GONE);
+            // start loading
+            loadingView.setVisibility(View.VISIBLE);
         }
 
         @Override

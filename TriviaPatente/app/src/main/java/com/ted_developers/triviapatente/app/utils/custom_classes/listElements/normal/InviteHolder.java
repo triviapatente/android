@@ -1,10 +1,9 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.listElements;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -12,15 +11,13 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableListAdapter;
-import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -96,7 +93,7 @@ public class InviteHolder extends TPHolder<Invite> {
                     // remove element
                     expandableList.adapter.removeItem(element);
                     // update counter
-                    expandableList.setListCounter(expandableList.adapter.getItemCount() - 1, expandableList.elementHeight, false);
+                    expandableList.setListCounter(expandableList.adapter.getItemCount() - 1, false);
                     // eventually change height
                     expandableList.updateMinimized();
                 }

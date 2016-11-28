@@ -1,7 +1,9 @@
-package com.ted_developers.triviapatente.app.views.expandable_list;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.LayoutRes;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
@@ -12,26 +14,18 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
+import com.ted_developers.triviapatente.app.views.expandable_list.ResizeAnimation;
 
 /**
  * Created by Antonio on 13/11/16.
  */
-public class TPFooter extends TPHolder<Pair<String, Integer>> {
+public class TPFooter extends TPHolder<Void> {
     public TPFooter(View itemView) {
         super(itemView);
-        TextViewCompat.setTextAppearance(((TextView) itemView), R.style.TPTextStyleMedium);
-        ((TextView) itemView).setTextColor(Color.WHITE);
-        ((TextView) itemView).setGravity(Gravity.CENTER);
     }
+
     @Override
-    public void bind(Pair<String, Integer> element) {
-        if(element.second > 10) {
-            itemView.setVisibility(View.GONE);
-        } else {
-            ((TextView) itemView).setText(element.first);
-            itemView.setVisibility(View.VISIBLE);
-        }
-    }
+    public void bind(Void element) {}
 
     public static void expand(View footer, int toHeight) {
         footer.startAnimation(new ResizeAnimation(footer, footer.getWidth(), footer.getHeight(), footer.getWidth(), toHeight));

@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.listElements;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Game;

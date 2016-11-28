@@ -1,30 +1,20 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.listElements;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v4.widget.TextViewCompat;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableListAdapter;
 import com.ted_developers.triviapatente.models.game.Game;
-import com.ted_developers.triviapatente.models.game.Invite;
 
 /**
  * Created by Antonio on 12/11/16.
@@ -51,7 +41,7 @@ public class RecentGameHolder extends TPHolder<Game> {
         super(itemView);
     }
 
-    public RecentGameHolder(View itemView, Context context, TPExpandableList<Game> expandableList) {
+    public RecentGameHolder(View itemView, Context context) {
         super(itemView);
         bind(context);
     }

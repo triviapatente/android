@@ -1,13 +1,9 @@
 package com.ted_developers.triviapatente.app.views.players_list;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,13 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.DividerItemDecoration;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableListAdapter;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableListOnSwipeListener;
-import com.ted_developers.triviapatente.app.views.expandable_list.mLinearLayoutManager;
-
-import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindDrawable;

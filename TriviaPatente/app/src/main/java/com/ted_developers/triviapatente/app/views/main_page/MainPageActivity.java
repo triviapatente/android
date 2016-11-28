@@ -17,7 +17,8 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.button.main.Mai
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.RecentGameHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPRecentGamesFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
@@ -73,7 +74,6 @@ public class MainPageActivity extends AppCompatActivity {
     @BindString(R.string.single_invites) String singleInvites;
     // recent games
     @BindString(R.string.recent_games) String recentGamesTitle;
-    @BindString(R.string.no_more_games) String recentGamesFooter;
     TPExpandableList<Game> recentGames;
     @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
     // server down
@@ -147,10 +147,10 @@ public class MainPageActivity extends AppCompatActivity {
                     public void run() {
                         serverDownAlert.showAlert(serverDownMessage);
                         serverDownAlert.setVisibility(View.VISIBLE);
-                        // stop loading
-                        loadingView.setVisibility(View.GONE);
                         // hide items (if triggered when items already displayed)
                         bulkVisibilitySetting(View.GONE);
+                        // stop loading
+                        loadingView.setVisibility(View.GONE);
                     }
                 });
             }
@@ -241,10 +241,10 @@ public class MainPageActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().recent_games != null) {
-                        recentGames.setItems(response.body().recent_games, R.layout.recent_game, RecentGameHolder.class, recentGamesFooter);
+                        recentGames.setItems(response.body().recent_games, R.layout.recent_game, RecentGameHolder.class, TPRecentGamesFooter.class, recentGameHeight);
                         counter = response.body().recent_games.size();
                     }
-                    recentGames.setListCounter(counter, recentGameHeight);
+                    recentGames.setListCounter(counter);
                 }
             }
 
