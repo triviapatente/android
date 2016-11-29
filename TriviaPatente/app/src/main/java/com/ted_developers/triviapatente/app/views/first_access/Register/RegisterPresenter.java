@@ -62,7 +62,7 @@ public class RegisterPresenter {
                         // do not stop loading if success
                         doThen = false;
                         FirstAccessActivity.openMainPage(a, response.body());
-                    } else if (response.code() == 401) {
+                    } else if (response.code() == 403) {
                         // unauthorized
                         String message = "";
                         try {

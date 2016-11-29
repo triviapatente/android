@@ -39,7 +39,7 @@ public class LoginPresenter {
                         // do not stop loading if success
                         doThen = false;
                         FirstAccessActivity.openMainPage(a, response.body());
-                    } else if (response.code() == 401) {
+                    } else if (response.code() == 400) {
                         // unauthorized
                         // show alert and forgot button
                         lf.alertMessageView.showAlert(lf.forgotUsernamePassword);
