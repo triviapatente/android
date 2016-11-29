@@ -4,35 +4,27 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.annotation.ColorInt;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPRecentGamesFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPTellFriendFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
-import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.app.views.players_list.TPPLayersList;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
-import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,6 +35,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -81,6 +74,8 @@ public class FindOpponentActivity extends AppCompatActivity {
             new User("InAssoluto", null, true),
             new User("LoAdoro", null, false)
     );
+    @BindView(R.id.modal_facebook) RelativeLayout facebookModal;
+    @BindView(R.id.blurredViewGroup) RelativeLayout blurredViewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +148,7 @@ public class FindOpponentActivity extends AppCompatActivity {
         friendsButton.setBackground(friendsButtonNotSelected);
         allButton.setTextColor(whiteColor);
         friendsButton.setTextColor(mainColor);
+        facebookModal.setVisibility(View.GONE);
         loadPlayers();
     }
 
@@ -167,8 +163,9 @@ public class FindOpponentActivity extends AppCompatActivity {
         if (false) {
             // todo load friends
         } else {
+            facebookModal.setVisibility(View.VISIBLE);
             setPlayersListItems(friendsNotShown);
-            // todo show connect to facebook modal
+            Blurry.with(this).radius(25).sampling(2).onto(blurredViewGroup);
         }
     }
 
