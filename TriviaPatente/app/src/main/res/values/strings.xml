@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
     <string name="baseUrl">http://192.168.1.160:8000/</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

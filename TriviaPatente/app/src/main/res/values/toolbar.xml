@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- toolbar -->
-    <dimen name="tp_toolbar_height">75dp</dimen>
+    <dimen name="tp_toolbar_height">70dp</dimen>
     <dimen name="back_button_width">10dp</dimen>
     <dimen name="back_button_height">17dp</dimen>
-    <dimen name="tp_toolbar_margin">13dp</dimen>
+    <dimen name="tp_toolbar_margin">11dp</dimen>
     <dimen name="heart_image_size">30dp</dimen>
     <dimen name="text_size_very_small_padding">3sp</dimen>
     <dimen name="life_counter_size">18sp</dimen>

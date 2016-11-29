@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <include layout="@layout/loading_view"/>
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
         android:id="@+id/toolbar"
@@ -23,8 +22,10 @@
         android:layout_below="@+id/all_or_friends"
         android:layout_alignParentBottom="true">
 
+        <include layout="@layout/loading_view"/>
+
         <RelativeLayout
-            android:id="@+id/blurredViewGroup"
+            android:id="@+id/blurred"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <fragment
@@ -34,14 +35,12 @@
                 android:name="com.ted_developers.triviapatente.app.views.players_list.TPPLayersList">
             </fragment>
         </RelativeLayout>
-
         <include
             layout="@layout/modal_view_connect_to_facebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/connectToFacebookMargin"
             android:layout_centerInParent="true"/>
-
     </RelativeLayout>
 
 </RelativeLayout>

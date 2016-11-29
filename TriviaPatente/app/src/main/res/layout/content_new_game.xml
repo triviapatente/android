@@ -47,7 +47,7 @@
             android:layout_marginTop="@dimen/new_game_option_panel_margin"
             android:layout_height="@dimen/new_game_button_height"
             android:background="@drawable/orange_button"
-            android:text="@string/find_your_opponent"/>
+            android:text="@string/find_your_random_opponent"/>
 
     </LinearLayout>
 

@@ -89,7 +89,12 @@ public class MainPageActivity extends AppCompatActivity {
         ButterKnife.bind(MainPageActivity.this);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        new ProgressTask().execute();
+        // start loading
+        loadingView.setVisibility(View.VISIBLE);
+        // hide other elements
+        bulkVisibilitySetting(View.GONE);
+        // init
+        init();
     }
 
     private void init() {
@@ -264,25 +269,6 @@ public class MainPageActivity extends AppCompatActivity {
 
     private String[] listConverter(List<String> list) {
         return list.toArray(new String[] {});
-    }
-
-    private class ProgressTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute(){
-            // start loading
-            loadingView.setVisibility(View.VISIBLE);
-            // hide other elements
-            bulkVisibilitySetting(View.GONE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            MainPageActivity.this.init();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {}
     }
 
     private void backToFirstAccess() {

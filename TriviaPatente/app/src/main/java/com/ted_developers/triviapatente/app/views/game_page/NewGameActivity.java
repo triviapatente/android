@@ -1,9 +1,6 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +17,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.no
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.not_random.FindOpponentActivity;
+import com.ted_developers.triviapatente.app.views.find_opponent.random.FindRandomOpponentActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
@@ -57,7 +55,12 @@ public class NewGameActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         invites = (TPExpandableList<Invite>) getSupportFragmentManager().findFragmentById(R.id.invites);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        new ProgressTask().execute();
+        // start loading
+        loadingView.setVisibility(View.VISIBLE);
+        // hide other elements
+        bulkVisibilitySetting(View.GONE);
+        // init
+        init();
     }
 
     private void init() {
@@ -118,28 +121,15 @@ public class NewGameActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    @OnClick(R.id.findRandomOpponent)
+    public void findRandomOpponent() {
+        Intent intent = new Intent(this, FindRandomOpponentActivity.class);
+        this.startActivity(intent);
+    }
+
     private void bulkVisibilitySetting(int visibility) {
         toolbar.setVisibility(visibility);
         invites.getView().setVisibility(visibility);
         optionPanel.setVisibility(visibility);
-    }
-
-    private class ProgressTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute(){
-            // hide other elements
-            bulkVisibilitySetting(View.GONE);
-            // start loading
-            loadingView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            NewGameActivity.this.init();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {}
     }
 }

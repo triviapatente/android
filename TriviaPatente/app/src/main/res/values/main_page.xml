@@ -12,7 +12,7 @@
     <string name="global">Globale: </string>
     <string name="friends">Amici: </string>
     <!-- main page dimen -->
-    <dimen name="main_page_option_margin">5dp</dimen>
+    <dimen name="main_page_option_margin">25dp</dimen>
     <dimen name="main_page_image_size">30dp</dimen>
     <dimen name="main_page_button_heigth">50dp</dimen>
     <dimen name="main_button_margin">20dp</dimen>

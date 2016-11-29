@@ -6,11 +6,11 @@ import android.os.AsyncTask;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -35,7 +35,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -74,8 +73,9 @@ public class FindOpponentActivity extends AppCompatActivity {
             new User("InAssoluto", null, true),
             new User("LoAdoro", null, false)
     );
+    // modal
     @BindView(R.id.modal_facebook) RelativeLayout facebookModal;
-    @BindView(R.id.blurredViewGroup) RelativeLayout blurredViewGroup;
+    @BindView(R.id.exit_button) ImageButton exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,12 @@ public class FindOpponentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         playersList = (TPPLayersList<User>) getSupportFragmentManager().findFragmentById(R.id.players);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        new ProgressTask().execute();
+        // hide other elements
+        playersList.getView().setVisibility(View.GONE);
+        // start loading
+        loadingView.setVisibility(View.VISIBLE);
+        // init
+        init();
     }
 
     private void init() {
@@ -107,7 +112,7 @@ public class FindOpponentActivity extends AppCompatActivity {
                     setPlayersListItems(response.body().users);
                 }
                 // show other items
-                bulkVisibilitySetting(View.VISIBLE);
+                playersList.getView().setVisibility(View.VISIBLE);
                 // stop loading
                 loadingView.setVisibility(View.GONE);
             }
@@ -143,20 +148,21 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     @OnClick(R.id.all_button)
     public void allButtonClick() {
+        loadingView.setVisibility(View.VISIBLE);
         allButton.setBackground(allButtonSelected);
-        searchBar.setVisibility(View.VISIBLE);
         friendsButton.setBackground(friendsButtonNotSelected);
         allButton.setTextColor(whiteColor);
         friendsButton.setTextColor(mainColor);
         facebookModal.setVisibility(View.GONE);
         loadPlayers();
+        playersList.getView().setClickable(false);
     }
 
     @OnClick(R.id.friends_button)
     public void friendsButtonClick() {
+        loadingView.setVisibility(View.VISIBLE);
         friendsButton.setBackground(friendsButtonSelected);
         allButton.setBackground(allButtonNotSelected);
-        searchBar.setVisibility(View.GONE);
         allButton.setTextColor(mainColor);
         friendsButton.setTextColor(whiteColor);
         // todo check if connected
@@ -165,36 +171,14 @@ public class FindOpponentActivity extends AppCompatActivity {
         } else {
             facebookModal.setVisibility(View.VISIBLE);
             setPlayersListItems(friendsNotShown);
-            Blurry.with(FindOpponentActivity.this)
-                    .radius(25)
-                    .sampling(2)
-                    .async()
-                    .animate(500)
-                    .onto((ViewGroup) findViewById(R.id.blurredViewGroup));
+            playersList.getView().setClickable(true);
+            // todo make blurred background
         }
+        loadingView.setVisibility(View.GONE);
     }
 
-    private void bulkVisibilitySetting(int visibility) {
-        allOrFriendsBlock.setVisibility(visibility);
-        playersList.getView().setVisibility(visibility);
-    }
-
-    private class ProgressTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute(){
-            // hide other elements
-            bulkVisibilitySetting(View.GONE);
-            // start loading
-            loadingView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            FindOpponentActivity.this.init();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {}
+    @OnClick(R.id.exit_button)
+    public void exitButton() {
+        allButtonClick();
     }
 }
