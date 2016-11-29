@@ -2,7 +2,11 @@
 <resources>
     <!-- modal view -->
     <string name="connectToFacebookTitle">Connettiti a Facebook</string>
-    <string name="connectToFacebookMessage">Collega il tuo account e ottieni un bonus di 5 vite!</string>
+    <string name="connectToFacebookMessage">Collega il tuo account e\nottieni un bonus di 5 vite!</string>
     <string name="connectToFacebookConfirm">Collegami a Facebook</string>
-    <dimen name="connectToFacebookModalHeight">300dp</dimen>
+    <dimen name="connectToFacebookConfirmMargin">15dp</dimen>
+    <dimen name="connectToFacebookMargin">40dp</dimen>
+    <dimen name="connectToFacebookImageMargin">20dp</dimen>
+    <dimen name="connectToFacebookExitButtonSize">20dp</dimen>
+    <dimen name="connectToFacebookExitButtonMargin">5dp</dimen>
 </resources>

@@ -1,33 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="@dimen/connectToFacebookModalHeight"
-    android:background="@color/mainColor">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/connectToFacebookMargin"
+    android:id="@+id/modal_facebook"
+    android:background="@drawable/modal_rounded">
+
+    <ImageButton
+        android:layout_width="@dimen/connectToFacebookExitButtonSize"
+        android:layout_height="@dimen/connectToFacebookExitButtonSize"
+        android:layout_marginRight="@dimen/connectToFacebookExitButtonMargin"
+        android:layout_marginTop="@dimen/connectToFacebookExitButtonMargin"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/exit_button"/>
 
     <TextView
+        android:id="@+id/connectToFacebookTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:text="@string/connectToFacebookTitle" />
+        android:textSize="@dimen/TPTextSizeLarge"
+        android:text="@string/connectToFacebookTitle"
+        android:layout_marginTop="@dimen/connectToFacebookMargin"/>
+    
+    <LinearLayout
+        android:id="@+id/connectToFacebookImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/connectToFacebookTitle"
+        android:layout_marginTop="@dimen/connectToFacebookMargin"
+        android:orientation="horizontal">
+        
+        <ImageView
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
+            android:src="@mipmap/fb_logo"/>
+
+        <ImageView
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
+            android:layout_marginLeft="@dimen/connectToFacebookImageMargin"
+            android:background="@drawable/arrow"/>
+
+        <ImageView
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
+            android:layout_marginLeft="@dimen/connectToFacebookImageMargin"
+            android:background="@drawable/heart_red"/>
+        
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/connectToFacebookMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:text="@string/connectToFacebookMessage"/>
+        android:text="@string/connectToFacebookMessage"
+        android:layout_below="@+id/connectToFacebookImage"
+        android:layout_marginTop="@dimen/connectToFacebookMargin"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/white"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:text="@string/connectToFacebookConfirm"/>
+        android:orientation="vertical"
+        android:layout_below="@+id/connectToFacebookMessage"
+        android:layout_marginTop="@dimen/connectToFacebookMargin">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"/>
 
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textSize="@dimen/TPTextSizeLarge"
+            android:text="@string/connectToFacebookConfirm"
+            android:layout_marginTop="@dimen/connectToFacebookConfirmMargin"
+            android:layout_marginBottom="@dimen/connectToFacebookConfirmMargin"/>
+    </LinearLayout>
+
+</RelativeLayout>

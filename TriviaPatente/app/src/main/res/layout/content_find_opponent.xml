@@ -17,13 +17,26 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/toolbar"/>
 
-    <fragment
-        android:id="@+id/players"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/all_or_friends"
-        android:layout_alignParentBottom="true"
-        android:name="com.ted_developers.triviapatente.app.views.players_list.TPPLayersList">
-    </fragment>
+        android:layout_alignParentBottom="true">
+
+        <fragment
+            android:id="@+id/players"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.ted_developers.triviapatente.app.views.players_list.TPPLayersList">
+        </fragment>
+
+        <include
+            layout="@layout/modal_view_connect_to_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/connectToFacebookMargin"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
