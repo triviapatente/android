@@ -165,7 +165,12 @@ public class FindOpponentActivity extends AppCompatActivity {
         } else {
             facebookModal.setVisibility(View.VISIBLE);
             setPlayersListItems(friendsNotShown);
-            Blurry.with(this).radius(25).sampling(2).onto(blurredViewGroup);
+            Blurry.with(FindOpponentActivity.this)
+                    .radius(25)
+                    .sampling(2)
+                    .async()
+                    .animate(500)
+                    .onto((ViewGroup) findViewById(R.id.blurredViewGroup));
         }
     }
 
