@@ -5,6 +5,7 @@ import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
+import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -36,4 +37,7 @@ public interface HTTPGameEndpoint {
 
     @GET("game/recents")
     Call<SuccessGames> getRecentsGames();
+
+    @GET("game/users/suggested")
+    Call<SuccessUsers> getSuggestedUsers();
 }

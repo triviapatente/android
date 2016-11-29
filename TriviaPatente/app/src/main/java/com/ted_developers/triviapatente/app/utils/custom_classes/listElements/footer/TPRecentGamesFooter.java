@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.TextViewCompat;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class TPRecentGamesFooter extends TPFooter {
         super(itemView);
         Context c = itemView.getContext();
         TextView view = new TextView(c);
-        TextViewCompat.setTextAppearance(view, R.style.TPTextStyleSmall);
+        view.setTextSize(TypedValue.COMPLEX_UNIT_PX, c.getResources().getDimension(R.dimen.TPTextSizeSmall));
         view.setTextColor(Color.WHITE);
         view.setText(c.getResources().getText(R.string.no_more_games));
         view.setGravity(Gravity.CENTER);

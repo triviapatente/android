@@ -12,6 +12,7 @@
         android:layout_width="@dimen/play_button_width"
         android:layout_height="@dimen/play_button_heigth"
         android:padding="0dp"
+        android:textSize="@dimen/TPTextSizeSmall"
         android:textAlignment="center"
         android:layout_marginRight="@dimen/list_item_margin"/>
 

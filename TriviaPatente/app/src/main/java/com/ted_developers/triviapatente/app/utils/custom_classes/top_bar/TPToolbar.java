@@ -11,6 +11,7 @@ import android.text.Layout;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,14 +95,14 @@ public class TPToolbar extends RelativeLayout {
         lifeCounter.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
-                TextView myText = new TextView(getContext());
+                TextView myText = new TextView(context);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                 );
                 myText.setLayoutParams(params);
                 myText.setGravity(Gravity.CENTER | Gravity.TOP);
-                TextViewCompat.setTextAppearance(myText, R.style.TPTextStyleSmall);
+                myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeSmall));
                 myText.setTextColor(Color.WHITE);
                 return myText;
             }
@@ -109,20 +110,18 @@ public class TPToolbar extends RelativeLayout {
         heartsTimer.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
-                TextView myText = new TextView(getContext());
+                TextView myText = new TextView(context);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                 );
                 myText.setLayoutParams(params);
                 myText.setGravity(Gravity.CENTER_VERTICAL);
-                TextViewCompat.setTextAppearance(myText, R.style.TPTextStyleMedium);
+                myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeSmall));
                 myText.setTextColor(Color.WHITE);
                 return myText;
             }
         });
-        TextViewCompat.setTextAppearance(backButtonText, R.style.TPTextStyleSmall);
-        backButtonText.setTextColor(Color.WHITE);
     }
 
     // bind all elements through their id

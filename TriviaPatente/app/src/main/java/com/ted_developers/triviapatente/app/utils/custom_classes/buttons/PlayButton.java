@@ -44,7 +44,6 @@ public class PlayButton extends Button {
     }
 
     private void bindElements(Context context) {
-        TextViewCompat.setTextAppearance(this, R.style.TPTextStyleSmall);
         // bind strings
         playNow = getResources().getString(R.string.play_now_button_text);
         newGame = getResources().getString(R.string.new_game_button_text);

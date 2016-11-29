@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="TPTextSizeLarge">25sp</dimen>
+    <dimen name="TPTextSizeMedium">20sp</dimen>
+    <dimen name="TPTextSizeSmall">15sp</dimen>
+    <dimen name="TPTextSizeVerySmall">12sp</dimen>
+</resources>

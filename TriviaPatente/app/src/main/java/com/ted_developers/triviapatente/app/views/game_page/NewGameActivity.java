@@ -62,8 +62,6 @@ public class NewGameActivity extends AppCompatActivity {
 
     private void init() {
         initToolbar();
-        TextViewCompat.setTextAppearance(optionPanelTitle, R.style.TPTextStyleSmall);
-        optionPanelTitle.setTextColor(Color.WHITE);
         loadInvites();
         // show other elements
         bulkVisibilitySetting(View.VISIBLE);

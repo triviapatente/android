@@ -43,7 +43,6 @@ public class LabeledInput extends LinearLayout {
         input.setHeight((int) getResources().getDimension(R.dimen.field_height));
         // label from template
         label = (TextView) inflater.inflate(R.layout.tp_errorlabel_template, null);
-        TextViewCompat.setTextAppearance(label, R.style.TPTextStyleSmall);
         this.addView(label);
         this.addView(input);
         hideLabel();

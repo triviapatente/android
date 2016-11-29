@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- modal view -->
+    <string name="connectToFacebookTitle">Connettiti a Facebook</string>
+    <string name="connectToFacebookMessage">Collega il tuo account e ottieni un bonus di 5 vite!</string>
+    <string name="connectToFacebookConfirm">Collegami a Facebook</string>
+    <dimen name="connectToFacebookModalHeight">300dp</dimen>
+</resources>

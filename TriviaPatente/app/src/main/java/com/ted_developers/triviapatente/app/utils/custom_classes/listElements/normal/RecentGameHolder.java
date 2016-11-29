@@ -61,10 +61,8 @@ public class RecentGameHolder extends TPHolder<Game> {
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         trafficLights = (ImageView) itemView.findViewById(R.id.trafficLightsimage);
         usernameText = (TextView) itemView.findViewById(R.id.username);
-        TextViewCompat.setTextAppearance(usernameText, R.style.TPTextStyleMedium);
         usernameText.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
         statusText = (TextView) itemView.findViewById(R.id.status);
-        TextViewCompat.setTextAppearance(statusText, R.style.TPTextStyleSmall);
     }
 
     @Override

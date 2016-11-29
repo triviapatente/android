@@ -6,9 +6,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +84,7 @@ public class MainButton extends LinearLayout {
         mainTextView.setLayoutParams(params);
         // text
         mainTextView.setGravity(Gravity.CENTER);
-        TextViewCompat.setTextAppearance(mainTextView, R.style.TPTextStyleMedium);
+        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeMedium));
         this.addView(mainTextView);
 
         // hints on the right
@@ -107,7 +109,7 @@ public class MainButton extends LinearLayout {
             public View makeView() {
                 TextView myText = new TextView(getContext());
                 myText.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
-                TextViewCompat.setTextAppearance(myText, R.style.TPTextStyleVerySmall);
+                myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.TPTextSizeVerySmall));
                 myText.setTextColor(color);
                 myText.setSingleLine(true);
                 myText.setEllipsize(TextUtils.TruncateAt.MIDDLE);

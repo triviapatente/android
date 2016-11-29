@@ -20,4 +20,10 @@ public class User extends CommonPK {
     @SerializedName("last_game_won") public Boolean last_game_won;
 
     public User() {}
+
+    public User(String username, String image, Boolean last_game_won) {
+        this.username = username;
+        this.image = image;
+        this.last_game_won = last_game_won;
+    }
 }

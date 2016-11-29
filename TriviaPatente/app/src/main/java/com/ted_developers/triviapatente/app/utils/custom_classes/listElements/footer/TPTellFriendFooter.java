@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class TPTellFriendFooter extends TPFooter {
         itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.mainColor));
         Button tellAFriendButton = new Button(context);
         tellAFriendButton.setBackground(ContextCompat.getDrawable(context, R.drawable.tell_a_friend_button));
-        TextViewCompat.setTextAppearance(tellAFriendButton, R.style.TPTextStyleSmall);
+        tellAFriendButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeSmall));
         tellAFriendButton.setTextColor(Color.WHITE);
         tellAFriendButton.setText(R.string.tell_a_friend_button_text);
         int padding = (int) context.getResources().getDimension(R.dimen.tell_a_friend_button_padding);

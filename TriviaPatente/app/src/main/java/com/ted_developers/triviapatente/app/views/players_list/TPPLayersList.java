@@ -29,21 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TPPLayersList<T> extends Fragment {
-    // all or friends
-    @BindView(R.id.all_button)
-    Button allButton;
-    @BindView(R.id.friends_button) Button friendsButton;
-    @BindDrawable(R.drawable.all_button_not_selected)
-    Drawable allButtonNotSelected;
-    @BindDrawable(R.drawable.all_button_selected) Drawable allButtonSelected;
-    @BindDrawable(R.drawable.friends_button_not_selected) Drawable friendsButtonNotSelected;
-    @BindDrawable(R.drawable.friends_button_selected) Drawable friendsButtonSelected;
-    @BindColor(R.color.mainColor) @ColorInt
-    int mainColor;
-    @BindColor(android.R.color.white) @ColorInt int whiteColor;
-    // search
-    @BindView(R.id.search_bar)
-    LinearLayout searchBar;
+    @BindColor(R.color.mainColor) @ColorInt int mainColor;
     // players list
     @BindView(R.id.listView) RecyclerView listView;
     TPListFillWithFooterAdapter<T> adapter;
@@ -69,25 +55,5 @@ public class TPPLayersList<T> extends Fragment {
     public void setItems(List<T> list, @LayoutRes int layout, Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass, int elementHeight) {
         adapter = new TPListFillWithFooterAdapter<>(getContext(), list, layout, holderClass, footerClass, elementHeight, listView);
         listView.setAdapter(adapter);
-    }
-
-    @OnClick(R.id.all_button)
-    public void allButtonClick() {
-        allButton.setBackground(allButtonSelected);
-        searchBar.setVisibility(View.VISIBLE);
-        friendsButton.setBackground(friendsButtonNotSelected);
-        allButton.setTextColor(whiteColor);
-        friendsButton.setTextColor(mainColor);
-        // todo do stuff
-    }
-
-    @OnClick(R.id.friends_button)
-    public void friendsButtonClick() {
-        friendsButton.setBackground(friendsButtonSelected);
-        allButton.setBackground(allButtonNotSelected);
-        searchBar.setVisibility(View.GONE);
-        allButton.setTextColor(mainColor);
-        friendsButton.setTextColor(whiteColor);
-        // todo do stuff
     }
 }

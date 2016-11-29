@@ -49,7 +49,6 @@ public class InviteHolder extends TPHolder<Invite> {
         this.context = context;
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameText = (TextView) itemView.findViewById(R.id.username);
-        TextViewCompat.setTextAppearance(usernameText, R.style.TPTextStyleMedium);
         usernameText.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
         acceptButton = (ImageButton) itemView.findViewById(R.id.acceptButton);
         declineButton = (ImageButton) itemView.findViewById(R.id.declineButton);

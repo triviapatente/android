@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/text_size_very_small_padding"
+            android:textSize="@dimen/TPTextSizeSmall"
             android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
     </LinearLayout>
@@ -71,6 +72,7 @@
         android:id="@+id/toolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:textSize="@dimen/TPTextSizeLarge"
         android:textColor="@android:color/white"
         android:gravity="center"
         android:layout_centerInParent="true"/>

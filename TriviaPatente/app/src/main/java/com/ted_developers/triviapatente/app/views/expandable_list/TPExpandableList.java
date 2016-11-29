@@ -59,8 +59,6 @@ public class TPExpandableList<T> extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tpexpandable_list, container, false);
         ButterKnife.bind(this, v);
-        TextViewCompat.setTextAppearance(listTitle, R.style.TPTextStyleMedium);
-        TextViewCompat.setTextAppearance(listCounter, R.style.TPTextStyleMedium);
         listTitle.setTextColor(Color.WHITE);
         listCounter.setTextColor(Color.WHITE);
         listView.addItemDecoration(new DividerItemDecoration(mainColor, v.getWidth()));

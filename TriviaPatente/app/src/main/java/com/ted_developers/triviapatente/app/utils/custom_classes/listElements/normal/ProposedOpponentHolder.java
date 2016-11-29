@@ -39,8 +39,6 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         this.context = context;
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameTextField = (TextView) itemView.findViewById(R.id.username);
-        TextViewCompat.setTextAppearance(usernameTextField, R.style.TPTextStyleMedium);
-        usernameTextField.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
         playButton = (PlayButton) itemView.findViewById(R.id.playButton);
     }
 
@@ -57,7 +55,7 @@ public class ProposedOpponentHolder extends TPHolder<User> {
             usernameTextField.setText(element.name + " " + element.surname);
         } else { usernameTextField.setText(element.username); }
         // set appropriate button
-        if(element.last_game_won) {
+        if(element.last_game_won != null && element.last_game_won) {
             playButton.setPlayNow();
         } else {
             playButton.setNewGame();

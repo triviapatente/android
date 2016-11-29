@@ -5,4 +5,5 @@
     android:layout_height="@dimen/field_height"
     android:textColor="@android:color/white"
     android:background="@drawable/labeledinput_label"
+    android:textSize="@dimen/TPTextSizeSmall"
     android:layout_gravity="center_horizontal" />

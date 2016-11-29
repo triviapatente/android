@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:buttonStyle">@style/TPButtonStyle</item>
         <item name="editTextStyle">@style/TPEditTextStyle</item>
-        <item name="android:textViewStyle">@style/TPTextStyleLarge</item>
+        <item name="android:textViewStyle">@style/TPTextViewStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,38 +19,16 @@
     <style name="TPEditTextStyle" parent="@android:style/Widget.Holo.EditText">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
-    <style name="TPTextStyleLarge" parent="@android:style/TextAppearance.Large">
+    <style name="TPTextViewStyle" parent="@android:style/Widget.Holo.TextView">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">?android:textAppearanceLarge</item>
-    </style>
-
-    <style name="TPTextStyleMedium" parent="@android:style/TextAppearance.Medium">
-        <item name="android:fontFamily">sans-serif-thin</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
-    </style>
-
-    <style name="TPTextStyleSmall" parent="@android:style/TextAppearance.Small">
-        <item name="android:fontFamily">sans-serif-thin</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">?android:textAppearanceSmall</item>
-    </style>
-
-    <style name="TPTextStyleVerySmall" parent="@android:style/TextAppearance.Small">
-        <item name="android:fontFamily">sans-serif-thin</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">?android:textAppearanceSmall</item>
-        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TPButtonStyle" parent="@android:style/Widget.Holo.Button">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
 </resources>
