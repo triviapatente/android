@@ -34,7 +34,6 @@
             android:layout_height="@dimen/field_height"
             android:id="@+id/new_game"
             android:background="@drawable/green_button"
-            android:onClick="openNewGame"
             android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton

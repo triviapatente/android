@@ -41,6 +41,7 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTouch;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -115,13 +116,6 @@ public class MainPageActivity extends AppCompatActivity {
                                     initOptionsHints(response);
                                     initToolbar();
                                     // automatically hide menu
-                                    mainPageContainer.setOnTouchListener(new View.OnTouchListener() {
-                                        @Override
-                                        public boolean onTouch(View v, MotionEvent event) {
-                                            MainPageActivity.this.toolbar.hideMenu();
-                                            return false;
-                                        }
-                                    });
                                     recentGames.touchDownHandler = new Callable<Void>() {
                                         @Override
                                         public Void call() throws Exception {
@@ -277,10 +271,25 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    // touch handlers
+    @OnTouch(R.id.mainPageContainer)
+    public boolean mainPageTouch(MotionEvent event) {
+        if(toolbar.getMenuVisibility() == View.VISIBLE) {
+            toolbar.hideMenu();
+            return false;
+        }
+        return true;
+    }
+
     // button clicks
-    public void openNewGame(View view) {
-        Intent intent = new Intent(this, NewGameActivity.class);
-        startActivity(intent);
+    @OnTouch(R.id.new_game)
+    public boolean newGameClick(MotionEvent event) {
+        if(mainPageTouch(event)) {
+            Intent intent = new Intent(this, NewGameActivity.class);
+            startActivity(intent);
+            return false;
+        }
+        return true;
     }
 
 }

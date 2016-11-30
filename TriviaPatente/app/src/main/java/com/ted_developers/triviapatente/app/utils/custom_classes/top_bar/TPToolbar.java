@@ -54,7 +54,6 @@ public class TPToolbar extends RelativeLayout {
     private View menu;
     private boolean show_menu;
 
-
     public TPToolbar(Context context) {
         super(context);
         init(context);
@@ -88,6 +87,10 @@ public class TPToolbar extends RelativeLayout {
         this.addView(v);
         bindElements();
         initElements(context);
+    }
+
+    public int getMenuVisibility() {
+        return menu.getVisibility();
     }
 
     private void initElements(final Context context) {
