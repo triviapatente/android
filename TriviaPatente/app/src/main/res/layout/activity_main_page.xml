@@ -6,4 +6,19 @@
     tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity">
 
     <include layout="@layout/content_main_page"/>
+
+    <include layout="@layout/loading_view"/>
+
+    <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
+        android:id="@+id/serverDownAlert"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alert_height"
+        android:background="@drawable/alertbox_rounded"
+        android:layout_marginBottom="@dimen/element_margin"
+        android:layout_marginLeft="@dimen/field_margin"
+        android:layout_marginStart="@dimen/field_margin"
+        android:layout_marginRight="@dimen/field_margin"
+        android:layout_marginEnd="@dimen/field_margin"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 </RelativeLayout>

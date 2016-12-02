@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tell_a_friend_button_height"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:paddingRight="@dimen/tell_a_friend_button_padding"
+        android:paddingLeft="@dimen/tell_a_friend_button_padding"
+        android:text="@string/tell_a_friend_button_text"
+        android:background="@drawable/green_button"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

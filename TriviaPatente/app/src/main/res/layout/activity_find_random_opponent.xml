@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".app.views.find_opponent.random.FindRandomOpponentActivity">
 
-    <include layout="@layout/content_find_random_opponent"/>
+    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tp_toolbar_height"
+        android:layout_alignParentTop="true"/>
+
+    <include
+        layout="@layout/loading_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar"/>
 
 </RelativeLayout>

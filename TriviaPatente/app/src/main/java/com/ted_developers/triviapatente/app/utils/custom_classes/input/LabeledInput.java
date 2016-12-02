@@ -1,7 +1,6 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.input;
 
 import android.content.Context;
-import android.support.v4.widget.TextViewCompat;
 import android.text.Editable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -39,10 +38,10 @@ public class LabeledInput extends LinearLayout {
         this.setOrientation(LinearLayout.VERTICAL);
         LayoutInflater inflater = LayoutInflater.from(context);
         // input from template
-        input = (EditText) inflater.inflate(R.layout.tp_edittext_template, null);
+        input = (EditText) inflater.inflate(R.layout.edittext_template, null);
         input.setHeight((int) getResources().getDimension(R.dimen.field_height));
         // label from template
-        label = (TextView) inflater.inflate(R.layout.tp_errorlabel_template, null);
+        label = (TextView) inflater.inflate(R.layout.errorlabel_template, null);
         this.addView(label);
         this.addView(input);
         hideLabel();
