@@ -38,27 +38,4 @@ public class HeartsPictureSettingsTPToolbar extends TPToolbar {
         // hide back button
         backButton.setVisibility(GONE);
     }
-
-    // todo do better
-    private Timer timer;
-    public void startTimer(final Activity activity) {
-        if(timer != null) {
-            timer.cancel();
-        }
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            private int sec = 300;
-            @Override
-            public void run() {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setHeartImage();
-                        setLifeCounter("2");
-                        setHeartsTimer(sec--);
-                    }
-                });
-            }
-        }, 0, 1000);
-    }
 }

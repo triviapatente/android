@@ -29,43 +29,26 @@
             android:textColor="@android:color/white"/>
     </LinearLayout>
 
-    <!-- hearts box -->
-    <LinearLayout
-        android:id="@+id/heartsBox"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="@dimen/tp_toolbar_margin">
+    <!-- heart image or plus with counter -->
+    <RelativeLayout
+        android:id="@+id/heartsBoxImage"
+        android:layout_width="@dimen/heart_image_size"
+        android:layout_height="@dimen/heart_image_size">
 
-        <!-- heart image or plus with counter -->
-        <RelativeLayout
-            android:id="@+id/heartsBoxImage"
+        <!-- heart or plus image -->
+        <ImageView
+            android:id="@+id/heartImage"
             android:layout_width="@dimen/heart_image_size"
-            android:layout_height="@dimen/heart_image_size">
-
-            <!-- heart or plus image -->
-            <ImageView
-                android:id="@+id/heartImage"
-                android:layout_width="@dimen/heart_image_size"
-                android:layout_height="@dimen/heart_image_size"/>
-            <!-- life counter -->
-            <TextSwitcher
-                android:id="@+id/lifeCounter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:paddingTop="@dimen/text_size_very_small_padding"/>
-
-        </RelativeLayout>
-
-        <!-- timer -->
+            android:layout_height="@dimen/heart_image_size"/>
+        <!-- life counter -->
         <TextSwitcher
-            android:id="@+id/heartsTimer"
-            android:layout_width="wrap_content"
+            android:id="@+id/lifeCounter"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/tp_toolbar_margin" />
+            android:layout_centerInParent="true"
+            android:paddingTop="@dimen/text_size_very_small_padding"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <!-- title top bar -->
     <TextView

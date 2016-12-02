@@ -41,10 +41,9 @@ public class TPToolbar extends RelativeLayout {
     protected LinearLayout backButton;
     protected TextView backButtonText;
     // hearts box
-    protected LinearLayout heartsBox;
+    protected RelativeLayout heartsBox;
     protected ImageView heartImage;
     protected TextSwitcher lifeCounter;
-    protected TextSwitcher heartsTimer;
     // title
     protected TextView toolbarTitle;
     // profile picture
@@ -52,7 +51,7 @@ public class TPToolbar extends RelativeLayout {
     // settings
     protected LinearLayout settings;
     // menu
-    private View menu;
+    public View menu;
     private boolean show_menu;
 
     public TPToolbar(Context context) {
@@ -111,21 +110,6 @@ public class TPToolbar extends RelativeLayout {
                 return myText;
             }
         });
-        heartsTimer.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                TextView myText = new TextView(context);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                );
-                myText.setLayoutParams(params);
-                myText.setGravity(Gravity.CENTER_VERTICAL);
-                myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeSmall));
-                myText.setTextColor(Color.WHITE);
-                return myText;
-            }
-        });
     }
 
     // bind all elements through their id
@@ -134,10 +118,9 @@ public class TPToolbar extends RelativeLayout {
         backButton = (LinearLayout) findViewById(R.id.backButton);
         backButtonText = (TextView) findViewById(R.id.backButtonText);
         // hearts box
-        heartsBox = (LinearLayout) findViewById(R.id.heartsBox);
+        heartsBox = (RelativeLayout) findViewById(R.id.heartsBoxImage);
         heartImage = (ImageView) findViewById(R.id.heartImage);
         lifeCounter = (TextSwitcher) findViewById(R.id.lifeCounter);
-        heartsTimer = (TextSwitcher) findViewById(R.id.heartsTimer);
         // title
         toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
         // profile picture
@@ -205,11 +188,6 @@ public class TPToolbar extends RelativeLayout {
 
     public void setPlusImage() {
         heartImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.plus));
-    }
-
-    public void setHeartsTimer(int seconds) {
-        String time = DateUtils.formatElapsedTime(seconds);
-        heartsTimer.setText(time);
     }
 
     public void setLifeCounter(String text) {
