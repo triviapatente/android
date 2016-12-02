@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="choose_category_proposed_height">60dp</dimen>
+    <dimen name="choose_category_margin">10dp</dimen>
+    <!-- image -->
+    <dimen name="choose_category_image_size">50dp</dimen>
+    <!-- title -->
+    <dimen name="choose_category_title_margin">10dp</dimen>
+    <!-- chevron -->
+    <dimen name="chevron_button_height">20dp</dimen>
+    <dimen name="chevron_button_width">13dp</dimen>
+
+</resources>
