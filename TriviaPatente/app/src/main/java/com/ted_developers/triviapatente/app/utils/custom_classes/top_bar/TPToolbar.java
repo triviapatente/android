@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.top_bar;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;

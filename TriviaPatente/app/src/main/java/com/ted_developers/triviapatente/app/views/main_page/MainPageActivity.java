@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -49,7 +50,6 @@ public class MainPageActivity extends AppCompatActivity {
     // top bar
     @BindView(R.id.toolbar) HeartsPictureSettingsTPToolbar toolbar;
     @BindString(R.string.main_page_title) String toolbarTitle;
-    @BindView(R.id.mainPageContainer) RelativeLayout mainPageContainer;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
@@ -115,14 +115,6 @@ public class MainPageActivity extends AppCompatActivity {
                                     initOptionsButton();
                                     initOptionsHints(response);
                                     initToolbar();
-                                    // automatically hide menu
-                                    recentGames.touchDownHandler = new Callable<Void>() {
-                                        @Override
-                                        public Void call() throws Exception {
-                                            MainPageActivity.this.toolbar.hideMenu();
-                                            return null;
-                                        }
-                                    };
                                     // load recent games
                                     loadRecentGames();
                                     // show items
@@ -271,25 +263,21 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    // touch handlers
-    @OnTouch(R.id.mainPageContainer)
-    public boolean mainPageTouch(MotionEvent event) {
+    // touch handler
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
         if(toolbar.getMenuVisibility() == View.VISIBLE) {
             toolbar.hideMenu();
             return false;
         }
-        return true;
+        return super.dispatchTouchEvent(ev);
     }
 
     // button clicks
     @OnTouch(R.id.new_game)
     public boolean newGameClick(MotionEvent event) {
-        if(mainPageTouch(event)) {
-            Intent intent = new Intent(this, NewGameActivity.class);
-            startActivity(intent);
-            return false;
-        }
-        return true;
+        Intent intent = new Intent(this, NewGameActivity.class);
+        startActivity(intent);
+        return false;
     }
-
 }

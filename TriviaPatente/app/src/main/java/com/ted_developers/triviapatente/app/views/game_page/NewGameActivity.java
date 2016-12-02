@@ -55,15 +55,15 @@ public class NewGameActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         invites = (TPExpandableList<Invite>) getSupportFragmentManager().findFragmentById(R.id.invites);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // start loading
-        loadingView.setVisibility(View.VISIBLE);
-        // hide other elements
-        bulkVisibilitySetting(View.GONE);
         // init
         init();
     }
 
     private void init() {
+        // start loading
+        loadingView.setVisibility(View.VISIBLE);
+        // hide other elements
+        bulkVisibilitySetting(View.GONE);
         initToolbar();
         loadInvites();
         // show other elements

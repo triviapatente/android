@@ -6,6 +6,9 @@
     <include layout="@layout/profile_picture_and_username"/>
 
     <TextView
+        android:id="@+id/position"
         android:layout_width="@dimen/player_list_item_position_size"
-        android:layout_height="@dimen/player_list_item_position_size"/>
+        android:layout_height="@dimen/player_list_item_position_size"
+        android:layout_marginRight="@dimen/list_item_margin"
+        android:gravity="center"/>
 </LinearLayout>
