@@ -14,10 +14,11 @@ import java.util.List;
  */
 public class TPListFillWithFooterAdapter<T> extends TPListAdapter<T> {
     RecyclerView recyclerView;
-    public TPListFillWithFooterAdapter(Context context, List<T> list, @LayoutRes int layout,
-                                       Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass,
+    public TPListFillWithFooterAdapter(Context context, List<T> list,
+                                       @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                                       @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
                                        int elementHeight, RecyclerView recyclerView) {
-        super(context, list, layout, holderClass, footerClass, elementHeight);
+        super(context, list, holderLayout, holderClass, footerLayout, footerClass, elementHeight);
         this.recyclerView = recyclerView;
     }
 

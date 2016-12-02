@@ -52,8 +52,11 @@ public class TPPLayersList<T> extends Fragment {
         return v;
     }
 
-    public void setItems(List<T> list, @LayoutRes int layout, Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass, int elementHeight) {
-        adapter = new TPListFillWithFooterAdapter<>(getContext(), list, layout, holderClass, footerClass, elementHeight, listView);
+    public void setItems(List<T> list,
+                         @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                         @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
+                         int elementHeight) {
+        adapter = new TPListFillWithFooterAdapter<>(getContext(), list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, listView);
         listView.setAdapter(adapter);
     }
 }

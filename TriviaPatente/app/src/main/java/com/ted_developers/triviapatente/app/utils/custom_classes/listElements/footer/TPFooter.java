@@ -6,9 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -27,7 +29,12 @@ public class TPFooter extends TPHolder<Void> {
     @Override
     public void bind(Void element) {}
 
-    public static void expand(View footer, int toHeight) {
-        footer.startAnimation(new ResizeAnimation(footer, footer.getWidth(), footer.getHeight(), footer.getWidth(), toHeight));
+    public static void expand(View footer, int toHeight, int waitTime, int animTime) {
+        if(footer != null && footer.getVisibility() != View.GONE) {
+            ResizeAnimation anim = new ResizeAnimation(footer, footer.getWidth(), footer.getHeight(), footer.getWidth(), toHeight);
+            anim.setDuration(waitTime - 100); // 100 --> tollerance
+            anim.setStartOffset(animTime);
+            footer.startAnimation(anim);
+        }
     }
 }

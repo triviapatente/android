@@ -3,10 +3,8 @@ package com.ted_developers.triviapatente.app.views.main_page;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,7 +16,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.button.main.Mai
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPRecentGamesFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar;
@@ -35,7 +33,6 @@ import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
@@ -230,7 +227,10 @@ public class MainPageActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().recent_games != null) {
-                        recentGames.setItems(response.body().recent_games, R.layout.recent_game, RecentGameHolder.class, TPRecentGamesFooter.class, recentGameHeight);
+                        recentGames.setItems(response.body().recent_games,
+                                R.layout.recent_game, RecentGameHolder.class,
+                                R.layout.recent_games_footer, TPFooter.class,
+                                recentGameHeight);
                         counter = response.body().recent_games.size();
                     }
                     recentGames.setListCounter(counter);

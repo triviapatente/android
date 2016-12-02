@@ -1,37 +1,27 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.top_bar;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.TextViewCompat;
-import android.text.Layout;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toolbar;
 import android.widget.ViewSwitcher;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
-
-import java.util.concurrent.Callable;
 
 /**
  * Created by Antonio on 31/10/16.
@@ -77,7 +67,7 @@ public class TPToolbar extends RelativeLayout {
 
     private void init(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.tp_toolbar, null);
+        View v = inflater.inflate(R.layout.toolbar, null);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -134,7 +124,7 @@ public class TPToolbar extends RelativeLayout {
         final RelativeLayout parent = (RelativeLayout) getParent();
         // inflate
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        menu = inflater.inflate(R.layout.tp_menu, null);
+        menu = inflater.inflate(R.layout.menu, null);
         menu.setVisibility(GONE);
         show_menu = true;
         // set on click

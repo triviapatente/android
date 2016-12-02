@@ -23,10 +23,11 @@ import java.util.List;
 public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
     TPExpandableList<T> expandableList;
 
-    public TPExpandableListAdapter(Context context, List<T> list, @LayoutRes int layout,
-                                   Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass,
+    public TPExpandableListAdapter(Context context, List<T> list,
+                                   @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                                   @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
                                    int elementHeight, TPExpandableList<T> expandableList) {
-        super(context, list, layout, holderClass, footerClass, elementHeight);
+        super(context, list, holderLayout, holderClass, footerLayout, footerClass, elementHeight);
         this.expandableList = expandableList;
     }
 
@@ -48,8 +49,6 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
     }
 
     protected void doOtherStuffBeforeItemRemoved() {
-        if(expandableList.maximized) {
-            TPFooter.expand(expandableList.listLayoutManager.findViewByPosition(getItemCount()), computeFooterHeight());
-        }
+        TPFooter.expand(expandableList.listLayoutManager.getChildAt(getItemCount()), computeFooterHeight(), expandableList.removeTime, expandableList.removeTime);
     }
 }

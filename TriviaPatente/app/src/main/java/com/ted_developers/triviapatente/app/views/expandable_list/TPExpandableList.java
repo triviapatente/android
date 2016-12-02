@@ -31,12 +31,12 @@ public class TPExpandableList<T> extends Fragment {
     public TPExpandableListAdapter<T> adapter;
     @BindView(R.id.listTitle) TextView listTitle;
     @BindView(R.id.listCounter) TextView listCounter;
-    @BindView(R.id.listView) RecyclerView listView;
+    @BindView(R.id.listView) public RecyclerView listView;
     @BindView(R.id.listHeader) RelativeLayout listHeader;
     // list dimens
     @BindDimen(R.dimen.list_title_height) public int titleHeight;
     // expandable list utils
-    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight;
+    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight, removeTime = 350, moveTime = 200;
     ResizeAnimation maximize, minimize, forcedMinimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     public boolean maximized = false;
@@ -67,12 +67,17 @@ public class TPExpandableList<T> extends Fragment {
         TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
         listHeader.setOnTouchListener(swipeListener);
         listView.setOnTouchListener(swipeListener);
+        listView.getItemAnimator().setRemoveDuration(removeTime);
+        listView.getItemAnimator().setMoveDuration(moveTime);
         return v;
     }
 
-    public void setItems(List<T> list, @LayoutRes int layout, Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass, int elementHeight) {
+    public void setItems(List<T> list,
+                         @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                         @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
+                         int elementHeight) {
         this.elementHeight = elementHeight;
-        adapter = new TPExpandableListAdapter<>(getContext(), list, layout, holderClass, footerClass, elementHeight, this);
+        adapter = new TPExpandableListAdapter<>(getContext(), list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, this);
         listView.setAdapter(adapter);
         listHeader.setVisibility(View.VISIBLE);
     }
@@ -98,6 +103,7 @@ public class TPExpandableList<T> extends Fragment {
         minimize = new ResizeAnimation(getView(), getView().getWidth(), maximizedHeight, getView().getWidth(), minimizedHeight);
         minimize.setDuration(duration);
         forcedMinimize = new ResizeAnimation(getView(), getView().getWidth(), oldMinimizedHeight, getView().getWidth(), minimizedHeight);
+        forcedMinimize.setStartOffset(removeTime);
         if(firstTime) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, minimizedHeight);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

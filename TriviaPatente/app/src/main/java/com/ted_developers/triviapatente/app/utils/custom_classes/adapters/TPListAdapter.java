@@ -24,21 +24,23 @@ import java.util.List;
 public class TPListAdapter<T> extends RecyclerView.Adapter {
     protected Context context;
     public List<T> items;
-    @LayoutRes int layout;
+    @LayoutRes int holderLayout, footerLayout;
     public int min_footer_height, elementHeight;
     Class<? extends TPFooter> footerClass;
     Class<? extends TPHolder<T>> holderClass;
 
-    public TPListAdapter(Context context, List<T> list, @LayoutRes int layout,
-                         Class<? extends TPHolder<T>> holderClass, Class<? extends TPFooter> footerClass,
+    public TPListAdapter(Context context, List<T> list,
+                         @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                         @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
                          int elementHeight) {
         this.context = context;
         this.items = list;
-        this.layout = layout;
+        this.holderLayout = holderLayout;
         this.holderClass = holderClass;
+        this.footerLayout = footerLayout;
+        this.footerClass = footerClass;
         this.min_footer_height = (int) context.getResources().getDimension(R.dimen.min_footer_height);
         this.elementHeight = elementHeight;
-        this.footerClass = footerClass;
     }
 
     protected int computeFooterHeight() {
@@ -47,12 +49,12 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
 
     protected RecyclerView.ViewHolder createFooterHolder() {
         try {
-            return footerClass.getConstructor(View.class).newInstance(new RelativeLayout(context));
+            return footerClass.getConstructor(View.class).newInstance(LayoutInflater.from(context).inflate(footerLayout, null));
         } catch (Exception e){ return null; }
     }
 
     protected RecyclerView.ViewHolder createNormalHolder() {
-        View v = LayoutInflater.from(context).inflate(layout, null);
+        View v = LayoutInflater.from(context).inflate(holderLayout, null);
         try {
             return holderClass.getConstructor(View.class, Context.class).newInstance(v, context);
         } catch (Exception e) { return createNormalHolderWithCustomConstructor(v); }

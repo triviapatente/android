@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPInvitesFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
@@ -99,7 +99,10 @@ public class NewGameActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().invites != null) {
-                        invites.setItems(response.body().invites, R.layout.invite, InviteHolder.class, TPInvitesFooter.class ,inviteHeight);
+                        invites.setItems(response.body().invites,
+                                R.layout.invite, InviteHolder.class,
+                                R.layout.invites_footer, TPFooter.class,
+                                inviteHeight);
                         counter = response.body().invites.size();
                     }
                     invites.setListCounter(counter);
