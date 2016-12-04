@@ -66,6 +66,7 @@ public class FindOpponentActivity extends AppCompatActivity {
     @BindColor(android.R.color.white) @ColorInt int whiteColor;
     // search
     @BindView(R.id.search_bar) EditText searchBar;
+    private boolean all;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // toolbar
@@ -128,31 +129,37 @@ public class FindOpponentActivity extends AppCompatActivity {
     }
 
     private void doSearch(String username) {
-        if(username.equals("")) loadPlayers();
-        loadingView.setVisibility(View.VISIBLE);
-        Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
-        call.enqueue(new TPCallback<SuccessUsers>() {
-            @Override
-            public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
-                if(response.code() == 200) {
-                    if(response.body().users.size() == 0) {
-                        // todo show no user matching
-                    } else {
-                        setPlayersListItems(response.body().users);
+        if(all) {
+            if(username.equals("")) loadPlayers();
+            loadingView.setVisibility(View.VISIBLE);
+            Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
+            call.enqueue(new TPCallback<SuccessUsers>() {
+                @Override
+                public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
+                    if(response.code() == 200) {
+                        if(response.body().users.size() == 0) {
+                            // todo show no user matching
+                            Log.i("TEST", "no users");
+                        } else {
+                            setPlayersListItems(response.body().users);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                @Override
+                public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
 
-            }
+                }
 
-            @Override
-            public void then() {
-                loadingView.setVisibility(View.GONE);
-            }
-        });
+                @Override
+                public void then() {
+                    loadingView.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            // todo search on friends
+        }
+
     }
 
     private void initPlayerList() {
@@ -230,6 +237,7 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     @OnClick(R.id.all_button)
     public void allButtonClick() {
+        all = true;
         searchBar.setText("");
         blurredView.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
@@ -242,6 +250,7 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     @OnClick(R.id.friends_button)
     public void friendsButtonClick() {
+        all = false;
         searchBar.setText("");
         loadingView.setVisibility(View.VISIBLE);
         friendsButton.setBackground(friendsButtonSelected);
