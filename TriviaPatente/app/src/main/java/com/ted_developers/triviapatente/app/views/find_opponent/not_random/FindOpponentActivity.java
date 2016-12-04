@@ -1,19 +1,29 @@
 package com.ted_developers.triviapatente.app.views.find_opponent.not_random;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.BlurredImagesMaker;
+import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
@@ -56,10 +66,10 @@ public class FindOpponentActivity extends AppCompatActivity {
     @BindString(R.string.find_opponent_title) String toolbarTitle;
     @BindString(R.string.new_game_title) String backTitle;
     // players
-    TPPLayersList<User> playersList;
+    @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
     // friends not shown
-    List<User> friendsNotShown = Arrays.asList(
+    List<User> fakeUsers = Arrays.asList(
             new User("TriviaPatente", null, true),
             new User("UnGioco", null, true),
             new User("Davvero", null, false),
@@ -72,15 +82,16 @@ public class FindOpponentActivity extends AppCompatActivity {
             new User("LoAdoro", null, false)
     );
     // modal
-    @BindView(R.id.modal_facebook) RelativeLayout facebookModal;
-    @BindView(R.id.exit_button) ImageButton exitButton;
+    @BindView(R.id.playersListBlock) RelativeLayout playersListBlock;
+    private boolean firstTime = true;
+    private AccountLinkerDialog facebookDialog;
+    @BindView(R.id.blurredView) View blurredView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_opponent);
         ButterKnife.bind(this);
-        playersList = (TPPLayersList<User>) getSupportFragmentManager().findFragmentById(R.id.players);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // init
         init();
@@ -88,17 +99,41 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     private void init() {
         // hide other elements
-        playersList.getView().setVisibility(View.GONE);
+        initPlayerList();
         // start loading
         loadingView.setVisibility(View.VISIBLE);
         initToolbar();
         allButtonClick();
     }
 
+    private void initPlayerList() {
+        playersList.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void initDialog() {
+        facebookDialog = new AccountLinkerDialog(this) {
+            @Override
+            public void onExit() {
+                allButtonClick();
+                this.hide();
+            }
+
+            @Override
+            public void onConfirm() {
+                // todo connect to facebook
+            }
+        };
+        WindowManager.LayoutParams params
+                = facebookDialog.getWindow().getAttributes();
+        params.gravity = Gravity.TOP;
+        params.y = (int) playersListBlock.getY();
+        facebookDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+    }
+
     private void setPlayersListItems(List<User> userList) {
-        playersList.getView().setVisibility(View.GONE);
-        playersList.setItems(userList, R.layout.proposed_opponent, ProposedOpponentHolder.class, R.layout.tell_a_friend_footer, TPFooter.class, playerListItemHeight);
-        playersList.getView().setVisibility(View.VISIBLE);
+        playersList.setVisibility(View.GONE);
+        playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.proposed_opponent, ProposedOpponentHolder.class, R.layout.tell_a_friend_footer, TPFooter.class, playerListItemHeight, playersList));
+        playersList.setVisibility(View.VISIBLE);
     }
 
     private void loadPlayers() {
@@ -110,7 +145,7 @@ public class FindOpponentActivity extends AppCompatActivity {
                     setPlayersListItems(response.body().users);
                 }
                 // show other items
-                playersList.getView().setVisibility(View.VISIBLE);
+                playersList.setVisibility(View.VISIBLE);
                 // stop loading
                 loadingView.setVisibility(View.GONE);
             }
@@ -146,14 +181,13 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     @OnClick(R.id.all_button)
     public void allButtonClick() {
+        blurredView.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
         allButton.setBackground(allButtonSelected);
         friendsButton.setBackground(friendsButtonNotSelected);
         allButton.setTextColor(whiteColor);
         friendsButton.setTextColor(mainColor);
-        facebookModal.setVisibility(View.GONE);
         loadPlayers();
-        playersList.getView().setClickable(false);
     }
 
     @OnClick(R.id.friends_button)
@@ -167,16 +201,14 @@ public class FindOpponentActivity extends AppCompatActivity {
         if (false) {
             // todo load friends
         } else {
-            facebookModal.setVisibility(View.VISIBLE);
-            setPlayersListItems(friendsNotShown);
-            playersList.getView().setClickable(true);
-            // todo make blurred background
+            setPlayersListItems(fakeUsers);
+            if(firstTime) {
+                initDialog();
+                firstTime = false;
+            }
+            // todo blur
+            facebookDialog.show();
         }
         loadingView.setVisibility(View.GONE);
-    }
-
-    @OnClick(R.id.exit_button)
-    public void exitButton() {
-        allButtonClick();
     }
 }

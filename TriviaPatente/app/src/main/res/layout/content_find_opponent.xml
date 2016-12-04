@@ -17,6 +17,7 @@
         android:layout_below="@+id/toolbar"/>
 
     <RelativeLayout
+        android:id="@+id/playersListBlock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/all_or_friends"
@@ -24,23 +25,15 @@
 
         <include layout="@layout/loading_view"/>
 
-        <RelativeLayout
-            android:id="@+id/blurred"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <fragment
-                android:id="@+id/players"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.ted_developers.triviapatente.app.views.players_list.TPPLayersList">
-            </fragment>
-        </RelativeLayout>
-        <include
-            layout="@layout/modal_view_connect_to_facebook"
+            android:layout_height="match_parent"
+            android:id="@+id/playerList"/>
+
+        <View
+            android:id="@+id/blurredView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/connectToFacebookMargin"
-            android:layout_centerInParent="true"/>
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 
 </RelativeLayout>

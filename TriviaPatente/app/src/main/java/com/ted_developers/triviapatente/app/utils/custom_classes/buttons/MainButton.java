@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.button.main;
+package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

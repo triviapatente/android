@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="@dimen/modalWidth"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/connectToFacebookMargin"
     android:id="@+id/modal_facebook"
-    android:background="@drawable/modal_rounded">
+    android:background="@drawable/modal_rounded"
+    android:layout_marginTop="@dimen/modalTopMargin">
 
     <ImageButton
         android:id="@+id/exit_button"
@@ -25,7 +25,7 @@
         android:textSize="@dimen/TPTextSizeLarge"
         android:text="@string/connectToFacebookTitle"
         android:layout_marginTop="@dimen/connectToFacebookMargin"/>
-    
+
     <LinearLayout
         android:id="@+id/connectToFacebookImage"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_below="@+id/connectToFacebookTitle"
         android:layout_marginTop="@dimen/connectToFacebookMargin"
         android:orientation="horizontal">
-        
+
         <ImageView
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
@@ -51,7 +51,7 @@
             android:layout_height="@dimen/image_button_size"
             android:layout_marginLeft="@dimen/connectToFacebookImageMargin"
             android:background="@drawable/heart_red"/>
-        
+
     </LinearLayout>
 
     <TextView
@@ -76,6 +76,7 @@
             android:background="@android:color/white"/>
 
         <Button
+            android:id="@+id/connectionConfirmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"

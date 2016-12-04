@@ -27,33 +27,33 @@
         android:orientation="vertical"
         android:layout_below="@id/toolbar">
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/new_game"
             android:background="@drawable/green_button"
-            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton>
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/rank"
             android:background="@drawable/orange_button"
-            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton>
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/stats"
             android:background="@drawable/yellow_button"
-            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton>
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton
+        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/shop"
             android:background="@drawable/red_button"
-            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.button.main.MainButton>
+            android:layout_marginBottom="@dimen/element_margin"></com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton>
     </LinearLayout>
 
     <fragment
