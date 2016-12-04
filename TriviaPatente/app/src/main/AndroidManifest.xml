@@ -34,7 +34,8 @@
         <activity
             android:name=".app.views.find_opponent.not_random.FindOpponentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".app.views.find_opponent.random.FindRandomOpponentActivity"
             android:screenOrientation="portrait"

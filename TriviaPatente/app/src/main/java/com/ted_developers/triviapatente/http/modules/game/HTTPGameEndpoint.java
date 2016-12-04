@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.http.modules.game;
 
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessBadge;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
@@ -13,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Antonio on 22/10/16.
@@ -40,4 +42,7 @@ public interface HTTPGameEndpoint {
 
     @GET("game/users/suggested")
     Call<SuccessUsers> getSuggestedUsers();
+
+    @GET("game/users/search")
+    Call<SuccessUsers> getSearchResult(@Query("query") String query);
 }

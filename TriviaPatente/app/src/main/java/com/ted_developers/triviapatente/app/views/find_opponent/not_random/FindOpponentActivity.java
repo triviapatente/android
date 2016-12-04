@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.find_opponent.not_random;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,11 +14,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.BlurredImagesMaker;
@@ -58,7 +65,7 @@ public class FindOpponentActivity extends AppCompatActivity {
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
     @BindColor(android.R.color.white) @ColorInt int whiteColor;
     // search
-    @BindView(R.id.search_bar) LinearLayout searchBar;
+    @BindView(R.id.search_bar) EditText searchBar;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // toolbar
@@ -104,6 +111,48 @@ public class FindOpponentActivity extends AppCompatActivity {
         loadingView.setVisibility(View.VISIBLE);
         initToolbar();
         allButtonClick();
+        initSearchBar();
+    }
+
+    private void initSearchBar() {
+        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    FindOpponentActivity.this.doSearch(searchBar.getText().toString());
+                    hideKeyboard();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void doSearch(String username) {
+        if(username.equals("")) loadPlayers();
+        loadingView.setVisibility(View.VISIBLE);
+        Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
+        call.enqueue(new TPCallback<SuccessUsers>() {
+            @Override
+            public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
+                if(response.code() == 200) {
+                    if(response.body().users.size() == 0) {
+                        // todo show no user matching
+                    } else {
+                        setPlayersListItems(response.body().users);
+                    }
+                }
+            }
+
+            @Override
+            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+
+            }
+
+            @Override
+            public void then() {
+                loadingView.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void initPlayerList() {
@@ -181,6 +230,7 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     @OnClick(R.id.all_button)
     public void allButtonClick() {
+        searchBar.setText("");
         blurredView.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
         allButton.setBackground(allButtonSelected);
@@ -192,6 +242,7 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     @OnClick(R.id.friends_button)
     public void friendsButtonClick() {
+        searchBar.setText("");
         loadingView.setVisibility(View.VISIBLE);
         friendsButton.setBackground(friendsButtonSelected);
         allButton.setBackground(allButtonNotSelected);
@@ -210,5 +261,21 @@ public class FindOpponentActivity extends AppCompatActivity {
             facebookDialog.show();
         }
         loadingView.setVisibility(View.GONE);
+    }
+
+    // touch handler
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        hideKeyboard();
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
