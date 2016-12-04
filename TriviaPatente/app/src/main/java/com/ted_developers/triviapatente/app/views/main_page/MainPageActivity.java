@@ -89,15 +89,15 @@ public class MainPageActivity extends AppCompatActivity {
         ButterKnife.bind(MainPageActivity.this);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // start loading
-        loadingView.setVisibility(View.VISIBLE);
-        // hide other elements
-        bulkVisibilitySetting(View.GONE);
         // init
         init();
     }
 
     private void init() {
+        // start loading
+        loadingView.setVisibility(View.VISIBLE);
+        // hide other elements
+        bulkVisibilitySetting(View.GONE);
         // connect to socket
         BaseSocketManager.connect(new SimpleCallback() {
             // on connect

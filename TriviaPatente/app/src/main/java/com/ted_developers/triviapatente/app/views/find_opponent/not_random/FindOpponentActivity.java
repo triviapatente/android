@@ -82,15 +82,15 @@ public class FindOpponentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         playersList = (TPPLayersList<User>) getSupportFragmentManager().findFragmentById(R.id.players);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // hide other elements
-        playersList.getView().setVisibility(View.GONE);
-        // start loading
-        loadingView.setVisibility(View.VISIBLE);
         // init
         init();
     }
 
     private void init() {
+        // hide other elements
+        playersList.getView().setVisibility(View.GONE);
+        // start loading
+        loadingView.setVisibility(View.VISIBLE);
         initToolbar();
         allButtonClick();
     }
