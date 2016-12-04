@@ -26,25 +26,25 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     public List<T> items;
     @LayoutRes int holderLayout, footerLayout;
     public int min_footer_height, elementHeight;
-    Class<? extends TPFooter> footerClass;
-    Class<? extends TPHolder<T>> holderClass;
+    protected Class<? extends TPFooter> footerClass;
+    protected Class<? extends TPHolder<T>> holderClass;
+    protected RecyclerView recyclerView;
+    protected int extraElements;
 
     public TPListAdapter(Context context, List<T> list,
                          @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
                          @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
-                         int elementHeight) {
+                         int elementHeight, RecyclerView recyclerView) {
         this.context = context;
         this.items = list;
         this.holderLayout = holderLayout;
         this.holderClass = holderClass;
         this.footerLayout = footerLayout;
-        this.footerClass = footerClass;
+        extraElements = (footerLayout == 0)? 0 : 1;
+        this.footerClass = (footerClass == null)? TPFooter.class : footerClass;
         this.min_footer_height = (int) context.getResources().getDimension(R.dimen.min_footer_height);
         this.elementHeight = elementHeight;
-    }
-
-    protected int computeFooterHeight() {
-        return min_footer_height;
+        this.recyclerView = recyclerView;
     }
 
     protected RecyclerView.ViewHolder createFooterHolder() {
@@ -95,7 +95,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return items.size() + 1; // there is always a footer
+        return items.size() + extraElements; // there is always a footer
     }
 
     @Override
@@ -113,7 +113,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     } // not provided
 
     private boolean isPositionFooter(int position) {
-        return position == items.size();
+        return (footerLayout == 0)? false : position == items.size();
     }
 
     public class VIEW_TYPES {
@@ -122,12 +122,62 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
         public static final int Footer = 3;
     }
 
-    protected void doOtherStuffBeforeItemRemoved() {}
+    // REMOVE ITEM
 
     public void removeItem(T element) {
         int position = items.indexOf(element);
         items.remove(position);
-        doOtherStuffBeforeItemRemoved();
+        doStuffBeforeItemRemoved();
         notifyItemRemoved(position);
+        doStuffAfterItemRemoved();
+    }
+
+    protected void doStuffBeforeItemRemoved() {}
+    protected void doStuffAfterItemRemoved() {}
+
+    // ADD ITEM
+
+    public void addItem(T element, int position) {
+        items.add(position, element);
+        doStuffBeforeItemAdd();
+        notifyItemInserted(position);
+        doStuffAfterItemAdd();
+    }
+
+    protected void doStuffBeforeItemAdd() {}
+    protected void doStuffAfterItemAdd() {}
+
+    // FOOTER HEIGHT MANAGEMENT
+
+    protected int computeFooterHeight() {
+        return footerAtLeastMinHeight();
+    }
+
+    private int theoreticalFooterHeight() {
+        return recyclerView.getHeight() - items.size() * elementHeight + recyclerView.computeVerticalScrollOffset();
+    }
+
+    protected int footerAtLeastMinHeight() {
+        int height = theoreticalFooterHeight();
+        // always shows a footer
+        if(height < min_footer_height) {
+            height = min_footer_height;
+        }
+        return height;
+    }
+
+    protected final int footerOnlyWithoutItems() {
+        return (items.size() == 0)? recyclerView.getHeight() : 0;
+    }
+
+    protected final int footerExpHeight() {
+        int height = theoreticalFooterHeight();
+        // if visible at least, show it with min height
+        if(height > 0 && height < min_footer_height) {
+            height = min_footer_height;
+        } else if (height < 0) {
+            height = 0;
+        }
+        return height;
     }
 }

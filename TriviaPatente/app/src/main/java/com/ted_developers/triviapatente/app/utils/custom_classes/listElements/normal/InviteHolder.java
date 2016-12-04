@@ -91,8 +91,6 @@ public class InviteHolder extends TPHolder<Invite> {
                 if(response.code() == 200 && response.body().success) {
                     // remove element
                     expandableList.adapter.removeItem(element);
-                    // update counter
-                    expandableList.setListCounter(expandableList.adapter.getItemCount() - 1, false);
                     // eventually change height
                     expandableList.updateMinimized();
                 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.ResizeAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPExpandableListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
@@ -36,7 +36,7 @@ public class TPExpandableList<T> extends Fragment {
     // list dimens
     @BindDimen(R.dimen.list_title_height) public int titleHeight;
     // expandable list utils
-    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight, removeTime = 350, moveTime = 200;
+    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight, add_remove_time = 350, moveTime = 200;
     ResizeAnimation maximize, minimize, forcedMinimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     public boolean maximized = false;
@@ -67,8 +67,9 @@ public class TPExpandableList<T> extends Fragment {
         TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
         listHeader.setOnTouchListener(swipeListener);
         listView.setOnTouchListener(swipeListener);
-        listView.getItemAnimator().setRemoveDuration(removeTime);
+        listView.getItemAnimator().setRemoveDuration(add_remove_time);
         listView.getItemAnimator().setMoveDuration(moveTime);
+        listView.getItemAnimator().setAddDuration(add_remove_time);
         return v;
     }
 
@@ -103,7 +104,7 @@ public class TPExpandableList<T> extends Fragment {
         minimize = new ResizeAnimation(getView(), getView().getWidth(), maximizedHeight, getView().getWidth(), minimizedHeight);
         minimize.setDuration(duration);
         forcedMinimize = new ResizeAnimation(getView(), getView().getWidth(), oldMinimizedHeight, getView().getWidth(), minimizedHeight);
-        forcedMinimize.setStartOffset(removeTime);
+        forcedMinimize.setStartOffset(add_remove_time);
         if(firstTime) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, minimizedHeight);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

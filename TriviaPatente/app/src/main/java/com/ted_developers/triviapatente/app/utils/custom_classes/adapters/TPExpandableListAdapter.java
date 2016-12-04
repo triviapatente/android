@@ -27,7 +27,7 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
                                    @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
                                    @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
                                    int elementHeight, TPExpandableList<T> expandableList) {
-        super(context, list, holderLayout, holderClass, footerLayout, footerClass, elementHeight);
+        super(context, list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, expandableList.listView);
         this.expandableList = expandableList;
     }
 
@@ -48,7 +48,16 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
         } catch (Exception e) { return null; }
     }
 
-    protected void doOtherStuffBeforeItemRemoved() {
-        TPFooter.expand(expandableList.listLayoutManager.getChildAt(getItemCount()), computeFooterHeight(), expandableList.removeTime, expandableList.removeTime);
+    protected void doStuffBeforeItemRemoved() {
+        TPFooter.expand((extraElements == 0) ? null : expandableList.listLayoutManager.getChildAt(getItemCount()), computeFooterHeight(),
+                expandableList.add_remove_time, expandableList.moveTime);
+    }
+
+    protected void doStuffAfterItemRemoved() {
+        expandableList.setListCounter(items.size(), false);
+    }
+
+    protected void doStuffAfterItemAdd() {
+        expandableList.setListCounter(items.size(), false);
     }
 }

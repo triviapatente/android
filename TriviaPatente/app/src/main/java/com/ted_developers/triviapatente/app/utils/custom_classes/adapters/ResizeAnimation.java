@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.expandable_list;
+package com.ted_developers.triviapatente.app.utils.custom_classes.adapters;
 
 import android.view.View;
 import android.view.ViewGroup;
