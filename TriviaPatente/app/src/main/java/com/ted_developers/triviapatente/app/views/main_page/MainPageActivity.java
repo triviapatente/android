@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.fo
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar;
+import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
@@ -121,6 +122,7 @@ public class MainPageActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
+                            // todo avvisare login richiesto
                             backToFirstAccess();
                         }
                     }
@@ -133,12 +135,7 @@ public class MainPageActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        serverDownAlert.showAlert(serverDownMessage);
-                        serverDownAlert.setVisibility(View.VISIBLE);
-                        // hide items (if triggered when items already displayed)
-                        bulkVisibilitySetting(View.GONE);
-                        // stop loading
-                        loadingView.setVisibility(View.GONE);
+                        errorConnectingToServer();
                     }
                 });
             }
@@ -238,11 +235,21 @@ public class MainPageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void mOnFailure(Call<SuccessGames> call, Throwable t) {}
+            public void mOnFailure(Call<SuccessGames> call, Throwable t) {
+            }
 
             @Override
             public void then() {}
         });
+    }
+
+    private void errorConnectingToServer() {
+        serverDownAlert.showAlert(serverDownMessage);
+        serverDownAlert.setVisibility(View.VISIBLE);
+        // hide items (if triggered when items already displayed)
+        bulkVisibilitySetting(View.GONE);
+        // stop loading
+        loadingView.setVisibility(View.GONE);
     }
 
     private void bulkVisibilitySetting(int visibility) {
@@ -264,26 +271,11 @@ public class MainPageActivity extends AppCompatActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        if(toolbar.getMenuVisibility() == View.VISIBLE && !isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
+        if(toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
             toolbar.hideMenu();
             return false;
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    public static boolean isPointInsideView(float x, float y, View view){
-        int location[] = new int[2];
-        view.getLocationOnScreen(location);
-        int viewX = location[0];
-        int viewY = location[1];
-
-        //point is inside view bounds
-        if(( x > viewX && x < (viewX + view.getWidth())) &&
-                ( y > viewY && y < (viewY + view.getHeight()))){
-            return true;
-        } else {
-            return false;
-        }
     }
 
     // button clicks

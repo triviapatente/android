@@ -35,7 +35,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.fo
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
-import com.ted_developers.triviapatente.app.views.players_list.TPPLayersList;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
