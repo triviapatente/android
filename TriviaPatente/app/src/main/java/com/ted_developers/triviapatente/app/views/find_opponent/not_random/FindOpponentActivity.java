@@ -2,11 +2,8 @@ package com.ted_developers.triviapatente.app.views.find_opponent.not_random;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -75,6 +72,7 @@ public class FindOpponentActivity extends AppCompatActivity {
     // players
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
+    @BindView(R.id.no_users) TextView noUsersAlert;
     // friends not shown
     List<User> fakeUsers = Arrays.asList(
             new User("TriviaPatente", null, true),
@@ -137,10 +135,10 @@ public class FindOpponentActivity extends AppCompatActivity {
                 public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                     if(response.code() == 200) {
                         if(response.body().users.size() == 0) {
-                            // todo show no user matching
-                            Log.i("TEST", "no users");
+                            noUsersAlert.setVisibility(View.VISIBLE);
                         } else {
                             setPlayersListItems(response.body().users);
+                            noUsersAlert.setVisibility(View.GONE);
                         }
                     }
                 }

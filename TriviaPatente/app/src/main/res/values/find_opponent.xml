@@ -5,6 +5,7 @@
     <dimen name="search_height">30dp</dimen>
     <dimen name="search_margin">10dp</dimen>
     <string name="search_hint">Cerca utente</string>
+    <string name="no_user_found">Nessun utente trovato :(</string>
     <!-- all or friends -->
     <dimen name="all_or_friends_button_height">30dp</dimen>
     <dimen name="all_or_friends_margin_vertical">5dp</dimen>

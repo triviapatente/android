@@ -30,6 +30,17 @@
             android:layout_height="match_parent"
             android:id="@+id/playerList"/>
 
+        <TextView
+            android:id="@+id/no_users"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_user_found"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/TPTextSizeMedium"
+            android:visibility="gone"
+            android:background="@color/mainColor"/>
+
         <View
             android:id="@+id/blurredView"
             android:layout_width="match_parent"
