@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/TPTextSizeLarge"
         android:textStyle="bold"
-        android:text="Round 1"
         android:textColor="@android:color/white"
         android:layout_marginLeft="@dimen/game_header_inner_margin"/>
 
@@ -29,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/TPTextSizeMedium"
-        android:text="Categoria ciccio"
         android:textColor="@android:color/white"/>
 
 
