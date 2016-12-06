@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar"
+    android:layout_marginTop="@dimen/tp_toolbar_margin">
+
+    <include layout="@layout/game_header"/>
+
+    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="@dimen/big_profile_picture_size"
+        android:layout_height="@dimen/big_profile_picture_size"
+        android:background="@drawable/no_image"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/gameHeader"
+        android:layout_marginTop="@dimen/wait_page_margin"/>
+
+    <TextView
+        android:layout_width="@dimen/quotes_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/wait_page_margin"
+        android:layout_marginRight="@dimen/wait_page_margin"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Hellloo"
+        android:layout_below="@+id/profilePicture"
+        android:layout_marginTop="@dimen/wait_page_margin"/>
+
+    <include
+        layout="@layout/game_options"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/wait_page_margin"/>
 
 </RelativeLayout>
