@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.find_opponent.not_random;
+package com.ted_developers.triviapatente.app.views.find_opponent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.BlurredImagesMaker;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
@@ -34,6 +33,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPic
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
 import java.util.Arrays;
@@ -65,6 +65,7 @@ public class FindOpponentActivity extends AppCompatActivity {
     private boolean all;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
+    @BindView(R.id.randomLoadingView) RelativeLayout randomLoadingView;
     // toolbar
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
     @BindString(R.string.find_opponent_title) String toolbarTitle;
@@ -98,8 +99,14 @@ public class FindOpponentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_opponent);
         ButterKnife.bind(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // init
-        init();
+        // init toolbar
+        initToolbar();
+        if(getIntent().getBooleanExtra("random", false)) {
+            searchRandomOpponent();
+        } else {
+            // init
+            init();
+        }
     }
 
     private void init() {
@@ -107,7 +114,6 @@ public class FindOpponentActivity extends AppCompatActivity {
         initPlayerList();
         // start loading
         loadingView.setVisibility(View.VISIBLE);
-        initToolbar();
         allButtonClick();
         initSearchBar();
     }
@@ -283,5 +289,29 @@ public class FindOpponentActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    // random opponent
+    private void searchRandomOpponent() {
+        randomLoadingView.setVisibility(View.VISIBLE);
+        Call<SuccessGameUser> call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
+        call.enqueue(new TPCallback<SuccessGameUser>() {
+            @Override
+            public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
+                if(response.code() == 200 && response.body().success) {
+                    Log.i("TEST", response.body().user.username);
+                }
+            }
+
+            @Override
+            public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {
+
+            }
+
+            @Override
+            public void then() {
+
+            }
+        });
     }
 }

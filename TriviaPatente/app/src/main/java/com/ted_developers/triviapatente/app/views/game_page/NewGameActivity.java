@@ -16,8 +16,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.fo
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
-import com.ted_developers.triviapatente.app.views.find_opponent.not_random.FindOpponentActivity;
-import com.ted_developers.triviapatente.app.views.find_opponent.random.FindRandomOpponentActivity;
+import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
@@ -121,12 +120,14 @@ public class NewGameActivity extends AppCompatActivity {
     @OnClick(R.id.findOpponent)
     public void findOpponent() {
         Intent intent = new Intent(this, FindOpponentActivity.class);
+        intent.putExtra("random", false);
         this.startActivity(intent);
     }
 
     @OnClick(R.id.findRandomOpponent)
     public void findRandomOpponent() {
-        Intent intent = new Intent(this, FindRandomOpponentActivity.class);
+        Intent intent = new Intent(this, FindOpponentActivity.class);
+        intent.putExtra("random", true);
         this.startActivity(intent);
     }
 
