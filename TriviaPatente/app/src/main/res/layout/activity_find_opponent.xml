@@ -6,15 +6,22 @@
     tools:context=".app.views.find_opponent.FindOpponentActivity">
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tp_toolbar_height"
-        android:layout_alignParentTop="true"/>
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tp_toolbar_height"
+    android:layout_alignParentTop="true"/>
 
-    <include layout="@layout/content_find_opponent"/>
+    <include
+        layout="@layout/content_find_opponent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"/>
 
     <include
         layout="@layout/loading_view"
-        android:id="@+id/randomLoadingView"/>
+        android:id="@+id/randomLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>

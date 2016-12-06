@@ -12,6 +12,9 @@
         android:layout_height="@dimen/tp_toolbar_height"
         android:layout_alignParentTop="true"/>
 
-    <include layout="@layout/content_wait_page"/>
+    <include layout="@layout/content_wait_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>
