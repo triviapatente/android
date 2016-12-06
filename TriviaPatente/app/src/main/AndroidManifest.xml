@@ -35,12 +35,12 @@
             android:name=".app.views.find_opponent.FindOpponentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".app.views.game_page.ChooseCategoryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".app.views.game_page.WaitPageActivity"></activity>
     </application>
 
 </manifest>

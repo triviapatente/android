@@ -5,5 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.ted_developers.triviapatente.app.views.game_page.NewGameActivity">
 
+    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tp_toolbar_height"
+        android:layout_alignParentTop="true"/>
+
+    <include layout="@layout/loading_view"/>
+
     <include layout="@layout/content_new_game"/>
 </RelativeLayout>
