@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tp_toolbar_height"
-        android:layout_alignParentTop="true"/>
-
     <include
         layout="@layout/all_or_friends_and_search"
         android:layout_height="wrap_content"

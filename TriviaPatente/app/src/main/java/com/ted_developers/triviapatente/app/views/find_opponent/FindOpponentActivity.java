@@ -104,18 +104,18 @@ public class FindOpponentActivity extends AppCompatActivity {
         if(getIntent().getBooleanExtra("random", false)) {
             searchRandomOpponent();
         } else {
+            randomLoadingView.setVisibility(View.GONE);
             // init
             init();
         }
     }
 
     private void init() {
-        // hide other elements
-        initPlayerList();
         // start loading
         loadingView.setVisibility(View.VISIBLE);
-        allButtonClick();
         initSearchBar();
+        initPlayerList();
+        allButtonClick();
     }
 
     private void initSearchBar() {
@@ -182,10 +182,9 @@ public class FindOpponentActivity extends AppCompatActivity {
                 // todo connect to facebook
             }
         };
-        WindowManager.LayoutParams params
-                = facebookDialog.getWindow().getAttributes();
-        params.gravity = Gravity.TOP;
-        params.y = (int) playersListBlock.getY();
+        //WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
+        //params.gravity = Gravity.TOP;
+        //params.y = (int) playersList.getY();
         facebookDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
