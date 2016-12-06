@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/mainColor"
+    android:id="@+id/gameHeader">
+
+    <TextView
+        android:id="@+id/gameHeaderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/TPTextSizeLarge"
+        android:textStyle="bold"
+        android:text="Round 1"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="@dimen/game_header_inner_margin"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:layout_marginLeft="@dimen/game_header_inner_margin"
+        android:layout_marginRight="@dimen/game_header_inner_margin"/>
+
+    <TextView
+        android:id="@+id/gameHeaderSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="Categoria ciccio"
+        android:textColor="@android:color/white"/>
+
+
+</LinearLayout>
