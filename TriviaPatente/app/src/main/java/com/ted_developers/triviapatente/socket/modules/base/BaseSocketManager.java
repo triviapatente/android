@@ -64,23 +64,30 @@ public class BaseSocketManager {
 
     public void join_room(Long id, String type, final SocketCallback<Success> onJoinRoomCallback) {
         if(this.id == null && this.type == null) {
-            try {
-                JSONObject room = new JSONObject("{id: " + id + ", type: " + type + "}");
-                emit("join_room", room, Success.class, onJoinRoomCallback);
-                this.id = id;
-                this.type = type;
-            } catch (JSONException e) { e.printStackTrace(); }
+            JSONObject room = createRoom(id, type);
+            emit("join_room", room, Success.class, onJoinRoomCallback);
+            this.id = id;
+            this.type = type;
         }
     }
 
     public void leave_room(final SocketCallback<Success> onLeaveRoomCallback) {
         if(id != null && type != null) {
-            try {
-                JSONObject room = new JSONObject("{id: " + id + ", type: " + type + "}");
-                emit("leave_room", room, Success.class, onLeaveRoomCallback);
-                id = null;
-                type = null;
-            } catch (JSONException e) { e.printStackTrace(); }
+            JSONObject room = createRoom(id, type);
+            emit("leave_room", room, Success.class, onLeaveRoomCallback);
+            id = null;
+            type = null;
+        }
+    }
+
+    private JSONObject createRoom(Long id, String type) {
+        try{
+            JSONObject room = new JSONObject();
+            room.put("id", id);
+            room.put("type", type);
+            return room;
+        } catch (JSONException e) {
+            return null;
         }
     }
 

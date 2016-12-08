@@ -110,21 +110,20 @@ public class GameMainPageActivity extends TPActivity {
                     // todo do init round
                     Log.i("TEST", "ROOM JOINATA");
                 } else {
-                    // todo vedere come avvisare
+                    opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
+                    initToolbar();
+                    // todo filter on socket
+                    chooseCategoryPage.setVisibility(View.GONE);
+                    initWaitPage();
+                    loadingView.setVisibility(View.GONE);
+                    // todo get title and subtitle
+                    gameHeaderTitle.setText("Game id");
+                    getGameHeaderSubtitle.setText(gameID.toString());
+                    loadingView.setVisibility(View.GONE);
                     Log.i("TEST", "ERRORE NEL JOIN ROOM!!");
                 }
             }
         });
-        opponentImage = ContextCompat.getDrawable(this, R.drawable.no_image);
-        initToolbar();
-        // todo filter on socket
-        chooseCategoryPage.setVisibility(View.GONE);
-        initWaitPage();
-        loadingView.setVisibility(View.GONE);
-        // todo get title and subtitle
-        gameHeaderTitle.setText("Game id");
-        getGameHeaderSubtitle.setText(gameID.toString());
-        loadingView.setVisibility(View.GONE);
     }
 
     private void initWaitPage() {
