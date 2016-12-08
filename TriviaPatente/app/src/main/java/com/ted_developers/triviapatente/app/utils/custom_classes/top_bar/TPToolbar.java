@@ -1,7 +1,9 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.top_bar;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -180,13 +182,19 @@ public class TPToolbar extends RelativeLayout {
         heartImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.plus));
     }
 
-    public void setLifeCounter(String text) {
-        lifeCounter.setText(text);
+    public void setLifeCounter(int counter) {
+        lifeCounter.setText(String.valueOf(counter));
     }
 
     public void setBackButtonText(String text) { backButtonText.setText(text); }
 
-    public void setBackButtonOnClick(OnClickListener listener) {
-        backButton.setOnClickListener(listener);
+    public void setBackButtonOnClick(final Activity currentActivity, final Class<? extends Activity> nextActivityClass) {
+        backButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(currentActivity, nextActivityClass);
+                currentActivity.startActivity(intent);
+            }
+        });
     }
 }
