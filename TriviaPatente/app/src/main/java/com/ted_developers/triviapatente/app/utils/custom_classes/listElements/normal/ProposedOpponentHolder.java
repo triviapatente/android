@@ -61,6 +61,6 @@ public class ProposedOpponentHolder extends TPHolder<User> {
             playButton.setNewGame();
         }
         // send invite on click
-        playButton.sendInvite(element.id);
+        playButton.sendInvite(element);
     }
 }

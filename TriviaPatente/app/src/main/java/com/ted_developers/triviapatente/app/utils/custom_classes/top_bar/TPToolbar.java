@@ -175,7 +175,9 @@ public class TPToolbar extends RelativeLayout {
     public void setTitle(String title) {
         toolbarTitle.setText(title);
     }
-
+    public String getTitle() {
+        return toolbarTitle.getText().toString();
+    }
     public void setProfilePicture(Drawable image) {
         profilePicture.setImageDrawable(image);
     }

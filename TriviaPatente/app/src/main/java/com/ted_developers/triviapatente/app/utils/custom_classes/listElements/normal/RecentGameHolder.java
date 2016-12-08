@@ -14,6 +14,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayBut
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Game;
 
 /**
@@ -69,9 +70,9 @@ public class RecentGameHolder extends TPHolder<Game> {
     public void bind(Game element) {
         if(element.ended) {
             setNewGame();
-            playButton.sendInvite(element.opponent_id);
+            playButton.sendInvite(new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
         } else {
-            playButton.goToGame(element.id);
+            playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
             if(element.my_turn) {
                 setPlayNow();
             } else {

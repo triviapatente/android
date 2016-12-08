@@ -11,6 +11,8 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -19,8 +21,10 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedI
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
+import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
 import butterknife.BindString;
@@ -32,7 +36,7 @@ import retrofit2.Response;
 public class GameMainPageActivity extends TPActivity {
     // opponent data
     Drawable opponentImage;
-    String opponentIdentifier;
+    User opponent;
     Long gameID;
     // toolbar
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
@@ -63,12 +67,16 @@ public class GameMainPageActivity extends TPActivity {
         setContentView(R.layout.activity_game_main_page);
         //init
         Intent intent = getIntent();
+        try {
+            opponent = RetrofitManager.gson.fromJson(intent.getStringExtra("opponent"), User.class);
+        } catch (Exception e) {
+            opponent = null;
+        }
         smallInit();
         if(intent.getBooleanExtra("new_game", false)) {
-            Long userId = intent.getLongExtra("user_id", -1);
             Call<SuccessGameUser> call;
-            if(userId != -1) {
-                call = RetrofitManager.getHTTPGameEndpoint().newGame(userId);
+            if(opponent != null) {
+                call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
             } else {
                 call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
             }
@@ -77,6 +85,7 @@ public class GameMainPageActivity extends TPActivity {
                 public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
                     if(response.code() == 200 && response.body().success) {
                         gameID = response.body().game.id;
+                        opponent = response.body().user;
                     }
                 }
 
@@ -96,10 +105,21 @@ public class GameMainPageActivity extends TPActivity {
 
     private void smallInit() {
         opponentImage = ContextCompat.getDrawable(this, R.drawable.no_image);
+        setToolbarTitle();
         toolbar.setProfilePicture(opponentImage);
-        profilePicture.setImageDrawable(opponentImage);
         toolbar.setBackButtonText(mainPageTitle);
         toolbar.setBackButtonOnClick(this, MainPageActivity.class);
+        profilePicture.setImageDrawable(opponentImage);
+    }
+
+    private void setToolbarTitle() {
+        if(opponent != null && toolbar.getTitle().equals("")) {
+            if(opponent.name == null || opponent.surname == null) {
+                toolbar.setTitle(opponent.username);
+            } else {
+                toolbar.setTitle(opponent.name + " " + opponent.surname);
+            }
+        }
     }
 
     private void fullInit() {
@@ -107,34 +127,37 @@ public class GameMainPageActivity extends TPActivity {
             @Override
             public void response(Success response) {
                 if(response.success) {
-                    // todo do init round
-                    Log.i("TEST", "ROOM JOINATA");
+                    gameSocketManager.init_round(gameID, new SocketCallback<SuccessInitRound>() {
+                        @Override
+                        public void response(SuccessInitRound response) {
+                            if(response.success) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setToolbarTitle();
+                                        // todo do dinamically
+                                        opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
+                                        chooseCategoryPage.setVisibility(View.GONE);
+                                        toolbar.setProfilePicture(opponentImage);
+                                        profilePicture.setImageDrawable(opponentImage);
+                                        loadingView.setVisibility(View.GONE);
+                                        // todo get title and subtitle
+                                        gameHeaderTitle.setText("Game id");
+                                        getGameHeaderSubtitle.setText(gameID.toString());
+                                        loadingView.setVisibility(View.GONE);
+                                    }
+                                });
+                            } else {
+                                // todo communicate error on init round
+                            }
+                        }
+                    });
                 } else {
-                    opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
-                    initToolbar();
-                    // todo filter on socket
-                    chooseCategoryPage.setVisibility(View.GONE);
-                    initWaitPage();
-                    loadingView.setVisibility(View.GONE);
-                    // todo get title and subtitle
-                    gameHeaderTitle.setText("Game id");
-                    getGameHeaderSubtitle.setText(gameID.toString());
-                    loadingView.setVisibility(View.GONE);
+                    // todo manage error on join room
                     Log.i("TEST", "ERRORE NEL JOIN ROOM!!");
                 }
             }
         });
-    }
-
-    private void initWaitPage() {
-        profilePicture.setImageDrawable(opponentImage);
-        // todo filter in base allo stato
-        gameStatus.setText(waitingCategory);
-    }
-
-    private void initToolbar() {
-        toolbar.setTitle(opponentIdentifier);
-        toolbar.setProfilePicture(opponentImage);
     }
 
     @Override

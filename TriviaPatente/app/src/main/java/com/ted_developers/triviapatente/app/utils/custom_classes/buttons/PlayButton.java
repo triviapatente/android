@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Button;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Game;
 
@@ -27,7 +29,8 @@ public class PlayButton extends Button implements View.OnClickListener {
     // colors
     int playNowColor, newGameColor, detailsColor;
     // on click
-    Long gameID, userID;
+    Long gameID;
+    User opponent;
     boolean new_game;
 
 
@@ -90,13 +93,14 @@ public class PlayButton extends Button implements View.OnClickListener {
         this.setTextColor(detailsColor);
     }
 
-    public void sendInvite(Long elementID) {
-        this.userID = elementID;
+    public void sendInvite(User element) {
+        this.opponent = element;
         new_game = true;
     }
 
-    public void goToGame(Long elementID) {
-        this.gameID = elementID;
+    public void goToGame(Long gameID, User user) {
+        this.gameID = gameID;
+        this.opponent = user;
         new_game = false;
     }
 
@@ -106,11 +110,11 @@ public class PlayButton extends Button implements View.OnClickListener {
         Intent intent = new Intent(getContext(), GameMainPageActivity.class);
         if(new_game) {
             intent.putExtra("new_game", true);
-            if(userID != null) {
-                intent.putExtra("user_id", userID);
-            }
         } else if(gameID != null) {
             intent.putExtra("game_id", gameID);
+        }
+        if(opponent != null) {
+            intent.putExtra("opponent", RetrofitManager.gson.toJson(opponent));
         }
         getContext().startActivity(intent);
     }

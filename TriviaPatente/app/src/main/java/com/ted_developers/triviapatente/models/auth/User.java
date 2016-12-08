@@ -26,4 +26,12 @@ public class User extends CommonPK {
         this.image = image;
         this.last_game_won = last_game_won;
     }
+
+    public User(Long id, String username, String name, String surname, String image) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.image = image;
+    }
 }
