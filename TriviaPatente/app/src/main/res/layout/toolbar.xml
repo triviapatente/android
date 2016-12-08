@@ -38,7 +38,7 @@
         android:id="@+id/heartsBoxImage"
         android:layout_width="@dimen/heart_image_size"
         android:layout_height="@dimen/heart_image_size"
-        android:layout_marginLeft="@dimen/tp_toolbar_margin"
+        android:layout_marginLeft="@dimen/main_button_margin"
         android:layout_centerVertical="true">
 
         <!-- heart or plus image -->
