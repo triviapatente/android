@@ -24,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
+import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
@@ -50,7 +52,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class FindOpponentActivity extends AppCompatActivity {
+public class FindOpponentActivity extends TPActivity {
     // all or friends
     @BindView(R.id.all_or_friends) LinearLayout allOrFriendsBlock;
     @BindView(R.id.all_button) Button allButton;
@@ -97,8 +99,6 @@ public class FindOpponentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_opponent);
-        ButterKnife.bind(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // init toolbar
         initToolbar();
         if(getIntent().getBooleanExtra("random", false)) {
@@ -166,6 +166,7 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     private void initPlayerList() {
         playersList.setLayoutManager(new LinearLayoutManager(this));
+        playersList.setOnTouchListener(new OnSwipeTouchListener(this));
     }
 
     private void initDialog() {
@@ -227,7 +228,6 @@ public class FindOpponentActivity extends AppCompatActivity {
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
         // set back button
         toolbar.setBackButtonText(backTitle);
-        toolbar.setBackButtonOnClick(this, NewGameActivity.class);
     }
 
     @OnClick(R.id.all_button)

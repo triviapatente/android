@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
+import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
@@ -24,7 +25,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FirstAccessActivity extends AppCompatActivity {
+public class FirstAccessActivity extends TPActivity {
 
     @BindView(R.id.pager) ViewPager mViewPager;
     @BindView(R.id.pagerIndicator) CirclePageIndicator mIndicator;
@@ -40,8 +41,6 @@ public class FirstAccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_access);
-        ButterKnife.bind(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // View pager
         mAdapter = new FirstAccessAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
@@ -123,5 +122,10 @@ public class FirstAccessActivity extends AppCompatActivity {
         // open main page
         Intent myIntent = new Intent(a, MainPageActivity.class);
         a.startActivity(myIntent);
+    }
+
+    @Override
+    protected boolean needsLeaveRoom() {
+        return false;
     }
 }

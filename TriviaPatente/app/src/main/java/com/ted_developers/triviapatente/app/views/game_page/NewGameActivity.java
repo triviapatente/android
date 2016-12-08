@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
@@ -30,7 +31,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class NewGameActivity extends AppCompatActivity {
+public class NewGameActivity extends TPActivity {
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // toolbar
@@ -51,9 +52,7 @@ public class NewGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
-        ButterKnife.bind(this);
         invites = (TPExpandableList<Invite>) getSupportFragmentManager().findFragmentById(R.id.invites);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // init
         init();
     }
@@ -79,7 +78,6 @@ public class NewGameActivity extends AppCompatActivity {
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
         // set back button
         toolbar.setBackButtonText(backTitle);
-        toolbar.setBackButtonOnClick(this, MainPageActivity.class);
     }
 
     private void loadInvites() {

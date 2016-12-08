@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -44,7 +45,7 @@ import butterknife.OnTouch;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainPageActivity extends AppCompatActivity {
+public class MainPageActivity extends TPActivity {
     // top bar
     @BindView(R.id.toolbar) HeartsPictureSettingsTPToolbar toolbar;
     @BindString(R.string.main_page_title) String toolbarTitle;
@@ -86,9 +87,7 @@ public class MainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        ButterKnife.bind(MainPageActivity.this);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // init
         init();
     }

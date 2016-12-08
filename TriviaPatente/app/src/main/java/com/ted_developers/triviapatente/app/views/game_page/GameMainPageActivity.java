@@ -12,12 +12,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
+import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -25,7 +29,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GameMainPageActivity extends AppCompatActivity {
+public class GameMainPageActivity extends TPActivity {
     // opponent data
     Drawable opponentImage;
     String opponentIdentifier;
@@ -49,12 +53,14 @@ public class GameMainPageActivity extends AppCompatActivity {
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
 
+    // sockets
+    @BindString(R.string.room_name_game) String roomName;
+    GameSocketManager gameSocketManager = new GameSocketManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main_page);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ButterKnife.bind(this);
         //init
         Intent intent = getIntent();
         smallInit();
@@ -97,7 +103,18 @@ public class GameMainPageActivity extends AppCompatActivity {
     }
 
     private void fullInit() {
-        // todo do stuff with gameID
+        gameSocketManager.join_room(gameID, roomName, new SocketCallback<Success>() {
+            @Override
+            public void response(Success response) {
+                if(response.success) {
+                    // todo do init round
+                    Log.i("TEST", "ROOM JOINATA");
+                } else {
+                    // todo vedere come avvisare
+                    Log.i("TEST", "ERRORE NEL JOIN ROOM!!");
+                }
+            }
+        });
         opponentImage = ContextCompat.getDrawable(this, R.drawable.no_image);
         initToolbar();
         // todo filter on socket
@@ -119,5 +136,10 @@ public class GameMainPageActivity extends AppCompatActivity {
     private void initToolbar() {
         toolbar.setTitle(opponentIdentifier);
         toolbar.setProfilePicture(opponentImage);
+    }
+
+    @Override
+    protected boolean needsLeaveRoom() {
+        return false;
     }
 }

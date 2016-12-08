@@ -24,10 +24,4 @@ public class TPExpandableListOnSwipeListener<T> extends OnSwipeTouchListener {
             expandableList.setMinimizedHeightMode();
         }
     }
-
-    public void onTouchDown() {
-        try {
-            expandableList.touchDownHandler.call();
-        } catch (Exception e) {}
-    }
 }

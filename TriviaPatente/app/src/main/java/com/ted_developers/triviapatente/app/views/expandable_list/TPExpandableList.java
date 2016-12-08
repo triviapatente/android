@@ -41,8 +41,6 @@ public class TPExpandableList<T> extends Fragment {
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     public boolean maximized = false;
     public mLinearLayoutManager listLayoutManager;
-    // to do operation on touch down
-    public Callable<Void> touchDownHandler;
     // separator color
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
 
