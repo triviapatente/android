@@ -43,15 +43,15 @@ public class GameMainPageActivity extends TPActivity {
     // toolbar
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
     @BindString(R.string.main_page_title) String mainPageTitle;
-    // header
-    @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
     // titles
+    @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     @BindString(R.string.wait_page_title_pendingInvite) String pendingInviteTitle;
     // subtitles
+    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
+    @BindView(R.id.subtitleImage) RoundedImageView subtitleImage;
     @BindString(R.string.wait_page_subtitle_pendingInvite) String pendingInviteSubtitle;
     @BindString(R.string.wait_page_subtitle_waitingCategory) String waitingCategorySubtitle;
     @BindString(R.string.wait_page_subtitle_offline) String offlineSubtitle;
@@ -187,6 +187,7 @@ public class GameMainPageActivity extends TPActivity {
         gameHeaderTitle.setText(pendingInviteTitle);
         gameHeaderSubtitle.setText(pendingInviteSubtitle);
         gameStatus.setText(pendingInviteStatus);
+        subtitleImage.setVisibility(View.GONE);
         // todo set spinning color of the right color
     }
 
@@ -194,12 +195,15 @@ public class GameMainPageActivity extends TPActivity {
         gameHeaderTitle.setText("Round " + round.number);
         gameHeaderSubtitle.setText(waitingCategorySubtitle);
         gameStatus.setText(waitingCategoryStatus);
+        subtitleImage.setVisibility(View.GONE);
         // todo set spinning color of the right color
     }
 
     private void waitingRound(Round round, Category category) {
         gameHeaderTitle.setText("Round " + round.number);
-        // todo add image if exist
+        // todo get image and set it
+        subtitleImage.setBackground(getResources().getDrawable(R.drawable.no_image));
+        subtitleImage.setVisibility(View.VISIBLE);
         gameHeaderSubtitle.setText(category.name);
         gameStatus.setText(playingStatus);
         // todo set spinning color of the right color
@@ -209,6 +213,7 @@ public class GameMainPageActivity extends TPActivity {
         gameHeaderTitle.setText("Round " + round.number);
         gameHeaderSubtitle.setText(offlineSubtitle);
         gameStatus.setText(offlineStatus);
+        subtitleImage.setVisibility(View.GONE);
         // todo set spinning color of the right color
     }
 
