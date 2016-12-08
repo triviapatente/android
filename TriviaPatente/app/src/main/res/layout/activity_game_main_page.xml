@@ -25,16 +25,4 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/gameHeader"/>
 
-    <include
-        android:id="@+id/chooseCategoryPage"
-        layout="@layout/content_choose_category_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/gameHeader" />
-
-    <include
-        layout="@layout/loading_view"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
-
 </RelativeLayout>

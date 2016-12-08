@@ -22,6 +22,8 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPic
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.game.Category;
+import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
@@ -43,19 +45,22 @@ public class GameMainPageActivity extends TPActivity {
     @BindString(R.string.main_page_title) String mainPageTitle;
     // header
     @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    @BindView(R.id.gameHeaderSubtitle) TextView getGameHeaderSubtitle;
-    // choose category page
-    @BindView(R.id.chooseCategoryPage) RelativeLayout chooseCategoryPage;
+    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
+    // titles
+    @BindString(R.string.wait_page_title_pendingInvite) String pendingInviteTitle;
+    // subtitles
+    @BindString(R.string.wait_page_subtitle_pendingInvite) String pendingInviteSubtitle;
+    @BindString(R.string.wait_page_subtitle_waitingCategory) String waitingCategorySubtitle;
+    @BindString(R.string.wait_page_subtitle_offline) String offlineSubtitle;
+    // status
+    @BindView(R.id.status) TextView gameStatus;
     @BindString(R.string.wait_page_offline_status) String offlineStatus;
     @BindString(R.string.wait_page_playing_status) String playingStatus;
-    @BindString(R.string.wait_page_waitingCategory_status) String waitingCategory;
-    @BindString(R.string.wait_page_waitingResponse_status) String waitingResponse;
-    @BindView(R.id.status) TextView gameStatus;
-    // loading
-    @BindView(R.id.loadingView) RelativeLayout loadingView;
+    @BindString(R.string.wait_page_waitingCategory_status) String waitingCategoryStatus;
+    @BindString(R.string.wait_page_pendingInvite_status) String pendingInviteStatus;
 
     // sockets
     @BindString(R.string.room_name_game) String roomName;
@@ -112,6 +117,10 @@ public class GameMainPageActivity extends TPActivity {
         profilePicture.setImageDrawable(opponentImage);
     }
 
+    private void startLoading() {
+        // todo start spinning
+    }
+
     private void setToolbarTitle() {
         if(opponent != null && toolbar.getTitle().equals("")) {
             if(opponent.name == null || opponent.surname == null) {
@@ -135,19 +144,34 @@ public class GameMainPageActivity extends TPActivity {
                                     @Override
                                     public void run() {
                                         setToolbarTitle();
-                                        opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
-                                        chooseCategoryPage.setVisibility(View.GONE);
-                                        toolbar.setProfilePicture(opponentImage);
-                                        profilePicture.setImageDrawable(opponentImage);
-                                        loadingView.setVisibility(View.GONE);
-                                        // todo get title and subtitle
-                                        gameHeaderTitle.setText("Game id");
-                                        getGameHeaderSubtitle.setText(gameID.toString());
-                                        loadingView.setVisibility(View.GONE);
+                                        if("invite".equals(response.waiting)) {
+                                            waitingInvite();
+                                        } else if(response.waiting_for.username.equals(opponent.username)) {
+                                            // todo do dinamically
+                                            opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
+                                            toolbar.setProfilePicture(opponentImage);
+                                            profilePicture.setImageDrawable(opponentImage);
+                                            if(response.isOpponentOnline) {
+                                                if("game".equals(response.waiting)) {
+                                                    waitingRound(response.round, response.category);
+                                                } else if("category".equals(response.waiting)) {
+                                                    waitingCategory(response.round);
+                                                }
+                                            } else {
+                                                offline(response.round);
+                                            }
+                                        } else {
+                                            if("game".equals(response.waiting)) {
+                                                playRound();
+                                            } else if("category".equals(response.waiting)) {
+                                                chooseCategory();
+                                            }
+                                        }
                                     }
                                 });
                             } else {
                                 // todo communicate error on init round
+                                Log.i("TEST", "error");
                             }
                         }
                     });
@@ -157,6 +181,43 @@ public class GameMainPageActivity extends TPActivity {
                 }
             }
         });
+    }
+
+    private void waitingInvite() {
+        gameHeaderTitle.setText(pendingInviteTitle);
+        gameHeaderSubtitle.setText(pendingInviteSubtitle);
+        gameStatus.setText(pendingInviteStatus);
+        // todo set spinning color of the right color
+    }
+
+    private void waitingCategory(Round round) {
+        gameHeaderTitle.setText("Round " + round.number);
+        gameHeaderSubtitle.setText(waitingCategorySubtitle);
+        gameStatus.setText(waitingCategoryStatus);
+        // todo set spinning color of the right color
+    }
+
+    private void waitingRound(Round round, Category category) {
+        gameHeaderTitle.setText("Round " + round.number);
+        // todo add image if exist
+        gameHeaderSubtitle.setText(category.name);
+        gameStatus.setText(playingStatus);
+        // todo set spinning color of the right color
+    }
+
+    private void offline(Round round) {
+        gameHeaderTitle.setText("Round " + round.number);
+        gameHeaderSubtitle.setText(offlineSubtitle);
+        gameStatus.setText(offlineStatus);
+        // todo set spinning color of the right color
+    }
+
+    private void chooseCategory() {
+        // todo open activity
+    }
+
+    private void playRound() {
+        // todo open activity
     }
 
     @Override

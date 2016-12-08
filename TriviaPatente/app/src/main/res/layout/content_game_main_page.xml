@@ -24,6 +24,7 @@
         android:textSize="@dimen/TPTextSizeMedium"
         android:layout_centerHorizontal="true"
         android:gravity="center"
+        android:text="@string/wait_page_waitingConnection_status"
         android:layout_below="@+id/bigProfilePicture"
         android:layout_marginTop="@dimen/wait_page_margin"/>
 

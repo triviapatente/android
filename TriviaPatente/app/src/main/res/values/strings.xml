@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
-    <string name="baseUrl">http://192.168.43.160:8000/</string>
+    <string name="baseUrl">http://192.168.1.160:8000/</string>
 </resources>
