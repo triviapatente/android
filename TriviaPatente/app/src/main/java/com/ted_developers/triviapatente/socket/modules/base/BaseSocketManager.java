@@ -11,9 +11,12 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.Success;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Antonio on 31/10/16.
@@ -21,6 +24,8 @@ import java.net.URISyntaxException;
 public class BaseSocketManager {
     protected static Socket mSocket;
     public final static int timeout = 6000;
+    private static Long id = null;
+    private static String type = null;
 
     public static void init(Context context) {
         try {
@@ -57,12 +62,26 @@ public class BaseSocketManager {
 
     }
 
-    public static void join_room() {
-        // TODO implement
+    public void join_room(Long id, String type, final SocketCallback<Success> onJoinRoomCallback) {
+        if(this.id == null && this.type == null) {
+            try {
+                JSONObject room = new JSONObject("{id: " + id + ", type: " + type + "}");
+                emit("join_room", room, Success.class, onJoinRoomCallback);
+                this.id = id;
+                this.type = type;
+            } catch (JSONException e) { e.printStackTrace(); }
+        }
     }
 
-    public static void leave_room() {
-        // TODO implement
+    public void leave_room(final SocketCallback<Success> onLeaveRoomCallback) {
+        if(id != null && type != null) {
+            try {
+                JSONObject room = new JSONObject("{id: " + id + ", type: " + type + "}");
+                emit("leave_room", room, Success.class, onLeaveRoomCallback);
+                id = null;
+                type = null;
+            } catch (JSONException e) { e.printStackTrace(); }
+        }
     }
 
     public <T extends Success> void emit(final String path, JSONObject parameters, Class<T> outputClass, final SocketCallback<T> cb) {
