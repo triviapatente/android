@@ -6,10 +6,12 @@
 
     <!-- back button -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/tp_toolbar_margin"
+        android:layout_marginRight="@dimen/tp_toolbar_margin"
+        android:layout_toLeftOf="@+id/toolbarTitle"
         android:id="@+id/backButton">
         
         <!-- back chevron -->
@@ -25,6 +27,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/text_size_very_small_padding"
             android:textSize="@dimen/TPTextSizeSmall"
+            android:ellipsize="end"
+            android:lines="1"
             android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
     </LinearLayout>
@@ -33,7 +37,9 @@
     <RelativeLayout
         android:id="@+id/heartsBoxImage"
         android:layout_width="@dimen/heart_image_size"
-        android:layout_height="@dimen/heart_image_size">
+        android:layout_height="@dimen/heart_image_size"
+        android:layout_marginLeft="@dimen/tp_toolbar_margin"
+        android:layout_centerVertical="true">
 
         <!-- heart or plus image -->
         <ImageView
@@ -47,7 +53,6 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:paddingTop="@dimen/text_size_very_small_padding"/>
-
     </RelativeLayout>
 
     <!-- title top bar -->

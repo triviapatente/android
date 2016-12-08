@@ -78,6 +78,7 @@ public class MainPageActivity extends AppCompatActivity {
     // server down
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
+    boolean errorConnectingToServer = false;
 
     private AuthSocketManager socketManager = new AuthSocketManager();
 
@@ -109,6 +110,7 @@ public class MainPageActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    errorConnectingToServer = false;
                                     // init items
                                     initOptionsButton();
                                     initOptionsHints(response);
@@ -149,6 +151,8 @@ public class MainPageActivity extends AppCompatActivity {
         // TODO get dinamically
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
         // todo set hearts box
+        toolbar.setHeartImage();
+        toolbar.setLifeCounter(3);
         // set menu
         toolbar.setMenu();
     }
@@ -250,6 +254,7 @@ public class MainPageActivity extends AppCompatActivity {
         bulkVisibilitySetting(View.GONE);
         // stop loading
         loadingView.setVisibility(View.GONE);
+        errorConnectingToServer = true;
     }
 
     private void bulkVisibilitySetting(int visibility) {
@@ -271,7 +276,7 @@ public class MainPageActivity extends AppCompatActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        if(toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
+        if(!errorConnectingToServer && toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
             toolbar.hideMenu();
             return false;
         }

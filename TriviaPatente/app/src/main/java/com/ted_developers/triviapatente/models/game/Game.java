@@ -23,7 +23,7 @@ public class Game extends CommonPK {
     @SerializedName("opponent_surname")
     public String opponent_surname;
     @SerializedName("opponent_id")
-    public String opponent_id;
+    public Long opponent_id;
     @SerializedName("opponent_image")
     public String opponent_image;
     @SerializedName("my_turn")

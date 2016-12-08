@@ -30,6 +30,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.Account
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -65,7 +66,6 @@ public class FindOpponentActivity extends AppCompatActivity {
     private boolean all;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    @BindView(R.id.randomLoadingView) RelativeLayout randomLoadingView;
     // toolbar
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
     @BindString(R.string.find_opponent_title) String toolbarTitle;
@@ -104,7 +104,6 @@ public class FindOpponentActivity extends AppCompatActivity {
         if(getIntent().getBooleanExtra("random", false)) {
             searchRandomOpponent();
         } else {
-            randomLoadingView.setVisibility(View.GONE);
             // init
             init();
         }
@@ -228,13 +227,7 @@ public class FindOpponentActivity extends AppCompatActivity {
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
         // set back button
         toolbar.setBackButtonText(backTitle);
-        toolbar.setBackButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(FindOpponentActivity.this, NewGameActivity.class);
-                FindOpponentActivity.this.startActivity(myIntent);
-            }
-        });
+        toolbar.setBackButtonOnClick(this, NewGameActivity.class);
     }
 
     @OnClick(R.id.all_button)
@@ -292,25 +285,8 @@ public class FindOpponentActivity extends AppCompatActivity {
 
     // random opponent
     private void searchRandomOpponent() {
-        randomLoadingView.setVisibility(View.VISIBLE);
-        Call<SuccessGameUser> call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
-        call.enqueue(new TPCallback<SuccessGameUser>() {
-            @Override
-            public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
-                if(response.code() == 200 && response.body().success) {
-                    Log.i("TEST", response.body().user.username);
-                }
-            }
-
-            @Override
-            public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {
-
-            }
-
-            @Override
-            public void then() {
-
-            }
-        });
+        Intent intent = new Intent(FindOpponentActivity.this, GameMainPageActivity.class);
+        intent.putExtra("new_game", true);
+        FindOpponentActivity.this.startActivity(intent);
     }
 }

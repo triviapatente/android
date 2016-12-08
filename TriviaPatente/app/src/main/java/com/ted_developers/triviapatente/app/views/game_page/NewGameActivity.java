@@ -79,13 +79,7 @@ public class NewGameActivity extends AppCompatActivity {
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
         // set back button
         toolbar.setBackButtonText(backTitle);
-        toolbar.setBackButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(NewGameActivity.this, MainPageActivity.class);
-                NewGameActivity.this.startActivity(myIntent);
-            }
-        });
+        toolbar.setBackButtonOnClick(this, MainPageActivity.class);
     }
 
     private void loadInvites() {
