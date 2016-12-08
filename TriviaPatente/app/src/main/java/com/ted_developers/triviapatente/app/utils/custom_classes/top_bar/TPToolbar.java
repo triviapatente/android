@@ -102,6 +102,12 @@ public class TPToolbar extends RelativeLayout {
                 return myText;
             }
         });
+        backButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Activity) context).finish();
+            }
+        });
     }
 
     // bind all elements through their id
