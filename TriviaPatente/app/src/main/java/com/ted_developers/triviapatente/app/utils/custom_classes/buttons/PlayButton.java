@@ -2,25 +2,34 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.TextViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
+import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.game.Game;
 
 /**
  * Created by Antonio on 12/11/16.
  */
-public class PlayButton extends Button {
+public class PlayButton extends Button implements View.OnClickListener {
     // strings
     String playNow, newGame, details;
     // drawables (different types of buttons)
     Drawable playNowDrawable, newGameDrawable, detailsDrawable;
     // colors
     int playNowColor, newGameColor, detailsColor;
+    // on click
+    Long gameID, userID;
+    boolean new_game;
+
 
     public PlayButton(Context context) {
         super(context);
@@ -41,9 +50,11 @@ public class PlayButton extends Button {
     public PlayButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         bindElements(context);
+
     }
 
     private void bindElements(Context context) {
+        setOnClickListener(this);
         // bind strings
         playNow = getResources().getString(R.string.play_now_button_text);
         newGame = getResources().getString(R.string.new_game_button_text);
@@ -77,5 +88,30 @@ public class PlayButton extends Button {
         this.setBackground(detailsDrawable);
         this.setText(details);
         this.setTextColor(detailsColor);
+    }
+
+    public void sendInvite(Long elementID) {
+        this.userID = elementID;
+        new_game = true;
+    }
+
+    public void goToGame(Long elementID) {
+        this.gameID = elementID;
+        new_game = false;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(getContext(), GameMainPageActivity.class);
+        if(new_game) {
+            intent.putExtra("new_game", true);
+            if(userID != null) {
+                intent.putExtra("user_id", userID);
+            }
+        } else if(gameID != null) {
+            intent.putExtra("game_id", gameID);
+        }
+        getContext().startActivity(intent);
     }
 }

@@ -69,10 +69,14 @@ public class RecentGameHolder extends TPHolder<Game> {
     public void bind(Game element) {
         if(element.ended) {
             setNewGame();
-        } else if(element.my_turn) {
-            setPlayNow();
+            playButton.sendInvite(element.opponent_id);
         } else {
-            setDetails();
+            playButton.goToGame(element.id);
+            if(element.my_turn) {
+                setPlayNow();
+            } else {
+                setDetails();
+            }
         }
         if(element.opponent_name != null && element.opponent_surname != null) {
             setUsernameText(element.opponent_name + " " + element.opponent_surname);
