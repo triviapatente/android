@@ -129,13 +129,12 @@ public class GameMainPageActivity extends TPActivity {
                 if(response.success) {
                     gameSocketManager.init_round(gameID, new SocketCallback<SuccessInitRound>() {
                         @Override
-                        public void response(SuccessInitRound response) {
+                        public void response(final SuccessInitRound response) {
                             if(response.success) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         setToolbarTitle();
-                                        // todo do dinamically
                                         opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
                                         chooseCategoryPage.setVisibility(View.GONE);
                                         toolbar.setProfilePicture(opponentImage);

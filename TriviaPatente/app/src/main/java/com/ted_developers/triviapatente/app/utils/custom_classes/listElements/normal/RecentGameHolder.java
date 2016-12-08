@@ -22,9 +22,9 @@ import com.ted_developers.triviapatente.models.game.Game;
  */
 public class RecentGameHolder extends TPHolder<Game> {
     // status strings
-    private String playNowStatus, detailsStatus, newGameStatus;
+    private String playNowStatus, detailsStatus, summaryStatus;
     // status traffic lights
-    private Drawable playNowTL, detailsTL, newGameTL;
+    private Drawable playNowTL, detailsTL, summaryTL;
     // status text view
     private TextView statusText;
     // player name
@@ -52,11 +52,11 @@ public class RecentGameHolder extends TPHolder<Game> {
         // status
         playNowStatus = context.getResources().getString(R.string.play_now_status);
         detailsStatus = context.getResources().getString(R.string.details_status);
-        newGameStatus = context.getResources().getString(R.string.new_game_status);
+        summaryStatus = context.getResources().getString(R.string.new_game_status);
         // traffic lights
         playNowTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_green);
         detailsTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_yellow);
-        newGameTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_red);
+        summaryTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_red);
         // other elements
         playButton = (PlayButton) itemView.findViewById(R.id.recentGameButton);
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
@@ -68,11 +68,10 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     @Override
     public void bind(Game element) {
+        playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
         if(element.ended) {
-            setNewGame();
-            playButton.sendInvite(new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
+            setSummary();
         } else {
-            playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
             if(element.my_turn) {
                 setPlayNow();
             } else {
@@ -95,10 +94,10 @@ public class RecentGameHolder extends TPHolder<Game> {
         trafficLights.setImageDrawable(playNowTL);
     }
 
-    private void setNewGame() {
-        playButton.setNewGame();
-        statusText.setText(newGameStatus);
-        trafficLights.setImageDrawable(newGameTL);
+    private void setSummary() {
+        playButton.setSummary();
+        statusText.setText(summaryStatus);
+        trafficLights.setImageDrawable(summaryTL);
     }
 
     private void setDetails() {

@@ -23,7 +23,7 @@ import com.ted_developers.triviapatente.models.game.Game;
  */
 public class PlayButton extends Button implements View.OnClickListener {
     // strings
-    String playNow, newGame, details;
+    String playNow, newGame, details, endGame;
     // drawables (different types of buttons)
     Drawable playNowDrawable, newGameDrawable, detailsDrawable;
     // colors
@@ -61,6 +61,7 @@ public class PlayButton extends Button implements View.OnClickListener {
         // bind strings
         playNow = getResources().getString(R.string.play_now_button_text);
         newGame = getResources().getString(R.string.new_game_button_text);
+        endGame = getResources().getString(R.string.summary_button_text);
         details = getResources().getString(R.string.details_button_text);
         // bind drawables
         playNowDrawable = ContextCompat.getDrawable(context, R.drawable.green_on_white);
@@ -83,6 +84,13 @@ public class PlayButton extends Button implements View.OnClickListener {
     public void setNewGame() {
         this.setBackground(newGameDrawable);
         this.setText(newGame);
+        this.setTextColor(newGameColor);
+    }
+
+    // the button is a summary one
+    public void setSummary() {
+        this.setBackground(newGameDrawable);
+        this.setText(endGame);
         this.setTextColor(newGameColor);
     }
 

@@ -9,4 +9,5 @@
     <string name="play_now_button_text">Gioca ora</string>
     <string name="details_button_text">Dettagli</string>
     <string name="new_game_button_text">Rivincita</string>
+    <string name="summary_button_text">Riepilogo</string>
 </resources>
