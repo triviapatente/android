@@ -1,13 +1,7 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.top_bar;
+package com.ted_developers.triviapatente.app.utils.custom_classes.actionBar;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-
-import com.ted_developers.triviapatente.R;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Antonio on 31/10/16.

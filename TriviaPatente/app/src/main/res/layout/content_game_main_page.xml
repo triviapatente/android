@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,5 +37,14 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/wait_page_margin"/>
+
+    <com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle
+        android:id="@+id/loadingCircle"
+        android:layout_width="@dimen/big_profile_picture_size"
+        android:layout_height="@dimen/big_profile_picture_size"
+        custom:stroke_width="5dp"
+        android:translationZ="1000dp"
+        android:layout_alignTop="@+id/bigProfilePicture"
+        android:layout_alignLeft="@+id/bigProfilePicture"/>
 
 </RelativeLayout>

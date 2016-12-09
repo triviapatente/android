@@ -6,7 +6,7 @@
     tools:context=".app.views.game_page.GameMainPageActivity"
     android:background="@color/mainColor">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar
+    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tp_toolbar_height"

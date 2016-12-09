@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.HeartsPictureSettingsTPToolbar
+    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tp_toolbar_height"

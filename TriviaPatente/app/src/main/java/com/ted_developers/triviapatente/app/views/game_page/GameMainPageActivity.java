@@ -1,24 +1,24 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle;
+import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.CircleRotatingAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
-import com.ted_developers.triviapatente.app.utils.custom_classes.top_bar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -29,9 +29,9 @@ import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -61,7 +61,11 @@ public class GameMainPageActivity extends TPActivity {
     @BindString(R.string.wait_page_playing_status) String playingStatus;
     @BindString(R.string.wait_page_waitingCategory_status) String waitingCategoryStatus;
     @BindString(R.string.wait_page_pendingInvite_status) String pendingInviteStatus;
-
+    // animation
+    @BindView(R.id.loadingCircle) Circle loadingCircle;
+    @BindColor(R.color.red) int redColor;
+    @BindColor(R.color.green) int greenColor;
+    @BindColor(R.color.yellow) int yellowColor;
     // sockets
     @BindString(R.string.room_name_game) String roomName;
     GameSocketManager gameSocketManager = new GameSocketManager();
@@ -78,6 +82,7 @@ public class GameMainPageActivity extends TPActivity {
             opponent = null;
         }
         smallInit();
+        startLoading();
         if(intent.getBooleanExtra("new_game", false)) {
             Call<SuccessGameUser> call;
             if(opponent != null) {
@@ -118,7 +123,10 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void startLoading() {
-        // todo start spinning
+        CircleRotatingAnimation animation = new CircleRotatingAnimation(loadingCircle);
+        animation.setDuration(10000);
+        animation.setRepeatCount(Animation.INFINITE);
+        loadingCircle.startAnimation(animation);
     }
 
     private void setToolbarTitle() {

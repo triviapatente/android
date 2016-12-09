@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.top_bar;
+package com.ted_developers.triviapatente.app.utils.custom_classes.actionBar;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
