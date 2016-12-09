@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         app:radius="@dimen/circle_indicator_size"
         app:fillColor="@android:color/white"
-        app:pageColor="@color/mainColorTenue"
+        app:pageColor="@color/mainColorLight"
         app:strokeColor="@android:color/transparent"
         android:padding="@dimen/field_margin"
         android:layout_alignBottom="@+id/pager"/>

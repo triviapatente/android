@@ -7,7 +7,7 @@
     android:textSelectHandle="@color/mainColorDark"
     android:textSelectHandleLeft="@color/mainColorDark"
     android:textSelectHandleRight="@color/mainColorDark"
-    android:textColorHighlight="@color/mainColorTenue"
+    android:textColorHighlight="@color/mainColorLight"
     android:background="@drawable/edittext_rounded"
     android:maxLines="1"
     android:inputType="textVisiblePassword"

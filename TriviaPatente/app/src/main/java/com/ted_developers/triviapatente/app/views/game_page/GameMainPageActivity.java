@@ -64,8 +64,13 @@ public class GameMainPageActivity extends TPActivity {
     // animation
     @BindView(R.id.loadingCircle) Circle loadingCircle;
     @BindColor(R.color.red) int redColor;
+    @BindColor(R.color.redLight) int redColorLight;
     @BindColor(R.color.green) int greenColor;
+    @BindColor(R.color.greenLight) int greenColorLight;
     @BindColor(R.color.yellow) int yellowColor;
+    @BindColor(R.color.yellowLight) int yellowColorLight;
+    @BindColor(R.color.mainColorLight) int mainColorLight;
+    @BindColor(android.R.color.white) int whiteColor;
     // sockets
     @BindString(R.string.room_name_game) String roomName;
     GameSocketManager gameSocketManager = new GameSocketManager();
@@ -196,7 +201,8 @@ public class GameMainPageActivity extends TPActivity {
         gameHeaderSubtitle.setText(pendingInviteSubtitle);
         gameStatus.setText(pendingInviteStatus);
         subtitleImage.setVisibility(View.GONE);
-        // todo set spinning color of the right color
+        loadingCircle.setColorOver(redColor);
+        loadingCircle.setColorUnder(redColorLight);
     }
 
     private void waitingCategory(Round round) {
@@ -204,7 +210,8 @@ public class GameMainPageActivity extends TPActivity {
         gameHeaderSubtitle.setText(waitingCategorySubtitle);
         gameStatus.setText(waitingCategoryStatus);
         subtitleImage.setVisibility(View.GONE);
-        // todo set spinning color of the right color
+        loadingCircle.setColorOver(yellowColor);
+        loadingCircle.setColorUnder(yellowColorLight);
     }
 
     private void waitingRound(Round round, Category category) {
@@ -214,7 +221,8 @@ public class GameMainPageActivity extends TPActivity {
         subtitleImage.setVisibility(View.VISIBLE);
         gameHeaderSubtitle.setText(category.name);
         gameStatus.setText(playingStatus);
-        // todo set spinning color of the right color
+        loadingCircle.setColorOver(greenColor);
+        loadingCircle.setColorUnder(greenColorLight);
     }
 
     private void offline(Round round) {
@@ -222,7 +230,8 @@ public class GameMainPageActivity extends TPActivity {
         gameHeaderSubtitle.setText(offlineSubtitle);
         gameStatus.setText(offlineStatus);
         subtitleImage.setVisibility(View.GONE);
-        // todo set spinning color of the right color
+        loadingCircle.setColorOver(whiteColor);
+        loadingCircle.setColorUnder(mainColorLight);
     }
 
     private void chooseCategory() {

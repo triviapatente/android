@@ -43,6 +43,8 @@
         android:layout_width="@dimen/big_profile_picture_size"
         android:layout_height="@dimen/big_profile_picture_size"
         custom:stroke_width="5dp"
+        custom:circle_colorOver="@android:color/white"
+        custom:circle_colorUnder="@color/mainColorLight"
         android:translationZ="1000dp"
         android:layout_alignTop="@+id/bigProfilePicture"
         android:layout_alignLeft="@+id/bigProfilePicture"/>
