@@ -8,7 +8,11 @@ import android.view.WindowManager;
 
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.models.responses.Success;
+import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -17,6 +21,9 @@ import butterknife.ButterKnife;
  */
 public class TPActivity extends AppCompatActivity {
 
+    private BaseSocketManager baseSocketManager = new BaseSocketManager();
+    public List<String> pathListened = new ArrayList<>();
+    public static boolean visible;
     GameSocketManager gameSocketManager = new GameSocketManager();
 
     @Override
@@ -35,6 +42,33 @@ public class TPActivity extends AppCompatActivity {
                     }
                 }
             });
+        }
+    }
+
+    protected void listen(String path, final Class output, final SocketCallback cb) {
+        baseSocketManager.listen(path, output, cb);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        visible = false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        visible = true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        for (String path : pathListened) {
+            baseSocketManager.stopListen(path);
         }
     }
 

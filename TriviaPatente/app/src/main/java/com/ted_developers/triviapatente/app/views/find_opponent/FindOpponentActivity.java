@@ -279,7 +279,7 @@ public class FindOpponentActivity extends TPActivity {
     // random opponent
     private void searchRandomOpponent() {
         Intent intent = new Intent(FindOpponentActivity.this, GameMainPageActivity.class);
-        intent.putExtra("new_game", true);
+        intent.putExtra(GameMainPageActivity.extraBooleanGame, true);
         FindOpponentActivity.this.startActivity(intent);
     }
 }

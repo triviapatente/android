@@ -117,12 +117,12 @@ public class PlayButton extends Button implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), GameMainPageActivity.class);
         if(new_game) {
-            intent.putExtra("new_game", true);
+            intent.putExtra(GameMainPageActivity.extraBooleanGame, true);
         } else if(gameID != null) {
-            intent.putExtra("game_id", gameID);
+            intent.putExtra(GameMainPageActivity.extraLongGame, gameID);
         }
         if(opponent != null) {
-            intent.putExtra("opponent", RetrofitManager.gson.toJson(opponent));
+            intent.putExtra(GameMainPageActivity.extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         }
         getContext().startActivity(intent);
     }

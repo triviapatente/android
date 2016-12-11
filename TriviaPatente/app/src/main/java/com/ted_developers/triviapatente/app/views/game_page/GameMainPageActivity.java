@@ -38,6 +38,7 @@ import retrofit2.Response;
 
 public class GameMainPageActivity extends TPActivity {
     // opponent data
+    public static String extraStringOpponent = "opponent", extraBooleanGame = "new_game", extraLongGame = "game_id";
     Drawable opponentImage;
     User opponent;
     Long gameID;
@@ -75,6 +76,9 @@ public class GameMainPageActivity extends TPActivity {
     // sockets
     @BindString(R.string.room_name_game) String roomName;
     GameSocketManager gameSocketManager = new GameSocketManager();
+    @BindString(R.string.socket_response_waiting_category) String waitingCategory;
+    @BindString(R.string.socket_response_waiting_game) String waitingGame;
+    @BindString(R.string.socket_response_waiting_invite) String waitingInvite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +87,13 @@ public class GameMainPageActivity extends TPActivity {
         //init
         Intent intent = getIntent();
         try {
-            opponent = RetrofitManager.gson.fromJson(intent.getStringExtra("opponent"), User.class);
+            opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringOpponent), User.class);
         } catch (Exception e) {
             opponent = null;
         }
         smallInit();
         startLoading();
-        if(intent.getBooleanExtra("new_game", false)) {
+        if(intent.getBooleanExtra(extraBooleanGame, false)) {
             Call<SuccessGameUser> call;
             if(opponent != null) {
                 call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
@@ -114,7 +118,7 @@ public class GameMainPageActivity extends TPActivity {
                 }
             });
         } else {
-            gameID = intent.getLongExtra("game_id", -1);
+            gameID = intent.getLongExtra(extraLongGame, -1);
             fullInit();
         }
     }
@@ -158,7 +162,7 @@ public class GameMainPageActivity extends TPActivity {
                                     @Override
                                     public void run() {
                                         setToolbarTitle();
-                                        if("invite".equals(response.waiting)) {
+                                        if(waitingInvite.equals(response.waiting)) {
                                             waitingInvite();
                                         } else if(response.waiting_for.username.equals(opponent.username)) {
                                             // todo do dinamically
@@ -166,18 +170,18 @@ public class GameMainPageActivity extends TPActivity {
                                             toolbar.setProfilePicture(opponentImage);
                                             profilePicture.setImageDrawable(opponentImage);
                                             if(response.isOpponentOnline) {
-                                                if("game".equals(response.waiting)) {
+                                                if(waitingGame.equals(response.waiting)) {
                                                     waitingRound(response.round, response.category);
-                                                } else if("category".equals(response.waiting)) {
+                                                } else if(waitingCategory.equals(response.waiting)) {
                                                     waitingCategory(response.round);
                                                 }
                                             } else {
                                                 offline(response.round);
                                             }
                                         } else {
-                                            if("game".equals(response.waiting)) {
+                                            if(waitingGame.equals(response.waiting)) {
                                                 playRound();
-                                            } else if("category".equals(response.waiting)) {
+                                            } else if(waitingCategory.equals(response.waiting)) {
                                                 chooseCategory();
                                             }
                                         }
@@ -195,6 +199,7 @@ public class GameMainPageActivity extends TPActivity {
                 }
             }
         });
+        // listening on sockets for wait page change
     }
 
     private void updateWaitPage(String title, String subtitle, String status, Drawable subtitleImage, @ColorInt int overColor, @ColorInt int underColor) {
@@ -212,21 +217,29 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void waitingInvite() {
-        updateWaitPage(pendingInviteTitle, pendingInviteSubtitle, pendingInviteStatus, null, redColor, redColorLight);
+        if(visible) {
+            updateWaitPage(pendingInviteTitle, pendingInviteSubtitle, pendingInviteStatus, null, redColor, redColorLight);
+        }
     }
 
     private void waitingCategory(Round round) {
-        updateWaitPage("Round " + round.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
+        if(visible) {
+            updateWaitPage("Round " + round.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
+        }
     }
 
     private void waitingRound(Round round, Category category) {
         // todo get image and set it
         Drawable d = getResources().getDrawable(R.drawable.no_image);
-        updateWaitPage("Round " + round.number, category.name, playingStatus, d, greenColor, greenColorLight);
+        if(visible) {
+            updateWaitPage("Round " + round.number, category.name, playingStatus, d, greenColor, greenColorLight);
+        }
     }
 
     private void offline(Round round) {
-        updateWaitPage("Round " + round.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
+        if(visible) {
+            updateWaitPage("Round " + round.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
+        }
     }
 
     private void chooseCategory() {

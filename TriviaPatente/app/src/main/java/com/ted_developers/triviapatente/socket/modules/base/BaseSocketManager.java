@@ -117,4 +117,8 @@ public class BaseSocketManager {
         });
     }
 
+    public void stopListen(String path) {
+        mSocket.off(path);
+    }
+
 }

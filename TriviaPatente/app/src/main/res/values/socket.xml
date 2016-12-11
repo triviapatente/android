@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Socket events -->
+    <!-- Socket responses -->
+    <string name="socket_response_waiting_category">category</string>
+    <string name="socket_response_waiting_game">game</string>
+    <string name="socket_response_waiting_invite">invite</string>
+</resources>
