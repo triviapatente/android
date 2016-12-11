@@ -28,11 +28,7 @@ public class ProposedOpponentHolder extends TPHolder<User> {
 
     public ProposedOpponentHolder(View itemView) {
         super(itemView);
-    }
-
-    public ProposedOpponentHolder(View itemView, Context context) {
-        super(itemView);
-        init(context);
+        init(itemView.getContext());
     }
 
     private void init(Context context) {

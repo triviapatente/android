@@ -57,7 +57,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     protected RecyclerView.ViewHolder createNormalHolder() {
         View v = LayoutInflater.from(context).inflate(holderLayout, null);
         try {
-            return holderClass.getConstructor(View.class, Context.class).newInstance(v, context);
+            return holderClass.getConstructor(View.class).newInstance(v);
         } catch (Exception e) { return createNormalHolderWithCustomConstructor(v); }
     }
 

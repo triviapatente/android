@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.game_page;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
@@ -82,6 +84,8 @@ public class ChooseCategoryActivity extends TPActivity {
     }
 
     private void loadProposedCategories() {
+        proposedCategories.setLayoutManager(new LinearLayoutManager(this));
+        proposedCategories.setOnTouchListener(new OnSwipeTouchListener(this));
         gameSocketManager.get_proposed_categories(currentRound.game_id, currentRound.id, new SocketCallback<SuccessCategories>() {
             @Override
             public void response(SuccessCategories response) {

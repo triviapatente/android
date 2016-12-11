@@ -39,9 +39,9 @@ public class InviteHolder extends TPHolder<Invite> {
         super(itemView);
     }
 
-    public InviteHolder(View itemView, Context context, TPExpandableList<Invite> expandableList) {
+    public InviteHolder(View itemView, TPExpandableList<Invite> expandableList) {
         super(itemView);
-        init(context);
+        init(itemView.getContext());
         this.expandableList = expandableList;
     }
 

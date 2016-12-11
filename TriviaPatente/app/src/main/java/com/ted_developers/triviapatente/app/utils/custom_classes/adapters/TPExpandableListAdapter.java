@@ -44,8 +44,11 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
 
     protected RecyclerView.ViewHolder createNormalHolderWithCustomConstructor(View v) {
         try {
-            return holderClass.getConstructor(View.class, Context.class, TPExpandableList.class).newInstance(v, context, expandableList);
-        } catch (Exception e) { return null; }
+            return holderClass.getConstructor(View.class, TPExpandableList.class).newInstance(v, expandableList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     protected void doStuffBeforeItemRemoved() {

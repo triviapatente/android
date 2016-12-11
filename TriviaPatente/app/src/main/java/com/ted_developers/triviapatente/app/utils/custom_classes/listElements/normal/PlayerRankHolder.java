@@ -25,15 +25,6 @@ public class PlayerRankHolder extends TPHolder<User> {
         super(itemView);
     }
 
-    public PlayerRankHolder(View itemView, Context context) {
-        super(itemView);
-        init(context);
-    }
-
-    private void init(Context context) {
-
-    }
-
     @Override
     public void bind(User element) {
 

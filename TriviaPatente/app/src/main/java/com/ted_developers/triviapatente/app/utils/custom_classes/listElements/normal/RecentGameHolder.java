@@ -40,11 +40,7 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     public RecentGameHolder(View itemView) {
         super(itemView);
-    }
-
-    public RecentGameHolder(View itemView, Context context) {
-        super(itemView);
-        bind(context);
+        bind(itemView.getContext());
     }
 
     private void bind(Context context) {
