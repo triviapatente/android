@@ -5,8 +5,8 @@
     <dimen name="new_game_option_panel_title_margin">10dp</dimen>
     <dimen name="new_game_button_height">100dp</dimen>
     <!-- strings -->
-    <string name="find_your_opponent">Trova il tuo avversario</string>
-    <string name="find_your_random_opponent">Ricerca un avversario casuale</string>
+    <string name="find_your_opponent">Ricerca avversario</string>
+    <string name="find_your_random_opponent">Avversario casuale</string>
     <string name="new_game_title">Gioca</string>
-    <string name="new_game_option_title">Scegli la modalità di gioco</string>
+    <string name="new_game_option_title">Chi vuoi sfidare?</string>
 </resources>
