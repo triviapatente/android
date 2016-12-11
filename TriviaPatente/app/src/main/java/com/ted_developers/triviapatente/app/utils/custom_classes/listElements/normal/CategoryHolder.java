@@ -17,6 +17,8 @@ import com.ted_developers.triviapatente.models.game.Category;
 public class CategoryHolder extends TPHolder<Category> {
     ImageView categoryImage;
     TextView categoryTitle;
+    View separator;
+    Integer numberOfProposedCategories;
 
     public CategoryHolder(View itemView) {
         super(itemView);
@@ -32,6 +34,8 @@ public class CategoryHolder extends TPHolder<Category> {
     private void bindElements() {
         categoryImage = (ImageView) itemView.findViewById(R.id.image);
         categoryTitle = (TextView) itemView.findViewById(R.id.title);
+        separator = (View) itemView.findViewById(R.id.separator);
+        numberOfProposedCategories = itemView.getContext().getResources().getInteger(R.integer.number_of_proposed_categories);
     }
 
     @Override
@@ -39,6 +43,9 @@ public class CategoryHolder extends TPHolder<Category> {
         // todo do dinamically
         Drawable d = ContextCompat.getDrawable(itemView.getContext(), R.drawable.no_image);
         categoryImage.setImageDrawable(d);
-        categoryTitle.setText(element.name);
+        categoryTitle.setText(element.hint);
+        if(getAdapterPosition() == numberOfProposedCategories - 1) {
+            separator.setVisibility(View.GONE);
+        }
     }
 }

@@ -2,13 +2,14 @@
 <resources>
     <dimen name="chose_category_page_margin">30dp</dimen>
     <string name="choose_category_game_header_subtitle">Scegli la categoria!</string>
+    <integer name="number_of_proposed_categories">5</integer>
     <!-- holder -->
-    <dimen name="choose_category_proposed_height">60dp</dimen>
+    <dimen name="choose_category_proposed_height">90dp</dimen>
     <dimen name="choose_category_margin">10dp</dimen>
     <!-- image -->
     <dimen name="choose_category_image_size">50dp</dimen>
     <!-- title -->
-    <dimen name="choose_category_title_margin">10dp</dimen>
+    <dimen name="choose_category_title_margin">20dp</dimen>
     <!-- chevron -->
     <dimen name="chevron_button_height">20dp</dimen>
     <dimen name="chevron_button_width">13dp</dimen>
