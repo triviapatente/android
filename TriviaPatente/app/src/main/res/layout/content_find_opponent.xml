@@ -34,11 +34,6 @@
             android:textSize="@dimen/TPTextSizeMedium"
             android:visibility="gone"
             android:background="@color/mainColor"/>
-
-        <View
-            android:id="@+id/blurredView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
     </RelativeLayout>
 
 

@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.expandable_list;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listElements;
 
 import android.content.Context;
 import android.content.res.TypedArray;

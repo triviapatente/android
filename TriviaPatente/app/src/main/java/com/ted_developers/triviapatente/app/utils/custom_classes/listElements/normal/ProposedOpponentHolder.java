@@ -1,9 +1,17 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
@@ -13,6 +21,8 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TP
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Game;
+
+import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by Antonio on 28/11/16.
@@ -26,6 +36,8 @@ public class ProposedOpponentHolder extends TPHolder<User> {
     // context
     Context context;
 
+    ImageView imageView;
+
     public ProposedOpponentHolder(View itemView) {
         super(itemView);
         init(itemView.getContext());
@@ -36,6 +48,14 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameTextField = (TextView) itemView.findViewById(R.id.username);
         playButton = (PlayButton) itemView.findViewById(R.id.playButton);
+        itemView.setDrawingCacheEnabled(true);
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point size = new Point();
+        manager.getDefaultDisplay().getSize(size);
+        itemView.measure(View.MeasureSpec.makeMeasureSpec(size.x, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(60, View.MeasureSpec.EXACTLY));
+        itemView.layout(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight());
+        itemView.buildDrawingCache(true);
+        imageView = (ImageView) itemView.findViewById(R.id.blurredView);
     }
 
     @Override
@@ -58,5 +78,10 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         }
         // send invite on click
         playButton.sendInvite(element);
+        Blurry.with(context)
+                .radius(10)
+                .sampling(1)
+                .capture(itemView)
+                .into(imageView);
     }
 }
