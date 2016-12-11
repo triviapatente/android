@@ -38,6 +38,7 @@ public class ChoseCategoryActivity extends TPActivity {
         // init
         Intent intent = getIntent();
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringOpponent), User.class);
+        currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringRound), Round.class);
         initToolbar();
         initGameHeader();
     }
