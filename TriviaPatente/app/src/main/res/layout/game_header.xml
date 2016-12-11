@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:text="@string/wait_page_title_waitingConnection"
-        android:layout_marginLeft="@dimen/game_header_inner_margin"/>
+        android:layout_marginLeft="@dimen/game_header_margin"/>
 
     <View
         android:layout_width="1dp"
@@ -33,10 +33,13 @@
 
     <TextView
         android:id="@+id/gameHeaderSubtitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/TPTextSizeMedium"
         android:text="@string/wait_page_subtitle_waitingConnection"
+        android:singleLine="true"
+        android:layout_marginRight="@dimen/game_header_margin"
+        android:ellipsize="end"
         android:textColor="@android:color/white"/>
 
 

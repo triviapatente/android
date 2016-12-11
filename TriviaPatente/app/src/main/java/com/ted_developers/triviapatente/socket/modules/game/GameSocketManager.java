@@ -2,6 +2,8 @@ package com.ted_developers.triviapatente.socket.modules.game;
 
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.models.auth.Hints;
+import com.ted_developers.triviapatente.models.responses.Success;
+import com.ted_developers.triviapatente.models.responses.SuccessCategories;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
@@ -20,6 +22,16 @@ public class GameSocketManager extends BaseSocketManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    public void get_proposed_categories(Long gameID, Long roundID, SocketCallback<SuccessCategories> proposedCategoriesCallback) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("round_id", roundID);
+            data.put("game", gameID);
+            emit("get_categories", data, SuccessCategories.class, proposedCategoriesCallback);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

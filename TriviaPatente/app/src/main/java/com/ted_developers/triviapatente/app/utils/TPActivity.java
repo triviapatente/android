@@ -50,10 +50,7 @@ public class TPActivity extends AppCompatActivity {
             gameSocketManager.leave_room(new SocketCallback<Success>() {
                 @Override
                 public void response(Success response) {
-                    if(response.success) {
-                        // todo do init round
-                        Log.i("TEST", "ROOM LEAVATA");
-                    } else {
+                    if(!response.success) {
                         // todo vedere come avvisare
                         Log.i("TEST", "ERRORE NEL LEAVE ROOM!!");
                     }

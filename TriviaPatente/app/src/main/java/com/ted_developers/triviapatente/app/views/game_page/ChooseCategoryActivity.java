@@ -1,0 +1,109 @@
+package com.ted_developers.triviapatente.app.views.game_page;
+
+import android.content.Intent;
+import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.CategoryHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.game.Category;
+import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.SuccessCategories;
+import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
+
+import java.util.List;
+
+import butterknife.BindDimen;
+import butterknife.BindString;
+import butterknife.BindView;
+
+public class ChooseCategoryActivity extends TPActivity {
+    // data
+    @BindString(R.string.extra_string_round) String extraStringRound;
+    @BindString(R.string.extra_string_opponent) String extraStringOpponent;
+    private User opponent;
+    private Round currentRound;
+    // toolbar
+    @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
+    // game header
+    @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
+    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
+    @BindString(R.string.choose_category_game_header_subtitle) String chooseCategoryGameHeaderSubtitle;
+    @BindView(R.id.subtitleImage) RoundedImageView subtitleImage;
+    // get categories
+    GameSocketManager gameSocketManager = new GameSocketManager();
+    @BindView(R.id.proposed_categories) RecyclerView proposedCategories;
+    @BindDimen(R.dimen.choose_category_proposed_height) int categoriesHeight;
+    @BindView(R.id.loadingView) RelativeLayout loadingView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choose_category);
+        // init
+        Intent intent = getIntent();
+        opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringOpponent), User.class);
+        currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringRound), Round.class);
+        initToolbar();
+        initGameHeader();
+        loadProposedCategories();
+    }
+
+    private void initToolbar() {
+        // title
+        if(opponent != null && toolbar.getTitle().equals("")) {
+            if(opponent.name == null || opponent.surname == null) {
+                toolbar.setTitle(opponent.username);
+            } else {
+                toolbar.setTitle(opponent.name + " " + opponent.surname);
+            }
+        }
+        // picture
+        // todo get dinamically
+        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.no_image));
+    }
+
+    private void initGameHeader() {
+        gameHeaderTitle.setText("Round " + currentRound.number);
+        gameHeaderSubtitle.setText(chooseCategoryGameHeaderSubtitle);
+    }
+
+    private void loadProposedCategories() {
+        gameSocketManager.get_proposed_categories(currentRound.game_id, currentRound.id, new SocketCallback<SuccessCategories>() {
+            @Override
+            public void response(SuccessCategories response) {
+                final List<Category> categories = response.categories;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        proposedCategories.setAdapter(new TPListAdapter<Category>(
+                                ChooseCategoryActivity.this, categories,
+                                R.layout.proposed_category, CategoryHolder.class,
+                                0, null,
+                                categoriesHeight, proposedCategories));
+                        loadingView.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+
+    }
+
+    @Override
+    protected boolean needsLeaveRoom() {
+        return false;
+    }
+}

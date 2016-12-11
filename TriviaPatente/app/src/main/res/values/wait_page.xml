@@ -16,8 +16,9 @@
     <!-- dimens -->
     <dimen name="big_profile_picture_size">200dp</dimen>
     <dimen name="wait_page_margin">50dp</dimen>
-    <dimen name="game_header_inner_margin">30dp</dimen>
-    <dimen name="game_header_margin_right_image">15dp</dimen>
+    <dimen name="game_header_inner_margin">15dp</dimen>
+    <dimen name="game_header_margin">25dp</dimen>
+    <dimen name="game_header_margin_right_image">10dp</dimen>
     <dimen name="game_header_image_size">25dp</dimen>
     <dimen name="game_options_inner_margin">10dp</dimen>
     <dimen name="game_options_button_size">50dp</dimen>

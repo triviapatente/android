@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ted_developers.triviapatente.app.views.game_page.ChoseCategoryActivity">
+    tools:context=".app.views.game_page.ChooseCategoryActivity">
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar
         android:id="@+id/toolbar"

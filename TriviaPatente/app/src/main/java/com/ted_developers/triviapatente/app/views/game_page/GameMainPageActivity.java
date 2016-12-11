@@ -307,7 +307,7 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void chooseCategory() {
-        Intent intent = new Intent(this, ChoseCategoryActivity.class);
+        Intent intent = new Intent(this, ChooseCategoryActivity.class);
         intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
         startActivity(intent);

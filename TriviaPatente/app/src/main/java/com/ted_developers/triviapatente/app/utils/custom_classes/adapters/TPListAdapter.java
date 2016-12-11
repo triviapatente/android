@@ -157,13 +157,17 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
         return recyclerView.getHeight() - items.size() * elementHeight + recyclerView.computeVerticalScrollOffset();
     }
 
-    protected int footerAtLeastMinHeight() {
+    protected final int footerAtLeastMinHeight() {
         int height = theoreticalFooterHeight();
         // always shows a footer
         if(height < min_footer_height) {
             height = min_footer_height;
         }
         return height;
+    }
+
+    protected final int footerWithSameHeight() {
+        return elementHeight;
     }
 
     protected final int footerOnlyWithoutItems() {
