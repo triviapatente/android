@@ -30,6 +30,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     protected Class<? extends TPHolder<T>> holderClass;
     protected RecyclerView recyclerView;
     protected int extraElements;
+    public ComputeFooterHeightManager computeFooterHeightManager = new ComputeFooterHeightManager();
 
     public TPListAdapter(Context context, List<T> list,
                          @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
@@ -150,38 +151,69 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     // FOOTER HEIGHT MANAGEMENT
 
     protected int computeFooterHeight() {
-        return footerAtLeastMinHeight();
+        return computeFooterHeightManager.computeFooterHeight();
     }
 
     private int theoreticalFooterHeight() {
         return recyclerView.getHeight() - items.size() * elementHeight + recyclerView.computeVerticalScrollOffset();
     }
 
-    protected final int footerAtLeastMinHeight() {
-        int height = theoreticalFooterHeight();
-        // always shows a footer
-        if(height < min_footer_height) {
-            height = min_footer_height;
+    public enum compute_footer_options {
+        EXPANDABLE,
+        ZERO_ITEMS,
+        AT_LEAST_MIN_HEIGHT,
+        SAME_HEIGHT
+    }
+
+    public class ComputeFooterHeightManager {
+
+        private compute_footer_options selectedOption = compute_footer_options.AT_LEAST_MIN_HEIGHT;
+
+        private final int expandableFooter() {
+            int height = theoreticalFooterHeight();
+            // if visible at least, show it with min height
+            if(height > 0 && height < min_footer_height) {
+                height = min_footer_height;
+            } else if (height < 0) {
+                height = 0;
+            }
+            return height;
         }
-        return height;
-    }
 
-    protected final int footerWithSameHeight() {
-        return elementHeight;
-    }
-
-    protected final int footerOnlyWithoutItems() {
-        return (items.size() == 0)? recyclerView.getHeight() : 0;
-    }
-
-    protected final int footerExpHeight() {
-        int height = theoreticalFooterHeight();
-        // if visible at least, show it with min height
-        if(height > 0 && height < min_footer_height) {
-            height = min_footer_height;
-        } else if (height < 0) {
-            height = 0;
+        private final int zeroElementsFooter() {
+            return (items.size() == 0)? recyclerView.getHeight() : 0;
         }
-        return height;
+
+        private final int atLeastMinHeight() {
+            int height = theoreticalFooterHeight();
+            // always shows a footer
+            if(height < min_footer_height) {
+                height = min_footer_height;
+            }
+            return height;
+        }
+
+        private final int sameHeightFooter() {
+            int height = theoreticalFooterHeight();
+            // always shows a footer
+            if(height < min_footer_height) {
+                height = min_footer_height;
+            }
+            return height;
+        }
+
+        public int computeFooterHeight() {
+            switch(selectedOption) {
+                case EXPANDABLE: return expandableFooter();
+                case ZERO_ITEMS: return zeroElementsFooter();
+                case AT_LEAST_MIN_HEIGHT: return atLeastMinHeight();
+                case SAME_HEIGHT: return sameHeightFooter();
+                default: return 0;
+            }
+        }
+
+        public void setOption(compute_footer_options option) {
+            selectedOption = option;
+        }
     }
 }

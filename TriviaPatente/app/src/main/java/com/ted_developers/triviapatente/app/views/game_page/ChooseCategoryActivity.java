@@ -89,11 +89,13 @@ public class ChooseCategoryActivity extends TPActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        proposedCategories.setAdapter(new TPListAdapter<Category>(
+                        TPListAdapter<Category> adapter = new TPListAdapter<Category>(
                                 ChooseCategoryActivity.this, categories,
                                 R.layout.proposed_category, CategoryHolder.class,
                                 0, null,
-                                categoriesHeight, proposedCategories));
+                                categoriesHeight, proposedCategories);
+                        adapter.computeFooterHeightManager.setOption(TPListAdapter.compute_footer_options.SAME_HEIGHT);
+                        proposedCategories.setAdapter(adapter);
                         loadingView.setVisibility(View.GONE);
                     }
                 });
