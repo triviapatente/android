@@ -228,7 +228,7 @@ public class GameMainPageActivity extends TPActivity {
 
     private void startLoading() {
         CircleRotatingAnimation animation = new CircleRotatingAnimation(loadingCircle);
-        animation.setDuration(5000);
+        animation.setDuration(10000);
         animation.setRepeatCount(Animation.INFINITE);
         loadingCircle.startAnimation(animation);
     }
