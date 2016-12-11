@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
@@ -38,6 +39,7 @@ public class MainButton extends LinearLayout {
     private Activity activity = null;
     private int rotationTime = 5000;
     private Timer rotator = null;
+    private @ColorInt int textSwitcherColor;
 
     public MainButton(Context context) {
         super(context);
@@ -104,18 +106,21 @@ public class MainButton extends LinearLayout {
     }
 
     private void setHintFactory(final int color) {
-        hintTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                TextView myText = new TextView(getContext());
-                myText.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
-                myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.TPTextSizeVerySmall));
-                myText.setTextColor(color);
-                myText.setSingleLine(true);
-                myText.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-                return myText;
-            }
-        });
+        textSwitcherColor = color;
+        try {
+            hintTextSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+                @Override
+                public View makeView() {
+                    TextView myText = new TextView(getContext());
+                    myText.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+                    myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.TPTextSizeVerySmall));
+                    myText.setTextColor(textSwitcherColor);
+                    myText.setSingleLine(true);
+                    myText.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+                    return myText;
+                }
+            });
+        } catch (Exception e) {}
     }
 
     public void setButtonText(String buttonText) {

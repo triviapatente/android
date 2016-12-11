@@ -15,11 +15,11 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.ResizeAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPExpandableListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.DividerItemDecoration;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import butterknife.BindColor;
 import butterknife.BindDimen;

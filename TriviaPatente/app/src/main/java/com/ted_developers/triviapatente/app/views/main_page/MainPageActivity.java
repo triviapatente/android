@@ -27,6 +27,8 @@ import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
+import com.ted_developers.triviapatente.models.game.Invite;
+import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
@@ -77,6 +79,23 @@ public class MainPageActivity extends TPActivity {
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
     boolean errorConnectingToServer = false;
+    // sockets
+    public static Integer numberOfInvites, friends_rank_position, global_rank_position;
+    @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
+    SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
+        @Override
+        public void response(InviteUser response) {
+            if(visible) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        numberOfInvites++;
+                        initInviteHints();
+                    }
+                });
+            }
+        }
+    };
 
     private AuthSocketManager socketManager = new AuthSocketManager();
 
@@ -109,7 +128,12 @@ public class MainPageActivity extends TPActivity {
                                     errorConnectingToServer = false;
                                     // init items
                                     initOptionsButton();
-                                    initOptionsHints(response);
+                                    initStatsHints(response.stats);
+                                    friends_rank_position = response.friends_rank_position;
+                                    global_rank_position = response.global_rank_position;
+                                    initRankHints();
+                                    numberOfInvites = response.invites;
+                                    initInviteHints();
                                     initToolbar();
                                     // load recent games
                                     loadRecentGames();
@@ -171,12 +195,12 @@ public class MainPageActivity extends TPActivity {
         buttonShop.setImage(shopImage);
     }
 
-    private void initOptionsHints(Hints hints) {
+    private void initStatsHints(Category[] stats) {
         List<String> hintsStrings = new ArrayList<String>();
-        if(hints.stats.length > 0) {
+        if(stats.length > 0) {
             // build hints
             hintsStrings.clear();
-            for(Category c : hints.stats) {
+            for(Category c : stats) {
                 hintsStrings.add(c.hint + ": " + (c.correct_answers/((c.total_answers == 0)?1:c.total_answers)) + "%");
             }
             // activity required to rotate hints
@@ -184,25 +208,32 @@ public class MainPageActivity extends TPActivity {
             // set hints
             buttonShowStats.setHintText(listConverter(hintsStrings));
         }
-        if(hints.friends_rank_position != null || hints.global_rank_position != null) {
+    }
+
+    private void initRankHints() {
+        List<String> hintsStrings = new ArrayList<String>();
+        if(friends_rank_position != null || global_rank_position != null) {
             // build hints
             hintsStrings.clear();
-            if(hints.friends_rank_position != null) {
-                hintsStrings.add(friendRankHint + " " + hints.friends_rank_position);
+            if(friends_rank_position != null) {
+                hintsStrings.add(friendRankHint + " " + friends_rank_position);
             }
-            if(hints.global_rank_position != null) {
-                hintsStrings.add(globalRankHint + " " + hints.global_rank_position);
+            if(global_rank_position != null) {
+                hintsStrings.add(globalRankHint + " " + global_rank_position);
             }
             // activity required to rotate hints
             buttonShowRank.setActivity(this);
             // set hints
             buttonShowRank.setHintText(listConverter(hintsStrings));
         }
+    }
+
+    private void initInviteHints() {
         // it is sad to say "no invites" :(
-        if(hints.invites > 0) {
+        if(numberOfInvites > 0) {
             // build hints
-            String hint = hints.invites + " ";
-            if(hints.invites == 1) {
+            String hint = numberOfInvites + " ";
+            if(numberOfInvites == 1) {
                 hint += singleInvites;
             } else {
                 hint += multipleInvites;
@@ -285,5 +316,12 @@ public class MainPageActivity extends TPActivity {
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 }

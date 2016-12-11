@@ -41,6 +41,10 @@ public class TPActivity extends AppCompatActivity {
         super.onPause();
 
         visible = false;
+
+        for (String path : pathListened) {
+            baseSocketManager.stopListen(path);
+        }
     }
 
     @Override
@@ -59,15 +63,6 @@ public class TPActivity extends AppCompatActivity {
         }
 
         visible = true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        for (String path : pathListened) {
-            baseSocketManager.stopListen(path);
-        }
     }
 
     @Override

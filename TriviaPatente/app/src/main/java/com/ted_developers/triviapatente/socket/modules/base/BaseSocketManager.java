@@ -92,7 +92,7 @@ public class BaseSocketManager {
         }
     }
 
-    public <T extends Success> void emit(final String path, JSONObject parameters, Class<T> outputClass, final SocketCallback<T> cb) {
+    public <T> void emit(final String path, JSONObject parameters, Class<T> outputClass, final SocketCallback<T> cb) {
         listen(path, outputClass, new SocketCallback<T>() {
             @Override
             public void response(T response) {
@@ -105,7 +105,7 @@ public class BaseSocketManager {
         mSocket.emit(path, parameters);
     }
 
-    public <T extends Success> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {
+    public <T> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {
         mSocket.on(path, new Emitter.Listener() {
             @Override
             public void call(Object... args) {

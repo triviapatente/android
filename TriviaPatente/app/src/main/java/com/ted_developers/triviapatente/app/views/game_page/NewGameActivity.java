@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
@@ -18,6 +20,7 @@ import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableLi
 import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
+import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
 
 import butterknife.BindDimen;
@@ -43,6 +46,25 @@ public class NewGameActivity extends TPActivity {
     TPExpandableList<Invite> invites;
     @BindString(R.string.invites_title) String invitesTitle;
     @BindDimen(R.dimen.invite_height) int inviteHeight;
+    @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
+    SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
+        @Override
+        public void response(InviteUser response) {
+            response.invite.sender_name = response.user.name;
+            response.invite.sender_surname = response.user.surname;
+            response.invite.sender_username = response.user.username;
+            response.invite.sender_image = response.user.image;
+            final Invite invite = response.invite;
+            if(visible) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        invites.adapter.addItem(invite, 0);
+                    }
+                });
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,5 +145,12 @@ public class NewGameActivity extends TPActivity {
         toolbar.setVisibility(visibility);
         invites.getView().setVisibility(visibility);
         optionPanel.setVisibility(visibility);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 }

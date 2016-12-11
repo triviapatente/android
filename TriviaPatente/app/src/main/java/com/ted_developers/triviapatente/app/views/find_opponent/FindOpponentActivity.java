@@ -11,10 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +44,7 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -86,7 +89,6 @@ public class FindOpponentActivity extends TPActivity {
     @BindView(R.id.playersListBlock) RelativeLayout playersListBlock;
     private boolean firstTime = true;
     private AccountLinkerDialog facebookDialog;
-    @BindView(R.id.blurredView) View blurredView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,7 +229,6 @@ public class FindOpponentActivity extends TPActivity {
     public void allButtonClick() {
         all = true;
         searchBar.setText("");
-        blurredView.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
         allButton.setBackground(allButtonSelected);
         friendsButton.setBackground(friendsButtonNotSelected);
@@ -254,10 +255,13 @@ public class FindOpponentActivity extends TPActivity {
                 initDialog();
                 firstTime = false;
             }
-            // todo blur
-            facebookDialog.show();
+            loadingView.setVisibility(View.GONE);
+            /*Blurry.with(this)
+                    .radius(1)
+                    .sampling(2)
+                    .onto(playersList);*/
+            //facebookDialog.show();
         }
-        loadingView.setVisibility(View.GONE);
     }
 
     // touch handler

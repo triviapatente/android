@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
@@ -34,10 +36,6 @@ public class InviteHolder extends TPHolder<Invite> {
     private TPExpandableList<Invite> expandableList;
     // context
     Context context;
-
-    public InviteHolder(View itemView) {
-        super(itemView);
-    }
 
     public InviteHolder(View itemView, TPExpandableList<Invite> expandableList) {
         super(itemView);
@@ -91,8 +89,7 @@ public class InviteHolder extends TPHolder<Invite> {
                 if(response.code() == 200 && response.body().success) {
                     // remove element
                     expandableList.adapter.removeItem(element);
-                    // eventually change height
-                    expandableList.updateMinimized();
+                    MainPageActivity.numberOfInvites--;
                 }
             }
 
