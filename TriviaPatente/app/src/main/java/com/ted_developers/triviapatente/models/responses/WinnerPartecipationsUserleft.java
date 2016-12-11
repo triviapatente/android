@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Parcel
 public class WinnerPartecipationsUserleft {
-    @SerializedName("winner") public User winner;
+    @SerializedName("winner_id") public Long winner;
     @SerializedName("partecipations") public List<Partecipation> partecipations;
-    @SerializedName("user") public User userLeft;
+    @SerializedName("user_id") public Long userLeft;
 
     public WinnerPartecipationsUserleft() {}
 }

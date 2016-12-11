@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
@@ -23,8 +24,8 @@ import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
-import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.Accepted;
 import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
@@ -39,11 +40,13 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class GameMainPageActivity extends TPActivity {
-    // opponent data
+    // data
     public static String extraStringOpponent = "opponent", extraBooleanGame = "new_game", extraLongGame = "game_id";
-    Drawable opponentImage;
-    User opponent;
-    Long gameID;
+    private Drawable opponentImage;
+    private User opponent;
+    private Long gameID;
+    private Category currentCategory;
+    private Round currentRound;
     // toolbar
     @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
     @BindString(R.string.main_page_title) String mainPageTitle;
@@ -77,6 +80,7 @@ public class GameMainPageActivity extends TPActivity {
     @BindColor(android.R.color.white) int whiteColor;
     // sockets
     @BindString(R.string.room_name_game) String roomName;
+    @BindString(R.string.invite_refused) String inviteRefused;
     GameSocketManager gameSocketManager = new GameSocketManager();
     // sockets parameters
     @BindString(R.string.socket_response_waiting_category) String waitingCategory;
@@ -85,10 +89,10 @@ public class GameMainPageActivity extends TPActivity {
     // sockets events
     @BindString(R.string.socket_event_game_ended) String eventGameEnded;
     @BindString(R.string.socket_event_game_left) String eventGameLeft;
-    @BindString(R.string.socket_event_invite_accepted) String eventInviteAccepted;
-    @BindString(R.string.socket_event_invite_refused) String eventInviteRefused;
+    @BindString(R.string.socket_event_invite_processed) String eventInviteProcessed;
     @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
     @BindString(R.string.socket_event_round_started) String eventRoundStarted;
+    @BindString(R.string.socket_event_category_chosen) String eventCategoryChosen;
     // sockets callbacks
     SocketCallback initRoundCallback = new SocketCallback<SuccessInitRound>() {
         @Override
@@ -107,12 +111,16 @@ public class GameMainPageActivity extends TPActivity {
                             profilePicture.setImageDrawable(opponentImage);
                             if(response.isOpponentOnline) {
                                 if(waitingGame.equals(response.waiting)) {
-                                    waitingRound(response.round, response.category);
+                                    currentRound = response.round;
+                                    currentCategory = response.category;
+                                    waitingRound();
                                 } else if(waitingCategory.equals(response.waiting)) {
-                                    waitingCategory(response.round);
+                                    currentRound = response.round;
+                                    waitingCategory();
                                 }
                             } else {
-                                offline(response.round);
+                                currentRound = response.round;
+                                offline();
                             }
                         } else {
                             if(waitingGame.equals(response.waiting)) {
@@ -131,22 +139,35 @@ public class GameMainPageActivity extends TPActivity {
     }, roundCallback = new SocketCallback<RoundUserData>() {
         @Override
         public void response(RoundUserData response) {
-            // todo implement
+            if(response.globally == null) {
+                // round started
+                GameMainPageActivity.this.waitingRound();
+            } else {
+                // round ended
+                init_round();
+            }
         }
     }, gameCallback = new SocketCallback<WinnerPartecipationsUserleft>() {
         @Override
         public void response(WinnerPartecipationsUserleft response) {
-
+            // todo go to round details
         }
-    }, inviteCallback = new SocketCallback<SuccessGameUser>() {
+    }, inviteCallback = new SocketCallback<Accepted>() {
         @Override
-        public void response(SuccessGameUser response) {
-
+        public void response(Accepted response) {
+            if(response.accepted) {
+                init_round();
+            } else {
+                Toast.makeText(GameMainPageActivity.this, inviteRefused,
+                        Toast.LENGTH_LONG).show();
+                GameMainPageActivity.this.finish();
+            }
         }
-    }, newInvite = new SocketCallback<Game>() {
+    }, chosenCategoryCallback = new SocketCallback<Category>() {
         @Override
-        public void response(Game response) {
-
+        public void response(Category response) {
+            currentCategory = response;
+            // todo go to play round
         }
     };
 
@@ -207,7 +228,7 @@ public class GameMainPageActivity extends TPActivity {
 
     private void startLoading() {
         CircleRotatingAnimation animation = new CircleRotatingAnimation(loadingCircle);
-        animation.setDuration(10000);
+        animation.setDuration(5000);
         animation.setRepeatCount(Animation.INFINITE);
         loadingCircle.startAnimation(animation);
     }
@@ -236,7 +257,12 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void init_listening() {
-
+        listen(eventGameEnded, WinnerPartecipationsUserleft.class, gameCallback);
+        listen(eventGameLeft, WinnerPartecipationsUserleft.class, gameCallback);
+        listen(eventInviteProcessed, Accepted.class, inviteCallback);
+        listen(eventRoundStarted, RoundUserData.class, roundCallback);
+        listen(eventRoundEnded, RoundUserData.class, roundCallback);
+        listen(eventCategoryChosen, Category.class, chosenCategoryCallback);
     }
 
     private void updateWaitPage(String title, String subtitle, String status, Drawable subtitleImage, @ColorInt int overColor, @ColorInt int underColor) {
@@ -259,23 +285,23 @@ public class GameMainPageActivity extends TPActivity {
         }
     }
 
-    private void waitingCategory(Round round) {
+    private void waitingCategory() {
         if(visible) {
-            updateWaitPage("Round " + round.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
+            updateWaitPage("Round " + currentRound.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
         }
     }
 
-    private void waitingRound(Round round, Category category) {
+    private void waitingRound() {
         // todo get image and set it
         Drawable d = getResources().getDrawable(R.drawable.no_image);
         if(visible) {
-            updateWaitPage("Round " + round.number, category.name, playingStatus, d, greenColor, greenColorLight);
+            updateWaitPage("Round " + currentRound.number, currentCategory.name, playingStatus, d, greenColor, greenColorLight);
         }
     }
 
-    private void offline(Round round) {
+    private void offline() {
         if(visible) {
-            updateWaitPage("Round " + round.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
+            updateWaitPage("Round " + currentRound.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
         }
     }
 

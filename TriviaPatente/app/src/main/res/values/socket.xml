@@ -5,11 +5,13 @@
     <string name="socket_event_round_ended">round_ended</string>
     <string name="socket_event_game_ended">game_ended</string>
     <string name="socket_event_game_left">game_left</string>
-    <string name="socket_event_new_invite">new_invite</string>
-    <string name="socket_event_invite_accepted">invite_accepted</string>
-    <string name="socket_event_invite_refused">invite_refused</string>
+    <string name="socket_event_invite_created">invite_created</string>
+    <string name="socket_event_invite_processed">invite_processed</string>
+    <string name="socket_event_category_chosen">category_chosen</string>
     <!-- Socket responses -->
     <string name="socket_response_waiting_category">category</string>
     <string name="socket_response_waiting_game">game</string>
     <string name="socket_response_waiting_invite">invite</string>
+    <!-- other strings -->
+    <string name="invite_refused">Invito rifiutato</string>
 </resources>
