@@ -1,7 +1,6 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
@@ -24,10 +23,13 @@ import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
+import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
+import com.ted_developers.triviapatente.models.responses.WinnerPartecipationsUserleft;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
 import butterknife.BindColor;
@@ -87,6 +89,67 @@ public class GameMainPageActivity extends TPActivity {
     @BindString(R.string.socket_event_invite_refused) String eventInviteRefused;
     @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
     @BindString(R.string.socket_event_round_started) String eventRoundStarted;
+    // sockets callbacks
+    SocketCallback initRoundCallback = new SocketCallback<SuccessInitRound>() {
+        @Override
+        public void response(final SuccessInitRound response) {
+            if(response.success) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setToolbarTitle();
+                        if(waitingInvite.equals(response.waiting)) {
+                            waitingInvite();
+                        } else if(response.waiting_for.username.equals(opponent.username)) {
+                            // todo do dinamically
+                            opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
+                            toolbar.setProfilePicture(opponentImage);
+                            profilePicture.setImageDrawable(opponentImage);
+                            if(response.isOpponentOnline) {
+                                if(waitingGame.equals(response.waiting)) {
+                                    waitingRound(response.round, response.category);
+                                } else if(waitingCategory.equals(response.waiting)) {
+                                    waitingCategory(response.round);
+                                }
+                            } else {
+                                offline(response.round);
+                            }
+                        } else {
+                            if(waitingGame.equals(response.waiting)) {
+                                playRound();
+                            } else if(waitingCategory.equals(response.waiting)) {
+                                chooseCategory();
+                            }
+                        }
+                    }
+                });
+            } else {
+                // todo communicate error on init round
+                Log.i("TEST", "error");
+            }
+        }
+    }, roundCallback = new SocketCallback<RoundUserData>() {
+        @Override
+        public void response(RoundUserData response) {
+            // todo implement
+        }
+    }, gameCallback = new SocketCallback<WinnerPartecipationsUserleft>() {
+        @Override
+        public void response(WinnerPartecipationsUserleft response) {
+
+        }
+    }, inviteCallback = new SocketCallback<SuccessGameUser>() {
+        @Override
+        public void response(SuccessGameUser response) {
+
+        }
+    }, newInvite = new SocketCallback<Game>() {
+        @Override
+        public void response(Game response) {
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,12 +185,14 @@ public class GameMainPageActivity extends TPActivity {
 
                 @Override
                 public void then() {
-                    fullInit();
+                    init_round();
+                    init_listening();
                 }
             });
         } else {
             gameID = intent.getLongExtra(extraLongGame, -1);
-            fullInit();
+            init_round();
+            init_listening();
         }
     }
 
@@ -157,57 +222,20 @@ public class GameMainPageActivity extends TPActivity {
         }
     }
 
-    private void fullInit() {
+    private void init_round() {
         gameSocketManager.join_room(gameID, roomName, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
                 if(response.success) {
-                    gameSocketManager.init_round(gameID, new SocketCallback<SuccessInitRound>() {
-                        @Override
-                        public void response(final SuccessInitRound response) {
-                            if(response.success) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        setToolbarTitle();
-                                        if(waitingInvite.equals(response.waiting)) {
-                                            waitingInvite();
-                                        } else if(response.waiting_for.username.equals(opponent.username)) {
-                                            // todo do dinamically
-                                            opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
-                                            toolbar.setProfilePicture(opponentImage);
-                                            profilePicture.setImageDrawable(opponentImage);
-                                            if(response.isOpponentOnline) {
-                                                if(waitingGame.equals(response.waiting)) {
-                                                    waitingRound(response.round, response.category);
-                                                } else if(waitingCategory.equals(response.waiting)) {
-                                                    waitingCategory(response.round);
-                                                }
-                                            } else {
-                                                offline(response.round);
-                                            }
-                                        } else {
-                                            if(waitingGame.equals(response.waiting)) {
-                                                playRound();
-                                            } else if(waitingCategory.equals(response.waiting)) {
-                                                chooseCategory();
-                                            }
-                                        }
-                                    }
-                                });
-                            } else {
-                                // todo communicate error on init round
-                                Log.i("TEST", "error");
-                            }
-                        }
-                    });
+                    gameSocketManager.init_round(gameID, initRoundCallback);
                 } else {
-                    // todo manage error on join room
-                    Log.i("TEST", "ERRORE NEL JOIN ROOM!!");
+                    Log.i("TEST", "ERRORE NEL JOIN ROOM");
                 }
             }
         });
-        // listening on sockets for wait page change
+    }
+
+    private void init_listening() {
 
     }
 
