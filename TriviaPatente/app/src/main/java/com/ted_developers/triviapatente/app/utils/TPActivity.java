@@ -23,7 +23,7 @@ public class TPActivity extends AppCompatActivity {
 
     private BaseSocketManager baseSocketManager = new BaseSocketManager();
     public List<String> pathListened = new ArrayList<>();
-    public static boolean visible;
+    protected boolean visible;
     GameSocketManager gameSocketManager = new GameSocketManager();
 
     @Override
@@ -45,8 +45,9 @@ public class TPActivity extends AppCompatActivity {
         }
     }
 
-    protected void listen(String path, final Class output, final SocketCallback cb) {
-        baseSocketManager.listen(path, output, cb);
+    protected void listen(String path, final Class outputClass, final SocketCallback cb) {
+        pathListened.add(path);
+        baseSocketManager.listen(path, outputClass, cb);
     }
 
     @Override

@@ -76,9 +76,17 @@ public class GameMainPageActivity extends TPActivity {
     // sockets
     @BindString(R.string.room_name_game) String roomName;
     GameSocketManager gameSocketManager = new GameSocketManager();
+    // sockets parameters
     @BindString(R.string.socket_response_waiting_category) String waitingCategory;
     @BindString(R.string.socket_response_waiting_game) String waitingGame;
     @BindString(R.string.socket_response_waiting_invite) String waitingInvite;
+    // sockets events
+    @BindString(R.string.socket_event_game_ended) String eventGameEnded;
+    @BindString(R.string.socket_event_game_left) String eventGameLeft;
+    @BindString(R.string.socket_event_invite_accepted) String eventInviteAccepted;
+    @BindString(R.string.socket_event_invite_refused) String eventInviteRefused;
+    @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
+    @BindString(R.string.socket_event_round_started) String eventRoundStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +208,7 @@ public class GameMainPageActivity extends TPActivity {
             }
         });
         // listening on sockets for wait page change
+
     }
 
     private void updateWaitPage(String title, String subtitle, String status, Drawable subtitleImage, @ColorInt int overColor, @ColorInt int underColor) {

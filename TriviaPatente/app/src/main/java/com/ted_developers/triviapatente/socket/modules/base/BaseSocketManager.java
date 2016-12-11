@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.socket.modules.base;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -104,13 +105,13 @@ public class BaseSocketManager {
         mSocket.emit(path, parameters);
     }
 
-    public <T extends Success> void listen(String path, final Class<T> output, final SocketCallback<T> cb) {
+    public <T extends Success> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {
         mSocket.on(path, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 if(args.length > 0) {
                     JSONObject data = (JSONObject) args[0];
-                    T response = RetrofitManager.gson.fromJson(data.toString(), output);
+                    T response = RetrofitManager.gson.fromJson(data.toString(), outputClass);
                     cb.response(response);
                 }
             }
@@ -118,6 +119,7 @@ public class BaseSocketManager {
     }
 
     public void stopListen(String path) {
+        Log.i("TEST", "Stop " + path);
         mSocket.off(path);
     }
 
