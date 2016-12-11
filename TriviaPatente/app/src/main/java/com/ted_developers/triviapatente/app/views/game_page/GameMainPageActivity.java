@@ -41,7 +41,10 @@ import retrofit2.Response;
 
 public class GameMainPageActivity extends TPActivity {
     // data
-    public static String extraStringOpponent = "opponent", extraBooleanGame = "new_game", extraLongGame = "game_id";
+    @BindString(R.string.extra_string_opponent) String extraStringOpponent;
+    @BindString(R.string.extra_boolean_game) String extraBooleanGame;
+    @BindString(R.string.extra_long_game) String extraLongGame;
+    @BindString(R.string.extra_string_round) String extraStringRound;
     private Drawable opponentImage;
     private User opponent;
     private Long gameID;
@@ -102,6 +105,8 @@ public class GameMainPageActivity extends TPActivity {
                     @Override
                     public void run() {
                         setToolbarTitle();
+                        currentRound = response.round;
+                        currentCategory = response.category;
                         if(waitingInvite.equals(response.waiting)) {
                             waitingInvite();
                         } else if(response.waiting_for.username.equals(opponent.username)) {
@@ -111,15 +116,11 @@ public class GameMainPageActivity extends TPActivity {
                             profilePicture.setImageDrawable(opponentImage);
                             if(response.isOpponentOnline) {
                                 if(waitingGame.equals(response.waiting)) {
-                                    currentRound = response.round;
-                                    currentCategory = response.category;
                                     waitingRound();
                                 } else if(waitingCategory.equals(response.waiting)) {
-                                    currentRound = response.round;
                                     waitingCategory();
                                 }
                             } else {
-                                currentRound = response.round;
                                 offline();
                             }
                         } else {
@@ -306,7 +307,11 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void chooseCategory() {
-        // todo open activity
+        Intent intent = new Intent(this, ChoseCategoryActivity.class);
+        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+        intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
+        startActivity(intent);
+        finish();
     }
 
     private void playRound() {

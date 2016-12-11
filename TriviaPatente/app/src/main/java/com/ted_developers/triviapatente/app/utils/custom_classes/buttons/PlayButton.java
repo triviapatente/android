@@ -32,6 +32,7 @@ public class PlayButton extends Button implements View.OnClickListener {
     Long gameID;
     User opponent;
     boolean new_game;
+    String extraBooleanGame, extraLongGame, extraStringOpponent;
 
 
     public PlayButton(Context context) {
@@ -63,6 +64,10 @@ public class PlayButton extends Button implements View.OnClickListener {
         newGame = getResources().getString(R.string.new_game_button_text);
         endGame = getResources().getString(R.string.summary_button_text);
         details = getResources().getString(R.string.details_button_text);
+
+        extraStringOpponent = getResources().getString(R.string.extra_string_opponent);
+        extraBooleanGame = getResources().getString(R.string.extra_boolean_game);
+        extraLongGame = getResources().getString(R.string.extra_long_game);
         // bind drawables
         playNowDrawable = ContextCompat.getDrawable(context, R.drawable.green_on_white);
         newGameDrawable = ContextCompat.getDrawable(context, R.drawable.red_on_white_button);
@@ -117,12 +122,12 @@ public class PlayButton extends Button implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), GameMainPageActivity.class);
         if(new_game) {
-            intent.putExtra(GameMainPageActivity.extraBooleanGame, true);
+            intent.putExtra(extraBooleanGame, true);
         } else if(gameID != null) {
-            intent.putExtra(GameMainPageActivity.extraLongGame, gameID);
+            intent.putExtra(extraLongGame, gameID);
         }
         if(opponent != null) {
-            intent.putExtra(GameMainPageActivity.extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+            intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         }
         getContext().startActivity(intent);
     }

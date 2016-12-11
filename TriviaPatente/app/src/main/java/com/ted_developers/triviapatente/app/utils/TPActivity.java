@@ -29,20 +29,6 @@ public class TPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(needsLeaveRoom()) {
-            gameSocketManager.leave_room(new SocketCallback<Success>() {
-                @Override
-                public void response(Success response) {
-                    if(response.success) {
-                        // todo do init round
-                        Log.i("TEST", "ROOM LEAVATA");
-                    } else {
-                        // todo vedere come avvisare
-                        Log.i("TEST", "ERRORE NEL LEAVE ROOM!!");
-                    }
-                }
-            });
-        }
     }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {
@@ -60,6 +46,20 @@ public class TPActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if(needsLeaveRoom()) {
+            gameSocketManager.leave_room(new SocketCallback<Success>() {
+                @Override
+                public void response(Success response) {
+                    if(response.success) {
+                        // todo do init round
+                        Log.i("TEST", "ROOM LEAVATA");
+                    } else {
+                        // todo vedere come avvisare
+                        Log.i("TEST", "ERRORE NEL LEAVE ROOM!!");
+                    }
+                }
+            });
+        }
 
         visible = true;
     }

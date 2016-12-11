@@ -4,4 +4,9 @@
     <string name="shared_preferences">TriviaPatente</string>
     <string name="shared_token_key">tp-session-token</string>
     <string name="shared_user">current-user</string>
+    <!-- data between activities -->
+    <string name="extra_string_opponent">opponent</string>
+    <string name="extra_boolean_game">new_game</string>
+    <string name="extra_long_game">game_id</string>
+    <string name="extra_string_round">round</string>
 </resources>

@@ -119,7 +119,6 @@ public class BaseSocketManager {
     }
 
     public void stopListen(String path) {
-        Log.i("TEST", "Stop " + path);
         mSocket.off(path);
     }
 
