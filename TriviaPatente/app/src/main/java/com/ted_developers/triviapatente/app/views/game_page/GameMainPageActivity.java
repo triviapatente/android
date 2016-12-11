@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.game_page;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
@@ -196,42 +197,36 @@ public class GameMainPageActivity extends TPActivity {
         });
     }
 
+    private void updateWaitPage(String title, String subtitle, String status, Drawable subtitleImage, @ColorInt int overColor, @ColorInt int underColor) {
+        gameHeaderTitle.setText(title);
+        gameHeaderSubtitle.setText(subtitle);
+        gameStatus.setText(status);
+        if(this.subtitleImage == null) {
+            this.subtitleImage.setVisibility(View.GONE);
+        } else {
+            this.subtitleImage.setImageDrawable(subtitleImage);
+            this.subtitleImage.setVisibility(View.VISIBLE);
+        }
+        loadingCircle.setColorUnder(underColor);
+        loadingCircle.setColorOver(overColor);
+    }
+
     private void waitingInvite() {
-        gameHeaderTitle.setText(pendingInviteTitle);
-        gameHeaderSubtitle.setText(pendingInviteSubtitle);
-        gameStatus.setText(pendingInviteStatus);
-        subtitleImage.setVisibility(View.GONE);
-        loadingCircle.setColorOver(redColor);
-        loadingCircle.setColorUnder(redColorLight);
+        updateWaitPage(pendingInviteTitle, pendingInviteSubtitle, pendingInviteStatus, null, redColor, redColorLight);
     }
 
     private void waitingCategory(Round round) {
-        gameHeaderTitle.setText("Round " + round.number);
-        gameHeaderSubtitle.setText(waitingCategorySubtitle);
-        gameStatus.setText(waitingCategoryStatus);
-        subtitleImage.setVisibility(View.GONE);
-        loadingCircle.setColorOver(yellowColor);
-        loadingCircle.setColorUnder(yellowColorLight);
+        updateWaitPage("Round " + round.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
     }
 
     private void waitingRound(Round round, Category category) {
-        gameHeaderTitle.setText("Round " + round.number);
         // todo get image and set it
-        subtitleImage.setBackground(getResources().getDrawable(R.drawable.no_image));
-        subtitleImage.setVisibility(View.VISIBLE);
-        gameHeaderSubtitle.setText(category.name);
-        gameStatus.setText(playingStatus);
-        loadingCircle.setColorOver(greenColor);
-        loadingCircle.setColorUnder(greenColorLight);
+        Drawable d = getResources().getDrawable(R.drawable.no_image);
+        updateWaitPage("Round " + round.number, category.name, playingStatus, d, greenColor, greenColorLight);
     }
 
     private void offline(Round round) {
-        gameHeaderTitle.setText("Round " + round.number);
-        gameHeaderSubtitle.setText(offlineSubtitle);
-        gameStatus.setText(offlineStatus);
-        subtitleImage.setVisibility(View.GONE);
-        loadingCircle.setColorOver(whiteColor);
-        loadingCircle.setColorUnder(mainColorLight);
+        updateWaitPage("Round " + round.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
     }
 
     private void chooseCategory() {
