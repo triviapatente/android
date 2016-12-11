@@ -6,6 +6,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class TPExpandableList<T> extends Fragment {
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     public boolean maximized = false;
     public mLinearLayoutManager listLayoutManager;
+    private int maxNumberOfShownItems;
     // separator color
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
 
@@ -91,10 +93,14 @@ public class TPExpandableList<T> extends Fragment {
 
     public void setListCounter(int counter, boolean firstTime) {
         listCounter.setText(String.valueOf(counter));
-        int numberOfShownItems = (getView().getHeight() - titleHeight) / elementHeight;
-        numberOfShownItems = (numberOfShownItems < counter)? numberOfShownItems : counter;
+        if(firstTime) {
+            maxNumberOfShownItems = (getView().getHeight() - titleHeight) / elementHeight;
+            if(maxNumberOfShownItems > 3) {
+                maxNumberOfShownItems = 3;
+            }
+        }
         oldMinimizedHeight = minimizedHeight;
-        minimizedHeight = ((numberOfShownItems > 3)? 3 : numberOfShownItems) * elementHeight + titleHeight;
+        minimizedHeight = ((maxNumberOfShownItems < counter)? maxNumberOfShownItems : counter) * elementHeight + titleHeight;
         if(oldMinimizedHeight == 0) { oldMinimizedHeight = minimizedHeight; }
         maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
         maximize = new ResizeAnimation(getView(), getView().getWidth(), minimizedHeight, getView().getWidth(), maximizedHeight);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -80,20 +81,18 @@ public class MainPageActivity extends TPActivity {
     @BindString(R.string.server_down_message) String serverDownMessage;
     boolean errorConnectingToServer = false;
     // sockets
-    public static Integer numberOfInvites, friends_rank_position, global_rank_position;
+    public static Integer numberOfInvites = new Integer(0), friends_rank_position, global_rank_position;
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
         @Override
         public void response(InviteUser response) {
-            if(visible) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        numberOfInvites++;
-                        initInviteHints();
-                    }
-                });
-            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    numberOfInvites++;
+                    initInviteHints();
+                }
+            });
         }
     };
 
@@ -106,6 +105,7 @@ public class MainPageActivity extends TPActivity {
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         // init
         init();
+        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 
     private void init() {
@@ -230,7 +230,7 @@ public class MainPageActivity extends TPActivity {
 
     private void initInviteHints() {
         // it is sad to say "no invites" :(
-        if(numberOfInvites > 0) {
+        if(numberOfInvites != null && numberOfInvites > 0) {
             // build hints
             String hint = numberOfInvites + " ";
             if(numberOfInvites == 1) {
@@ -322,6 +322,7 @@ public class MainPageActivity extends TPActivity {
     public void onResume() {
         super.onResume();
 
-        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
+        initInviteHints();
+        initRankHints();
     }
 }

@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.adapters;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,7 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
     }
 
     protected void doStuffAfterItemAdd() {
+        Log.i("TEST", "item add: " + items.size());
         expandableList.setListCounter(items.size(), false);
         // eventually change height
         expandableList.updateMinimized();

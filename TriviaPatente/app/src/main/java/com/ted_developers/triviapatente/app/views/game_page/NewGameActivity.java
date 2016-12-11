@@ -55,14 +55,12 @@ public class NewGameActivity extends TPActivity {
             response.invite.sender_username = response.user.username;
             response.invite.sender_image = response.user.image;
             final Invite invite = response.invite;
-            if(visible) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        invites.adapter.addItem(invite, 0);
-                    }
-                });
-            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    invites.adapter.addItem(invite, 0);
+                }
+            });
         }
     };
 
@@ -73,6 +71,7 @@ public class NewGameActivity extends TPActivity {
         invites = (TPExpandableList<Invite>) getSupportFragmentManager().findFragmentById(R.id.invites);
         // init
         init();
+        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 
     private void init() {
@@ -150,7 +149,5 @@ public class NewGameActivity extends TPActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 }
