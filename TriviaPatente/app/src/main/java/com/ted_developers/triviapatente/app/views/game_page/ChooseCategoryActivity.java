@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,12 +12,11 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.CategoryHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
@@ -38,8 +36,9 @@ public class ChooseCategoryActivity extends TPActivity {
     @BindString(R.string.extra_string_opponent) String extraStringOpponent;
     private User opponent;
     private Round currentRound;
-    // toolbar
-    @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
+    // action_bar
+    @BindView(R.id.toolbar)
+    BackPictureTPActionBar toolbar;
     // game header
     @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;

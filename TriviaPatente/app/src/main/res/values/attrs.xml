@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Circle -->
     <declare-styleable name="Circle">
         <attr name="stroke_width" format="dimension"/>
         <attr name="circle_colorOver" format="color"/>
         <attr name="circle_colorUnder" format="color"/>
+    </declare-styleable>
+
+    <!-- Action Bar-->
+    <declare-styleable name="TPActionBar">
+        <attr name="action_bar_title" format="string"/>
+        <attr name="action_bar_back_title" format="string"/>
+    </declare-styleable>
+
+    <!-- Main Button -->
+    <declare-styleable name="MainButton">
+        <attr name="main_button_image" format="integer"/>
+        <attr name="main_button_name" format="string"/>
+        <attr name="main_button_text_color" format="color"/>
     </declare-styleable>
 </resources>

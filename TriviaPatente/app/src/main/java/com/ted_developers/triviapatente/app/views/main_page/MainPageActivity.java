@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,7 +19,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar;
 import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
@@ -47,12 +46,11 @@ import retrofit2.Response;
 
 public class MainPageActivity extends TPActivity {
     // top bar
-    @BindView(R.id.toolbar) HeartsPictureSettingsTPToolbar toolbar;
-    @BindString(R.string.main_page_title) String toolbarTitle;
+    @BindView(R.id.toolbar)
+    HeartsPictureSettingsTPActionBar toolbar;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
-    @BindString(R.string.button_new_game) String newGame;
     @BindString(R.string.button_rank) String rank;
     @BindString(R.string.button_stats) String stats;
     @BindString(R.string.button_shop) String shop;
@@ -62,11 +60,6 @@ public class MainPageActivity extends TPActivity {
     @BindView(R.id.stats) MainButton buttonShowStats;
     @BindView(R.id.shop) MainButton buttonShop;
     @BindView(R.id.rank) MainButton buttonShowRank;
-    // buttons image
-    @BindDrawable(R.drawable.chart_line) Drawable statsImage;
-    @BindDrawable(R.drawable.trophy) Drawable rankImage;
-    @BindDrawable(R.drawable.car) Drawable newGameImage;
-    @BindDrawable(R.drawable.heart) Drawable shopImage;
     // hints
     @BindString(R.string.friends) String friendRankHint;
     @BindString(R.string.global) String globalRankHint;
@@ -127,7 +120,6 @@ public class MainPageActivity extends TPActivity {
                                 public void run() {
                                     errorConnectingToServer = false;
                                     // init items
-                                    initOptionsButton();
                                     ReceivedData.statsHints = response.stats;
                                     ReceivedData.friends_rank_position = response.friends_rank_position;
                                     ReceivedData.global_rank_position = response.global_rank_position;
@@ -166,8 +158,6 @@ public class MainPageActivity extends TPActivity {
     }
 
     private void initToolbar() {
-        // set title
-        toolbar.setTitle(toolbarTitle);
         // set profile picture
         // TODO get dinamically
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
@@ -176,24 +166,6 @@ public class MainPageActivity extends TPActivity {
         toolbar.setLifeCounter(3);
         // set menu
         toolbar.setMenu();
-    }
-
-    private void initOptionsButton() {
-        // new game
-        buttonNewGame.setButtonText(newGame, Color.WHITE);
-        buttonNewGame.setImage(newGameImage);
-
-        // rank
-        buttonShowRank.setButtonText(rank, Color.WHITE);
-        buttonShowRank.setImage(rankImage);
-
-        // stats
-        buttonShowStats.setButtonText(stats, Color.WHITE);
-        buttonShowStats.setImage(statsImage);
-
-        // shop
-        buttonShop.setButtonText(shop, Color.WHITE);
-        buttonShop.setImage(shopImage);
     }
 
     private void initStatsHints() {

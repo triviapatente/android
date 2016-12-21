@@ -6,24 +6,23 @@ import android.util.AttributeSet;
 /**
  * Created by Antonio on 12/11/16.
  */
-public class BackPictureSettingsTPToolbar extends TPToolbar {
-
-    public BackPictureSettingsTPToolbar(Context context) {
+public class BackPictureTPActionBar extends TPActionBar {
+    public BackPictureTPActionBar(Context context) {
         super(context);
         init(context);
     }
 
-    public BackPictureSettingsTPToolbar(Context context, AttributeSet attrs) {
+    public BackPictureTPActionBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public BackPictureSettingsTPToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BackPictureTPActionBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
-    public BackPictureSettingsTPToolbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BackPictureTPActionBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
@@ -31,5 +30,7 @@ public class BackPictureSettingsTPToolbar extends TPToolbar {
     private void init(Context context) {
         // hide heart box
         heartsBox.setVisibility(GONE);
+        // hide settings
+        settings.setVisibility(GONE);
     }
 }

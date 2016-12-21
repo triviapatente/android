@@ -3,11 +3,13 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -48,18 +50,33 @@ public class MainButton extends LinearLayout {
 
     public MainButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     public MainButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MainButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs);
+    }
+
+    private void init(Context context, AttributeSet attrs) {
         init(context);
+
+        TypedArray a = getContext().getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.MainButton,
+                0, 0);
+        try {
+            setImage(a.getDrawable(R.styleable.MainButton_main_button_image));
+            setButtonText(a.getString(R.styleable.MainButton_main_button_name), a.getColor(R.styleable.MainButton_main_button_text_color, Color.WHITE));
+        } finally {
+            a.recycle();
+        }
     }
 
     private void init(Context context) {

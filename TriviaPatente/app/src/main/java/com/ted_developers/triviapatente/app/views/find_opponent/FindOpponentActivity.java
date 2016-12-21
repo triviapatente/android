@@ -11,12 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +27,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -44,7 +42,6 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
-import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -64,10 +61,8 @@ public class FindOpponentActivity extends TPActivity {
     private boolean all;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    // toolbar
-    @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
-    @BindString(R.string.find_opponent_title) String toolbarTitle;
-    @BindString(R.string.new_game_title) String backTitle;
+    // action_bar
+    @BindView(R.id.toolbar) BackPictureTPActionBar toolbar;
     // players
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
@@ -94,7 +89,7 @@ public class FindOpponentActivity extends TPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_opponent);
-        // init toolbar
+        // init action_bar
         initToolbar();
         if(getIntent().getBooleanExtra("random", false)) {
             searchRandomOpponent();
@@ -216,13 +211,9 @@ public class FindOpponentActivity extends TPActivity {
     }
 
     private void initToolbar() {
-        // set title
-        toolbar.setTitle(toolbarTitle);
         // set profile picture
         // TODO get dinamically
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
-        // set back button
-        toolbar.setBackButtonText(backTitle);
     }
 
     @OnClick(R.id.all_button)

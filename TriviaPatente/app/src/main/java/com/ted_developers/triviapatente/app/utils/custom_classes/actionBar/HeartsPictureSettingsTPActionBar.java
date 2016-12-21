@@ -6,24 +6,24 @@ import android.util.AttributeSet;
 /**
  * Created by Antonio on 31/10/16.
  */
-public class HeartsPictureSettingsTPToolbar extends TPToolbar {
+public class HeartsPictureSettingsTPActionBar extends TPActionBar {
 
-    public HeartsPictureSettingsTPToolbar(Context context) {
+    public HeartsPictureSettingsTPActionBar(Context context) {
         super(context);
         init(context);
     }
 
-    public HeartsPictureSettingsTPToolbar(Context context, AttributeSet attrs) {
+    public HeartsPictureSettingsTPActionBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public HeartsPictureSettingsTPToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HeartsPictureSettingsTPActionBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
-    public HeartsPictureSettingsTPToolbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public HeartsPictureSettingsTPActionBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }

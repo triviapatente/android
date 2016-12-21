@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPToolbar
+    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tp_toolbar_height"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        custom:action_bar_title="@string/main_page_title"/>
 
     <include
         layout="@layout/content_main_page"

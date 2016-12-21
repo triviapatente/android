@@ -19,7 +19,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle;
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.CircleRotatingAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -50,9 +50,9 @@ public class GameMainPageActivity extends TPActivity {
     private Long gameID;
     private Category currentCategory;
     private Round currentRound;
-    // toolbar
-    @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
-    @BindString(R.string.main_page_title) String mainPageTitle;
+    // action_bar
+    @BindView(R.id.toolbar)
+    BackPictureTPActionBar toolbar;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
@@ -222,7 +222,6 @@ public class GameMainPageActivity extends TPActivity {
         opponentImage = ContextCompat.getDrawable(this, R.drawable.no_image);
         setToolbarTitle();
         toolbar.setProfilePicture(opponentImage);
-        toolbar.setBackButtonText(mainPageTitle);
         toolbar.setBackButtonOnClick(this, MainPageActivity.class);
         profilePicture.setImageDrawable(opponentImage);
     }

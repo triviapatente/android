@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -28,7 +29,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedI
 /**
  * Created by Antonio on 31/10/16.
  */
-public class TPToolbar extends RelativeLayout {
+public class TPActionBar extends RelativeLayout {
     // back button
     protected LinearLayout backButton;
     protected TextView backButtonText;
@@ -46,30 +47,44 @@ public class TPToolbar extends RelativeLayout {
     public View menu;
     private boolean show_menu;
 
-    public TPToolbar(Context context) {
+    public TPActionBar(Context context) {
         super(context);
         init(context);
     }
 
-    public TPToolbar(Context context, AttributeSet attrs) {
+    public TPActionBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
-    public TPToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TPActionBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public TPToolbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public TPActionBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs);
+    }
+
+    private void init(Context context, AttributeSet attrs) {
         init(context);
+        TypedArray a = getContext().getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.TPActionBar,
+                0, 0);
+        try {
+            setTitle(a.getString(R.styleable.TPActionBar_action_bar_title));
+            setBackButtonText(a.getString(R.styleable.TPActionBar_action_bar_back_title));
+        } finally {
+            a.recycle();
+        }
     }
 
     private void init(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.toolbar, null);
+        View v = inflater.inflate(R.layout.action_bar, null);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT

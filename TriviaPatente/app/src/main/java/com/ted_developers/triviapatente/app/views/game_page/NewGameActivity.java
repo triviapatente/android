@@ -2,7 +2,6 @@ package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,7 +15,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPToolbar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -34,8 +33,9 @@ import retrofit2.Response;
 public class NewGameActivity extends TPActivity {
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    // toolbar
-    @BindView(R.id.toolbar) BackPictureTPToolbar toolbar;
+    // action_bar
+    @BindView(R.id.toolbar)
+    BackPictureTPActionBar toolbar;
     @BindString(R.string.new_game_title) String toolbarTitle;
     @BindString(R.string.main_page_title) String backTitle;
     // options
@@ -88,13 +88,9 @@ public class NewGameActivity extends TPActivity {
     }
 
     private void initToolbar() {
-        // set title
-        toolbar.setTitle(toolbarTitle);
         // set profile picture
         // TODO get dinamically
         toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
-        // set back button
-        toolbar.setBackButtonText(backTitle);
     }
 
     private void loadInvites() {
