@@ -8,9 +8,12 @@ import android.support.annotation.ColorInt;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -172,9 +175,10 @@ public class FindOpponentActivity extends TPActivity {
                 // todo connect to facebook
             }
         };
-        //WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
-        //params.gravity = Gravity.TOP;
-        //params.y = (int) playersList.getY();
+
+        WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
+        params.gravity = Gravity.TOP;
+        params.y = toolbar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
         facebookDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
@@ -251,7 +255,7 @@ public class FindOpponentActivity extends TPActivity {
                     .radius(1)
                     .sampling(2)
                     .onto(playersList);*/
-            //facebookDialog.show();
+            facebookDialog.show();
         }
     }
 
