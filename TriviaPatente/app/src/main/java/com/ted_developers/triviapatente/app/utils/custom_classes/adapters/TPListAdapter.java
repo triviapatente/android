@@ -138,6 +138,12 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
 
     // ADD ITEM
 
+    public void addItem(int position) {
+        doStuffBeforeItemAdd();
+        notifyItemInserted(position);
+        doStuffAfterItemAdd();
+    }
+
     public void addItem(T element, int position) {
         items.add(position, element);
         doStuffBeforeItemAdd();

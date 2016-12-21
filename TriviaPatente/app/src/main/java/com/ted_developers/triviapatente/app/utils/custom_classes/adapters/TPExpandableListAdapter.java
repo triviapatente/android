@@ -64,7 +64,6 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
     }
 
     protected void doStuffAfterItemAdd() {
-        Log.i("TEST", "item add: " + items.size());
         expandableList.setListCounter(items.size(), false);
         // eventually change height
         expandableList.updateMinimized();

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
@@ -28,7 +29,6 @@ import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
-import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
@@ -80,23 +80,22 @@ public class MainPageActivity extends TPActivity {
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
     boolean errorConnectingToServer = false;
+    private AuthSocketManager socketManager = new AuthSocketManager();
     // sockets
-    public static Integer numberOfInvites = new Integer(0), friends_rank_position, global_rank_position;
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
         @Override
         public void response(InviteUser response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    numberOfInvites++;
-                    initInviteHints();
-                }
-            });
+            if(visible) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initInviteHints();
+                    }
+                });
+            }
         }
     };
-
-    private AuthSocketManager socketManager = new AuthSocketManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +104,7 @@ public class MainPageActivity extends TPActivity {
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         // init
         init();
+        // listening to events
         listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 
@@ -128,11 +128,12 @@ public class MainPageActivity extends TPActivity {
                                     errorConnectingToServer = false;
                                     // init items
                                     initOptionsButton();
-                                    initStatsHints(response.stats);
-                                    friends_rank_position = response.friends_rank_position;
-                                    global_rank_position = response.global_rank_position;
+                                    ReceivedData.statsHints = response.stats;
+                                    ReceivedData.friends_rank_position = response.friends_rank_position;
+                                    ReceivedData.global_rank_position = response.global_rank_position;
+                                    ReceivedData.numberOfInvites = response.invites;
                                     initRankHints();
-                                    numberOfInvites = response.invites;
+                                    initStatsHints();
                                     initInviteHints();
                                     initToolbar();
                                     // load recent games
@@ -195,12 +196,12 @@ public class MainPageActivity extends TPActivity {
         buttonShop.setImage(shopImage);
     }
 
-    private void initStatsHints(Category[] stats) {
+    private void initStatsHints() {
         List<String> hintsStrings = new ArrayList<String>();
-        if(stats.length > 0) {
+        if(ReceivedData.statsHints.length > 0) {
             // build hints
             hintsStrings.clear();
-            for(Category c : stats) {
+            for(Category c : ReceivedData.statsHints) {
                 hintsStrings.add(c.hint + ": " + (c.correct_answers/((c.total_answers == 0)?1:c.total_answers)) + "%");
             }
             // activity required to rotate hints
@@ -212,14 +213,14 @@ public class MainPageActivity extends TPActivity {
 
     private void initRankHints() {
         List<String> hintsStrings = new ArrayList<String>();
-        if(friends_rank_position != null || global_rank_position != null) {
+        if(ReceivedData.friends_rank_position != null || ReceivedData.global_rank_position != null) {
             // build hints
             hintsStrings.clear();
-            if(friends_rank_position != null) {
-                hintsStrings.add(friendRankHint + " " + friends_rank_position);
+            if(ReceivedData.friends_rank_position != null) {
+                hintsStrings.add(friendRankHint + " " + ReceivedData.friends_rank_position);
             }
-            if(global_rank_position != null) {
-                hintsStrings.add(globalRankHint + " " + global_rank_position);
+            if(ReceivedData.global_rank_position != null) {
+                hintsStrings.add(globalRankHint + " " + ReceivedData.global_rank_position);
             }
             // activity required to rotate hints
             buttonShowRank.setActivity(this);
@@ -230,6 +231,7 @@ public class MainPageActivity extends TPActivity {
 
     private void initInviteHints() {
         // it is sad to say "no invites" :(
+        Integer numberOfInvites = (ReceivedData.pendingInvites == null)? ReceivedData.numberOfInvites : ReceivedData.pendingInvites.size();
         if(numberOfInvites != null && numberOfInvites > 0) {
             // build hints
             String hint = numberOfInvites + " ";
@@ -255,7 +257,8 @@ public class MainPageActivity extends TPActivity {
                 if(response.code() == 200 && response.body().success) {
                     int counter = 0;
                     if(response.body().recent_games != null) {
-                        recentGames.setItems(response.body().recent_games,
+                        ReceivedData.recentGames = response.body().recent_games;
+                        recentGames.setItems(ReceivedData.recentGames,
                                 R.layout.recent_game, RecentGameHolder.class,
                                 R.layout.recent_games_footer, TPFooter.class,
                                 recentGameHeight);

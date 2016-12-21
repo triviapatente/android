@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
@@ -89,7 +90,7 @@ public class InviteHolder extends TPHolder<Invite> {
                 if(response.code() == 200 && response.body().success) {
                     // remove element
                     expandableList.adapter.removeItem(element);
-                    MainPageActivity.numberOfInvites--;
+                    ReceivedData.removeInvite(element);
                 }
             }
 

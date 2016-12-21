@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.models.game.Invite;
+import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
@@ -14,6 +17,7 @@ import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.ButterKnife;
 
 /**
@@ -21,10 +25,10 @@ import butterknife.ButterKnife;
  */
 public class TPActivity extends AppCompatActivity {
 
-    private BaseSocketManager baseSocketManager = new BaseSocketManager();
-    public List<String> pathListened = new ArrayList<>();
+    protected BaseSocketManager baseSocketManager = new BaseSocketManager();
+    //public List<String> pathListened = new ArrayList<>();
     protected boolean visible;
-    GameSocketManager gameSocketManager = new GameSocketManager();
+    protected GameSocketManager gameSocketManager = new GameSocketManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +36,17 @@ public class TPActivity extends AppCompatActivity {
     }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {
-        pathListened.add(path);
+        //pathListened.add(path);
         baseSocketManager.listen(path, outputClass, cb);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+
+        /*for (String path : pathListened) {
+            baseSocketManager.stopListen(path);
+        }*/
 
         visible = false;
     }
@@ -57,17 +65,7 @@ public class TPActivity extends AppCompatActivity {
                 }
             });
         }
-
         visible = true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        for (String path : pathListened) {
-            baseSocketManager.stopListen(path);
-        }
     }
 
     @Override

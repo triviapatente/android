@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
@@ -46,21 +47,19 @@ public class NewGameActivity extends TPActivity {
     TPExpandableList<Invite> invites;
     @BindString(R.string.invites_title) String invitesTitle;
     @BindDimen(R.dimen.invite_height) int inviteHeight;
+    // socket
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
         @Override
         public void response(InviteUser response) {
-            response.invite.sender_name = response.user.name;
-            response.invite.sender_surname = response.user.surname;
-            response.invite.sender_username = response.user.username;
-            response.invite.sender_image = response.user.image;
-            final Invite invite = response.invite;
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    invites.adapter.addItem(invite, 0);
-                }
-            });
+            if(visible) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        invites.adapter.addItem(0);
+                    }
+                });
+            }
         }
     };
 
@@ -71,6 +70,7 @@ public class NewGameActivity extends TPActivity {
         invites = (TPExpandableList<Invite>) getSupportFragmentManager().findFragmentById(R.id.invites);
         // init
         init();
+        // listening to events
         listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 
@@ -100,30 +100,40 @@ public class NewGameActivity extends TPActivity {
     private void loadInvites() {
         invites.setListTitle(invitesTitle);
         // request recent games
-        Call<SuccessInvites> call = RetrofitManager.getHTTPGameEndpoint().getPendingInvites();
-        call.enqueue(new TPCallback<SuccessInvites>() {
-            @Override
-            public void mOnResponse(Call<SuccessInvites> call, Response<SuccessInvites> response) {
-                if(response.code() == 200 && response.body().success) {
-                    int counter = 0;
-                    if(response.body().invites != null) {
-                        invites.setItems(response.body().invites,
-                                R.layout.invite, InviteHolder.class,
-                                R.layout.invites_footer, TPFooter.class,
-                                inviteHeight);
-                        counter = response.body().invites.size();
+        //if(ReceivedData.pendingInvites == null) {
+            Call<SuccessInvites> call = RetrofitManager.getHTTPGameEndpoint().getPendingInvites();
+            call.enqueue(new TPCallback<SuccessInvites>() {
+                @Override
+                public void mOnResponse(Call<SuccessInvites> call, Response<SuccessInvites> response) {
+                    if(response.code() == 200 && response.body().success) {
+                        int counter = 0;
+                        if(response.body().invites != null) {
+                            ReceivedData.pendingInvites = response.body().invites;
+                            invites.setItems(response.body().invites,
+                                    R.layout.invite, InviteHolder.class,
+                                    R.layout.invites_footer, TPFooter.class,
+                                    inviteHeight);
+                            counter = response.body().invites.size();
+                        }
+                        invites.setListCounter(counter);
                     }
-                    invites.setListCounter(counter);
                 }
-            }
 
-            @Override
-            public void mOnFailure(Call<SuccessInvites> call, Throwable t) {}
+                @Override
+                public void mOnFailure(Call<SuccessInvites> call, Throwable t) {}
 
-            @Override
-            public void then() {
-            }
-        });
+                @Override
+                public void then() {
+                }
+            });
+        /*} else {
+            invites.setItems(ReceivedData.pendingInvites,
+                    R.layout.invite, InviteHolder.class,
+                    R.layout.invites_footer, TPFooter.class,
+                    inviteHeight);
+            invites.setListCounter(ReceivedData.numberOfInvites);
+            invites.adapter.notifyDataSetChanged();
+        }*/
     }
 
     @OnClick(R.id.findOpponent)
@@ -149,5 +159,7 @@ public class NewGameActivity extends TPActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        loadInvites();
     }
 }
