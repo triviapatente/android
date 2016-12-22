@@ -8,6 +8,7 @@
     <dimen name="field_height">45dp</dimen>
     <dimen name="field_margin">30dp</dimen>
     <dimen name="image_button_size">50dp</dimen>
+    <dimen name="arrow_size">30dp</dimen>
     <dimen name="circle_indicator_size">4.5dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
     <dimen name="corner_big_radius">15dp</dimen>

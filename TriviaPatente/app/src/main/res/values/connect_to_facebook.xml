@@ -6,9 +6,10 @@
     <string name="connectToFacebookConfirm">Collegami a Facebook</string>
     <dimen name="connectToFacebookConfirmMargin">15dp</dimen>
     <dimen name="connectToFacebookMargin">40dp</dimen>
-    <dimen name="connectToFacebookImageMargin">20dp</dimen>
+    <dimen name="connectToFacebookImageMargin">15dp</dimen>
+    <dimen name="connectToFacebookHeartImageMargin">8dp</dimen>
     <dimen name="connectToFacebookExitButtonSize">20dp</dimen>
-    <dimen name="connectToFacebookExitButtonMargin">5dp</dimen>
+    <dimen name="connectToFacebookExitButtonMargin">10dp</dimen>
 
     <dimen name="modalTopMargin">30dp</dimen>
     <dimen name="modalWidth">325dp</dimen>

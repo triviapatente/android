@@ -33,6 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/connectToFacebookTitle"
         android:layout_marginTop="@dimen/connectToFacebookMargin"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
@@ -41,15 +42,15 @@
             android:src="@mipmap/fb_logo"/>
 
         <ImageView
-            android:layout_width="@dimen/image_button_size"
-            android:layout_height="@dimen/image_button_size"
+            android:layout_width="@dimen/arrow_size"
+            android:layout_height="@dimen/arrow_size"
             android:layout_marginLeft="@dimen/connectToFacebookImageMargin"
             android:background="@drawable/arrow"/>
 
         <ImageView
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
-            android:layout_marginLeft="@dimen/connectToFacebookImageMargin"
+            android:layout_marginLeft="@dimen/connectToFacebookHeartImageMargin"
             android:background="@drawable/heart_red"/>
 
     </LinearLayout>
@@ -73,7 +74,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/white"/>
+            android:background="@color/whiteLight"/>
 
         <Button
             android:id="@+id/connectionConfirmer"
