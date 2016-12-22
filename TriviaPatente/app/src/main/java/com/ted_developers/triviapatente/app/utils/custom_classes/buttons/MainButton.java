@@ -13,6 +13,7 @@ import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -37,6 +38,7 @@ public class MainButton extends LinearLayout {
     private TextView mainTextView;
     private TextSwitcher hintTextSwitcher;
     private String[] hintTexts;
+    public String currentText = "";
     private ImageView image;
     private Activity activity = null;
     private int rotationTime = 5000;
@@ -156,7 +158,10 @@ public class MainButton extends LinearLayout {
     public void setHintText(String[] hintTexts, int color) {
         if(activity != null && hintTexts != null && hintTexts.length > 0) {
             setHintFactory(color);
-            if(hintTexts.length == 1) { hintTextSwitcher.setText(hintTexts[0]); }
+            if(hintTexts.length == 1) {
+                hintTextSwitcher.setText(hintTexts[0]);
+                currentText = hintTexts[0];
+            }
             else {
                 this.hintTexts = hintTexts;
                 hintStartRotation();
@@ -191,6 +196,7 @@ public class MainButton extends LinearLayout {
                                 @Override
                                 public void run() {
                                     hintTextSwitcher.setText(hintTexts[counter]);
+                                    currentText = hintTexts[counter];
                                     counter = (counter + 1) % hintTexts.length;
                                 }
                             });

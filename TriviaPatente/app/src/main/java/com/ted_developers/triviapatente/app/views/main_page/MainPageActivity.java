@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -124,9 +125,7 @@ public class MainPageActivity extends TPActivity {
                                     ReceivedData.friends_rank_position = response.friends_rank_position;
                                     ReceivedData.global_rank_position = response.global_rank_position;
                                     ReceivedData.numberOfInvites = response.invites;
-                                    initRankHints();
-                                    initStatsHints();
-                                    initInviteHints();
+                                    initOptionButtons();
                                     initToolbar();
                                     // load recent games
                                     loadRecentGames();
@@ -168,6 +167,16 @@ public class MainPageActivity extends TPActivity {
         toolbar.setMenu();
     }
 
+    private void initOptionButtons() {
+        // activity required to rotate hints
+        buttonShowStats.setActivity(this);
+        initStatsHints();
+        buttonShowRank.setActivity(this);
+        initRankHints();
+        buttonNewGame.setActivity(this);
+        initInviteHints();
+    }
+
     private void initStatsHints() {
         List<String> hintsStrings = new ArrayList<String>();
         if(ReceivedData.statsHints.length > 0) {
@@ -176,8 +185,6 @@ public class MainPageActivity extends TPActivity {
             for(Category c : ReceivedData.statsHints) {
                 hintsStrings.add(c.hint + ": " + (c.correct_answers/((c.total_answers == 0)?1:c.total_answers)) + "%");
             }
-            // activity required to rotate hints
-            buttonShowStats.setActivity(this);
             // set hints
             buttonShowStats.setHintText(listConverter(hintsStrings));
         }
@@ -194,8 +201,6 @@ public class MainPageActivity extends TPActivity {
             if(ReceivedData.global_rank_position != null) {
                 hintsStrings.add(globalRankHint + " " + ReceivedData.global_rank_position);
             }
-            // activity required to rotate hints
-            buttonShowRank.setActivity(this);
             // set hints
             buttonShowRank.setHintText(listConverter(hintsStrings));
         }
@@ -212,10 +217,12 @@ public class MainPageActivity extends TPActivity {
             } else {
                 hint += multipleInvites;
             }
-            // activity required to rotate hints
-            buttonNewGame.setActivity(this);
             // set hints
-            buttonNewGame.setHintText(new String[] { hint });
+            if(!hint.equals(buttonNewGame.currentText)) {
+                buttonNewGame.setHintText(new String[] { hint });
+            }
+        } else {
+            buttonNewGame.setHintText(new String[] {""});
         }
     }
 
