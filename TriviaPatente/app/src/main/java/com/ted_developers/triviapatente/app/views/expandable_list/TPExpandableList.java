@@ -37,10 +37,11 @@ public class TPExpandableList<T> extends Fragment {
     // list dimens
     @BindDimen(R.dimen.list_title_height) public int titleHeight;
     // expandable list utils
-    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight, add_remove_time = 350, moveTime = 200;
+    public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight = 1, add_remove_time = 350, moveTime = 200;
     ResizeAnimation maximize, minimize, forcedMinimize;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     public boolean maximized = false;
+    private boolean firstTime = true;
     public mLinearLayoutManager listLayoutManager;
     private int maxNumberOfShownItems;
     // separator color
@@ -79,7 +80,7 @@ public class TPExpandableList<T> extends Fragment {
                          int elementHeight) {
         this.elementHeight = elementHeight;
         adapter = new TPExpandableListAdapter<>(getContext(), list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, this);
-        listView.setAdapter(adapter);
+        listView.swapAdapter(adapter, false);
         listHeader.setVisibility(View.VISIBLE);
     }
 
@@ -91,29 +92,53 @@ public class TPExpandableList<T> extends Fragment {
         setListCounter(counter, true);
     }
 
-    public void setListCounter(int counter, boolean firstTime) {
+    public void setListCounter(final int counter, final boolean updateLayoutParams) {
         listCounter.setText(String.valueOf(counter));
-        if(firstTime) {
-            maxNumberOfShownItems = (getView().getHeight() - titleHeight) / elementHeight;
-            if(maxNumberOfShownItems > 3) {
-                maxNumberOfShownItems = 3;
+        this.getView().post(new Runnable() {
+            @Override
+            public void run() {
+                if(firstTime) {
+                    calculateFinalSizes();
+                    firstTime = false;
+                }
+                calculateMinimizedHeight(counter);
+                calculateAnimations();
+                if(updateLayoutParams) {
+                    updateLayoutParams();
+                } else if(!maximized){
+                    updateMinimized();
+                }
             }
+        });
+    }
+
+    private void calculateFinalSizes() {
+        maxNumberOfShownItems = (getView().getMeasuredHeight() - titleHeight) / elementHeight;
+        if(maxNumberOfShownItems > 3) {
+            maxNumberOfShownItems = 3;
         }
+        maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
+    }
+
+    private void calculateMinimizedHeight(int counter) {
         oldMinimizedHeight = minimizedHeight;
         minimizedHeight = ((maxNumberOfShownItems < counter)? maxNumberOfShownItems : counter) * elementHeight + titleHeight;
         if(oldMinimizedHeight == 0) { oldMinimizedHeight = minimizedHeight; }
-        maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
+    }
+
+    private void calculateAnimations() {
         maximize = new ResizeAnimation(getView(), getView().getWidth(), minimizedHeight, getView().getWidth(), maximizedHeight);
         maximize.setDuration(duration);
         minimize = new ResizeAnimation(getView(), getView().getWidth(), maximizedHeight, getView().getWidth(), minimizedHeight);
         minimize.setDuration(duration);
         forcedMinimize = new ResizeAnimation(getView(), getView().getWidth(), oldMinimizedHeight, getView().getWidth(), minimizedHeight);
         forcedMinimize.setStartOffset(add_remove_time);
-        if(firstTime) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, minimizedHeight);
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            this.getView().setLayoutParams(params);
-        }
+    }
+
+    private void updateLayoutParams() {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, minimizedHeight);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        this.getView().setLayoutParams(params);
     }
 
     public void updateMinimized() {

@@ -14,12 +14,12 @@
         custom:action_bar_title="@string/new_game_title"
         custom:action_bar_back_title="@string/main_page_title"/>
 
-    <include layout="@layout/loading_view"
+    <include layout="@layout/content_new_game"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"/>
 
-    <include layout="@layout/content_new_game"
+    <include layout="@layout/loading_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"/>

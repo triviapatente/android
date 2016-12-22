@@ -43,19 +43,17 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         init(itemView.getContext());
     }
 
-    private void init(Context context) {
+    private void init(final Context context) {
         this.context = context;
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameTextField = (TextView) itemView.findViewById(R.id.username);
         playButton = (PlayButton) itemView.findViewById(R.id.playButton);
-        itemView.setDrawingCacheEnabled(true);
-        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Point size = new Point();
-        manager.getDefaultDisplay().getSize(size);
-        itemView.measure(View.MeasureSpec.makeMeasureSpec(size.x, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(60, View.MeasureSpec.EXACTLY));
-        itemView.layout(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight());
-        itemView.buildDrawingCache(true);
         imageView = (ImageView) itemView.findViewById(R.id.blurredView);
+        /*imageView.post(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });*/
     }
 
     @Override
@@ -78,10 +76,5 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         }
         // send invite on click
         playButton.sendInvite(element);
-        Blurry.with(context)
-                .radius(10)
-                .sampling(1)
-                .capture(itemView)
-                .into(imageView);
     }
 }

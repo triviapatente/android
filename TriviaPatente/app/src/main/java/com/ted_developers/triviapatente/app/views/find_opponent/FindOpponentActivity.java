@@ -18,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -70,6 +72,7 @@ public class FindOpponentActivity extends TPActivity {
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
     @BindView(R.id.no_users) TextView noUsersAlert;
+    @BindView(R.id.blurImageView) ImageView blurImageView;
     // friends not shown
     List<User> fakeUsers = Arrays.asList(
             new User("TriviaPatente", null, true),
@@ -223,6 +226,7 @@ public class FindOpponentActivity extends TPActivity {
     @OnClick(R.id.all_button)
     public void allButtonClick() {
         all = true;
+        blurImageView.setVisibility(View.GONE);
         searchBar.setText("");
         loadingView.setVisibility(View.VISIBLE);
         allButton.setBackground(allButtonSelected);
@@ -251,10 +255,18 @@ public class FindOpponentActivity extends TPActivity {
                 firstTime = false;
             }
             loadingView.setVisibility(View.GONE);
-            /*Blurry.with(this)
-                    .radius(1)
-                    .sampling(2)
-                    .onto(playersList);*/
+
+            playersList.post(new Runnable() {
+                @Override
+                public void run() {
+                    Blurry.with(FindOpponentActivity.this)
+                            .radius(10)
+                            .sampling(1)
+                            .capture(playersList)
+                            .into(blurImageView);
+                }
+            });
+            blurImageView.setVisibility(View.VISIBLE);
             facebookDialog.show();
         }
     }

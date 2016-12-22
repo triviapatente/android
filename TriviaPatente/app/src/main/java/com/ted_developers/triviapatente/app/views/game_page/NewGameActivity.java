@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -80,7 +81,7 @@ public class NewGameActivity extends TPActivity {
         // hide other elements
         bulkVisibilitySetting(View.GONE);
         initToolbar();
-        loadInvites();
+        //loadInvites();
         // show other elements
         bulkVisibilitySetting(View.VISIBLE);
         // stop loading
@@ -95,23 +96,22 @@ public class NewGameActivity extends TPActivity {
 
     private void loadInvites() {
         invites.setListTitle(invitesTitle);
-        // request recent games
-        //if(ReceivedData.pendingInvites == null) {
+        // request invites
+        if(ReceivedData.pendingInvites == null) {
             Call<SuccessInvites> call = RetrofitManager.getHTTPGameEndpoint().getPendingInvites();
             call.enqueue(new TPCallback<SuccessInvites>() {
                 @Override
                 public void mOnResponse(Call<SuccessInvites> call, Response<SuccessInvites> response) {
                     if(response.code() == 200 && response.body().success) {
-                        int counter = 0;
                         if(response.body().invites != null) {
                             ReceivedData.pendingInvites = response.body().invites;
-                            invites.setItems(response.body().invites,
+                            invites.setItems(ReceivedData.pendingInvites,
                                     R.layout.invite, InviteHolder.class,
                                     R.layout.invites_footer, TPFooter.class,
                                     inviteHeight);
-                            counter = response.body().invites.size();
+                            ReceivedData.numberOfInvites = ReceivedData.pendingInvites.size();
                         }
-                        invites.setListCounter(counter);
+                        invites.setListCounter(ReceivedData.numberOfInvites);
                     }
                 }
 
@@ -122,14 +122,13 @@ public class NewGameActivity extends TPActivity {
                 public void then() {
                 }
             });
-        /*} else {
+        } else {
             invites.setItems(ReceivedData.pendingInvites,
                     R.layout.invite, InviteHolder.class,
                     R.layout.invites_footer, TPFooter.class,
                     inviteHeight);
             invites.setListCounter(ReceivedData.numberOfInvites);
-            invites.adapter.notifyDataSetChanged();
-        }*/
+        }
     }
 
     @OnClick(R.id.findOpponent)
@@ -156,6 +155,13 @@ public class NewGameActivity extends TPActivity {
     public void onResume() {
         super.onResume();
 
-        loadInvites();
+        loadingView.setVisibility(View.VISIBLE);
+        this.invites.getView().post(new Runnable() {
+            @Override
+            public void run() {
+                loadInvites();
+            }
+        });
+        loadingView.setVisibility(View.GONE);
     }
 }
