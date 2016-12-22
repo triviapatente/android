@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -178,7 +179,6 @@ public class FindOpponentActivity extends TPActivity {
                 // todo connect to facebook
             }
         };
-
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
         params.gravity = Gravity.TOP;
         params.y = toolbar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
