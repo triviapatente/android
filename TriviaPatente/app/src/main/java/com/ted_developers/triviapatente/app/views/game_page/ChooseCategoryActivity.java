@@ -111,4 +111,9 @@ public class ChooseCategoryActivity extends TPActivity {
     protected boolean needsLeaveRoom() {
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        // todo implement go to main page
+    }
 }

@@ -33,6 +33,7 @@ public class TPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {
@@ -75,6 +76,12 @@ public class TPActivity extends AppCompatActivity {
         if(needsFullScreen()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
     }
 
     protected boolean needsLeaveRoom() {

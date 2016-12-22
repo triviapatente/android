@@ -307,4 +307,9 @@ public class MainPageActivity extends TPActivity {
         initInviteHints();
         initRankHints();
     }
+
+    @Override
+    public void onBackPressed() {
+        // todo implement exit page
+    }
 }

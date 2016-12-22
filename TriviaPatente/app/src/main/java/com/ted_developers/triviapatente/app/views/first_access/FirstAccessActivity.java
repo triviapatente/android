@@ -128,4 +128,9 @@ public class FirstAccessActivity extends TPActivity {
     protected boolean needsLeaveRoom() {
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        // todo exit page
+    }
 }
