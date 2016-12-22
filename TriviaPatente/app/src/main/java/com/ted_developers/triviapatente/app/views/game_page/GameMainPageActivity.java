@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.C
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.CircleRotatingAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -36,10 +38,15 @@ import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class GameMainPageActivity extends TPActivity {
+    // option button
+    @BindView(R.id.gameChatButton) Button gameChatButton;
+    @BindView(R.id.gameDetailsButton) Button gameDetailsButton;
+    @BindView(R.id.gameLeaveButton) Button gameLeaveButton;
     // data
     @BindString(R.string.extra_string_opponent) String extraStringOpponent;
     @BindString(R.string.extra_boolean_game) String extraBooleanGame;
@@ -317,6 +324,24 @@ public class GameMainPageActivity extends TPActivity {
     private void playRound() {
         // todo open activity
     }
+
+    // option button panel
+    @OnClick(R.id.gameChatButton)
+    public void gameChatButtonClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.gameDetailsButton)
+    public void gameDetailsButtonClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.gameLeaveButton)
+    public void gameLeaveButtonClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+
 
     @Override
     protected boolean needsLeaveRoom() {

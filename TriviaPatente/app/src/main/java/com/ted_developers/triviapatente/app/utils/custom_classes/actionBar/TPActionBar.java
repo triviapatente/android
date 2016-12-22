@@ -25,6 +25,7 @@ import android.widget.ViewSwitcher;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 
 /**
  * Created by Antonio on 31/10/16.
@@ -122,6 +123,21 @@ public class TPActionBar extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 ((Activity) context).finish();
+                ((Activity) context).overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
+            }
+        });
+        profilePicture.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AlphaView.class);
+                context.startActivity(intent);
+            }
+        });
+        heartsBox.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AlphaView.class);
+                context.startActivity(intent);
             }
         });
     }

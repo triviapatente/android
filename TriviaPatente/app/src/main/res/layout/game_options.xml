@@ -7,18 +7,21 @@
     android:gravity="center_horizontal">
 
     <Button
+        android:id="@+id/gameChatButton"
         android:layout_width="@dimen/game_options_button_size"
         android:layout_height="@dimen/game_options_button_size"
         android:background="@drawable/game_chat_button"
         android:layout_marginRight="@dimen/game_options_inner_margin"/>
 
     <Button
+        android:id="@+id/gameDetailsButton"
         android:layout_width="@dimen/game_options_button_size"
         android:layout_height="@dimen/game_options_button_size"
         android:background="@drawable/game_details_button"
         android:layout_marginRight="@dimen/game_options_inner_margin"/>
 
     <Button
+        android:id="@+id/gameLeaveButton"
         android:layout_width="@dimen/game_options_button_size"
         android:layout_height="@dimen/game_options_button_size"
         android:background="@drawable/game_leave_button"/>

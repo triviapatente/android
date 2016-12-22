@@ -24,6 +24,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.no
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar;
 import com.ted_developers.triviapatente.app.utils.mApplication;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
@@ -297,7 +298,21 @@ public class MainPageActivity extends TPActivity {
     public void newGameClick() {
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+    }
+    @OnClick(R.id.shop)
+    public void shopClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.stats)
+    public void statsClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.rank)
+    public void rankClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
     }
 
     @Override
