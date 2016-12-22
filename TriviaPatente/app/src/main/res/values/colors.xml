@@ -3,6 +3,7 @@
     <color name="mainColor">#00b0ff</color>
     <color name="mainColorDark">#0182FF</color>
     <color name="mainColorDark2">#0170FF</color>
+    <color name="mainColorPressed">#00a0ff</color>
     <color name="menuColor">#2D91E0</color>
     <color name="menuColorDark">#2D81E0</color>
     <color name="mainColorLight">#7000b0ff</color>
