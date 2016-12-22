@@ -213,6 +213,7 @@ public class GameMainPageActivity extends TPActivity {
             });
         } else {
             gameID = intent.getLongExtra(extraLongGame, -1);
+            Log.i("TEST", String.valueOf(gameID));
             init_round();
             init_listening();
         }

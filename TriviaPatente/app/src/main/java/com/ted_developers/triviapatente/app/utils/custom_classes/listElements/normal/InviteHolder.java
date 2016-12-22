@@ -107,6 +107,7 @@ public class InviteHolder extends TPHolder<Invite> {
                     opponent.image = element.sender_image;
                     opponent.id = element.sender_id;
                     intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+                    Log.i("TEST", String.valueOf(element.game_id));
                     intent.putExtra(extraLongGame, element.game_id);
                     context.startActivity(intent);
                 }
