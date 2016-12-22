@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.main_page;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -295,6 +297,7 @@ public class MainPageActivity extends TPActivity {
     public void newGameClick() {
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     @Override
