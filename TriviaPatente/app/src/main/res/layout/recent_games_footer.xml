@@ -9,6 +9,6 @@
         android:layout_height="match_parent"
         android:text="@string/no_more_games"
         android:gravity="center"
-        android:textSize="@dimen/TPTextSizeMedium"
+        android:textSize="@dimen/TPTextSizeSmall"
         android:textColor="@android:color/white"/>
 </LinearLayout>
