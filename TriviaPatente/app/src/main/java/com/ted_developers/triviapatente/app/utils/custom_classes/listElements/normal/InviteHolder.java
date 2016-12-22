@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
@@ -15,8 +16,10 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
 
@@ -37,6 +40,8 @@ public class InviteHolder extends TPHolder<Invite> {
     private TPExpandableList<Invite> expandableList;
     // context
     Context context;
+    // invite accepted
+    String extraStringOpponent, extraLongGame;
 
     public InviteHolder(View itemView, TPExpandableList<Invite> expandableList) {
         super(itemView);
@@ -46,6 +51,8 @@ public class InviteHolder extends TPHolder<Invite> {
 
     private void init(Context context) {
         this.context = context;
+        extraStringOpponent = context.getResources().getString(R.string.extra_string_opponent);
+        extraLongGame = context.getResources().getString(R.string.extra_long_game);
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameText = (TextView) itemView.findViewById(R.id.username);
         usernameText.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
@@ -91,6 +98,17 @@ public class InviteHolder extends TPHolder<Invite> {
                     // remove element
                     expandableList.adapter.removeItem(element);
                     ReceivedData.removeInvite(element);
+                    // if accepted go to init round
+                    Intent intent = new Intent(context, GameMainPageActivity.class);
+                    User opponent = new User();
+                    opponent.username = element.sender_username;
+                    opponent.name = element.sender_name;
+                    opponent.surname = element.sender_surname;
+                    opponent.image = element.sender_image;
+                    opponent.id = element.sender_id;
+                    intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+                    intent.putExtra(extraLongGame, element.game_id);
+                    context.startActivity(intent);
                 }
             }
 

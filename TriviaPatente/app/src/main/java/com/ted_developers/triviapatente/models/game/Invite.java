@@ -11,7 +11,7 @@ import org.parceler.Parcel;
 @Parcel
 public class Invite extends Base {
     @SerializedName("sender_id")
-    public Integer sender_id;
+    public Long sender_id;
     @SerializedName("game_id")
     public Integer game_id;
     @SerializedName("sender_name")
