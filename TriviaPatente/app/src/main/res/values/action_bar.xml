@@ -8,7 +8,7 @@
     <dimen name="heart_image_size">30dp</dimen>
     <dimen name="text_size_very_small_padding">3sp</dimen>
     <dimen name="life_counter_size">18sp</dimen>
-    <dimen name="profile_image_size">40dp</dimen>
+    <dimen name="profile_image_size">32dp</dimen>
     <dimen name="circle_settings_size">6dp</dimen>
     <dimen name="margin_circle_settings">3dp</dimen>
     <dimen name="menu_width">160dp</dimen>
