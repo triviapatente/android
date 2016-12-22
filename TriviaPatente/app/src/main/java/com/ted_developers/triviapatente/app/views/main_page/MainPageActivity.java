@@ -47,6 +47,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class MainPageActivity extends TPActivity {
+    // content
+    @BindView(R.id.content) RelativeLayout mainPageContent;
     // top bar
     @BindView(R.id.toolbar)
     HeartsPictureSettingsTPActionBar toolbar;
@@ -74,7 +76,6 @@ public class MainPageActivity extends TPActivity {
     // server down
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
-    boolean errorConnectingToServer = false;
     private AuthSocketManager socketManager = new AuthSocketManager();
     // sockets
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
@@ -106,8 +107,6 @@ public class MainPageActivity extends TPActivity {
     private void init() {
         // start loading
         loadingView.setVisibility(View.VISIBLE);
-        // hide other elements
-        bulkVisibilitySetting(View.GONE);
         // connect to socket
         BaseSocketManager.connect(new SimpleCallback() {
             // on connect
@@ -120,7 +119,6 @@ public class MainPageActivity extends TPActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    errorConnectingToServer = false;
                                     // init items
                                     ReceivedData.statsHints = response.stats;
                                     ReceivedData.friends_rank_position = response.friends_rank_position;
@@ -130,8 +128,8 @@ public class MainPageActivity extends TPActivity {
                                     initToolbar();
                                     // load recent games
                                     loadRecentGames();
-                                    // show items
-                                    bulkVisibilitySetting(View.VISIBLE);
+                                    // show all
+                                    mainPageContent.setVisibility(View.VISIBLE);
                                     // stop loading
                                     loadingView.setVisibility(View.GONE);
                                 }
@@ -264,7 +262,6 @@ public class MainPageActivity extends TPActivity {
         bulkVisibilitySetting(View.GONE);
         // stop loading
         loadingView.setVisibility(View.GONE);
-        errorConnectingToServer = true;
     }
 
     private void bulkVisibilitySetting(int visibility) {
@@ -286,7 +283,7 @@ public class MainPageActivity extends TPActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        if(!errorConnectingToServer && toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
+        if(toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
             toolbar.hideMenu();
             return false;
         }

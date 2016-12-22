@@ -97,6 +97,7 @@ public class TPActionBar extends RelativeLayout {
     }
 
     public int getMenuVisibility() {
+        if(menu == null) return GONE;
         return menu.getVisibility();
     }
 
