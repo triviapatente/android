@@ -41,6 +41,7 @@ import butterknife.BindDimen;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnTouch;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -293,11 +294,10 @@ public class MainPageActivity extends TPActivity {
     }
 
     // button clicks
-    @OnTouch(R.id.new_game)
-    public boolean newGameClick(MotionEvent event) {
+    @OnClick(R.id.new_game)
+    public void newGameClick() {
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
-        return false;
     }
 
     @Override
