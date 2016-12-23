@@ -192,6 +192,8 @@ public class GameMainPageActivity extends TPActivity {
             Call<SuccessGameUser> call;
             if(opponent != null) {
                 call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
+                setToolbarTitle();
+                setOpponentData();
             } else {
                 call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
             }
@@ -209,13 +211,15 @@ public class GameMainPageActivity extends TPActivity {
 
                 @Override
                 public void then() {
-                    init_round();
+                    setToolbarTitle();
+                    setOpponentData();
+                    join_room();
                     init_listening();
                 }
             });
         } else {
             gameID = intent.getLongExtra(extraLongGame, -1);
-            init_round();
+            join_room();
             init_listening();
         }
     }
@@ -252,19 +256,21 @@ public class GameMainPageActivity extends TPActivity {
         profilePicture.setImageDrawable(opponentImage);
     }
 
-    private void init_round() {
-        setToolbarTitle();
-        setOpponentData();
+    private void join_room() {
         gameSocketManager.join_room(gameID, roomName, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
                 if(response.success) {
-                    gameSocketManager.init_round(gameID, initRoundCallback);
+                    init_round();
                 } else {
                     Log.i("TEST", "ERRORE NEL JOIN ROOM");
                 }
             }
         });
+    }
+
+    private void init_round() {
+        gameSocketManager.init_round(gameID, initRoundCallback);
     }
 
     private void init_listening() {
