@@ -10,14 +10,11 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Category extends CommonPK {
-    @SerializedName("name")
-    public String name;
-    @SerializedName("hint")
-    public String hint;
-    @SerializedName("total_answers")
-    public int total_answers;
-    @SerializedName("correct_answers")
-    public int correct_answers;
+    @SerializedName("name") public String name;
+    @SerializedName("hint") public String hint;
+    @SerializedName("total_answers") public int total_answers;
+    @SerializedName("correct_answers") public int correct_answers;
+    @SerializedName("color") public String color;
 
     public Category() {}
 }
