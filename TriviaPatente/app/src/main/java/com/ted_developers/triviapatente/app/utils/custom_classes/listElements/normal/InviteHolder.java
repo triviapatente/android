@@ -15,6 +15,7 @@ import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
@@ -81,6 +82,14 @@ public class InviteHolder extends TPHolder<Invite> {
             @Override
             public void onClick(View v) {
                 InviteHolder.this.processInvite(element, false);
+            }
+        });
+        // set on click on profile picture
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AlphaView.class);
+                context.startActivity(intent);
             }
         });
     }

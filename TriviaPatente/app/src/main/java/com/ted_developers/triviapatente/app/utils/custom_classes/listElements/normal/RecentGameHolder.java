@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
@@ -13,6 +14,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Game;
@@ -82,6 +84,14 @@ public class RecentGameHolder extends TPHolder<Game> {
         } else {
             setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
         }
+        // set on click on profile picture
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AlphaView.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void setPlayNow() {
