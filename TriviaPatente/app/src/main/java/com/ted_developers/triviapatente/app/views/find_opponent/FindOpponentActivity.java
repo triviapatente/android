@@ -8,6 +8,8 @@ import android.support.annotation.ColorInt;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -74,6 +76,7 @@ public class FindOpponentActivity extends TPActivity {
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
     @BindView(R.id.no_users) TextView noUsersAlert;
     @BindView(R.id.blurImageView) ImageView blurImageView;
+    List<User> suggestedUsers;
     // friends not shown
     List<User> fakeUsers = Arrays.asList(
             new User("TriviaPatente", null, true),
@@ -125,36 +128,56 @@ public class FindOpponentActivity extends TPActivity {
                 return false;
             }
         });
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().equals("")) {
+                    loadPlayers();
+                }
+            }
+        });
     }
 
     private void doSearch(String username) {
         if(all) {
             if(username.equals("")) loadPlayers();
-            loadingView.setVisibility(View.VISIBLE);
-            Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
-            call.enqueue(new TPCallback<SuccessUsers>() {
-                @Override
-                public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
-                    if(response.code() == 200) {
-                        if(response.body().users.size() == 0) {
-                            noUsersAlert.setVisibility(View.VISIBLE);
-                        } else {
-                            setPlayersListItems(response.body().users);
-                            noUsersAlert.setVisibility(View.GONE);
+            else {
+                loadingView.setVisibility(View.VISIBLE);
+                Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
+                call.enqueue(new TPCallback<SuccessUsers>() {
+                    @Override
+                    public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
+                        if(response.code() == 200) {
+                            if(response.body().users.size() == 0) {
+                                noUsersAlert.setVisibility(View.VISIBLE);
+                            } else {
+                                setPlayersListItems(response.body().users);
+                                noUsersAlert.setVisibility(View.GONE);
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                    @Override
+                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
 
-                }
+                    }
 
-                @Override
-                public void then() {
-                    loadingView.setVisibility(View.GONE);
-                }
-            });
+                    @Override
+                    public void then() {
+                        loadingView.setVisibility(View.GONE);
+                    }
+                });
+            }
         } else {
             // todo search on friends
         }
@@ -196,35 +219,39 @@ public class FindOpponentActivity extends TPActivity {
     }
 
     private void setPlayersListItems(List<User> userList) {
-        playersList.setVisibility(View.GONE);
         playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.proposed_opponent, ProposedOpponentHolder.class, R.layout.tell_a_friend_footer, TPFooter.class, playerListItemHeight, playersList));
-        playersList.setVisibility(View.VISIBLE);
     }
 
     private void loadPlayers() {
-        Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSuggestedUsers();
-        call.enqueue(new TPCallback<SuccessUsers>() {
-            @Override
-            public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
-                if(response.code() == 200 && response.body().success && response.body().users != null) {
-                    setPlayersListItems(response.body().users);
+        if(suggestedUsers == null) {
+            loadingView.setVisibility(View.VISIBLE);
+            Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSuggestedUsers();
+            call.enqueue(new TPCallback<SuccessUsers>() {
+                @Override
+                public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
+                    if(response.code() == 200 && response.body().success && response.body().users != null) {
+                        suggestedUsers = response.body().users;
+                        setPlayersListItems(suggestedUsers);
+                    }
+                    // show other items
+                    playersList.setVisibility(View.VISIBLE);
+                    // stop loading
+                    loadingView.setVisibility(View.GONE);
                 }
-                // show other items
-                playersList.setVisibility(View.VISIBLE);
-                // stop loading
-                loadingView.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                @Override
+                public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
 
-            }
+                }
 
-            @Override
-            public void then() {
+                @Override
+                public void then() {
 
-            }
-        });
+                }
+            });
+        } else {
+            setPlayersListItems(suggestedUsers);
+        }
     }
 
     private void initToolbar() {
@@ -238,7 +265,6 @@ public class FindOpponentActivity extends TPActivity {
         all = true;
         blurImageView.setVisibility(View.GONE);
         searchBar.setText("");
-        loadingView.setVisibility(View.VISIBLE);
         allButton.setBackground(allButtonSelected);
         friendsButton.setBackground(friendsButtonNotSelected);
         allButton.setTextColor(whiteColor);
