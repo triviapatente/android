@@ -9,8 +9,8 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Success {
-    @SerializedName("success")
-    public Boolean success;
+    @SerializedName("success") public Boolean success;
+    @SerializedName("status_code") public Integer status_code;
 
     public Success() {}
 }

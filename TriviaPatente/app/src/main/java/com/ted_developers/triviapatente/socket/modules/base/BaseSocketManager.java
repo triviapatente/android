@@ -9,8 +9,11 @@ import com.github.nkzawa.socketio.client.Socket;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.responses.Success;
+import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,12 +95,26 @@ public class BaseSocketManager {
         }
     }
 
-    public <T> void emit(final String path, JSONObject parameters, Class<T> outputClass, final SocketCallback<T> cb) {
+    public <T extends Success> void emit(final String path, final JSONObject parameters, final Class<T> outputClass, final SocketCallback<T> cb) {
         listen(path, outputClass, new SocketCallback<T>() {
             @Override
             public void response(T response) {
                 // unregister from event
                 mSocket.off(path);
+                // check for 401 error
+                if(needsAuthentication(response)) {
+                    AuthSocketManager authSocketManager = new AuthSocketManager();
+                    authSocketManager.authenticate(new SocketCallback<Hints>() {
+                        @Override
+                        public void response(Hints response) {
+                            if(response.success) {
+                                emit(path, parameters, outputClass, cb);
+                            } else {
+                                mApplication.getInstance().goToLoginPage();
+                            }
+                        }
+                    });
+                }
                 // propagate response
                 cb.response(response);
             }
@@ -105,7 +122,7 @@ public class BaseSocketManager {
         mSocket.emit(path, parameters);
     }
 
-    public <T> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {
+    public <T extends Success> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {
         mSocket.on(path, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -116,6 +133,10 @@ public class BaseSocketManager {
                 }
             }
         });
+    }
+
+    private <T extends Success> boolean needsAuthentication(T response) {
+        return response.status_code != null && response.status_code == 401;
     }
 
     public void stopListen(String path) {

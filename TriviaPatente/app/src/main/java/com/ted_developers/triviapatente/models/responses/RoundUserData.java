@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Antonio on 11/12/16.
  */
 @Parcel
-public class RoundUserData {
+public class RoundUserData extends Success {
     @SerializedName("round") public Round round;
     @SerializedName("user") public User user;
     @SerializedName("globally") public Boolean globally;

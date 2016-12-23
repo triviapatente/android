@@ -1,11 +1,13 @@
 package com.ted_developers.triviapatente.app.utils;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.InviteUser;
@@ -21,6 +23,8 @@ public class mApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // app
+        app = this;
         // fonts
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/OpenSans-Regular.ttf");
         // init
@@ -45,7 +49,6 @@ public class mApplication extends Application {
         }
     }
 
-
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
         @Override
@@ -58,4 +61,14 @@ public class mApplication extends Application {
             ReceivedData.addInvite(invite);
         }
     };
+
+    private static mApplication app;
+    public static mApplication getInstance() {
+        return app;
+    }
+
+    public void goToLoginPage() {
+        Intent intent = new Intent(this, FirstAccessActivity.class);
+        startActivity(intent);
+    }
 }

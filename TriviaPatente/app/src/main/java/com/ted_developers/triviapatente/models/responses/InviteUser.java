@@ -10,7 +10,7 @@ import org.parceler.Parcel;
  * Created by Antonio on 11/12/16.
  */
 @Parcel
-public class InviteUser {
+public class InviteUser extends Success {
     @SerializedName("invite") public Invite invite;
     @SerializedName("user") public User user;
 
