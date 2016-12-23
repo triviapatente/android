@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <Button
+        android:id="@+id/menuProfileOption"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_element_heigth"
         android:text="@string/menu_profile"
@@ -11,6 +12,7 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/menuSettingsOption"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_element_heigth"
         android:text="@string/menu_preferences"
@@ -18,6 +20,7 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/menuAboutOption"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_element_heigth"
         android:text="@string/menu_us"
@@ -25,6 +28,7 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/menuLogoutOption"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_element_heigth"
         android:text="@string/menu_logout"

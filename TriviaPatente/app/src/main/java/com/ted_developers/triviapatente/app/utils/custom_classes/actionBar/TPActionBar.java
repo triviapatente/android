@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +48,7 @@ public class TPActionBar extends RelativeLayout {
     // menu
     public View menu;
     private boolean show_menu;
+    private Button menuProfileOptionButton, menuSettingsOptionButton, menuAboutOptionButton, menuLogoutOptionButton;
 
     public TPActionBar(Context context) {
         super(context);
@@ -186,6 +188,45 @@ public class TPActionBar extends RelativeLayout {
         params.addRule(RelativeLayout.BELOW, this.getId());
         menu.setLayoutParams(params);
         parent.addView(menu);
+        setMenuOptions();
+        // set buttons click
+    }
+
+    private void setMenuOptions() {
+        // find menu options
+        menuProfileOptionButton = (Button) menu.findViewById(R.id.menuProfileOption);
+        menuAboutOptionButton = (Button) menu.findViewById(R.id.menuAboutOption);
+        menuSettingsOptionButton = (Button) menu.findViewById(R.id.menuSettingsOption);
+        menuLogoutOptionButton = (Button) menu.findViewById(R.id.menuLogoutOption);
+        // set on click
+        menuProfileOptionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AlphaView.class);
+                getContext().startActivity(intent);
+            }
+        });
+        menuSettingsOptionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AlphaView.class);
+                getContext().startActivity(intent);
+            }
+        });
+        menuAboutOptionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AlphaView.class);
+                getContext().startActivity(intent);
+            }
+        });
+        menuLogoutOptionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AlphaView.class);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     public void showMenu() {
