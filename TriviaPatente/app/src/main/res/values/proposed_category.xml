@@ -7,8 +7,8 @@
     <dimen name="choose_category_proposed_height">90dp</dimen>
     <dimen name="choose_category_margin">10dp</dimen>
     <!-- image -->
-    <dimen name="choose_category_outer_image_size">50dp</dimen>
-    <dimen name="choose_category_inner_image_size">30dp</dimen>
+    <dimen name="choose_category_outer_image_size">60dp</dimen>
+    <dimen name="choose_category_inner_image_size">35dp</dimen>
     <!-- title -->
     <dimen name="choose_category_title_margin">20dp</dimen>
     <!-- chevron -->
