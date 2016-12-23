@@ -30,4 +30,7 @@
     <dimen name="forgot_username_password_margin">30dp</dimen>
     <!-- loading spin -->
     <dimen name="first_access_loading_size">25dp</dimen>
+
+    <!-- activity started due to old session -->
+    <string name="is_old_session">old_session</string>
 </resources>

@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
@@ -34,6 +35,8 @@ public class FirstAccessActivity extends TPActivity {
     @BindString(R.string.blank_not_allowed) public String blank_not_allowed_error;
     @BindString(R.string.not_matching_pwd) public String not_matching_pwd_error;
     @BindString(R.string.not_valid_email) public String not_valid_email_error;
+    // intent
+    @BindString(R.string.is_old_session) String isOldSession;
 
     private FirstAccessAdapter mAdapter;
 
@@ -41,6 +44,11 @@ public class FirstAccessActivity extends TPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_access);
+        // if loaded due to old session, show toast
+        if(getIntent().getBooleanExtra(isOldSession, false)) {
+            Toast.makeText(this, getResources().getString(R.string.old_session),
+                    Toast.LENGTH_LONG).show();
+        }
         // View pager
         mAdapter = new FirstAccessAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);

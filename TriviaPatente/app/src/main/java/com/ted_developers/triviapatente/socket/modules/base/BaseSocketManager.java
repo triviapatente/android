@@ -104,9 +104,10 @@ public class BaseSocketManager {
                 // check for 401 error
                 if(needsAuthentication(response)) {
                     mApplication.getInstance().goToLoginPage();
+                } else {
+                    // propagate response
+                    cb.response(response);
                 }
-                // propagate response
-                cb.response(response);
             }
         });
         mSocket.emit(path, parameters);

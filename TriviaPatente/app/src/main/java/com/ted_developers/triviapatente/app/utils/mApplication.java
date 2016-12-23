@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -69,6 +70,8 @@ public class mApplication extends Application {
 
     public void goToLoginPage() {
         Intent intent = new Intent(this, FirstAccessActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(getResources().getString(R.string.is_old_session), true);
         startActivity(intent);
     }
 }
