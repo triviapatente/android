@@ -89,7 +89,7 @@ public class InviteHolder extends TPHolder<Invite> {
         profilePicture.setImageDrawable(image);
     }
 
-    private void processInvite(final Invite element, boolean accepted) {
+    private void processInvite(final Invite element, final boolean accepted) {
         Call<SuccessInvite> call = RetrofitManager.getHTTPGameEndpoint().processInvite(element.game_id, accepted);
         call.enqueue(new TPCallback<SuccessInvite>() {
             @Override
@@ -99,17 +99,18 @@ public class InviteHolder extends TPHolder<Invite> {
                     expandableList.adapter.removeItem(element);
                     ReceivedData.removeInvite(element);
                     // if accepted go to init round
-                    Intent intent = new Intent(context, GameMainPageActivity.class);
-                    User opponent = new User();
-                    opponent.username = element.sender_username;
-                    opponent.name = element.sender_name;
-                    opponent.surname = element.sender_surname;
-                    opponent.image = element.sender_image;
-                    opponent.id = element.sender_id;
-                    intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
-                    Log.i("TEST", String.valueOf(element.game_id));
-                    intent.putExtra(extraLongGame, element.game_id);
-                    context.startActivity(intent);
+                    if(accepted) {
+                        Intent intent = new Intent(context, GameMainPageActivity.class);
+                        User opponent = new User();
+                        opponent.username = element.sender_username;
+                        opponent.name = element.sender_name;
+                        opponent.surname = element.sender_surname;
+                        opponent.image = element.sender_image;
+                        opponent.id = element.sender_id;
+                        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+                        intent.putExtra(extraLongGame, element.game_id);
+                        context.startActivity(intent);
+                    }
                 }
             }
 
