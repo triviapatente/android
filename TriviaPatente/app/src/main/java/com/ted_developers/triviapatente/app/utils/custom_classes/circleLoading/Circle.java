@@ -18,7 +18,7 @@ import com.ted_developers.triviapatente.R;
  */
 public class Circle extends View {
 
-    private float startingAngleOver = 0, startingAngleUnder = 0, sweepAngleOver = 0, sweepAngleUnder = 0, stroke_width = 20;
+    private float startingAngleOver = 0, sweepAngleOver = 0, stroke_width = 20;
     private Paint paintOver = null, paintUnder = null;
     private RectF rect = null;
     private int colorOver, colorUnder;

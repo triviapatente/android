@@ -103,17 +103,7 @@ public class BaseSocketManager {
                 mSocket.off(path);
                 // check for 401 error
                 if(needsAuthentication(response)) {
-                    AuthSocketManager authSocketManager = new AuthSocketManager();
-                    authSocketManager.authenticate(new SocketCallback<Hints>() {
-                        @Override
-                        public void response(Hints response) {
-                            if(response.success) {
-                                emit(path, parameters, outputClass, cb);
-                            } else {
-                                mApplication.getInstance().goToLoginPage();
-                            }
-                        }
-                    });
+                    mApplication.getInstance().goToLoginPage();
                 }
                 // propagate response
                 cb.response(response);

@@ -215,7 +215,6 @@ public class GameMainPageActivity extends TPActivity {
             });
         } else {
             gameID = intent.getLongExtra(extraLongGame, -1);
-            Log.i("TEST", String.valueOf(gameID));
             init_round();
             init_listening();
         }
@@ -231,7 +230,7 @@ public class GameMainPageActivity extends TPActivity {
 
     private void startLoading() {
         CircleRotatingAnimation animation = new CircleRotatingAnimation(loadingCircle);
-        animation.setDuration(10000);
+        animation.setDuration(7000);
         animation.setRepeatCount(Animation.INFINITE);
         loadingCircle.startAnimation(animation);
     }

@@ -11,8 +11,10 @@ import java.util.Random;
  */
 public class CircleRotatingAnimation extends Animation {
     private Circle circle;
-    private static float inc = 0, oldStartOver = 0, multiplier = (float) 1.5;
+    private static float oldStartOver = 0, multiplier = (float) 1.5;
     private Random random = new Random();
+
+    private float inc = 0, possibleInc, oldInterpolatedTime;
 
     public CircleRotatingAnimation(Circle circle) {
         this.circle = circle;
@@ -20,8 +22,10 @@ public class CircleRotatingAnimation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation transformation) {
-        if(inc == 0) {
-            inc = interpolatedTime * 360;
+        possibleInc = (interpolatedTime - oldInterpolatedTime) * 360;
+        oldInterpolatedTime = interpolatedTime;
+        if(inc < possibleInc && possibleInc < 3) {
+            inc = possibleInc;
         }
         if(circle.getSweepAngleOver() >= 360) {
             multiplier = - multiplier;
