@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainColor"
     tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity">
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar
