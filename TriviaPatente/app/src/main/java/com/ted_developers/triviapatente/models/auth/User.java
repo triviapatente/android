@@ -1,5 +1,7 @@
 package com.ted_developers.triviapatente.models.auth;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.SerializedName;
 import com.ted_developers.triviapatente.models.base.Base;
 import com.ted_developers.triviapatente.models.base.CommonPK;
@@ -21,10 +23,11 @@ public class User extends CommonPK {
 
     public User() {}
 
-    public User(String username, String image, Boolean last_game_won) {
+    public User(String username, String image, Boolean last_game_won, Integer score) {
         this.username = username;
         this.image = image;
         this.last_game_won = last_game_won;
+        this.score = score;
     }
 
     public User(Long id, String username, String name, String surname, String image) {

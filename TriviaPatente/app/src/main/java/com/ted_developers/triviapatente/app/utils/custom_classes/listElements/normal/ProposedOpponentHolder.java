@@ -30,7 +30,7 @@ import jp.wasabeef.blurry.Blurry;
 public class ProposedOpponentHolder extends TPHolder<User> {
     // player data
     RoundedImageView profilePicture;
-    TextView usernameTextField;
+    TextView usernameTextField, scoreTextField;
     // play button
     PlayButton playButton;
     // context
@@ -47,13 +47,9 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         this.context = context;
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameTextField = (TextView) itemView.findViewById(R.id.username);
+        scoreTextField = (TextView) itemView.findViewById(R.id.score);
         playButton = (PlayButton) itemView.findViewById(R.id.playButton);
         imageView = (ImageView) itemView.findViewById(R.id.blurredView);
-        /*imageView.post(new Runnable() {
-            @Override
-            public void run() {
-            }
-        });*/
     }
 
     @Override
@@ -68,6 +64,8 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         if(element.name != null && element.surname != null) {
             usernameTextField.setText(element.name + " " + element.surname);
         } else { usernameTextField.setText(element.username); }
+        // set score
+        scoreTextField.setText(String.valueOf(element.score));
         // set appropriate button
         if(element.last_game_won != null && element.last_game_won) {
             playButton.setPlayNow();

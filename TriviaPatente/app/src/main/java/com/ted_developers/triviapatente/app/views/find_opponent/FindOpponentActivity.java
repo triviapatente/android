@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.find_opponent;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -32,6 +33,7 @@ import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.DividerItemDecoration;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
@@ -79,16 +81,16 @@ public class FindOpponentActivity extends TPActivity {
     List<User> suggestedUsers;
     // friends not shown
     List<User> fakeUsers = Arrays.asList(
-            new User("TriviaPatente", null, true),
-            new User("UnGioco", null, true),
-            new User("Davvero", null, false),
-            new User("Davvero", null, true),
-            new User("Davvero", null, false),
-            new User("Fantastico", null, false),
-            new User("Probabilmente", null, true),
-            new User("IlMigliore", null, true),
-            new User("InAssoluto", null, true),
-            new User("LoAdoro", null, false)
+            new User("TriviaPatente", null, true, 8000),
+            new User("UnGioco", null, true, 7689),
+            new User("Davvero", null, false, 6578),
+            new User("Davvero", null, true, 6000),
+            new User("Davvero", null, false, 5789),
+            new User("Fantastico", null, false, 5788),
+            new User("Probabilmente", null, true, 5748),
+            new User("IlMigliore", null, true, 3499),
+            new User("InAssoluto", null, true, 3000),
+            new User("LoAdoro", null, false, 2999)
     );
     // modal
     @BindView(R.id.playersListBlock) RelativeLayout playersListBlock;
@@ -187,6 +189,7 @@ public class FindOpponentActivity extends TPActivity {
     private void initPlayerList() {
         playersList.setLayoutManager(new LinearLayoutManager(this));
         playersList.setOnTouchListener(new OnSwipeTouchListener(this));
+        playersList.addItemDecoration(new DividerItemDecoration(mainColor, playersList.getWidth()));
     }
 
     private void initDialog() {
