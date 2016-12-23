@@ -9,6 +9,7 @@ import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
  */
 public class TPExpandableListOnSwipeListener<T> extends OnSwipeTouchListener {
     private final TPExpandableList<T> expandableList;
+    public boolean needScrollWithOffset = false;
 
     public TPExpandableListOnSwipeListener(Context ctx, TPExpandableList<T> expandableList) {
         super(ctx);
@@ -20,7 +21,7 @@ public class TPExpandableListOnSwipeListener<T> extends OnSwipeTouchListener {
     }
 
     public void onSwipeBottom() {
-        if(expandableList.listView.computeVerticalScrollOffset() == 0) {
+        if(expandableList.listView.computeVerticalScrollOffset() == 0 || needScrollWithOffset) {
             expandableList.setMinimizedHeightMode();
         }
     }

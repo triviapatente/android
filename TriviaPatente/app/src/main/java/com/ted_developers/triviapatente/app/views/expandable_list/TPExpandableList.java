@@ -66,8 +66,9 @@ public class TPExpandableList<T> extends Fragment {
         listLayoutManager = new mLinearLayoutManager(getContext());
         listView.setLayoutManager(listLayoutManager);
         TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
-        listHeader.setOnTouchListener(swipeListener);
         listView.setOnTouchListener(swipeListener);
+        swipeListener.needScrollWithOffset = true;
+        listHeader.setOnTouchListener(swipeListener);
         listView.getItemAnimator().setRemoveDuration(add_remove_time);
         listView.getItemAnimator().setMoveDuration(moveTime);
         listView.getItemAnimator().setAddDuration(add_remove_time);
