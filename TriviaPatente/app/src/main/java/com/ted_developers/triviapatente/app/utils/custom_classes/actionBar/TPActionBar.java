@@ -275,6 +275,7 @@ public class TPActionBar extends RelativeLayout {
             public void onClick(View v) {
                 Intent intent = new Intent(currentActivity, nextActivityClass);
                 currentActivity.startActivity(intent);
+                currentActivity.overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
             }
         });
     }

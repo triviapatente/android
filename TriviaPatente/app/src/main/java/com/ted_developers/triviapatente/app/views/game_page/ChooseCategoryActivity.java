@@ -18,6 +18,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPList
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.CategoryHolder;
+import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
@@ -115,6 +116,8 @@ public class ChooseCategoryActivity extends TPActivity {
 
     @Override
     public void onBackPressed() {
-        // todo implement go to main page
+        Intent intent = new Intent(this, MainPageActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
     }
 }

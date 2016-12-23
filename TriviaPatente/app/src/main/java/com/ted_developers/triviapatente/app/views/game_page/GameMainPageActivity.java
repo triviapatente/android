@@ -353,6 +353,8 @@ public class GameMainPageActivity extends TPActivity {
 
     @Override
     public void onBackPressed() {
-        // todo implement go to main page
+        Intent intent = new Intent(this, MainPageActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
     }
 }
