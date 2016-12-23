@@ -111,16 +111,11 @@ public class GameMainPageActivity extends TPActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setToolbarTitle();
                         currentRound = response.round;
                         currentCategory = response.category;
                         if(waitingInvite.equals(response.waiting)) {
                             waitingInvite();
                         } else if(response.waiting_for.username.equals(opponent.username)) {
-                            // todo do dinamically
-                            opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
-                            toolbar.setProfilePicture(opponentImage);
-                            profilePicture.setImageDrawable(opponentImage);
                             if(response.isOpponentOnline) {
                                 if(waitingGame.equals(response.waiting)) {
                                     waitingRound();
@@ -251,7 +246,16 @@ public class GameMainPageActivity extends TPActivity {
         }
     }
 
+    private void setOpponentData() {
+        // todo do dinamically
+        opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
+        toolbar.setProfilePicture(opponentImage);
+        profilePicture.setImageDrawable(opponentImage);
+    }
+
     private void init_round() {
+        setToolbarTitle();
+        setOpponentData();
         gameSocketManager.join_room(gameID, roomName, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
