@@ -21,6 +21,9 @@ public class mApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // fonts
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/OpenSans-Regular.ttf");
+        // init
         RetrofitManager.init(this);
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
