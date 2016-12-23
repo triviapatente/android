@@ -13,6 +13,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPEnterAnimListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
@@ -92,7 +93,7 @@ public class ChooseCategoryActivity extends TPActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TPListAdapter<Category> adapter = new TPListAdapter<Category>(
+                        TPEnterAnimListAdapter<Category> adapter = new TPEnterAnimListAdapter<Category>(
                                 ChooseCategoryActivity.this, categories,
                                 R.layout.proposed_category, CategoryHolder.class,
                                 0, null,
