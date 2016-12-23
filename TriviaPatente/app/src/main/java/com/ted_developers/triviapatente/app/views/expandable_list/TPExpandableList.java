@@ -46,6 +46,9 @@ public class TPExpandableList<T> extends Fragment {
     private int maxNumberOfShownItems;
     // separator color
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
+    // header titles
+    String alternativeTitle, defaultTitle;
+
 
     public TPExpandableList() {}
 
@@ -67,12 +70,15 @@ public class TPExpandableList<T> extends Fragment {
         listView.setLayoutManager(listLayoutManager);
         TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
         listView.setOnTouchListener(swipeListener);
-        swipeListener.needScrollWithOffset = true;
-        listHeader.setOnTouchListener(swipeListener);
         listView.getItemAnimator().setRemoveDuration(add_remove_time);
         listView.getItemAnimator().setMoveDuration(moveTime);
         listView.getItemAnimator().setAddDuration(add_remove_time);
         return v;
+    }
+
+    public void setTitles(String defaultTitle, String alternativeTitle) {
+        this.defaultTitle = defaultTitle;
+        this.alternativeTitle = alternativeTitle;
     }
 
     public void setItems(List<T> list,
@@ -85,16 +91,22 @@ public class TPExpandableList<T> extends Fragment {
         listHeader.setVisibility(View.VISIBLE);
     }
 
-    public void setListTitle(String text) {
-        listTitle.setText(text);
-    }
-
     public void setListCounter(int counter) {
         setListCounter(counter, true);
     }
 
     public void setListCounter(final int counter, final boolean updateLayoutParams) {
         listCounter.setText(String.valueOf(counter));
+        if(counter == 0) {
+            listTitle.setText(alternativeTitle);
+            listCounter.setVisibility(View.GONE);
+        } else {
+            listTitle.setText(defaultTitle);
+            listCounter.setVisibility(View.VISIBLE);
+            TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
+            swipeListener.needScrollWithOffset = true;
+            listHeader.setOnTouchListener(swipeListener);
+        }
         this.getView().post(new Runnable() {
             @Override
             public void run() {
@@ -108,6 +120,10 @@ public class TPExpandableList<T> extends Fragment {
                     updateLayoutParams();
                 } else if(!maximized){
                     updateMinimized();
+                }
+                if(counter == 0 && maximized) {
+                    setMinimizedHeightMode();
+                    listHeader.setOnTouchListener(null);
                 }
             }
         });

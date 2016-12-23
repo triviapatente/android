@@ -47,6 +47,7 @@ public class NewGameActivity extends TPActivity {
     // invites
     TPExpandableList<Invite> invites;
     @BindString(R.string.invites_title) String invitesTitle;
+    @BindString(R.string.no_invites) String invitesAlternativeTitle;
     @BindDimen(R.dimen.invite_height) int inviteHeight;
     // socket
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
@@ -95,7 +96,7 @@ public class NewGameActivity extends TPActivity {
     }
 
     private void loadInvites() {
-        invites.setListTitle(invitesTitle);
+        invites.setTitles(invitesTitle, invitesAlternativeTitle);
         // request invites
         if(ReceivedData.pendingInvites == null) {
             Call<SuccessInvites> call = RetrofitManager.getHTTPGameEndpoint().getPendingInvites();

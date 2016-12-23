@@ -74,6 +74,7 @@ public class MainPageActivity extends TPActivity {
     @BindString(R.string.single_invites) String singleInvites;
     // recent games
     @BindString(R.string.recent_games) String recentGamesTitle;
+    @BindString(R.string.no_games) String recentGamesAlternativeTitle;
     TPExpandableList<Game> recentGames;
     @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
     // server down
@@ -229,7 +230,7 @@ public class MainPageActivity extends TPActivity {
     }
 
     private void loadRecentGames() {
-        recentGames.setListTitle(recentGamesTitle);
+        recentGames.setTitles(recentGamesTitle, recentGamesAlternativeTitle);
         // request recent games
         Call<SuccessGames> call = RetrofitManager.getHTTPGameEndpoint().getRecentsGames();
         call.enqueue(new TPCallback<SuccessGames>() {
