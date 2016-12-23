@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -269,13 +270,13 @@ public class TPActionBar extends RelativeLayout {
 
     public void setBackButtonText(String text) { backButtonText.setText(text); }
 
-    public void setBackButtonOnClick(final Activity currentActivity, final Class<? extends Activity> nextActivityClass) {
+    public void setBackButtonOnClick(final Class<? extends Activity> nextActivityClass) {
         backButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(currentActivity, nextActivityClass);
-                currentActivity.startActivity(intent);
-                currentActivity.overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
+                Intent intent = new Intent(getContext(), nextActivityClass);
+                getContext().startActivity(intent);
+                ((Activity)getContext()).overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
             }
         });
     }

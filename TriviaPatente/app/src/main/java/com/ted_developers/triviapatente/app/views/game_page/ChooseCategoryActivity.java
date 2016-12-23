@@ -77,6 +77,7 @@ public class ChooseCategoryActivity extends TPActivity {
         // picture
         // todo get dinamically
         toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.no_image));
+        toolbar.setBackButtonOnClick(MainPageActivity.class);
     }
 
     private void initGameHeader() {

@@ -224,7 +224,7 @@ public class GameMainPageActivity extends TPActivity {
         opponentImage = ContextCompat.getDrawable(this, R.drawable.no_image);
         setToolbarTitle();
         toolbar.setProfilePicture(opponentImage);
-        toolbar.setBackButtonOnClick(this, MainPageActivity.class);
+        toolbar.setBackButtonOnClick(MainPageActivity.class);
         profilePicture.setImageDrawable(opponentImage);
     }
 
