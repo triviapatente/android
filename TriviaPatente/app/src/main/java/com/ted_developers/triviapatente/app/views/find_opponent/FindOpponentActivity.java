@@ -178,11 +178,21 @@ public class FindOpponentActivity extends TPActivity {
             public void onConfirm() {
                 // todo connect to facebook
             }
+
+            @Override
+            public boolean onTouchEvent(MotionEvent event)
+            {
+                if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                    allButtonClick();
+                    this.hide();
+                    return false;
+                }
+                return true;
+            }
         };
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
         params.gravity = Gravity.TOP;
         params.y = toolbar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
-        facebookDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
     private void setPlayersListItems(List<User> userList) {
