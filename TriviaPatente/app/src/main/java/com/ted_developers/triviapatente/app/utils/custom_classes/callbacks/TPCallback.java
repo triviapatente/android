@@ -1,5 +1,7 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.callbacks;
 
+import com.ted_developers.triviapatente.app.utils.mApplication;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -11,9 +13,13 @@ public abstract class TPCallback<T> implements Callback<T> {
     protected boolean doThen = true;
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        mOnResponse(call, response);
-        if(doThen) {
-            then();
+        if(response.code() == 401) {
+            mApplication.getInstance().goToLoginPage();
+        } else {
+            mOnResponse(call, response);
+            if(doThen) {
+                then();
+            }
         }
     }
 
