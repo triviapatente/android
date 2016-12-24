@@ -3,10 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.n
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.TextViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,9 +14,8 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
-import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Invite;

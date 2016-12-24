@@ -2,7 +2,6 @@ package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,7 +16,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.InviteHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;

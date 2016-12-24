@@ -1,14 +1,9 @@
 package com.ted_developers.triviapatente.app.views.main_page;
 
-import android.animation.Animator;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -25,7 +20,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageB
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar;
 import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -41,11 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindDimen;
-import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 import retrofit2.Call;
 import retrofit2.Response;
 

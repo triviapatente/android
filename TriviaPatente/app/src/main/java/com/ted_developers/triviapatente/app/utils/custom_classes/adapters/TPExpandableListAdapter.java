@@ -3,19 +3,12 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.adapters;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TableRow;
 
-import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**

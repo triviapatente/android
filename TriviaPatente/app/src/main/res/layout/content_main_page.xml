@@ -65,6 +65,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/option_panel"
         android:layout_alignParentBottom="true"
-        android:name="com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList">
+        android:name="com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
     </fragment>
 </RelativeLayout>

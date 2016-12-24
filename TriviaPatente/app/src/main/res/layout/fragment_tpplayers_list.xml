@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".app.views.expandable_list.TPExpandableList">
+    tools:context=".app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listView"

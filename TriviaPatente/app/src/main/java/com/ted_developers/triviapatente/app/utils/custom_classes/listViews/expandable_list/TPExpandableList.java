@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.expandable_list;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

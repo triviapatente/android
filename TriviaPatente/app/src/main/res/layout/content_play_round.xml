@@ -4,5 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.ted_developers.triviapatente.app.utils.custom_classes.listViews.paginatingListView.PaginatingRecyclerView
+        android:id="@+id/quizzes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

@@ -2,17 +2,9 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.n
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.TextViewCompat;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
@@ -20,11 +12,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayBut
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.models.auth.User;
-import com.ted_developers.triviapatente.models.game.Game;
-
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by Antonio on 28/11/16.

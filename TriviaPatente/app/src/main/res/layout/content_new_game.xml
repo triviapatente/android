@@ -50,7 +50,7 @@
         android:layout_below="@+id/option_panel"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/new_game_option_panel_margin"
-        android:name="com.ted_developers.triviapatente.app.views.expandable_list.TPExpandableList">
+        android:name="com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
     </fragment>
 
 </RelativeLayout>
