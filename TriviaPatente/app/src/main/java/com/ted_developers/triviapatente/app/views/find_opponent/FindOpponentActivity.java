@@ -310,6 +310,11 @@ public class FindOpponentActivity extends TPActivity {
         }
     }
 
+    @OnClick(R.id.x_button)
+    public void xButtonClick() {
+        searchBar.setText("");
+    }
+
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
