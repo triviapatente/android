@@ -6,6 +6,7 @@ import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessCategories;
 import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
+import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 import org.json.JSONException;
@@ -43,6 +44,17 @@ public class GameSocketManager extends BaseSocketManager {
             data.put("game", gameID);
             data.put("category", categoryID);
             emit("choose_category", data, SuccessCategory.class, chooseCategoryCallback);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void get_questions(Long gameID, Long roundID, SocketCallback<SuccessQuizzes> getQuestionsCallback) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("round_id", roundID);
+            data.put("game", gameID);
+            emit("get_questions", data, SuccessQuizzes.class, getQuestionsCallback);
         } catch (JSONException e) {
             e.printStackTrace();
         }

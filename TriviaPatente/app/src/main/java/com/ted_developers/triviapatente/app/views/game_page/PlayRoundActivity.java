@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,15 +14,26 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
+import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.QuizHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.paginatingListView.PaginatingRecyclerView;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
+import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
+import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
+import butterknife.BindDimen;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -34,6 +48,9 @@ public class PlayRoundActivity extends TPActivity {
     @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
+    // quizzes
+    @BindView(R.id.quizzes) PaginatingRecyclerView quizzesListView;
+    @BindDimen(R.dimen.quiz_height) int quizHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +66,7 @@ public class PlayRoundActivity extends TPActivity {
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         initActionbar();
         initGameHeader();
+        loadQuizzes();
     }
 
     private void initActionbar() {
@@ -73,6 +91,22 @@ public class PlayRoundActivity extends TPActivity {
         // todo set game header subtitle image dinamically
         gameHeaderSubtitleImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.no_image));
         gameHeaderSubtitleImage.setVisibility(View.VISIBLE);
+    }
+
+    private void loadQuizzes() {
+        gameSocketManager.get_questions(currentRound.game_id, currentRound.id, new SocketCallback<SuccessQuizzes>() {
+            @Override
+            public void response(SuccessQuizzes response) {
+                final List<Quiz> quizzes = response.quizzes;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        quizzesListView.setAdapter(new TPListAdapter<Quiz>(PlayRoundActivity.this, quizzes,
+                                R.layout.quiz, QuizHolder.class, 0, null, quizHeight, quizzesListView));
+                    }
+                });
+            }
+        });
     }
 
     // option button panel
