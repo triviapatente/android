@@ -135,6 +135,7 @@ public class ChooseCategoryActivity extends TPActivity {
                     Intent intent = new Intent(ChooseCategoryActivity.this, PlayRoundActivity.class);
                     intent.putExtra(ChooseCategoryActivity.this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
                     intent.putExtra(ChooseCategoryActivity.this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
+                    intent.putExtra(ChooseCategoryActivity.this.getString(R.string.extra_string_category), RetrofitManager.gson.toJson(category));
                     ChooseCategoryActivity.this.startActivity(intent);
                     ChooseCategoryActivity.this.finish();
                 }

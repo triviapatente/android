@@ -52,6 +52,7 @@ public class GameMainPageActivity extends TPActivity {
     @BindString(R.string.extra_boolean_game) String extraBooleanGame;
     @BindString(R.string.extra_long_game) String extraLongGame;
     @BindString(R.string.extra_string_round) String extraStringRound;
+    @BindString(R.string.extra_string_category) String extraStringCategory;
     private Drawable opponentImage;
     private User opponent;
     private Long gameID;
@@ -334,6 +335,7 @@ public class GameMainPageActivity extends TPActivity {
         Intent intent = new Intent(this, PlayRoundActivity.class);
         intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
+        intent.putExtra(extraStringCategory, RetrofitManager.gson.toJson(currentCategory));
         startActivity(intent);
         finish();
     }

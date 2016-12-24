@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Round;
 
 import org.w3c.dom.Text;
@@ -25,6 +27,7 @@ public class PlayRoundActivity extends TPActivity {
     // game data
     User opponent;
     Round currentRound;
+    Category currentCategory;
     // action bar
     @BindView(R.id.toolbar) BackPictureTPActionBar toolbar;
     // game header
@@ -43,6 +46,7 @@ public class PlayRoundActivity extends TPActivity {
         Intent intent = getIntent();
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_opponent)), User.class);
         currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_round)), Round.class);
+        currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         initActionbar();
         initGameHeader();
     }
@@ -65,8 +69,10 @@ public class PlayRoundActivity extends TPActivity {
         // game header title
         gameHeaderTitle.setText("Round " + currentRound.number);
         // game header subtitle
-        gameHeaderSubtitle.setText("BOOOOH");
-        // todo set game header subtitle image
+        gameHeaderSubtitle.setText(currentCategory.hint);
+        // todo set game header subtitle image dinamically
+        gameHeaderSubtitleImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.no_image));
+        gameHeaderSubtitleImage.setVisibility(View.VISIBLE);
     }
 
     // option button panel
