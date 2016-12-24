@@ -23,11 +23,11 @@ import com.ted_developers.triviapatente.models.game.Game;
  */
 public class PlayButton extends Button implements View.OnClickListener {
     // strings
-    String playNow, newGame, details, endGame;
+    String playNow, newGame, details, endGame, contact;
     // drawables (different types of buttons)
-    Drawable playNowDrawable, newGameDrawable, detailsDrawable;
+    Drawable playNowDrawable, newGameDrawable, detailsDrawable, contactDrawable;
     // colors
-    int playNowColor, newGameColor, detailsColor;
+    int playNowColor, newGameColor, detailsColor, contactColor;
     // on click
     Long gameID;
     User opponent;
@@ -64,6 +64,7 @@ public class PlayButton extends Button implements View.OnClickListener {
         newGame = getResources().getString(R.string.new_game_button_text);
         endGame = getResources().getString(R.string.summary_button_text);
         details = getResources().getString(R.string.details_button_text);
+        contact = getResources().getString(R.string.contact_button_text);
 
         extraStringOpponent = getResources().getString(R.string.extra_string_opponent);
         extraBooleanGame = getResources().getString(R.string.extra_boolean_game);
@@ -72,10 +73,12 @@ public class PlayButton extends Button implements View.OnClickListener {
         playNowDrawable = ContextCompat.getDrawable(context, R.drawable.green_on_white);
         newGameDrawable = ContextCompat.getDrawable(context, R.drawable.red_on_white_button);
         detailsDrawable = ContextCompat.getDrawable(context, R.drawable.yellow_on_white_button);
+        contactDrawable = ContextCompat.getDrawable(context, R.drawable.grey_on_white_button);
         // bind colors
         playNowColor = ContextCompat.getColor(context, R.color.green);
         newGameColor = ContextCompat.getColor(context, R.color.red);
         detailsColor = ContextCompat.getColor(context, R.color.yellow);
+        contactColor = ContextCompat.getColor(context, R.color.greyDark);
     }
 
     // the button is a play now one
@@ -104,6 +107,13 @@ public class PlayButton extends Button implements View.OnClickListener {
         this.setBackground(detailsDrawable);
         this.setText(details);
         this.setTextColor(detailsColor);
+    }
+
+    // the button is a contact one
+    public void setContact() {
+        this.setBackground(contactDrawable);
+        this.setText(contact);
+        this.setTextColor(contactColor);
     }
 
     public void sendInvite(User element) {

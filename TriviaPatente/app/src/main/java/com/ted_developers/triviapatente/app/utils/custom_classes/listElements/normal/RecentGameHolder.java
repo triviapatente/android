@@ -24,9 +24,9 @@ import com.ted_developers.triviapatente.models.game.Game;
  */
 public class RecentGameHolder extends TPHolder<Game> {
     // status strings
-    private String playNowStatus, detailsStatus, summaryStatus;
+    private String playNowStatus, detailsStatus, summaryStatus, contactStatus;
     // status traffic lights
-    private Drawable playNowTL, detailsTL, summaryTL;
+    private Drawable playNowTL, detailsTL, summaryTL, contactTL;
     // status text view
     private TextView statusText;
     // player name
@@ -51,10 +51,12 @@ public class RecentGameHolder extends TPHolder<Game> {
         playNowStatus = context.getResources().getString(R.string.play_now_status);
         detailsStatus = context.getResources().getString(R.string.details_status);
         summaryStatus = context.getResources().getString(R.string.new_game_status);
+        contactStatus = context.getResources().getString(R.string.contact_status);
         // traffic lights
         playNowTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_green);
         detailsTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_yellow);
         summaryTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_red);
+        contactTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_no_lights);
         // other elements
         playButton = (PlayButton) itemView.findViewById(R.id.recentGameButton);
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
@@ -67,7 +69,10 @@ public class RecentGameHolder extends TPHolder<Game> {
     @Override
     public void bind(Game element) {
         playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
-        if(element.ended) {
+        if(!element.started) {
+            setContact();
+        }
+        else if(element.ended) {
             setSummary();
         } else {
             if(element.my_turn) {
@@ -110,6 +115,12 @@ public class RecentGameHolder extends TPHolder<Game> {
         playButton.setDetails();
         statusText.setText(detailsStatus);
         trafficLights.setImageDrawable(detailsTL);
+    }
+
+    private void setContact() {
+        playButton.setContact();
+        statusText.setText(contactStatus);
+        trafficLights.setImageDrawable(contactTL);
     }
 
     private void setUsernameText(String text) {

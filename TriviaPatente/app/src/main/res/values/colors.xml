@@ -23,5 +23,7 @@
     <color name="redLight">#70FC3D39</color>
     <color name="red">#FC3D39</color>
     <color name="redDark">#FC0D39</color>
+    <color name="grey">#9B9B9B</color>
+    <color name="greyDark">#5B5B5B</color>
 
 </resources>

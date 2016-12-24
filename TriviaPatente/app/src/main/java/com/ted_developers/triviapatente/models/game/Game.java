@@ -10,24 +10,16 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Game extends CommonPK {
-    @SerializedName("creator_id")
-    public Long creator_id;
-    @SerializedName("winner_id")
-    public Long winner_id;
-    @SerializedName("ended")
-    public Boolean ended;
-    @SerializedName("opponent_username")
-    public String opponent_username;
-    @SerializedName("opponent_name")
-    public String opponent_name;
-    @SerializedName("opponent_surname")
-    public String opponent_surname;
-    @SerializedName("opponent_id")
-    public Long opponent_id;
-    @SerializedName("opponent_image")
-    public String opponent_image;
-    @SerializedName("my_turn")
-    public Boolean my_turn;
+    @SerializedName("creator_id") public Long creator_id;
+    @SerializedName("winner_id") public Long winner_id;
+    @SerializedName("ended") public Boolean ended;
+    @SerializedName("started") public Boolean started;
+    @SerializedName("opponent_username") public String opponent_username;
+    @SerializedName("opponent_name") public String opponent_name;
+    @SerializedName("opponent_surname") public String opponent_surname;
+    @SerializedName("opponent_id") public Long opponent_id;
+    @SerializedName("opponent_image") public String opponent_image;
+    @SerializedName("my_turn") public Boolean my_turn;
 
     public Game() {}
 }
