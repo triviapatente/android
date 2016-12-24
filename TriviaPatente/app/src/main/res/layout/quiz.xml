@@ -14,11 +14,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/quizImage"
             android:layout_width="@dimen/quiz_image_size"
-            android:layout_height="@dimen/quiz_image_size"
-            android:background="@drawable/no_image"/>
+            android:layout_height="@dimen/quiz_image_size"/>
 
         <TextView
+            android:id="@+id/quizDescription"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -26,7 +27,6 @@
             android:textColor="@color/mainColorDark2"
             android:maxLines = "4"
             android:scrollbars = "vertical"
-            android:text="Il segnale raffigurato precede il segnale di DIREZIONE OBBLIGATORIA A DESTRA"
             android:layout_marginLeft="@dimen/quiz_description_margin"/>
     </LinearLayout>
 
@@ -45,6 +45,7 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/trueButton"
         android:layout_width="@dimen/quiz_true_false_button_size"
         android:layout_height="@dimen/quiz_true_false_button_size"
         android:background="@drawable/true_false_button"
@@ -53,6 +54,7 @@
         android:textSize="@dimen/TPTextSizeMedium"/>
 
         <Button
+            android:id="@+id/falseButton"
             android:layout_width="@dimen/quiz_true_false_button_size"
             android:layout_height="@dimen/quiz_true_false_button_size"
             android:background="@drawable/true_false_button"
