@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.listElements.n
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
@@ -36,7 +37,7 @@ public class InviteHolder extends TPHolder<Invite> {
     // profile picture
     private RoundedImageView profilePicture;
     // accept and decline button
-    private ImageButton acceptButton, declineButton;
+    private ImageButton acceptButton, declineButton, chatButton;
     // adapter
     private TPExpandableList<Invite> expandableList;
     // context
@@ -59,6 +60,7 @@ public class InviteHolder extends TPHolder<Invite> {
         usernameText.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
         acceptButton = (ImageButton) itemView.findViewById(R.id.acceptButton);
         declineButton = (ImageButton) itemView.findViewById(R.id.declineButton);
+        chatButton = (ImageButton) itemView.findViewById(R.id.chatButton);
     }
 
     @Override
@@ -86,6 +88,13 @@ public class InviteHolder extends TPHolder<Invite> {
         });
         // set on click on profile picture
         profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AlphaView.class);
+                context.startActivity(intent);
+            }
+        });
+        chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AlphaView.class);

@@ -8,4 +8,6 @@
     <!-- no invites -->
     <string name="no_invites">Nessun invito a giocare</string>
     <dimen name="invites_button_size">35dp</dimen>
+    <dimen name="invites_chat_button_size">30dp</dimen>
+    <dimen name="invites_margin_chat_button">30dp</dimen>
 </resources>

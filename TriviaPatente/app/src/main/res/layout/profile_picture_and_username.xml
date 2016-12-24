@@ -18,6 +18,8 @@
         android:layout_height="match_parent"
         android:textSize="@dimen/TPTextSizeMedium"
         android:gravity="center_vertical"
+        android:lines="1"
+        android:ellipsize="end"
         android:layout_marginLeft="@dimen/list_item_margin"/>
 
 </LinearLayout>
