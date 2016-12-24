@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -18,6 +19,7 @@ import com.ted_developers.triviapatente.models.game.Round;
 import org.w3c.dom.Text;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class PlayRoundActivity extends TPActivity {
     // game data
@@ -65,6 +67,23 @@ public class PlayRoundActivity extends TPActivity {
         // game header subtitle
         gameHeaderSubtitle.setText("BOOOOH");
         // todo set game header subtitle image
+    }
+
+    // option button panel
+    @OnClick(R.id.gameChatButton)
+    public void gameChatButtonClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.gameDetailsButton)
+    public void gameDetailsButtonClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.gameLeaveButton)
+    public void gameLeaveButtonClick() {
+        Intent intent = new Intent(this, AlphaView.class);
+        startActivity(intent);
     }
 
     @Override
