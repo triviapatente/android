@@ -1,5 +1,7 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.SuccessCategories;
+import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
 import java.util.List;
@@ -120,5 +123,22 @@ public class ChooseCategoryActivity extends TPActivity {
         Intent intent = new Intent(this, MainPageActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
+    }
+
+    public void chooseCategory(final Category category) {
+        // send category choosen event
+        gameSocketManager.choose_category(currentRound.game_id, currentRound.id, category.id, new SocketCallback<SuccessCategory>() {
+            @Override
+            public void response(SuccessCategory response) {
+                if(response.success) {
+                    // start play round activity
+                    Intent intent = new Intent(ChooseCategoryActivity.this, PlayRoundActivity.class);
+                    intent.putExtra(ChooseCategoryActivity.this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+                    intent.putExtra(ChooseCategoryActivity.this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
+                    ChooseCategoryActivity.this.startActivity(intent);
+                    ChooseCategoryActivity.this.finish();
+                }
+            }
+        });
     }
 }

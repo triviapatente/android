@@ -4,6 +4,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessCategories;
+import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
@@ -30,6 +31,18 @@ public class GameSocketManager extends BaseSocketManager {
             data.put("round_id", roundID);
             data.put("game", gameID);
             emit("get_categories", data, SuccessCategories.class, proposedCategoriesCallback);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void choose_category(Long gameID, Long roundID, Long categoryID, SocketCallback<SuccessCategory> chooseCategoryCallback) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("round_id", roundID);
+            data.put("game", gameID);
+            data.put("category", categoryID);
+            emit("choose_category", data, SuccessCategory.class, chooseCategoryCallback);
         } catch (JSONException e) {
             e.printStackTrace();
         }

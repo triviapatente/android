@@ -324,14 +324,18 @@ public class GameMainPageActivity extends TPActivity {
 
     private void chooseCategory() {
         Intent intent = new Intent(this, ChooseCategoryActivity.class);
-        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
+        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         startActivity(intent);
         finish();
     }
 
     private void playRound() {
-        // todo open activity
+        Intent intent = new Intent(this, PlayRoundActivity.class);
+        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+        intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
+        startActivity(intent);
+        finish();
     }
 
     // option button panel

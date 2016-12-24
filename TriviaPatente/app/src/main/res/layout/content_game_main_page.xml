@@ -31,13 +31,6 @@
         android:layout_below="@+id/bigProfilePicture"
         android:layout_marginTop="@dimen/wait_page_margin"/>
 
-    <include
-        layout="@layout/game_options"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/wait_page_margin"/>
-
     <com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle
         android:id="@+id/loadingCircle"
         android:layout_width="@dimen/big_profile_picture_size"

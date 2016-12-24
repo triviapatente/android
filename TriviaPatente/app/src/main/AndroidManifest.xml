@@ -13,15 +13,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".app.views.first_access.FirstAccessActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:launchMode="singleTask"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".app.views.main_page.MainPageActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".app.views.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,30 +31,35 @@
         </activity>
         <activity
             android:name=".app.views.game_page.NewGameActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".app.views.find_opponent.FindOpponentActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:launchMode="singleTask"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".app.views.game_page.GameMainPageActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".app.views.game_page.ChooseCategoryActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".app.views.AlphaView"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".app.views.game_page.PlayRoundActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

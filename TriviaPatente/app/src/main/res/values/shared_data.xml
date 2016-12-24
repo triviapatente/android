@@ -9,4 +9,5 @@
     <string name="extra_boolean_game">new_game</string>
     <string name="extra_long_game">game_id</string>
     <string name="extra_string_round">round</string>
+    <string name="extra_string_category">category</string>
 </resources>
