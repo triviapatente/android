@@ -37,26 +37,37 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/mainColor">
-        <EditText
-            android:id="@+id/search_bar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/search_height"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search"
             android:layout_margin="@dimen/search_margin"
-            android:singleLine="true"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:hint="@string/search_hint"
-            android:textCursorDrawable="@drawable/edittext_cursor"
-            android:drawableLeft="@android:drawable/ic_menu_search"
-            android:background="@drawable/search"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/mainColor"/>
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="@dimen/search_icon_size"
+                android:layout_height="@dimen/search_icon_size"
+                android:background="@drawable/search_icon"
+                android:layout_marginLeft="@dimen/search_margin"/>
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/search_height"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:hint="@string/search_hint"
+                android:textCursorDrawable="@drawable/edittext_cursor"
+                android:background="@drawable/search"/>
+            <ImageButton
+                android:layout_width="@dimen/search_x_button_size"
+                android:layout_height="@dimen/search_x_button_size"
+                android:background="@drawable/exit_button"
+                android:layout_marginRight="@dimen/search_margin"/>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
