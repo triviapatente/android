@@ -53,6 +53,20 @@ public class PlayRoundActivity extends TPActivity {
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         initActionbar();
         initGameHeader();
+        initQuizPanelButtons();
+        initBackgroundManager();
+        quizzesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                quizButtons.get(position).callOnClick();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
         loadQuizzes();
     }
 
