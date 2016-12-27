@@ -14,6 +14,8 @@
     <color name="greenLight">#7053D769</color>
     <color name="green">#53D769</color>
     <color name="greenDark">#53C769</color>
+    <color name="greenOpaque">#2ECC71</color>
+    <color name="greenOpaqueDark">#19AA6D</color>
     <color name="orangeLight">#70FD9426</color>
     <color name="orange">#FD9426</color>
     <color name="orangeDark">#FD8426</color>
@@ -23,6 +25,8 @@
     <color name="redLight">#70FC3D39</color>
     <color name="red">#FC3D39</color>
     <color name="redDark">#FC0D39</color>
+    <color name="redOpaque">#E74C3C</color>
+    <color name="redOpaqueDark">#EF1C39</color>
     <color name="grey">#9B9B9B</color>
     <color name="greyDark">#5B5B5B</color>
     <color name="quizTextColor">#3C5A95</color>
