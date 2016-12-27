@@ -127,8 +127,6 @@ public class MainPageActivity extends TPActivity {
                                     loadRecentGames();
                                     // show all
                                     mainPageContent.setVisibility(View.VISIBLE);
-                                    // stop loading
-                                    loadingView.setVisibility(View.GONE);
                                 }
                             });
                         } else {
@@ -240,6 +238,8 @@ public class MainPageActivity extends TPActivity {
                         counter = response.body().recent_games.size();
                     }
                     recentGames.setListCounter(counter);
+                    // stop loading
+                    loadingView.setVisibility(View.GONE);
                 }
             }
 
@@ -275,6 +275,7 @@ public class MainPageActivity extends TPActivity {
         // open first access page
         Intent myIntent = new Intent(this, FirstAccessActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
     // touch handler

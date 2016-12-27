@@ -130,6 +130,7 @@ public class FirstAccessActivity extends TPActivity {
         // open main page
         Intent myIntent = new Intent(a, MainPageActivity.class);
         a.startActivity(myIntent);
+        a.finish();
     }
 
     @Override
