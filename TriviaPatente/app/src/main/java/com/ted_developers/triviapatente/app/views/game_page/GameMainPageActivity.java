@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -22,6 +21,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.C
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.AlphaView;
+import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -114,7 +114,9 @@ public class GameMainPageActivity extends TPActivity {
                     public void run() {
                         currentRound = response.round;
                         currentCategory = response.category;
-                        if(waitingInvite.equals(response.waiting)) {
+                        if(response.ended != null && response.ended) {
+                            // todo go to round details
+                        } else if(waitingInvite.equals(response.waiting)) {
                             waitingInvite();
                         } else if(response.waiting_for.username.equals(opponent.username)) {
                             if(response.isOpponentOnline) {
