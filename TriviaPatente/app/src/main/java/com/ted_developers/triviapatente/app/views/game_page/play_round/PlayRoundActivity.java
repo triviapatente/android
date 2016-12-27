@@ -60,11 +60,17 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         @Override
         public void response(SuccessAnsweredCorrectly response) {
             if(response.success) {
-                int position = quizzesViewPager.getCurrentItem();
+                final int position = quizzesViewPager.getCurrentItem();
                 setButtonColorFromAnswer(quizButtons.get(position), response.correct_answer);
                 Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
                 currentQuiz.answered_correctly = response.correct_answer;
                 quizzesAdapter.quizzesList.set(position, currentQuiz);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        quizzesViewPager.setCurrentItem(getNextCurrentItem(position));
+                    }
+                });
             }
         }
     };
