@@ -1,10 +1,17 @@
 package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
@@ -20,12 +27,15 @@ import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.OnClick;
 
-public class PlayRoundActivity extends TPActivity {
+public class PlayRoundActivity extends TPActivity implements View.OnClickListener {
     // game data
     User opponent;
     Round currentRound;
@@ -38,6 +48,18 @@ public class PlayRoundActivity extends TPActivity {
     @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
     // quizzes
     @BindView(R.id.quizzes) ViewPager quizzesViewPager;
+    @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
+    // quiz button background management
+    @BindDrawable(R.drawable.play_round_button_no_answer) Drawable noAnswerDrawable;
+    @BindDrawable(R.drawable.play_round_button_no_answer_selected) Drawable noAnswerDrawableSelected;
+    @BindDrawable(R.drawable.play_round_button_red) Drawable redDrawable;
+    @BindDrawable(R.drawable.play_round_button_red_selected) Drawable redDrawableSelected;
+    @BindDrawable(R.drawable.play_round_button_green) Drawable greenDrawable;
+    @BindDrawable(R.drawable.play_round_button_green_selected) Drawable greenDrawableSelected;
+    QuizButtonsBackgroundsManager quizButtonsBackgroundsManager = new QuizButtonsBackgroundsManager();
+    // quiz send answer
+    SocketCallback<>
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +90,19 @@ public class PlayRoundActivity extends TPActivity {
             public void onPageScrollStateChanged(int state) {}
         });
         loadQuizzes();
+    }
+
+    private void initBackgroundManager() {
+        quizButtonsBackgroundsManager.backgrounds.add(new Pair<>(noAnswerDrawable, noAnswerDrawableSelected));
+        quizButtonsBackgroundsManager.backgrounds.add(new Pair<>(redDrawable, redDrawableSelected));
+        quizButtonsBackgroundsManager.backgrounds.add(new Pair<>(greenDrawable, greenDrawableSelected));
+    }
+
+    private void initQuizPanelButtons() {
+        for(Button b : quizButtons) {
+            b.setOnClickListener(this);
+            b.setBackground(noAnswerDrawable);
+        }
     }
 
     private void initActionbar() {
@@ -103,6 +138,7 @@ public class PlayRoundActivity extends TPActivity {
                     @Override
                     public void run() {
                         quizzesViewPager.setAdapter(new QuizzesPagerAdapter(quizzes));
+                        quizButtons.get(0).callOnClick();
                     }
                 });
             }
