@@ -123,4 +123,51 @@ public class PlayRoundActivity extends TPActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
     }
+
+    Button lastSelectedButton;
+    @Override
+    public void onClick(View v) {
+        int position;
+        switch (v.getId()) {
+            case R.id.firstQuizButton: position = 0; break;
+            case R.id.secondQuizButton: position = 1; break;
+            case R.id.thirdQuizButton: position = 2; break;
+            case R.id.fourthQuizButton: position = 3; break;
+            default: return;
+        }
+        quizzesViewPager.setCurrentItem(position);
+        if(lastSelectedButton != null) {
+            lastSelectedButton.setBackground(quizButtonsBackgroundsManager.getOther(lastSelectedButton.getBackground()));
+        }
+        lastSelectedButton = quizButtons.get(position);
+        lastSelectedButton.setBackground(quizButtonsBackgroundsManager.getOther(lastSelectedButton.getBackground()));
+    }
+
+    private class QuizButtonsBackgroundsManager {
+        public List<Pair<Drawable, Drawable>> backgrounds = new ArrayList<>();
+        public Drawable getOther(Drawable drawable) {
+            for(Pair<Drawable, Drawable> pair : backgrounds) {
+                if(pair.first.equals(drawable)) {
+                    return pair.second;
+                } else if(pair.second.equals(drawable)) {
+                    return pair.first;
+                }
+            }
+            return null;
+        }
+    }
+
+    private void setButtonColorFromAnswer(Button button, boolean isCorrect) {
+        Drawable backgroundDrawable = null;
+        if(isCorrect) {
+            backgroundDrawable = greenDrawableSelected;
+        } else {
+            backgroundDrawable = redDrawableSelected;
+        }
+        button.setBackground(backgroundDrawable);
+    }
+
+    public void sendAnswer(boolean answer) {
+
+    }
 }
