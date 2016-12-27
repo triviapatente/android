@@ -18,6 +18,8 @@
             android:id="@+id/firstQuizButton"
             android:textColor="@android:color/white"
             android:text="1"
+            android:padding="0dp"
+            android:gravity="center"
             android:textSize="@dimen/TPTextSizeLarge"/>
 
         <Button
@@ -27,6 +29,8 @@
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
             android:textColor="@android:color/white"
             android:text="2"
+            android:padding="0dp"
+            android:gravity="center"
             android:textSize="@dimen/TPTextSizeLarge"/>
 
         <Button
@@ -36,6 +40,8 @@
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
             android:textColor="@android:color/white"
             android:text="3"
+            android:padding="0dp"
+            android:gravity="center"
             android:textSize="@dimen/TPTextSizeLarge"/>
 
         <Button
@@ -45,6 +51,8 @@
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
             android:textColor="@android:color/white"
             android:text="4"
+            android:padding="0dp"
+            android:gravity="center"
             android:textSize="@dimen/TPTextSizeLarge"/>
 
     </LinearLayout>
