@@ -1,7 +1,5 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -15,11 +13,12 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
-import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPEnterAnimListAdapter;
-import com.ted_developers.triviapatente.app.utils.custom_classes.adapters.TPListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPEnterAnimListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.CategoryHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.CategoryHolder;
+import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;

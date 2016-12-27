@@ -56,7 +56,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".app.views.game_page.PlayRoundActivity"
+            android:name=".app.views.game_page.play_round.PlayRoundActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>

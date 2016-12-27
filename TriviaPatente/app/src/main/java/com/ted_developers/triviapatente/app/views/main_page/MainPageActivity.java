@@ -14,8 +14,8 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainBut
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.footer.TPFooter;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listElements.normal.RecentGameHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar;
 import com.ted_developers.triviapatente.app.utils.mApplication;
