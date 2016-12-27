@@ -1,15 +1,11 @@
 package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +21,7 @@ import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.SuccessAnsweredCorrectly;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
 
 import java.util.ArrayList;
@@ -49,6 +46,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     // quizzes
     @BindView(R.id.quizzes) ViewPager quizzesViewPager;
     @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
+    QuizzesPagerAdapter quizzesAdapter;
     // quiz button background management
     @BindDrawable(R.drawable.play_round_button_no_answer) Drawable noAnswerDrawable;
     @BindDrawable(R.drawable.play_round_button_no_answer_selected) Drawable noAnswerDrawableSelected;
@@ -58,7 +56,18 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     @BindDrawable(R.drawable.play_round_button_green_selected) Drawable greenDrawableSelected;
     QuizButtonsBackgroundsManager quizButtonsBackgroundsManager = new QuizButtonsBackgroundsManager();
     // quiz send answer
-    SocketCallback<>
+    SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
+        @Override
+        public void response(SuccessAnsweredCorrectly response) {
+            if(response.success) {
+                int position = quizzesViewPager.getCurrentItem();
+                setButtonColorFromAnswer(quizButtons.get(position), response.correct_answer);
+                Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
+                currentQuiz.answered_correctly = response.correct_answer;
+                quizzesAdapter.quizzesList.set(position, currentQuiz);
+            }
+        }
+    };
 
 
     @Override
@@ -137,7 +146,8 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        quizzesViewPager.setAdapter(new QuizzesPagerAdapter(quizzes));
+                        quizzesAdapter = new QuizzesPagerAdapter(quizzes);
+                        quizzesViewPager.setAdapter(quizzesAdapter);
                         quizButtons.get(0).callOnClick();
                     }
                 });
@@ -207,17 +217,22 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         }
     }
 
-    private void setButtonColorFromAnswer(Button button, boolean isCorrect) {
-        Drawable backgroundDrawable = null;
-        if(isCorrect) {
-            backgroundDrawable = greenDrawableSelected;
-        } else {
-            backgroundDrawable = redDrawableSelected;
-        }
-        button.setBackground(backgroundDrawable);
+    private void setButtonColorFromAnswer(final Button button, final boolean isCorrect) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Drawable backgroundDrawable = null;
+                if(isCorrect) {
+                    backgroundDrawable = greenDrawableSelected;
+                } else {
+                    backgroundDrawable = redDrawableSelected;
+                }
+                button.setBackground(backgroundDrawable);
+            }
+        });
     }
 
-    public void sendAnswer(boolean answer) {
-
+    public void sendAnswer(boolean answer, long quiz_id) {
+        gameSocketManager.answer(currentRound.game_id, currentRound.id, quiz_id, answer, answerSocketCallback);
     }
 }
