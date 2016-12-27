@@ -23,6 +23,7 @@ public class QuizHolder implements View.OnClickListener{
     private Button trueButton, falseButton;
     private View itemView;
     private Context context;
+    private Quiz element;
 
     public QuizHolder(PlayRoundActivity context, Quiz quizElement) {
         itemView = LayoutInflater.from(context).inflate(R.layout.quiz, null, false);
@@ -45,6 +46,7 @@ public class QuizHolder implements View.OnClickListener{
     }
 
     public void bind(Quiz element) {
+        this.element = element;
         quizDescription.setText(element.question);
         if(element.image_id != null) {
             quizImage.setVisibility(View.GONE);
@@ -67,7 +69,7 @@ public class QuizHolder implements View.OnClickListener{
             }
             default:return;
         }
-        ((PlayRoundActivity)context).sendAnswer(answer);
+        ((PlayRoundActivity)context).sendAnswer(answer, element.id);
         clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.true_or_false_button_clicked));
         clicked.setTextColor(Color.WHITE);
         // disable clicks

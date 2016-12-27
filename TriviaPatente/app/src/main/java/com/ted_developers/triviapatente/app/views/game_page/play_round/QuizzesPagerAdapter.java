@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class QuizzesPagerAdapter extends PagerAdapter {
 
-    List<Quiz> quizzesList;
+    public List<Quiz> quizzesList;
 
     public QuizzesPagerAdapter(List<Quiz> quizzesList) {
         this.quizzesList = quizzesList;
