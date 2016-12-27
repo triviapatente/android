@@ -235,4 +235,15 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     public void sendAnswer(boolean answer, long quiz_id) {
         gameSocketManager.answer(currentRound.game_id, currentRound.id, quiz_id, answer, answerSocketCallback);
     }
+
+    private int getNextCurrentItem(int position) {
+        int counter = 0, numberOfItems = quizzesAdapter.quizzesList.size();
+        for(int nextPos = position + 1; counter < numberOfItems - 1; counter++) {
+            int nextPosition = (nextPos + counter) % numberOfItems;
+            if(quizzesAdapter.quizzesList.get(nextPosition).my_answer == null) {
+                return nextPosition;
+            }
+        }
+        return position;
+    }
 }
