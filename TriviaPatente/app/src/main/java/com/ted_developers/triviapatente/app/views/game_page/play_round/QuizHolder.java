@@ -55,6 +55,19 @@ public class QuizHolder implements View.OnClickListener{
             // todo set dinamically
             quizImage.setImageDrawable(itemView.getResources().getDrawable(R.drawable.no_image));
         }
+        // if already answered
+        if(element.my_answer != null) {
+            alreadyAnswered(element.my_answer);
+        }
+    }
+
+    public void alreadyAnswered(boolean answer) {
+        if(answer) {
+            setButtonClicked(trueButton);
+        } else {
+            setButtonClicked(falseButton);
+        }
+        setButtonClickable(false);
     }
 
     @Override
@@ -70,11 +83,19 @@ public class QuizHolder implements View.OnClickListener{
             default:return;
         }
         ((PlayRoundActivity)context).sendAnswer(answer, element.id);
+        setButtonClicked(clicked);
+        // disable clicks
+        setButtonClickable(false);
+    }
+
+    private void setButtonClicked(Button clicked) {
         clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.true_or_false_button_clicked));
         clicked.setTextColor(Color.WHITE);
-        // disable clicks
-        trueButton.setClickable(false);
-        falseButton.setClickable(false);
+    }
+
+    private void setButtonClickable(boolean clickable) {
+        trueButton.setClickable(clickable);
+        falseButton.setClickable(clickable);
     }
 
     public View getItemView() {
