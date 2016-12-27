@@ -233,6 +233,10 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     }
 
     public void sendAnswer(boolean answer, long quiz_id) {
+        int position = quizzesViewPager.getCurrentItem();
+        Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
+        currentQuiz.my_answer = answer;
+        quizzesAdapter.quizzesList.set(position, currentQuiz);
         gameSocketManager.answer(currentRound.game_id, currentRound.id, quiz_id, answer, answerSocketCallback);
     }
 
