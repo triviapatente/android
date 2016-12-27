@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/grey"/>
+            <stroke
+                android:width="@dimen/play_round_button_panel_button_border"
+                android:color="@color/greyDark"/>
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/greyDark"/>
+            <stroke
+                android:width="@dimen/play_round_button_panel_button_border"
+                android:color="@color/greyDark"/>
+        </shape>
+    </item>
+</selector>

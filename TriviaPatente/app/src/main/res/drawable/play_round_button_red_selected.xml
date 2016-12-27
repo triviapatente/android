@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/whiteLight"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="@dimen/play_round_button_panel_button_shadow"
+        android:right="@dimen/play_round_button_panel_button_shadow"
+        android:top="@dimen/play_round_button_panel_button_shadow"
+        android:bottom="@dimen/play_round_button_panel_button_shadow">
+        <shape android:shape="oval">
+            <solid android:color="@color/redOpaque"/>
+            <stroke
+                android:width="@dimen/play_round_button_panel_button_border"
+                android:color="@color/redOpaqueDark"/>
+        </shape>
+    </item>
+</layer-list>
