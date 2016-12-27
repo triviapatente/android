@@ -95,59 +95,59 @@ public class MainPageActivity extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
-        // init
-        init();
         // listening to events
         listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 
     private void init() {
-        // start loading
-        loadingView.setVisibility(View.VISIBLE);
         // connect to socket
-        BaseSocketManager.connect(new SimpleCallback() {
-            // on connect
-            @Override
-            public void execute() {
-                socketManager.authenticate(new SocketCallback<Hints>() {
-                    @Override
-                    public void response(final Hints response) {
-                        if (response.success) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // init items
-                                    ReceivedData.statsHints = response.stats;
-                                    ReceivedData.friends_rank_position = response.friends_rank_position;
-                                    ReceivedData.global_rank_position = response.global_rank_position;
-                                    ReceivedData.numberOfInvites = response.invites;
-                                    initOptionButtons();
-                                    initToolbar();
-                                    // load recent games
-                                    loadRecentGames();
-                                    // show all
-                                    mainPageContent.setVisibility(View.VISIBLE);
-                                }
-                            });
-                        } else {
-                            // todo avvisare login richiesto
-                            backToFirstAccess();
+        if(!BaseSocketManager.isConnected()) {
+            // start loading
+            loadingView.setVisibility(View.VISIBLE);
+            BaseSocketManager.connect(new SimpleCallback() {
+                // on connect
+                @Override
+                public void execute() {
+                    socketManager.authenticate(new SocketCallback<Hints>() {
+                        @Override
+                        public void response(final Hints response) {
+                            if (response.success) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // init items
+                                        ReceivedData.statsHints = response.stats;
+                                        ReceivedData.friends_rank_position = response.friends_rank_position;
+                                        ReceivedData.global_rank_position = response.global_rank_position;
+                                        ReceivedData.numberOfInvites = response.invites;
+                                        initOptionButtons();
+                                        initToolbar();
+                                        // load recent games
+                                        loadRecentGames();
+                                        // show all
+                                        mainPageContent.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            } else {
+                                // todo avvisare login richiesto
+                                backToFirstAccess();
+                            }
                         }
-                    }
-                });
-            }
-        }, new SimpleCallback() {
-            // on timeout
-            @Override
-            public void execute() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        errorConnectingToServer();
-                    }
-                });
-            }
-        });
+                    });
+                }
+            }, new SimpleCallback() {
+                // on timeout
+                @Override
+                public void execute() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorConnectingToServer();
+                        }
+                    });
+                }
+            });
+        }
     }
 
     private void initToolbar() {
@@ -313,6 +313,9 @@ public class MainPageActivity extends TPActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        // init
+        init();
 
         initInviteHints();
         initRankHints();

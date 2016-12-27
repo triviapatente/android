@@ -31,6 +31,14 @@ public class BaseSocketManager {
     private static Long id = null;
     private static String type = null;
 
+    public static boolean isConnected() {
+        return mSocket.connected();
+    }
+
+    public static void disconnect() {
+        mSocket.disconnect();
+    }
+
     public static void init(Context context) {
         try {
             mSocket = IO.socket(context.getString(R.string.baseUrl));

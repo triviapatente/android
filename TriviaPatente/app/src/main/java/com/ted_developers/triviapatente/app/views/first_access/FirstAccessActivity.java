@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
+import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.BindString;
@@ -141,5 +142,12 @@ public class FirstAccessActivity extends TPActivity {
     @Override
     public void onBackPressed() {
         // todo exit page
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        AuthSocketManager.disconnect();
     }
 }
