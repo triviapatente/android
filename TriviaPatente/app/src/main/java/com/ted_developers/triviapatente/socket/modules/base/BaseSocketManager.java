@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.socket.modules.base;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -140,6 +141,19 @@ public class BaseSocketManager {
 
     public void stopListen(String path) {
         mSocket.off(path);
+    }
+
+    protected JSONObject buildJSONObject(Pair<String, Object>... parameters) {
+        try {
+            JSONObject data = new JSONObject();
+            for(Pair<String, Object> dataPair : parameters) {
+                data.put(dataPair.first, dataPair.second);
+            }
+            return data;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
