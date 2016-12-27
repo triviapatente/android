@@ -90,7 +90,6 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         initActionbar();
         initGameHeader();
-        initQuizPanelButtons();
         initBackgroundManager();
         quizzesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -114,9 +113,19 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     }
 
     private void initQuizPanelButtons() {
-        for(Button b : quizButtons) {
+        for(int position = 0; position < quizButtons.size(); position++) {
+            Button b = quizButtons.get(position);
             b.setOnClickListener(this);
-            b.setBackground(noAnswerDrawable);
+            Quiz quiz = quizzesAdapter.quizzesList.get(position);
+            Drawable background;
+            if(quiz.my_answer == null) {
+                background = noAnswerDrawable;
+            } else if(quiz.answered_correctly == true) {
+                background = greenDrawable;
+            } else {
+                background = redDrawable;
+            }
+            b.setBackground(background);
         }
     }
 
@@ -154,6 +163,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
                     public void run() {
                         quizzesAdapter = new QuizzesPagerAdapter(quizzes);
                         quizzesViewPager.setAdapter(quizzesAdapter);
+                        initQuizPanelButtons();
                         quizButtons.get(0).callOnClick();
                     }
                 });
