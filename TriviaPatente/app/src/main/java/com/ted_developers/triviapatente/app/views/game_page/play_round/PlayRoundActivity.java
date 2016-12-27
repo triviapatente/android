@@ -164,7 +164,9 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
                         quizzesAdapter = new QuizzesPagerAdapter(quizzes);
                         quizzesViewPager.setAdapter(quizzesAdapter);
                         initQuizPanelButtons();
-                        quizButtons.get(0).callOnClick();
+                        int position = getNextCurrentItem(0);
+                        quizButtons.get(position).callOnClick();
+                        quizzesViewPager.setCurrentItem(position);
                     }
                 });
             }
@@ -258,7 +260,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
 
     private int getNextCurrentItem(int position) {
         int counter = 0, numberOfItems = quizzesAdapter.quizzesList.size();
-        for(int nextPos = position + 1; counter < numberOfItems - 1; counter++) {
+        for(int nextPos = position; counter < numberOfItems; counter++) {
             int nextPosition = (nextPos + counter) % numberOfItems;
             if(quizzesAdapter.quizzesList.get(nextPosition).my_answer == null) {
                 return nextPosition;
