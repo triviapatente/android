@@ -15,8 +15,7 @@
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
             android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/firstButton"
-            android:background="@color/greyDark"
+            android:id="@+id/firstQuizButton"
             android:textColor="@android:color/white"
             android:text="1"
             android:textSize="@dimen/TPTextSizeLarge"/>
@@ -24,9 +23,8 @@
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
             android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/secondButton"
+            android:id="@+id/secondQuizButton"
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-            android:background="@color/greyDark"
             android:textColor="@android:color/white"
             android:text="2"
             android:textSize="@dimen/TPTextSizeLarge"/>
@@ -34,9 +32,8 @@
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
             android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/thirdButton"
+            android:id="@+id/thirdQuizButton"
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-            android:background="@color/greyDark"
             android:textColor="@android:color/white"
             android:text="3"
             android:textSize="@dimen/TPTextSizeLarge"/>
@@ -44,9 +41,8 @@
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
             android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/fourthButton"
+            android:id="@+id/fourthQuizButton"
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-            android:background="@color/greyDark"
             android:textColor="@android:color/white"
             android:text="4"
             android:textSize="@dimen/TPTextSizeLarge"/>
@@ -57,7 +53,6 @@
         android:id="@+id/quizzes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/quizPanel"
-        android:layout_marginTop="@dimen/play_round_quiz_box_from_button_panel"/>
+        android:layout_below="@id/quizPanel"/>
 
 </RelativeLayout>
