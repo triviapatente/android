@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,11 @@ public class QuizHolder implements View.OnClickListener{
     private TextView quizDescription;
     private Button trueButton, falseButton;
     private View itemView;
+    private Context context;
 
-    public QuizHolder(Context context, Quiz quizElement) {
+    public QuizHolder(PlayRoundActivity context, Quiz quizElement) {
         itemView = LayoutInflater.from(context).inflate(R.layout.quiz, null, false);
+        this.context = context;
         init();
         bind(quizElement);
     }
@@ -64,14 +67,12 @@ public class QuizHolder implements View.OnClickListener{
             }
             default:return;
         }
-        // todo send answer
-        // todo change color of selected button
-        //clicked.setBackground();
+        ((PlayRoundActivity)context).sendAnswer(answer);
+        clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.true_or_false_button_clicked));
         clicked.setTextColor(Color.WHITE);
         // disable clicks
         trueButton.setClickable(false);
         falseButton.setClickable(false);
-        // todo go to next
     }
 
     public View getItemView() {
