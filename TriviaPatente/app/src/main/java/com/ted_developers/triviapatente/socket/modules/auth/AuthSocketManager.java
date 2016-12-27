@@ -1,5 +1,7 @@
 package com.ted_developers.triviapatente.socket.modules.auth;
 
+import android.util.Pair;
+
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.models.auth.Hints;
@@ -18,11 +20,7 @@ import java.util.Map;
 public class AuthSocketManager extends BaseSocketManager {
     public void authenticate(SocketCallback<Hints> cb) {
         String token = SharedTPPreferences.getToken();
-        JSONObject parameters = new JSONObject();
-        try {
-            parameters.put("token", token);
-        } catch (JSONException e) {}
-        emit("auth", parameters, Hints.class, cb);
+        emit("auth", buildJSONObject(new Pair<>("token", (Object) token)), Hints.class, cb);
     }
 
     public void logout(SocketCallback<Success> cb) {
