@@ -83,6 +83,7 @@ public class RecentGameHolder extends TPHolder<Game> {
         } else { setUsernameText(element.opponent_username); }
         if(element.opponent_image != null) {
             // TODO get image
+            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
         } else {
             setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
         }
