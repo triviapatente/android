@@ -1,68 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/quiz_height"
-    android:background="@android:color/white"
-    android:padding="@dimen/quiz_padding">
-    
+    android:layout_height="wrap_content"
+    android:background="@color/mainColor">
     <LinearLayout
-        android:id="@+id/quizDescriptionBox"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/quizImage"
-            android:layout_width="@dimen/quiz_image_size"
-            android:layout_height="@dimen/quiz_image_size"/>
-
-        <TextView
-            android:id="@+id/quizDescription"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/TPTextSizeMedium"
-            android:textColor="@color/mainColorDark2"
-            android:maxLines = "4"
-            android:scrollbars = "vertical"
-            android:layout_marginLeft="@dimen/quiz_description_margin"/>
-    </LinearLayout>
-
-    <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/mainColor"
-        android:layout_marginTop="@dimen/quiz_description_margin"/>
+        android:layout_margin="@dimen/quiz_box_margin"
+        android:background="@drawable/white_rounded_box"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
-    <LinearLayout
-        android:id="@+id/quizAnswerBox"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
+        <LinearLayout
+            android:id="@+id/quizDescriptionBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/quiz_padding"
+            android:layout_marginLeft="@dimen/quiz_padding"
+            android:layout_marginRight="@dimen/quiz_padding">
 
-        <Button
-            android:id="@+id/trueButton"
-        android:layout_width="@dimen/quiz_true_false_button_size"
-        android:layout_height="@dimen/quiz_true_false_button_size"
-        android:background="@drawable/true_false_button"
-        android:text="V"
-        android:textColor="@color/mainColor"
-        android:textSize="@dimen/TPTextSizeMedium"/>
+            <ImageView
+                android:id="@+id/quizImage"
+                android:layout_width="@dimen/quiz_image_size"
+                android:layout_height="@dimen/quiz_image_size"/>
 
-        <Button
-            android:id="@+id/falseButton"
-            android:layout_width="@dimen/quiz_true_false_button_size"
-            android:layout_height="@dimen/quiz_true_false_button_size"
-            android:background="@drawable/true_false_button"
-            android:text="F"
-            android:textColor="@color/mainColor"
-            android:textSize="@dimen/TPTextSizeLarge"
-            android:layout_marginLeft="@dimen/quiz_true_false_margin"/>
+            <TextView
+                android:id="@+id/quizDescription"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/TPTextSizeSmall"
+                android:textColor="@color/quizTextColor"
+                android:scrollbars = "vertical"
+                android:layout_marginLeft="@dimen/quiz_description_margin" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/mainColor"
+            android:layout_marginLeft="@dimen/quiz_padding"
+            android:layout_marginRight="@dimen/quiz_padding"
+            android:layout_marginTop="@dimen/quiz_separator_margin_top"
+            android:layout_marginBottom="@dimen/quiz_separator_margin_bottom"/>
+
+        <LinearLayout
+            android:id="@+id/quizAnswerBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/quiz_padding">
+
+            <Button
+                android:id="@+id/trueButton"
+                android:layout_width="@dimen/quiz_true_false_button_size"
+                android:layout_height="@dimen/quiz_true_false_button_size"
+                android:background="@drawable/true_false_button"
+                android:text="V"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/TPTextSizeLarge" />
+
+            <Button
+                android:id="@+id/falseButton"
+                android:layout_width="@dimen/quiz_true_false_button_size"
+                android:layout_height="@dimen/quiz_true_false_button_size"
+                android:background="@drawable/true_false_button"
+                android:text="F"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/TPTextSizeLarge"
+                android:layout_marginLeft="@dimen/quiz_true_false_margin"/>
+        </LinearLayout>
     </LinearLayout>
-
-
-</LinearLayout>
+</FrameLayout>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="quiz_padding">30dp</dimen>
-    <dimen name="quiz_height">250dp</dimen>
     <dimen name="quiz_image_size">75dp</dimen>
-    <dimen name="quiz_description_margin">30dp</dimen>
+    <dimen name="quiz_description_margin">20dp</dimen>
     <dimen name="quiz_true_false_button_size">50dp</dimen>
     <dimen name="quiz_true_false_margin">30dp</dimen>
+    <dimen name="quiz_separator_margin_top">25dp</dimen>
+    <dimen name="quiz_separator_margin_bottom">15dp</dimen>
+    <dimen name="quiz_box_margin">40dp</dimen>
 </resources>
