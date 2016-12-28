@@ -27,8 +27,8 @@
     <color name="redDark">#FC0D39</color>
     <color name="redOpaque">#E74C3C</color>
     <color name="redOpaqueDark">#EF1C39</color>
-    <color name="grey">#9B9B9B</color>
-    <color name="greyDark">#5B5B5B</color>
+    <color name="grey">#CDCCCE</color>
+    <color name="greyDark">#9B9B9B</color>
     <color name="quizTextColor">#3C5A95</color>
 
 </resources>
