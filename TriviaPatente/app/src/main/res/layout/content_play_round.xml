@@ -20,7 +20,7 @@
             android:text="1"
             android:padding="0dp"
             android:gravity="center"
-            android:textSize="@dimen/TPTextSizeLarge"/>
+            android:textSize="@dimen/TPTextSizeMedium"/>
 
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
@@ -31,7 +31,7 @@
             android:text="2"
             android:padding="0dp"
             android:gravity="center"
-            android:textSize="@dimen/TPTextSizeLarge"/>
+            android:textSize="@dimen/TPTextSizeMedium"/>
 
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
@@ -42,7 +42,7 @@
             android:text="3"
             android:padding="0dp"
             android:gravity="center"
-            android:textSize="@dimen/TPTextSizeLarge"/>
+            android:textSize="@dimen/TPTextSizeMedium"/>
 
         <Button
             android:layout_width="@dimen/play_round_button_panel_button_size"
@@ -53,7 +53,7 @@
             android:text="4"
             android:padding="0dp"
             android:gravity="center"
-            android:textSize="@dimen/TPTextSizeLarge"/>
+            android:textSize="@dimen/TPTextSizeMedium"/>
 
     </LinearLayout>
 
