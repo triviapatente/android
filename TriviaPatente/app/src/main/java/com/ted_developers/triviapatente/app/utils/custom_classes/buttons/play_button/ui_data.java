@@ -21,12 +21,9 @@ public enum ui_data {
     _details(R.drawable.yellow_on_white_button, R.color.yellow_on_white, R.string.details_button_text);
 
     private static boolean initialized = false;
-    private @ColorRes
-    int colorRes;
-    private @DrawableRes
-    int drawableRes;
-    private @StringRes
-    int stringRes;
+    private @ColorRes int colorRes;
+    private @DrawableRes int drawableRes;
+    private @StringRes int stringRes;
     private Drawable drawable;
     private ColorStateList colors;
     private String string;
