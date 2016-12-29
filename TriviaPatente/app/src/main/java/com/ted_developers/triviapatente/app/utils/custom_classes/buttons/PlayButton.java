@@ -4,17 +4,13 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Parcelable;
-import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,12 +20,11 @@ import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
-import com.ted_developers.triviapatente.models.game.Game;
 
 /**
  * Created by Antonio on 12/11/16.
  */
-public class PlayButton extends Button implements View.OnTouchListener, View.OnClickListener {
+public class PlayButton extends Button implements View.OnClickListener {
     // ui data centralized
     ui_data uiData;
     // on click
@@ -60,7 +55,6 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
     }
 
     private void bindElements(Context context) {
-        setOnTouchListener(this);
         setOnClickListener(this);
         // bind strings for extras
         extraStringOpponent = getResources().getString(R.string.extra_string_opponent);
@@ -130,20 +124,6 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
             intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
         }
         getContext().startActivity(intent);
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                setPressed(true);
-            } break;
-            case MotionEvent.ACTION_UP: {
-                if(mApplication.isPointInsideView((int) event.getX(), (int) event.getY(), this)) { performClick(); }
-                setPressed(false);
-            } break;
-        }
-        return true;
     }
 
     private enum ui_data {
