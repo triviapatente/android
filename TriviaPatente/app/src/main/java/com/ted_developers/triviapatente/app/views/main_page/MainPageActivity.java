@@ -281,7 +281,7 @@ public class MainPageActivity extends TPActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        if(toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView(ev.getX(), ev.getY(), toolbar.menu)) {
+        if(toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
             toolbar.hideMenu();
             return false;
         }
