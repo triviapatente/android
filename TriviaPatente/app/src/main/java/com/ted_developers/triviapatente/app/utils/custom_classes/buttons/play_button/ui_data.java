@@ -14,11 +14,11 @@ import com.ted_developers.triviapatente.R;
  * Created by Antonio on 29/12/16.
  */
 public enum ui_data {
-    _play_now(R.drawable.green_on_white, R.color.green_on_white, R.string.play_now_button_text),
-    _new_game(R.drawable.red_on_white_button, R.color.red, R.string.new_game_button_text),
-    _summary(R.drawable.red_on_white_button, R.color.red, R.string.summary_button_text),
-    _contact(R.drawable.grey_on_white_button, R.color.greyDark, R.string.contact_button_text),
-    _details(R.drawable.yellow_on_white_button, R.color.yellow, R.string.details_button_text);
+    _play_now(R.drawable.green_on_white_button, R.color.green_on_white, R.string.play_now_button_text),
+    _new_game(R.drawable.red_on_white_button, R.color.red_on_white, R.string.new_game_button_text),
+    _summary(R.drawable.red_on_white_button, R.color.red_on_white, R.string.summary_button_text),
+    _contact(R.drawable.grey_on_white_button, R.color.grey_on_white, R.string.contact_button_text),
+    _details(R.drawable.yellow_on_white_button, R.color.yellow_on_white, R.string.details_button_text);
 
     private static boolean initialized = false;
     private @ColorRes
