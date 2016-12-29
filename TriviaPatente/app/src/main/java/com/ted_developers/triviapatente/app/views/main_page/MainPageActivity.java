@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.main_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -281,7 +282,9 @@ public class MainPageActivity extends TPActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        if(toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE && !mApplication.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
+        if(MotionEvent.ACTION_UP == ev.getAction()
+                && toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE
+                && !mApplication.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
             toolbar.hideMenu();
             return false;
         }

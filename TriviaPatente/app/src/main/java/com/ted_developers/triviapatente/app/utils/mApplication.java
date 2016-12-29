@@ -40,7 +40,7 @@ public class mApplication extends Application {
         Rect area = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
 
         //point is inside view bounds
-        return area.contains(view.getLeft() + x, view.getTop() + y);
+        return area.contains(x, y);
     }
 
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();
