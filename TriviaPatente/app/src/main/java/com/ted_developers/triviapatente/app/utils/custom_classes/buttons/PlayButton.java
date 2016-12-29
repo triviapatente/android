@@ -7,6 +7,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,19 +28,14 @@ import com.ted_developers.triviapatente.models.game.Game;
 /**
  * Created by Antonio on 12/11/16.
  */
-public class PlayButton extends Button implements View.OnClickListener, View.OnTouchListener {
-    // strings
-    String playNow, newGame, details, endGame, contact;
-    // drawables (different types of buttons)
-    Drawable playNowDrawable, newGameDrawable, detailsDrawable, contactDrawable;
-    // colors
-    int playNowColor, newGameColor, detailsColor, contactColor;
+public class PlayButton extends Button implements View.OnTouchListener, View.OnClickListener {
+    // ui data centralized
+    ui_data uiData;
     // on click
     Long gameID;
     User opponent;
     boolean new_game;
     String extraBooleanGame, extraLongGame, extraStringOpponent;
-
 
     public PlayButton(Context context) {
         super(context);
@@ -57,72 +56,53 @@ public class PlayButton extends Button implements View.OnClickListener, View.OnT
     public PlayButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         bindElements(context);
-
     }
 
     private void bindElements(Context context) {
-        setOnClickListener(this);
         setOnTouchListener(this);
-        // bind strings
-        playNow = getResources().getString(R.string.play_now_button_text);
-        newGame = getResources().getString(R.string.new_game_button_text);
-        endGame = getResources().getString(R.string.summary_button_text);
-        details = getResources().getString(R.string.details_button_text);
-        contact = getResources().getString(R.string.contact_button_text);
-
+        setOnClickListener(this);
+        // bind strings for extras
         extraStringOpponent = getResources().getString(R.string.extra_string_opponent);
         extraBooleanGame = getResources().getString(R.string.extra_boolean_game);
         extraLongGame = getResources().getString(R.string.extra_long_game);
-        // bind drawables
-        playNowDrawable = ContextCompat.getDrawable(context, R.drawable.green_on_white);
-        newGameDrawable = ContextCompat.getDrawable(context, R.drawable.red_on_white_button);
-        detailsDrawable = ContextCompat.getDrawable(context, R.drawable.yellow_on_white_button);
-        contactDrawable = ContextCompat.getDrawable(context, R.drawable.grey_on_white_button);
-        // bind colors
-        playNowColor = ContextCompat.getColor(context, R.color.green);
-        newGameColor = ContextCompat.getColor(context, R.color.red);
-        detailsColor = ContextCompat.getColor(context, R.color.yellow);
-        contactColor = ContextCompat.getColor(context, R.color.greyDark);
+        // init ui_data
+        ui_data.init(context);
     }
 
     // the button is a play now one
     public void setPlayNow() {
-        this.setBackground(playNowDrawable);
-        this.setText(playNow);
-        this.setTextColor(playNowColor);
-        coloredColor = playNowColor;
+        uiData = ui_data._play_now;
+        setUiData();
     }
 
     // the button is a new game one
     public void setNewGame() {
-        this.setBackground(newGameDrawable);
-        this.setText(newGame);
-        this.setTextColor(newGameColor);
-        coloredColor = newGameColor;
+        uiData = ui_data._new_game;
+        setUiData();
     }
 
     // the button is a summary one
     public void setSummary() {
-        this.setBackground(newGameDrawable);
-        this.setText(endGame);
-        this.setTextColor(newGameColor);
-        coloredColor = newGameColor;
+        uiData = ui_data._summary;
+        setUiData();
     }
 
     // the button is a details one
     public void setDetails() {
-        this.setBackground(detailsDrawable);
-        this.setText(details);
-        this.setTextColor(detailsColor);
-        coloredColor = detailsColor;
+        uiData = ui_data._details;
+        setUiData();
     }
 
     // the button is a contact one
     public void setContact() {
-        this.setBackground(contactDrawable);
-        this.setText(contact);
-        this.setTextColor(contactColor);
-        coloredColor = contactColor;
+        uiData = ui_data._contact;
+        setUiData();
+    }
+
+    private void setUiData() {
+        this.setBackground(uiData.getDrawable());
+        this.setText(uiData.getString());
+        this.setTextColor(uiData.getColor());
     }
 
     public void sendInvite(User element) {
@@ -135,6 +115,7 @@ public class PlayButton extends Button implements View.OnClickListener, View.OnT
         this.opponent = user;
         new_game = false;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -150,7 +131,6 @@ public class PlayButton extends Button implements View.OnClickListener, View.OnT
         getContext().startActivity(intent);
     }
 
-    int coloredColor;
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
@@ -160,10 +140,56 @@ public class PlayButton extends Button implements View.OnClickListener, View.OnT
             } break;
             case MotionEvent.ACTION_UP: {
                 if(mApplication.isPointInsideView((int) event.getX(), (int) event.getY(), this)) { performClick(); }
-                setTextColor(coloredColor);
+                setTextColor(uiData.getColor());
                 setPressed(false);
             } break;
         }
         return true;
+    }
+
+    private enum ui_data {
+        _play_now(R.drawable.green_on_white, R.color.green, R.string.play_now_button_text),
+        _new_game(R.drawable.red_on_white_button, R.color.red, R.string.new_game_button_text),
+        _summary(R.drawable.red_on_white_button, R.color.red, R.string.summary_button_text),
+        _contact(R.drawable.grey_on_white_button, R.color.greyDark, R.string.contact_button_text),
+        _details(R.drawable.yellow_on_white_button, R.color.yellow, R.string.details_button_text);
+
+        private static boolean initialized = false;
+        private @ColorRes int colorRes;
+        private @DrawableRes int drawableRes;
+        private @StringRes int stringRes;
+        private Drawable drawable;
+        private @ColorInt int color;
+        private String string;
+
+        ui_data(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {
+            this.colorRes = colorRes;
+            this.drawableRes = drawableRes;
+            this.stringRes = stringRes;
+        }
+
+        public static void init(Context context) {
+            if(!initialized) {
+                for(ui_data data : ui_data.values()) {
+                    data.string = context.getString(data.stringRes);
+                    data.drawable = ContextCompat.getDrawable(context, data.drawableRes);
+                    data.color = ContextCompat.getColor(context, data.colorRes);
+                }
+                initialized = true;
+            }
+        }
+
+        public Drawable getDrawable() {
+            return drawable;
+        }
+
+        public @ColorInt int getColor() {
+            return color;
+        }
+
+        public String getString() {
+            return string;
+        }
+
     }
 }
