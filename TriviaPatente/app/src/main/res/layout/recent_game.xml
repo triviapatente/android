@@ -43,7 +43,7 @@
 
     </LinearLayout>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.play_button.PlayButton
+    <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton
         android:id="@+id/recentGameButton"
         android:layout_width="@dimen/play_button_width"
         android:layout_height="@dimen/play_button_heigth"
