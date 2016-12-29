@@ -3,7 +3,14 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.buttons.play_b
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +31,19 @@ public class PlayButton extends Button implements View.OnClickListener {
     User opponent;
     boolean new_game;
     String extraBooleanGame, extraLongGame, extraStringOpponent;
+    @DrawableRes int greenOnWhiteButton = R.drawable.green_on_white_button,
+                     redOnWhiteButton = R.drawable.red_on_white_button,
+                     yellowOnWhiteButton = R.drawable.yellow_on_white_button,
+                     greyOnWhiteButton = R.drawable.grey_on_white_button;
+    @ColorRes int greenOnWhiteColor = R.color.green_on_white,
+                  redOnWhiteColor = R.color.red_on_white,
+                  yelloOnWhiteColor = R.color.yellow_on_white,
+                  greyOnWhiteColor = R.color.grey_on_white;
+    @StringRes int playNowString = R.string.play_now_button_text,
+                   newGameString = R.string.new_game_button_text,
+                   summaryString = R.string.summary_button_text,
+                   contactString = R.string.contact_button_text,
+                   detailsString = R.string.details_button_text;
 
     public PlayButton(Context context) {
         super(context);
@@ -59,31 +79,38 @@ public class PlayButton extends Button implements View.OnClickListener {
     // the button is a play now one
     public void setPlayNow() {
         uiData = ui_data._play_now;
-        setUiData();
+        setUiData(greenOnWhiteButton, greenOnWhiteColor, playNowString);
     }
 
     // the button is a new game one
     public void setNewGame() {
         uiData = ui_data._new_game;
-        setUiData();
+        setUiData(redOnWhiteButton, redOnWhiteColor, newGameString);
     }
 
     // the button is a summary one
     public void setSummary() {
         uiData = ui_data._summary;
-        setUiData();
+        setUiData(redOnWhiteButton, redOnWhiteColor, summaryString);
     }
 
     // the button is a details one
     public void setDetails() {
         uiData = ui_data._details;
-        setUiData();
+        setUiData(yellowOnWhiteButton, yelloOnWhiteColor, detailsString);
     }
 
     // the button is a contact one
     public void setContact() {
         uiData = ui_data._contact;
-        setUiData();
+        setUiData(greyOnWhiteButton, greyOnWhiteColor, contactString);
+    }
+
+    private void setUiData(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {
+        Context context = getContext();
+        this.setBackground(ContextCompat.getDrawable(context, drawableRes));
+        this.setTextColor(ContextCompat.getColor(context, colorRes));
+        this.setText(context.getString(stringRes));
     }
 
     private void setUiData() {
