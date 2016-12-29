@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.utils;
 
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -35,19 +36,11 @@ public class mApplication extends Application {
         baseSocketManager.listen(getResources().getString(R.string.socket_event_invite_created), InviteUser.class, inviteCreatedCallback);
     }
 
-    public static boolean isPointInsideView(float x, float y, View view) {
-        int location[] = new int[2];
-        view.getLocationOnScreen(location);
-        int viewX = location[0];
-        int viewY = location[1];
+    public static boolean isPointInsideView(int x, int y, View view) {
+        Rect area = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
 
         //point is inside view bounds
-        if(( x > viewX && x < (viewX + view.getWidth())) &&
-                ( y > viewY && y < (viewY + view.getHeight()))){
-            return true;
-        } else {
-            return false;
-        }
+        return area.contains(view.getLeft() + x, view.getTop() + y);
     }
 
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();
