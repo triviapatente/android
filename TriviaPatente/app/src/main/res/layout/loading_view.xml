@@ -12,7 +12,7 @@
         android:layout_height="@dimen/loading_view_size"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:indeterminateDrawable="@drawable/progress"
+        android:indeterminateDrawable="@drawable/animation_progress"
         android:visibility="visible">
     </ProgressBar>
 

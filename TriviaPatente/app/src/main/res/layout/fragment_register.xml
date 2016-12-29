@@ -17,7 +17,7 @@
             android:id="@+id/alertMessage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/alert_height"
-            android:background="@drawable/alertbox_rounded"
+            android:background="@drawable/rounded_alertbox"
             android:layout_marginBottom="@dimen/element_margin"
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"

@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
-
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -58,34 +57,34 @@ public class PlayButton extends Button implements View.OnClickListener {
 
     // the button is a play now one
     public void setPlayNow() {
-        setUIData(R.drawable.green_on_white_button, R.color.green_on_white, R.string.play_now_button_text);
+        setUIData(R.drawable.button_green_on_white, R.color.green_on_white, R.string.play_now_button_text);
     }
 
     // the button is a new game one
     public void setNewGame() {
-        setUIData(R.drawable.red_on_white_button, R.color.red_on_white, R.string.new_game_button_text);
+        setUIData(R.drawable.button_red_on_white, R.color.red_on_white, R.string.new_game_button_text);
     }
 
     // the button is a summary one
     public void setSummary() {
-        setUIData(R.drawable.red_on_white_button, R.color.red_on_white, R.string.summary_button_text);
+        setUIData(R.drawable.button_red_on_white, R.color.red_on_white, R.string.summary_button_text);
     }
 
     // the button is a details one
     public void setDetails() {
-        setUIData(R.drawable.yellow_on_white_button, R.color.yellow_on_white, R.string.details_button_text);
+        setUIData(R.drawable.button_yellow_on_white, R.color.yellow_on_white, R.string.details_button_text);
     }
 
     // the button is a contact one
     public void setContact() {
-        setUIData(R.drawable.grey_on_white_button, R.color.grey_on_white, R.string.contact_button_text);
+        setUIData(R.drawable.button_grey_on_white, R.color.grey_on_white, R.string.contact_button_text);
     }
 
     private void setUIData(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {
         Context context = getContext();
-        this.setBackground(ContextCompat.getDrawable(context, drawableRes));
-        this.setTextColor(ContextCompat.getColorStateList(context, colorRes));
         this.setText(context.getString(stringRes));
+        this.setTextColor(ContextCompat.getColorStateList(context, colorRes));
+        this.setBackground(ContextCompat.getDrawable(context, drawableRes));
     }
 
     public void sendInvite(User element) {
@@ -98,7 +97,6 @@ public class PlayButton extends Button implements View.OnClickListener {
         this.opponent = user;
         new_game = false;
     }
-
 
     @Override
     public void onClick(View v) {

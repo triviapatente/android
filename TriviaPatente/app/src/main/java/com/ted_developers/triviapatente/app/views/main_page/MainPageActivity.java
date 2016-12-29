@@ -153,7 +153,7 @@ public class MainPageActivity extends TPActivity {
     private void initToolbar() {
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
+        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
         // todo set hearts box
         toolbar.setHeartImage();
         toolbar.setLifeCounter(3);

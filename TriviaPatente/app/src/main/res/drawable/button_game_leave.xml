@@ -3,11 +3,11 @@
     <item android:state_pressed="true">
         <shape android:shape="oval">
             <solid
-                android:color="@color/greenDark"/>
+                android:color="@color/redDark"/>
         </shape>
     </item>
-    <item android:state_focused="true" android:drawable="@drawable/accept">
+    <item android:state_focused="true" android:drawable="@drawable/button_game_leave_image">
     </item>
-    <item android:drawable="@drawable/accept">
+    <item android:drawable="@drawable/button_game_leave_image">
     </item>
 </selector>

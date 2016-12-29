@@ -45,13 +45,13 @@
             android:layout_width="@dimen/arrow_size"
             android:layout_height="@dimen/arrow_size"
             android:layout_marginLeft="@dimen/connectToFacebookImageMargin"
-            android:background="@drawable/arrow"/>
+            android:background="@drawable/image_arrow"/>
 
         <ImageView
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
             android:layout_marginLeft="@dimen/connectToFacebookHeartImageMargin"
-            android:background="@drawable/heart_red"/>
+            android:background="@drawable/image_heart_red"/>
 
     </LinearLayout>
 

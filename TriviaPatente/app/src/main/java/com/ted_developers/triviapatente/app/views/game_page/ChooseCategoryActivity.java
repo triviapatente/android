@@ -78,7 +78,7 @@ public class ChooseCategoryActivity extends TPActivity {
         }
         // picture
         // todo get dinamically
-        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.no_image));
+        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
         toolbar.setBackButtonOnClick(MainPageActivity.class);
     }
 

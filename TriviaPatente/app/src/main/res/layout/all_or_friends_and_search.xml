@@ -44,13 +44,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/white_rounded_box"
+            android:background="@drawable/rounded_white_box"
             android:layout_margin="@dimen/search_margin"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="@dimen/search_icon_size"
                 android:layout_height="@dimen/search_icon_size"
-                android:background="@drawable/search_icon"
+                android:background="@drawable/image_search_icon"
                 android:layout_marginLeft="@dimen/search_margin"/>
             <EditText
                 android:id="@+id/search_bar"

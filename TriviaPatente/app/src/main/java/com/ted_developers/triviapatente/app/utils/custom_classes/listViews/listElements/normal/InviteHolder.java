@@ -67,7 +67,7 @@ public class InviteHolder extends TPHolder<Invite> {
         if(false) {
             // TODO get image
         } else {
-            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
+            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
         }
         // add on click event
         acceptButton.setOnClickListener(new View.OnClickListener() {

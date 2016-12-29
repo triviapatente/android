@@ -12,7 +12,7 @@
         android:paddingRight="@dimen/tell_a_friend_button_padding_horizontal"
         android:paddingLeft="@dimen/tell_a_friend_button_padding_horizontal"
         android:text="@string/tell_a_friend_button_text"
-        android:background="@drawable/green_big_button"
+        android:background="@drawable/button_green_big"
         android:layout_gravity="center_horizontal"
         android:gravity="center"/>
 </LinearLayout>

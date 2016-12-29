@@ -26,37 +26,37 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/new_game"
-            android:background="@drawable/green_button"
+            android:background="@drawable/button_green"
             android:layout_marginBottom="@dimen/element_margin"
             custom:main_button_name="@string/button_new_game"
-            custom:main_button_image="@drawable/car"/>
+            custom:main_button_image="@drawable/image_car"/>
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/rank"
-            android:background="@drawable/orange_button"
+            android:background="@drawable/button_orange"
             android:layout_marginBottom="@dimen/element_margin"
             custom:main_button_name="@string/button_rank"
-            custom:main_button_image="@drawable/trophy"/>
+            custom:main_button_image="@drawable/image_trophy"/>
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/stats"
-            android:background="@drawable/yellow_button"
+            android:background="@drawable/button_yellow"
             android:layout_marginBottom="@dimen/element_margin"
             custom:main_button_name="@string/button_stats"
-            custom:main_button_image="@drawable/chart_line"/>
+            custom:main_button_image="@drawable/image_chart_line"/>
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:id="@+id/shop"
-            android:background="@drawable/red_button"
+            android:background="@drawable/button_red"
             android:layout_marginBottom="@dimen/element_margin"
             custom:main_button_name="@string/button_shop"
-            custom:main_button_image="@drawable/heart"/>
+            custom:main_button_image="@drawable/image_heart_white"/>
     </LinearLayout>
 
     <fragment

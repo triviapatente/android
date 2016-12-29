@@ -10,7 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -257,11 +256,11 @@ public class TPActionBar extends RelativeLayout {
     }
 
     public void setHeartImage() {
-        heartImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.heart_red));
+        heartImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.image_heart_red));
     }
 
     public void setPlusImage() {
-        heartImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.plus));
+        heartImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.image_plus));
     }
 
     public void setLifeCounter(int counter) {

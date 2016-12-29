@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="@dimen/back_button_width"
             android:layout_height="@dimen/back_button_height"
-            android:background="@drawable/back_chevron"/>
+            android:background="@drawable/image_back_chevron"/>
 
         <!-- back button text -->
         <TextView

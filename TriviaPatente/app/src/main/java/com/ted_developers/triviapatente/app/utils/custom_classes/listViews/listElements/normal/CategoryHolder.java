@@ -57,7 +57,7 @@ public class CategoryHolder extends TPHolder<Category> {
     @Override
     public void bind(final Category element) {
         // todo do dinamically
-        Drawable d = ContextCompat.getDrawable(itemView.getContext(), R.drawable.no_image);
+        Drawable d = ContextCompat.getDrawable(itemView.getContext(), R.drawable.image_no_profile_picture);
         categoryImage.setImageDrawable(d);
         Drawable backgroundLayerDrawable = backgroundLayer.getBackground();
         if (backgroundLayerDrawable instanceof ShapeDrawable) {

@@ -50,10 +50,10 @@ public class RecentGameHolder extends TPHolder<Game> {
         summaryStatus = context.getResources().getString(R.string.new_game_status);
         contactStatus = context.getResources().getString(R.string.contact_status);
         // traffic lights
-        playNowTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_green);
-        detailsTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_yellow);
-        summaryTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_red);
-        contactTL = ContextCompat.getDrawable(context, R.drawable.traffic_lights_no_lights);
+        playNowTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_green);
+        detailsTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_yellow);
+        summaryTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_red);
+        contactTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_no_lights);
         // other elements
         playButton = (PlayButton) itemView.findViewById(R.id.recentGameButton);
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
@@ -83,9 +83,9 @@ public class RecentGameHolder extends TPHolder<Game> {
         } else { setUsernameText(element.opponent_username); }
         if(element.opponent_image != null) {
             // TODO get image
-            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
+            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
         } else {
-            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.no_image));
+            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
         }
         // set on click on profile picture
         profilePicture.setOnClickListener(new View.OnClickListener() {

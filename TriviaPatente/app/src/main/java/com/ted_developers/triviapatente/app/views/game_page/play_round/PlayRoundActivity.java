@@ -48,12 +48,12 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
     QuizzesPagerAdapter quizzesAdapter;
     // quiz button background management
-    @BindDrawable(R.drawable.play_round_button_no_answer) Drawable noAnswerDrawable;
-    @BindDrawable(R.drawable.play_round_button_no_answer_selected) Drawable noAnswerDrawableSelected;
-    @BindDrawable(R.drawable.play_round_button_red) Drawable redDrawable;
-    @BindDrawable(R.drawable.play_round_button_red_selected) Drawable redDrawableSelected;
-    @BindDrawable(R.drawable.play_round_button_green) Drawable greenDrawable;
-    @BindDrawable(R.drawable.play_round_button_green_selected) Drawable greenDrawableSelected;
+    @BindDrawable(R.drawable.button_play_round_no_answer) Drawable noAnswerDrawable;
+    @BindDrawable(R.drawable.button_play_round_no_answer_selected) Drawable noAnswerDrawableSelected;
+    @BindDrawable(R.drawable.button_play_round_red) Drawable redDrawable;
+    @BindDrawable(R.drawable.button_play_round_red_selected) Drawable redDrawableSelected;
+    @BindDrawable(R.drawable.button_play_round_green) Drawable greenDrawable;
+    @BindDrawable(R.drawable.button_play_round_green_selected) Drawable greenDrawableSelected;
     QuizButtonsBackgroundsManager quizButtonsBackgroundsManager = new QuizButtonsBackgroundsManager();
     // quiz send answer
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
@@ -140,7 +140,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         }
         // profile picture
         // todo do dinamically
-        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.no_image));
+        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
     }
 
     private void initGameHeader() {
@@ -149,7 +149,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         // game header subtitle
         gameHeaderSubtitle.setText(currentCategory.hint);
         // todo set game header subtitle image dinamically
-        gameHeaderSubtitleImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.no_image));
+        gameHeaderSubtitleImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
         gameHeaderSubtitleImage.setVisibility(View.VISIBLE);
     }
 

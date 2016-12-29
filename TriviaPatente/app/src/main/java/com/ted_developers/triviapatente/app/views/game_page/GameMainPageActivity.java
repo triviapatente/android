@@ -228,7 +228,7 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void smallInit() {
-        opponentImage = ContextCompat.getDrawable(this, R.drawable.no_image);
+        opponentImage = ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
         setToolbarTitle();
         toolbar.setProfilePicture(opponentImage);
         toolbar.setBackButtonOnClick(MainPageActivity.class);
@@ -254,7 +254,7 @@ public class GameMainPageActivity extends TPActivity {
 
     private void setOpponentData() {
         // todo do dinamically
-        opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.no_image);
+        opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.image_no_profile_picture);
         toolbar.setProfilePicture(opponentImage);
         profilePicture.setImageDrawable(opponentImage);
     }
@@ -313,7 +313,7 @@ public class GameMainPageActivity extends TPActivity {
 
     private void waitingRound() {
         // todo get image and set it
-        Drawable d = getResources().getDrawable(R.drawable.no_image);
+        Drawable d = getResources().getDrawable(R.drawable.image_no_profile_picture);
         if(visible) {
             updateWaitPage("Round " + currentRound.number, currentCategory.name, playingStatus, d, greenColor, greenColorLight);
         }

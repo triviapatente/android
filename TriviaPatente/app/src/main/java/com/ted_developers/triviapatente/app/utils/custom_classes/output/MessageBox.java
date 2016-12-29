@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.models.message.Message;
 
 /**
  * Created by Antonio on 30/10/16.
@@ -52,7 +51,7 @@ public class MessageBox extends LinearLayout {
         // icon of message box
         image = new ImageView(context);
         // default image
-        image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.alert));
+        image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_alert));
         // layout params
         int imageSize = (int) getResources().getDimension(R.dimen.alert_image_size);
         params = new LayoutParams(imageSize, imageSize);

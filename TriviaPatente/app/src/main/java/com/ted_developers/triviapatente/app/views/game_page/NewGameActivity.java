@@ -91,7 +91,7 @@ public class NewGameActivity extends TPActivity {
     private void initToolbar() {
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
+        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
     }
 
     private void loadInvites() {

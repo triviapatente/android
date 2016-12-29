@@ -47,6 +47,6 @@
     <ImageView
         android:layout_width="@dimen/chevron_button_width"
         android:layout_height="@dimen/chevron_button_height"
-        android:background="@drawable/chevron_button"
+        android:background="@drawable/image_chevron"
         android:layout_marginRight="@dimen/choose_category_margin"/>
 </LinearLayout>

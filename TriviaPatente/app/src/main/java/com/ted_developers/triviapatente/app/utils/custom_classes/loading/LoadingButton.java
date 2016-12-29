@@ -39,7 +39,7 @@ public class LoadingButton extends Button implements ManageLoading {
         // plus params
         progressBar.setLayoutParams(params);
         // set customized progress
-        progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.progress));
+        progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.animation_progress));
         // plus progress bar
         ((RelativeLayout) this.getParent()).addView(progressBar);
     }

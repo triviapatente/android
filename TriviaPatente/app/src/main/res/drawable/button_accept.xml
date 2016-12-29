@@ -3,11 +3,11 @@
     <item android:state_pressed="true">
         <shape android:shape="oval">
             <solid
-                android:color="@color/redDark"/>
+                android:color="@color/greenDark"/>
         </shape>
     </item>
-    <item android:state_focused="true" android:drawable="@drawable/decline">
+    <item android:state_focused="true" android:drawable="@drawable/button_accept_image_green">
     </item>
-    <item android:drawable="@drawable/decline">
+    <item android:drawable="@drawable/button_accept_image_green">
     </item>
 </selector>

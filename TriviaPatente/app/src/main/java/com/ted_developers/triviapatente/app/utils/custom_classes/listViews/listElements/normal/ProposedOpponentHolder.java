@@ -48,7 +48,7 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         if(false) {
             // TODO get image
         } else {
-            profilePicture.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.no_image));
+            profilePicture.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
         }
         // set username or, if possible, name and surname
         if(element.name != null && element.surname != null) {

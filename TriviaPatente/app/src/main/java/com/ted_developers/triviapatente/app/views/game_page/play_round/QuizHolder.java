@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;
 import com.ted_developers.triviapatente.models.game.Quiz;
 
 /**
@@ -53,7 +52,7 @@ public class QuizHolder implements View.OnClickListener{
         } else {
             quizImage.setVisibility(View.VISIBLE);
             // todo set dinamically
-            quizImage.setImageDrawable(itemView.getResources().getDrawable(R.drawable.no_image));
+            quizImage.setImageDrawable(itemView.getResources().getDrawable(R.drawable.image_no_profile_picture));
         }
         // if already answered
         if(element.my_answer != null) {
@@ -89,7 +88,7 @@ public class QuizHolder implements View.OnClickListener{
     }
 
     private void setButtonClicked(Button clicked) {
-        clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.true_or_false_button_clicked));
+        clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.button_true_or_false_clicked));
         clicked.setTextColor(Color.WHITE);
     }
 

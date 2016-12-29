@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/quiz_box_margin"
-        android:background="@drawable/white_rounded_box"
+        android:background="@drawable/rounded_white_box"
         android:orientation="vertical"
         android:gravity="center_vertical">
 
@@ -59,7 +59,7 @@
                 android:id="@+id/trueButton"
                 android:layout_width="@dimen/quiz_true_false_button_size"
                 android:layout_height="@dimen/quiz_true_false_button_size"
-                android:background="@drawable/true_false_button"
+                android:background="@drawable/button_true_false"
                 android:text="V"
                 android:textColor="@color/mainColor"
                 android:textSize="@dimen/TPTextSizeLarge" />
@@ -68,7 +68,7 @@
                 android:id="@+id/falseButton"
                 android:layout_width="@dimen/quiz_true_false_button_size"
                 android:layout_height="@dimen/quiz_true_false_button_size"
-                android:background="@drawable/true_false_button"
+                android:background="@drawable/button_true_false"
                 android:text="F"
                 android:textColor="@color/mainColor"
                 android:textSize="@dimen/TPTextSizeLarge"

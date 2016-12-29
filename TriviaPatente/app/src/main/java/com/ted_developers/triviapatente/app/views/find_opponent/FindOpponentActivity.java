@@ -55,10 +55,10 @@ public class FindOpponentActivity extends TPActivity {
     @BindView(R.id.all_or_friends) LinearLayout allOrFriendsBlock;
     @BindView(R.id.all_button) Button allButton;
     @BindView(R.id.friends_button) Button friendsButton;
-    @BindDrawable(R.drawable.all_button_not_selected) Drawable allButtonNotSelected;
-    @BindDrawable(R.drawable.all_button_selected) Drawable allButtonSelected;
-    @BindDrawable(R.drawable.friends_button_not_selected) Drawable friendsButtonNotSelected;
-    @BindDrawable(R.drawable.friends_button_selected) Drawable friendsButtonSelected;
+    @BindDrawable(R.drawable.button_all_not_selected) Drawable allButtonNotSelected;
+    @BindDrawable(R.drawable.button_all_selected) Drawable allButtonSelected;
+    @BindDrawable(R.drawable.button_friends_not_selected) Drawable friendsButtonNotSelected;
+    @BindDrawable(R.drawable.button_friends_selected) Drawable friendsButtonSelected;
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
     @BindColor(android.R.color.white) @ColorInt int whiteColor;
     // search
@@ -255,7 +255,7 @@ public class FindOpponentActivity extends TPActivity {
     private void initToolbar() {
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.no_image));
+        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
     }
 
     @OnClick(R.id.all_button)
