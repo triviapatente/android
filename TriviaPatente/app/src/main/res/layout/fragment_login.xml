@@ -85,7 +85,7 @@
             android:layout_marginTop="@dimen/negative_element_margin"/>
 
         <!-- or separator -->
-        <include layout="@layout/or_layout"/>
+        <include layout="@layout/layout_or"/>
 
         <!-- facebook login button -->
         <ImageButton

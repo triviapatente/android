@@ -99,7 +99,7 @@ public class ChooseCategoryActivity extends TPActivity {
                     public void run() {
                         TPEnterAnimListAdapter<Category> adapter = new TPEnterAnimListAdapter<Category>(
                                 ChooseCategoryActivity.this, categories,
-                                R.layout.proposed_category, CategoryHolder.class,
+                                R.layout.list_element_proposed_category_holder, CategoryHolder.class,
                                 0, null,
                                 categoriesHeight, proposedCategories);
                         adapter.computeFooterHeightManager.setOption(TPListAdapter.compute_footer_options.SAME_HEIGHT);

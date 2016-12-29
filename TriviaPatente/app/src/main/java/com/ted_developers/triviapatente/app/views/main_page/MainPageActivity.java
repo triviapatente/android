@@ -232,8 +232,8 @@ public class MainPageActivity extends TPActivity {
                     if(response.body().recent_games != null) {
                         ReceivedData.recentGames = response.body().recent_games;
                         recentGames.setItems(ReceivedData.recentGames,
-                                R.layout.recent_game, RecentGameHolder.class,
-                                R.layout.recent_games_footer, TPFooter.class,
+                                R.layout.list_element_recent_game_holder, RecentGameHolder.class,
+                                R.layout.list_element_recent_game_footer, TPFooter.class,
                                 recentGameHeight);
                         counter = response.body().recent_games.size();
                     }

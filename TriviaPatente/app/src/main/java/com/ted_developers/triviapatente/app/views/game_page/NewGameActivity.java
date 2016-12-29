@@ -106,8 +106,8 @@ public class NewGameActivity extends TPActivity {
                         if(response.body().invites != null) {
                             ReceivedData.pendingInvites = response.body().invites;
                             invites.setItems(ReceivedData.pendingInvites,
-                                    R.layout.invite, InviteHolder.class,
-                                    R.layout.invites_footer, TPFooter.class,
+                                    R.layout.list_element_invite_holder, InviteHolder.class,
+                                    R.layout.list_element_invite_footer, TPFooter.class,
                                     inviteHeight);
                             ReceivedData.numberOfInvites = ReceivedData.pendingInvites.size();
                         }
@@ -124,8 +124,8 @@ public class NewGameActivity extends TPActivity {
             });
         } else {
             invites.setItems(ReceivedData.pendingInvites,
-                    R.layout.invite, InviteHolder.class,
-                    R.layout.invites_footer, TPFooter.class,
+                    R.layout.list_element_invite_holder, InviteHolder.class,
+                    R.layout.list_element_invite_footer, TPFooter.class,
                     inviteHeight);
             invites.setListCounter(ReceivedData.numberOfInvites);
         }

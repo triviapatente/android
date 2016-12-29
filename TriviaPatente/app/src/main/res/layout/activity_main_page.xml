@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"/>
 
-    <include layout="@layout/loading_view"/>
+    <include layout="@layout/layout_loading_view"/>
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
         android:id="@+id/serverDownAlert"

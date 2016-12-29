@@ -93,7 +93,7 @@
         </RelativeLayout>
 
         <!-- or separator -->
-        <include layout="@layout/or_layout"/>
+        <include layout="@layout/layout_or"/>
 
         <!-- facebook login button -->
         <ImageButton

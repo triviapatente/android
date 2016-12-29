@@ -11,5 +11,5 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/chose_category_page_margin"/>
 
-    <include layout="@layout/loading_view"/>
+    <include layout="@layout/layout_loading_view"/>
 </RelativeLayout>

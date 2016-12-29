@@ -3,7 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/profile_picture_and_username"/>
+    <include layout="@layout/layout_profile_picture_and_username"/>
 
     <TextView
         android:id="@+id/position"

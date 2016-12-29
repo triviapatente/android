@@ -166,7 +166,7 @@ public class TPActionBar extends RelativeLayout {
         final RelativeLayout parent = (RelativeLayout) getParent();
         // inflate
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        menu = inflater.inflate(R.layout.menu, null);
+        menu = inflater.inflate(R.layout.layout_menu, null);
         menu.setVisibility(GONE);
         show_menu = true;
         // set on click

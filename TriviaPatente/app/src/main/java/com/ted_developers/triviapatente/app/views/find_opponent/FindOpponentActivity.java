@@ -217,7 +217,7 @@ public class FindOpponentActivity extends TPActivity {
     }
 
     private void setPlayersListItems(List<User> userList) {
-        playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.proposed_opponent, ProposedOpponentHolder.class, R.layout.tell_a_friend_footer, TPFooter.class, playerListItemHeight, playersList));
+        playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.list_element_proposed_opponent_holder, ProposedOpponentHolder.class, R.layout.list_element_tell_a_friend_footer, TPFooter.class, playerListItemHeight, playersList));
     }
 
     private void loadPlayers() {

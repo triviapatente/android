@@ -25,7 +25,7 @@ public class QuizHolder implements View.OnClickListener{
     private Quiz element;
 
     public QuizHolder(PlayRoundActivity context, Quiz quizElement) {
-        itemView = LayoutInflater.from(context).inflate(R.layout.quiz, null, false);
+        itemView = LayoutInflater.from(context).inflate(R.layout.view_pager_element_quiz_holder, null, false);
         this.context = context;
         init();
         bind(quizElement);
