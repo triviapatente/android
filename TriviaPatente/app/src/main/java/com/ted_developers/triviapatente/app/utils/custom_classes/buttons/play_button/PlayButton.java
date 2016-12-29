@@ -1,22 +1,14 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
+package com.ted_developers.triviapatente.app.utils.custom_classes.buttons.play_button;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;

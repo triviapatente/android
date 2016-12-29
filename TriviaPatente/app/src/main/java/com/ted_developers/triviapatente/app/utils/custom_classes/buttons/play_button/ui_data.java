@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
+package com.ted_developers.triviapatente.app.utils.custom_classes.buttons.play_button;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
