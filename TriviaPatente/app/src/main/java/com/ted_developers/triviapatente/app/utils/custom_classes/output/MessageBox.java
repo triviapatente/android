@@ -51,7 +51,7 @@ public class MessageBox extends LinearLayout {
         // icon of message box
         image = new ImageView(context);
         // default image
-        image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_alert));
+        image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.rounded_alertbox_image));
         // layout params
         int imageSize = (int) getResources().getDimension(R.dimen.alert_image_size);
         params = new LayoutParams(imageSize, imageSize);

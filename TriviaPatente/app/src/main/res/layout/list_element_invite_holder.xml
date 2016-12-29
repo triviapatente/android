@@ -12,13 +12,13 @@
         android:id="@+id/acceptButton"
         android:layout_width="@dimen/invites_button_size"
         android:layout_height="@dimen/invites_button_size"
-        android:background="@drawable/button_accept"/>
+        android:background="@drawable/button_invite_accept"/>
 
     <ImageButton
         android:id="@+id/declineButton"
         android:layout_width="@dimen/invites_button_size"
         android:layout_height="@dimen/invites_button_size"
-        android:background="@drawable/button_decline"
+        android:background="@drawable/button_invite_decline"
         android:layout_marginLeft="@dimen/list_item_margin"
         android:layout_marginRight="@dimen/invites_margin_chat_button"/>
 

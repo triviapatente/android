@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/connectToFacebookExitButtonMargin"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/exit_button"/>
+        android:background="@drawable/button_x"/>
 
     <TextView
         android:id="@+id/connectToFacebookTitle"

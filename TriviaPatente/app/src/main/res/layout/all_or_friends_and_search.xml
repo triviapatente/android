@@ -67,7 +67,7 @@
                 android:id="@+id/x_button"
                 android:layout_width="@dimen/search_x_button_size"
                 android:layout_height="@dimen/search_x_button_size"
-                android:background="@drawable/exit_button"
+                android:background="@drawable/button_x"
                 android:layout_marginRight="@dimen/search_margin"/>
         </LinearLayout>
     </FrameLayout>

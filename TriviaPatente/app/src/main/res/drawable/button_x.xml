@@ -6,6 +6,6 @@
             <corners android:radius="@dimen/corner_radius"/>
         </shape>
     </item>
-    <item android:state_focused="true" android:drawable="@drawable/image_x"/>
-    <item android:drawable="@drawable/image_x"/>
+    <item android:state_focused="true" android:drawable="@drawable/button_x_image"/>
+    <item android:drawable="@drawable/button_x_image"/>
 </selector>
