@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -135,12 +136,10 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
-                setTextColor(Color.WHITE);
                 setPressed(true);
             } break;
             case MotionEvent.ACTION_UP: {
                 if(mApplication.isPointInsideView((int) event.getX(), (int) event.getY(), this)) { performClick(); }
-                setTextColor(uiData.getColor());
                 setPressed(false);
             } break;
         }
@@ -148,7 +147,7 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
     }
 
     private enum ui_data {
-        _play_now(R.drawable.green_on_white, R.color.green, R.string.play_now_button_text),
+        _play_now(R.drawable.green_on_white, R.color.green_on_white, R.string.play_now_button_text),
         _new_game(R.drawable.red_on_white_button, R.color.red, R.string.new_game_button_text),
         _summary(R.drawable.red_on_white_button, R.color.red, R.string.summary_button_text),
         _contact(R.drawable.grey_on_white_button, R.color.greyDark, R.string.contact_button_text),
@@ -159,7 +158,7 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
         private @DrawableRes int drawableRes;
         private @StringRes int stringRes;
         private Drawable drawable;
-        private @ColorInt int color;
+        private ColorStateList colors;
         private String string;
 
         ui_data(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {
@@ -173,7 +172,7 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
                 for(ui_data data : ui_data.values()) {
                     data.string = context.getString(data.stringRes);
                     data.drawable = ContextCompat.getDrawable(context, data.drawableRes);
-                    data.color = ContextCompat.getColor(context, data.colorRes);
+                    data.colors = ContextCompat.getColorStateList(context, data.colorRes);
                 }
                 initialized = true;
             }
@@ -183,8 +182,8 @@ public class PlayButton extends Button implements View.OnTouchListener, View.OnC
             return drawable;
         }
 
-        public @ColorInt int getColor() {
-            return color;
+        public ColorStateList getColor() {
+            return colors;
         }
 
         public String getString() {
