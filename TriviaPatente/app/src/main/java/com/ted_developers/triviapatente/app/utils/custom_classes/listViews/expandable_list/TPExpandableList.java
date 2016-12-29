@@ -99,16 +99,7 @@ public class TPExpandableList<T> extends Fragment {
     }
 
     public void setListCounter(final int counter, final boolean needUpdateLayoutParams) {
-        if(counter == 0) {
-            listTitle.setText(alternativeTitle);
-            listCounter.setVisibility(View.GONE);
-            listHeader.setOnTouchListener(null);
-        } else {
-            listTitle.setText(defaultTitle);
-            listCounter.setText(String.valueOf(counter));
-            listCounter.setVisibility(View.VISIBLE);
-            listHeader.setOnTouchListener(headerSwipeListener);
-        }
+        if(counter == 0) { setCounterZero(); } else { setCounterNonZero(counter); }
         this.getView().post(new Runnable() {
             @Override
             public void run() {
@@ -127,6 +118,19 @@ public class TPExpandableList<T> extends Fragment {
                 }
             }
         });
+    }
+
+    private void setCounterNonZero(int counter) {
+        listTitle.setText(defaultTitle);
+        listCounter.setVisibility(View.VISIBLE);
+        listHeader.setOnTouchListener(headerSwipeListener);
+        listCounter.setText(String.valueOf(counter));
+    }
+
+    private void setCounterZero() {
+        listTitle.setText(alternativeTitle);
+        listCounter.setVisibility(View.GONE);
+        listHeader.setOnTouchListener(null);
     }
 
     private void calculateFinalSizes() {
