@@ -4,7 +4,7 @@
     <!-- search -->
     <dimen name="search_height">30dp</dimen>
     <dimen name="search_margin">10dp</dimen>
-    <dimen name="search_x_button_size">15dp</dimen>
+    <dimen name="search_x_button_size">20dp</dimen>
     <dimen name="search_icon_size">25dp</dimen>
     <string name="search_hint">Cerca utente</string>
     <string name="no_user_found">Nessun utente trovato :(</string>

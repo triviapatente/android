@@ -8,7 +8,7 @@
     <dimen name="connectToFacebookMargin">40dp</dimen>
     <dimen name="connectToFacebookImageMargin">15dp</dimen>
     <dimen name="connectToFacebookHeartImageMargin">8dp</dimen>
-    <dimen name="connectToFacebookExitButtonSize">20dp</dimen>
+    <dimen name="connectToFacebookExitButtonSize">25dp</dimen>
     <dimen name="connectToFacebookExitButtonMargin">10dp</dimen>
 
     <dimen name="modalTopMargin">30dp</dimen>

@@ -61,7 +61,7 @@
                 android:layout_height="@dimen/quiz_true_false_button_size"
                 android:background="@drawable/button_true_false"
                 android:text="V"
-                android:textColor="@color/mainColor"
+                android:textColor="@color/main_color_on_white"
                 android:textSize="@dimen/TPTextSizeLarge" />
 
             <Button
@@ -70,7 +70,7 @@
                 android:layout_height="@dimen/quiz_true_false_button_size"
                 android:background="@drawable/button_true_false"
                 android:text="F"
-                android:textColor="@color/mainColor"
+                android:textColor="@color/main_color_on_white"
                 android:textSize="@dimen/TPTextSizeLarge"
                 android:layout_marginLeft="@dimen/quiz_true_false_margin"/>
         </LinearLayout>
