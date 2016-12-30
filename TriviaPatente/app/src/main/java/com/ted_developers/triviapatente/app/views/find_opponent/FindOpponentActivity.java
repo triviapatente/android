@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.find_opponent;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -201,21 +202,16 @@ public class FindOpponentActivity extends TPActivity {
             public void onConfirm() {
                 // todo connect to facebook
             }
-
-            @Override
-            public boolean onTouchEvent(MotionEvent event)
-            {
-                if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                    allButtonClick();
-                    this.hide();
-                    return true;
-                }
-                return false;
-            }
         };
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
         params.gravity = Gravity.TOP;
         params.y = toolbar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
+        facebookDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                allButtonClick();
+            }
+        });
     }
 
     private void setPlayersListItems(List<User> userList) {
