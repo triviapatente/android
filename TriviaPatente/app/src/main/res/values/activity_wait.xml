@@ -20,6 +20,4 @@
     <dimen name="game_header_margin">25dp</dimen>
     <dimen name="game_header_margin_right_image">10dp</dimen>
     <dimen name="game_header_image_size">25dp</dimen>
-    <dimen name="game_options_inner_margin">15dp</dimen>
-    <dimen name="game_options_button_size">55dp</dimen>
 </resources>

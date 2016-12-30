@@ -8,22 +8,22 @@
 
     <Button
         android:id="@+id/gameChatButton"
-        android:layout_width="@dimen/game_options_button_size"
-        android:layout_height="@dimen/game_options_button_size"
+        android:layout_width="@dimen/button_game_panel_size"
+        android:layout_height="@dimen/button_game_panel_size"
         android:background="@drawable/button_game_chat"
-        android:layout_marginRight="@dimen/game_options_inner_margin"/>
+        android:layout_marginRight="@dimen/button_game_panel_inner_margin"/>
 
     <Button
         android:id="@+id/gameDetailsButton"
-        android:layout_width="@dimen/game_options_button_size"
-        android:layout_height="@dimen/game_options_button_size"
+        android:layout_width="@dimen/button_game_panel_size"
+        android:layout_height="@dimen/button_game_panel_size"
         android:background="@drawable/button_game_details"
-        android:layout_marginRight="@dimen/game_options_inner_margin"/>
+        android:layout_marginRight="@dimen/button_game_panel_inner_margin"/>
 
     <Button
         android:id="@+id/gameLeaveButton"
-        android:layout_width="@dimen/game_options_button_size"
-        android:layout_height="@dimen/game_options_button_size"
+        android:layout_width="@dimen/button_game_panel_size"
+        android:layout_height="@dimen/button_game_panel_size"
         android:background="@drawable/button_game_leave"/>
 
 </LinearLayout>

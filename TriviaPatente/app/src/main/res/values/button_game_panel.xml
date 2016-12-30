@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- chat -->
+    <dimen name="button_game_chat_symbol_margin_vertical">15dp</dimen>
+    <dimen name="button_game_chat_symbol_margin_horizontal">15dp</dimen>
+    <!-- details -->
+    <dimen name="button_game_details_symbol_margin_vertical">18dp</dimen>
+    <dimen name="button_game_details_symbol_margin_horizontal">16dp</dimen>
+    <!-- leave -->
+    <dimen name="button_game_leave_symbol_margin_vertical">19dp</dimen>
+    <dimen name="button_game_leave_symbol_margin_horizontal">19dp</dimen>
+    <!-- general -->
+    <dimen name="button_game_panel_inner_margin">15dp</dimen>
+    <dimen name="button_game_panel_size">55dp</dimen>
+    <dimen name="button_game_panel_border">5dp</dimen>
+</resources>
