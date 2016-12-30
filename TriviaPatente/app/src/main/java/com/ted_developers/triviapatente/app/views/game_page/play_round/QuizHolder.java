@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
@@ -25,12 +26,13 @@ public class QuizHolder implements View.OnClickListener{
     private ImageView quizImage;
     private boolean isImageBig = false;
     private AnimationSet toSmall, toBig;
-    private int animDuration = 1000;
+    private int animDuration = 200, imageSmallSize, imageBigSize;
     private TextView quizDescription;
     private Button trueButton, falseButton;
     private View itemView;
     private Context context;
     private Quiz element;
+    private LinearLayout quizDescriptionBox;
 
     public QuizHolder(PlayRoundActivity context, Quiz quizElement) {
         itemView = LayoutInflater.from(context).inflate(R.layout.view_pager_element_quiz_holder, null, false);
@@ -43,12 +45,13 @@ public class QuizHolder implements View.OnClickListener{
         // binding elements
         quizImage = (ImageView) itemView.findViewById(R.id.quizImage);
         quizDescription = (TextView) itemView.findViewById(R.id.quizDescription);
+        quizDescriptionBox = (LinearLayout) itemView.findViewById(R.id.quizDescriptionBox);
         trueButton = (Button) itemView.findViewById(R.id.trueButton);
         falseButton = (Button) itemView.findViewById(R.id.falseButton);
         // image resize and translate animation
         int dx = calculateXDelta();
-        int imageSmallSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_small),
-                imageBigSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_big);
+        imageSmallSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_small);
+        imageBigSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_big);
         toSmall = new AnimationSet(context, null);
         toSmall.addAnimation(new ResizeAnimation(quizImage, imageBigSize, imageBigSize, imageSmallSize, imageSmallSize));
         toSmall.addAnimation(new TranslateAnimation(quizImage, dx, 0, 0, 0));
@@ -85,7 +88,7 @@ public class QuizHolder implements View.OnClickListener{
     }
 
     private int calculateXDelta() {
-        return 100;
+        return (quizDescriptionBox.getMeasuredWidth() - imageBigSize) / 2;
     }
 
     public void bind(Quiz element) {
