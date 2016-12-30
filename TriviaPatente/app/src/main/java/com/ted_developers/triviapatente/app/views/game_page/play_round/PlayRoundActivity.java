@@ -1,11 +1,14 @@
 package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,20 +51,17 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
     QuizzesPagerAdapter quizzesAdapter;
     // quiz button background management
-    @BindDrawable(R.drawable.button_play_round_no_answer) Drawable noAnswerDrawable;
-    @BindDrawable(R.drawable.button_play_round_no_answer_selected) Drawable noAnswerDrawableSelected;
-    @BindDrawable(R.drawable.button_play_round_red) Drawable redDrawable;
-    @BindDrawable(R.drawable.button_play_round_red_selected) Drawable redDrawableSelected;
-    @BindDrawable(R.drawable.button_play_round_green) Drawable greenDrawable;
-    @BindDrawable(R.drawable.button_play_round_green_selected) Drawable greenDrawableSelected;
-    QuizButtonsBackgroundsManager quizButtonsBackgroundsManager = new QuizButtonsBackgroundsManager();
+    @DrawableRes int noAnswerSelectedRes = R.drawable.button_play_round_no_answer_selected, noAnswerRes = R.drawable.button_play_round_no_answer,
+                     redRes = R.drawable.button_play_round_red, redSelectedRes = R.drawable.button_play_round_red_selected,
+                     greenRes = R.drawable.button_play_round_green, greenSelectedRes = R.drawable.button_play_round_green_selected;
+    Pair<Drawable, Drawable>[] quizButtonsBackgrounds;
     // quiz send answer
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
         @Override
         public void response(SuccessAnsweredCorrectly response) {
             if(response.success) {
                 final int position = quizzesViewPager.getCurrentItem();
-                setButtonColorFromAnswer(quizButtons.get(position), response.correct_answer);
+                setButtonColorFromAnswer(position, response.correct_answer);
                 Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
                 currentQuiz.answered_correctly = response.correct_answer;
                 quizzesAdapter.quizzesList.set(position, currentQuiz);
@@ -90,7 +90,6 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         initActionbar();
         initGameHeader();
-        initBackgroundManager();
         quizzesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -106,26 +105,26 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         loadQuizzes();
     }
 
-    private void initBackgroundManager() {
-        quizButtonsBackgroundsManager.backgrounds.add(new Pair<>(noAnswerDrawable, noAnswerDrawableSelected));
-        quizButtonsBackgroundsManager.backgrounds.add(new Pair<>(redDrawable, redDrawableSelected));
-        quizButtonsBackgroundsManager.backgrounds.add(new Pair<>(greenDrawable, greenDrawableSelected));
-    }
-
     private void initQuizPanelButtons() {
+        quizButtonsBackgrounds = new Pair[quizButtons.size()];
         for(int position = 0; position < quizButtons.size(); position++) {
             Button b = quizButtons.get(position);
             b.setOnClickListener(this);
             Quiz quiz = quizzesAdapter.quizzesList.get(position);
-            Drawable background;
+            @DrawableRes int backgroundRes, backgroundSelectedRes;
             if(quiz.my_answer == null) {
-                background = noAnswerDrawable;
+                backgroundRes = noAnswerRes;
+                backgroundSelectedRes = noAnswerSelectedRes;
             } else if(quiz.answered_correctly == true) {
-                background = greenDrawable;
+                backgroundRes = greenRes;
+                backgroundSelectedRes = greenSelectedRes;
             } else {
-                background = redDrawable;
+                backgroundRes = redRes;
+                backgroundSelectedRes = redSelectedRes;
             }
-            b.setBackground(background);
+            Pair<Drawable, Drawable> backgroundPair = new Pair<>(ContextCompat.getDrawable(this, backgroundRes), ContextCompat.getDrawable(this, backgroundSelectedRes));
+            quizButtonsBackgrounds[position] = backgroundPair;
+            b.setBackground(backgroundPair.first);
         }
     }
 
@@ -202,7 +201,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
-    Button lastSelectedButton;
+    Integer lastSelectedButtonPosition = null;
     @Override
     public void onClick(View v) {
         int position;
@@ -214,38 +213,30 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
             default: return;
         }
         quizzesViewPager.setCurrentItem(position);
-        if(lastSelectedButton != null) {
-            lastSelectedButton.setBackground(quizButtonsBackgroundsManager.getOther(lastSelectedButton.getBackground()));
+        if(lastSelectedButtonPosition != null) {
+            quizButtons.get(lastSelectedButtonPosition).setBackground(quizButtonsBackgrounds[lastSelectedButtonPosition].first);
         }
-        lastSelectedButton = quizButtons.get(position);
-        lastSelectedButton.setBackground(quizButtonsBackgroundsManager.getOther(lastSelectedButton.getBackground()));
+        lastSelectedButtonPosition = position;
+        quizButtons.get(position).setBackground(quizButtonsBackgrounds[position].second);
     }
 
-    private class QuizButtonsBackgroundsManager {
-        public List<Pair<Drawable, Drawable>> backgrounds = new ArrayList<>();
-        public Drawable getOther(Drawable drawable) {
-            for(Pair<Drawable, Drawable> pair : backgrounds) {
-                if(pair.first.equals(drawable)) {
-                    return pair.second;
-                } else if(pair.second.equals(drawable)) {
-                    return pair.first;
-                }
-            }
-            return null;
-        }
-    }
-
-    private void setButtonColorFromAnswer(final Button button, final boolean isCorrect) {
+    private void setButtonColorFromAnswer(final int position, final boolean isCorrect) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Drawable backgroundDrawable = null;
+                @DrawableRes int backgroundRes, backgroundSelectedRes;
                 if(isCorrect) {
-                    backgroundDrawable = greenDrawableSelected;
+                    backgroundRes = greenRes;
+                    backgroundSelectedRes = greenSelectedRes;
                 } else {
-                    backgroundDrawable = redDrawableSelected;
+                    backgroundRes = redRes;
+                    backgroundSelectedRes = redSelectedRes;
                 }
-                button.setBackground(backgroundDrawable);
+                Pair<Drawable, Drawable> backgroundPair = new Pair<>(ContextCompat.getDrawable(
+                        PlayRoundActivity.this, backgroundRes), ContextCompat.getDrawable(PlayRoundActivity.this, backgroundSelectedRes)
+                );
+                quizButtonsBackgrounds[position] = backgroundPair;
+                quizButtons.get(position).setBackground(backgroundPair.second);
             }
         });
     }
