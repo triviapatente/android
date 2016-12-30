@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/greenOpaque"/>
+            <stroke android:width="@dimen/button_game_panel_border" android:color="@color/greenOpaqueDark"/>
+        </shape>
+    </item>
+    <item
+        android:right="@dimen/button_game_details_symbol_margin_horizontal"
+        android:left="@dimen/button_game_details_symbol_margin_horizontal"
+        android:top="@dimen/button_game_details_symbol_margin_vertical"
+        android:bottom="@dimen/button_game_details_symbol_margin_vertical"
+        android:drawable="@drawable/button_game_details_image"/>
+</layer-list>
