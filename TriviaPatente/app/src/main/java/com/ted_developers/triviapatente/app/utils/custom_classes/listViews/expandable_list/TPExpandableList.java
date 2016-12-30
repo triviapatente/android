@@ -6,7 +6,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.ResizeAnimation;
+import com.ted_developers.triviapatente.app.utils.custom_classes.animation.ResizeAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPExpandableListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;

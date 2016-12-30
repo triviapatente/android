@@ -4,13 +4,18 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.animation.ResizeAnimation;
+import com.ted_developers.triviapatente.app.utils.custom_classes.animation.TranslateAnimation;
 import com.ted_developers.triviapatente.models.game.Quiz;
 
 /**
@@ -18,6 +23,9 @@ import com.ted_developers.triviapatente.models.game.Quiz;
  */
 public class QuizHolder implements View.OnClickListener{
     private ImageView quizImage;
+    private boolean isImageBig = false;
+    private AnimationSet toSmall, toBig;
+    private int animDuration = 1000;
     private TextView quizDescription;
     private Button trueButton, falseButton;
     private View itemView;
@@ -37,11 +45,47 @@ public class QuizHolder implements View.OnClickListener{
         quizDescription = (TextView) itemView.findViewById(R.id.quizDescription);
         trueButton = (Button) itemView.findViewById(R.id.trueButton);
         falseButton = (Button) itemView.findViewById(R.id.falseButton);
+        // image resize and translate animation
+        int dx = calculateXDelta();
+        int imageSmallSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_small),
+                imageBigSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_big);
+        toSmall = new AnimationSet(context, null);
+        toSmall.addAnimation(new ResizeAnimation(quizImage, imageBigSize, imageBigSize, imageSmallSize, imageSmallSize));
+        toSmall.addAnimation(new TranslateAnimation(quizImage, dx, 0, 0, 0));
+        toSmall.setDuration(animDuration);
+        toSmall.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) { quizDescription.setVisibility(View.VISIBLE); }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        toBig = new AnimationSet(context, null);
+        toBig.addAnimation(new ResizeAnimation(quizImage, imageSmallSize, imageSmallSize, imageBigSize, imageBigSize));
+        toBig.addAnimation(new TranslateAnimation(quizImage, 0, dx, 0, 0));
+        toBig.setDuration(animDuration);
+        toBig.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) { quizDescription.setVisibility(View.GONE); }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
         // setting elements
         quizDescription.setMovementMethod(new ScrollingMovementMethod()); // to allow scroll
+        quizImage.setOnClickListener(this);
         trueButton.setOnClickListener(this);
         falseButton.setOnClickListener(this);
-        quizImage.setOnClickListener(this);
+    }
+
+    private int calculateXDelta() {
+        return 100;
     }
 
     public void bind(Quiz element) {
@@ -74,17 +118,27 @@ public class QuizHolder implements View.OnClickListener{
         boolean answer;
         Button clicked;
         switch (v.getId()) {
-            case R.id.trueButton: answer = true; clicked = trueButton; break;
-            case R.id.falseButton: answer = false; clicked = falseButton; break;
+            case R.id.trueButton: { answer = true; clicked = trueButton; } break;
+            case R.id.falseButton: { answer = false; clicked = falseButton; } break;
             case R.id.quizImage: {
-                // todo do bigger
+                changeImageSize();
             }
             default:return;
         }
-        ((PlayRoundActivity)context).sendAnswer(answer, element.id);
+        ((PlayRoundActivity) context).sendAnswer(answer, element.id);
         setButtonClicked(clicked);
         // disable clicks
         setButtonClickable(false);
+    }
+
+    private void changeImageSize() {
+        if(isImageBig) {
+            quizImage.startAnimation(toSmall);
+            isImageBig = false;
+        } else {
+            quizImage.startAnimation(toBig);
+            isImageBig = true;
+        }
     }
 
     private void setButtonClicked(Button clicked) {

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="quiz_box_height">275dp</dimen>
-    <dimen name="quiz_image_size">60dp</dimen>
+    <dimen name="quiz_image_size_small">60dp</dimen>
+    <dimen name="quiz_image_size_big">150dp</dimen>
     <dimen name="quiz_description_margin">20dp</dimen>
     <dimen name="quiz_separator_margin_horizontal">15dp</dimen>
     <dimen name="quiz_box_margin_horizontal">20dp</dimen>

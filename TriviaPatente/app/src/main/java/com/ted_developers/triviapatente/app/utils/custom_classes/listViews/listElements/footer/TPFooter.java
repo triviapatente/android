@@ -3,7 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.list
 import android.view.View;
 
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.ResizeAnimation;
+import com.ted_developers.triviapatente.app.utils.custom_classes.animation.ResizeAnimation;
 
 /**
  * Created by Antonio on 13/11/16.
