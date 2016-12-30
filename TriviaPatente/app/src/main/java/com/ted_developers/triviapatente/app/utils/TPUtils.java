@@ -1,16 +1,11 @@
 package com.ted_developers.triviapatente.app.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
