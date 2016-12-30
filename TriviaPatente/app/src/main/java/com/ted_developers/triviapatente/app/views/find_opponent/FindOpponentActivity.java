@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -207,9 +208,9 @@ public class FindOpponentActivity extends TPActivity {
                 if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
                     allButtonClick();
                     this.hide();
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
         };
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
@@ -218,7 +219,7 @@ public class FindOpponentActivity extends TPActivity {
     }
 
     private void setPlayersListItems(List<User> userList) {
-        playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.list_element_proposed_opponent_holder, ProposedOpponentHolder.class, R.layout.list_element_tell_a_friend_footer, TPTellAFriendFooter.class, playerListItemHeight, playersList));
+        playersList.setAdapter(new TPListAdapter<>(this, userList, R.layout.list_element_proposed_opponent_holder, ProposedOpponentHolder.class, R.layout.list_element_tell_a_friend_footer, TPTellAFriendFooter.class, playerListItemHeight, playersList));
     }
 
     private void loadPlayers() {
@@ -273,6 +274,7 @@ public class FindOpponentActivity extends TPActivity {
 
     @OnClick(R.id.friends_button)
     public void friendsButtonClick() {
+        Log.i("TEST", "FRIENDS");
         all = false;
         searchBar.setText("");
         loadingView.setVisibility(View.VISIBLE);
