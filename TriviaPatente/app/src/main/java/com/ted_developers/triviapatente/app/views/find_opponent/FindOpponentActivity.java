@@ -31,6 +31,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPTellAFriendFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
@@ -217,7 +218,7 @@ public class FindOpponentActivity extends TPActivity {
     }
 
     private void setPlayersListItems(List<User> userList) {
-        playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.list_element_proposed_opponent_holder, ProposedOpponentHolder.class, R.layout.list_element_tell_a_friend_footer, TPFooter.class, playerListItemHeight, playersList));
+        playersList.setAdapter(new TPListAdapter<User>(this, userList, R.layout.list_element_proposed_opponent_holder, ProposedOpponentHolder.class, R.layout.list_element_tell_a_friend_footer, TPTellAFriendFooter.class, playerListItemHeight, playersList));
     }
 
     private void loadPlayers() {
