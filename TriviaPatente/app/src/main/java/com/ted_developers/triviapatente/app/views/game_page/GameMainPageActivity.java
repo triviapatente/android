@@ -286,43 +286,37 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void updateWaitPage(String title, String subtitle, String status, Drawable subtitleImage, @ColorInt int overColor, @ColorInt int underColor) {
-        gameHeaderTitle.setText(title);
-        gameHeaderSubtitle.setText(subtitle);
-        gameStatus.setText(status);
-        if(this.subtitleImage == null) {
-            this.subtitleImage.setVisibility(View.GONE);
-        } else {
-            this.subtitleImage.setImageDrawable(subtitleImage);
-            this.subtitleImage.setVisibility(View.VISIBLE);
+        if(visible) {
+            gameHeaderTitle.setText(title);
+            gameHeaderSubtitle.setText(subtitle);
+            gameStatus.setText(status);
+            if(subtitleImage == null) {
+                this.subtitleImage.setVisibility(View.GONE);
+            } else {
+                this.subtitleImage.setImageDrawable(subtitleImage);
+                this.subtitleImage.setVisibility(View.VISIBLE);
+            }
+            loadingCircle.setColorUnder(underColor);
+            loadingCircle.setColorOver(overColor);
         }
-        loadingCircle.setColorUnder(underColor);
-        loadingCircle.setColorOver(overColor);
     }
 
     private void waitingInvite() {
-        if(visible) {
-            updateWaitPage(pendingInviteTitle, pendingInviteSubtitle, pendingInviteStatus, null, redColor, redColorLight);
-        }
+        updateWaitPage(pendingInviteTitle, pendingInviteSubtitle, pendingInviteStatus, null, redColor, redColorLight);
     }
 
     private void waitingCategory() {
-        if(visible) {
-            updateWaitPage("Round " + currentRound.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
-        }
+        updateWaitPage("Round " + currentRound.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
     }
 
     private void waitingRound() {
         // todo get image and set it
         Drawable d = getResources().getDrawable(R.drawable.image_no_profile_picture);
-        if(visible) {
-            updateWaitPage("Round " + currentRound.number, currentCategory.name, playingStatus, d, greenColor, greenColorLight);
-        }
+        updateWaitPage("Round " + currentRound.number, currentCategory.name, playingStatus, d, greenColor, greenColorLight);
     }
 
     private void offline() {
-        if(visible) {
-            updateWaitPage("Round " + currentRound.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
-        }
+        updateWaitPage("Round " + currentRound.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
     }
 
     private void chooseCategory() {

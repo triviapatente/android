@@ -53,6 +53,7 @@
                 android:background="@drawable/image_search_icon"
                 android:layout_marginLeft="@dimen/search_margin"/>
             <EditText
+                android:layout_marginLeft="@dimen/search_margin"
                 android:id="@+id/search_bar"
                 android:layout_width="0dp"
                 android:layout_weight="1"
