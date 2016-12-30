@@ -49,36 +49,41 @@ public class QuizHolder implements View.OnClickListener{
         trueButton = (Button) itemView.findViewById(R.id.trueButton);
         falseButton = (Button) itemView.findViewById(R.id.falseButton);
         // image resize and translate animation
-        int dx = calculateXDelta();
         imageSmallSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_small);
         imageBigSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_big);
-        toSmall = new AnimationSet(context, null);
-        toSmall.addAnimation(new ResizeAnimation(quizImage, imageBigSize, imageBigSize, imageSmallSize, imageSmallSize));
-        toSmall.addAnimation(new TranslateAnimation(quizImage, dx, 0, 0, 0));
-        toSmall.setDuration(animDuration);
-        toSmall.setAnimationListener(new Animation.AnimationListener() {
+        quizDescriptionBox.post(new Runnable() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void run() {
+                int dx = calculateXDelta();
+                toSmall = new AnimationSet(context, null);
+                toSmall.addAnimation(new ResizeAnimation(quizImage, imageBigSize, imageBigSize, imageSmallSize, imageSmallSize));
+                toSmall.addAnimation(new TranslateAnimation(quizImage, dx, 0, 0, 0));
+                toSmall.setDuration(animDuration);
+                toSmall.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
 
-            @Override
-            public void onAnimationEnd(Animation animation) { quizDescription.setVisibility(View.VISIBLE); }
+                    @Override
+                    public void onAnimationEnd(Animation animation) { quizDescription.setVisibility(View.VISIBLE); }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
-        toBig = new AnimationSet(context, null);
-        toBig.addAnimation(new ResizeAnimation(quizImage, imageSmallSize, imageSmallSize, imageBigSize, imageBigSize));
-        toBig.addAnimation(new TranslateAnimation(quizImage, 0, dx, 0, 0));
-        toBig.setDuration(animDuration);
-        toBig.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) { quizDescription.setVisibility(View.GONE); }
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+                toBig = new AnimationSet(context, null);
+                toBig.addAnimation(new ResizeAnimation(quizImage, imageSmallSize, imageSmallSize, imageBigSize, imageBigSize));
+                toBig.addAnimation(new TranslateAnimation(quizImage, 0, dx, 0, 0));
+                toBig.setDuration(animDuration);
+                toBig.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) { quizDescription.setVisibility(View.GONE); }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {}
+                    @Override
+                    public void onAnimationEnd(Animation animation) {}
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+            }
         });
         // setting elements
         quizDescription.setMovementMethod(new ScrollingMovementMethod()); // to allow scroll
