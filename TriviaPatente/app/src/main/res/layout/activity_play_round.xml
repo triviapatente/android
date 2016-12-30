@@ -23,7 +23,8 @@
     <include layout="@layout/content_play_round"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/gameHeader"/>
+        android:layout_below="@+id/gameHeader"
+        android:layout_above="@+id/gameOptions"/>
 
     <include
         layout="@layout/game_options"

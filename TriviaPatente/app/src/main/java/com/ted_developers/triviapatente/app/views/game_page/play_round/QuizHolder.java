@@ -47,7 +47,7 @@ public class QuizHolder implements View.OnClickListener{
     public void bind(Quiz element) {
         this.element = element;
         quizDescription.setText(element.question);
-        if(element.image_id != null) {
+        if(element.image_id == null) {
             quizImage.setVisibility(View.GONE);
         } else {
             quizImage.setVisibility(View.VISIBLE);
