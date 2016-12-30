@@ -27,7 +27,8 @@
             <ImageView
                 android:id="@+id/quizImage"
                 android:layout_width="@dimen/quiz_image_size_small"
-                android:layout_height="@dimen/quiz_image_size_small"/>
+                android:layout_height="@dimen/quiz_image_size_small"
+                android:layout_marginRight="@dimen/quiz_description_margin"/>
 
             <TextView
                 android:id="@+id/quizDescription"
@@ -36,8 +37,7 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/TPTextSizeSmall"
                 android:textColor="@color/quizTextColor"
-                android:scrollbars = "vertical"
-                android:layout_marginLeft="@dimen/quiz_description_margin"/>
+                android:scrollbars = "vertical"/>
         </LinearLayout>
 
         <View
