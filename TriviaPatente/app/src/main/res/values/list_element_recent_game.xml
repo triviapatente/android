@@ -11,7 +11,7 @@
     <string name="new_game_status">Partita terminata.</string>
     <string name="contact_status">Invito inviato!</string>
     <!-- no more games -->
-    <string name="no_more_games">Non ci sono altre partite..\nIniziane un\'altra ;)</string>
+    <string name="no_more_games">Non ci sono altre partite..\nIniziane un\'altra 0x1F609</string>
     <!-- no games -->
     <string name="no_games">Nessuna partita recente</string>
 </resources>

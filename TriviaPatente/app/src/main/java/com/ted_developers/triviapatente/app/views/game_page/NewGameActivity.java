@@ -13,6 +13,7 @@ import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.InviteHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
@@ -22,6 +23,8 @@ import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
+
+import java.util.List;
 
 import butterknife.BindDimen;
 import butterknife.BindString;
@@ -105,10 +108,7 @@ public class NewGameActivity extends TPActivity {
                     if(response.code() == 200 && response.body().success) {
                         if(response.body().invites != null) {
                             ReceivedData.pendingInvites = response.body().invites;
-                            invites.setItems(ReceivedData.pendingInvites,
-                                    R.layout.list_element_invite_holder, InviteHolder.class,
-                                    R.layout.list_element_invite_footer, TPFooter.class,
-                                    inviteHeight);
+                            setItems();
                             ReceivedData.numberOfInvites = ReceivedData.pendingInvites.size();
                         }
                         invites.setListCounter(ReceivedData.numberOfInvites);
@@ -123,12 +123,16 @@ public class NewGameActivity extends TPActivity {
                 }
             });
         } else {
-            invites.setItems(ReceivedData.pendingInvites,
-                    R.layout.list_element_invite_holder, InviteHolder.class,
-                    R.layout.list_element_invite_footer, TPFooter.class,
-                    inviteHeight);
+            setItems();
             invites.setListCounter(ReceivedData.numberOfInvites);
         }
+    }
+
+    private void setItems() {
+        invites.setItems(ReceivedData.pendingInvites,
+                R.layout.list_element_invite_holder, InviteHolder.class,
+                R.layout.list_element_invite_footer, TPEmoticonFooter.class,
+                inviteHeight);
     }
 
     @OnClick(R.id.findOpponent)

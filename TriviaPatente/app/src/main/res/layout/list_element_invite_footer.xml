@@ -5,6 +5,7 @@
     android:background="@color/mainColor"
     android:gravity="center">
     <TextView
+        android:id="@+id/emoticonTextView"
         android:layout_width="@dimen/quotes_width"
         android:layout_height="match_parent"
         android:text="@string/no_more_invites"

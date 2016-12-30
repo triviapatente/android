@@ -11,10 +11,12 @@ import android.widget.RelativeLayout;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
@@ -234,7 +236,7 @@ public class MainPageActivity extends TPActivity {
                         ReceivedData.recentGames = response.body().recent_games;
                         recentGames.setItems(ReceivedData.recentGames,
                                 R.layout.list_element_recent_game_holder, RecentGameHolder.class,
-                                R.layout.list_element_recent_game_footer, TPFooter.class,
+                                R.layout.list_element_recent_game_footer, TPEmoticonFooter.class,
                                 recentGameHeight);
                         counter = response.body().recent_games.size();
                     }
@@ -284,7 +286,7 @@ public class MainPageActivity extends TPActivity {
     public boolean dispatchTouchEvent(MotionEvent ev){
         if(MotionEvent.ACTION_UP == ev.getAction()
                 && toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE
-                && !mApplication.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
+                && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
             toolbar.hideMenu();
             return false;
         }

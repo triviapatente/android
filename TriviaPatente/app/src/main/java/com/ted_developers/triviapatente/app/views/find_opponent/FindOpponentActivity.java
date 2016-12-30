@@ -274,7 +274,6 @@ public class FindOpponentActivity extends TPActivity {
 
     @OnClick(R.id.friends_button)
     public void friendsButtonClick() {
-        Log.i("TEST", "FRIENDS");
         all = false;
         searchBar.setText("");
         loadingView.setVisibility(View.VISIBLE);

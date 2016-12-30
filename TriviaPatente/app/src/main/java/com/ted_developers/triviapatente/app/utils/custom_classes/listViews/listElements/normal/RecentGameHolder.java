@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;

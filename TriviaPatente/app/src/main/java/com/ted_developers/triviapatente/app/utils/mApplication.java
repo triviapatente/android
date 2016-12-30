@@ -22,25 +22,20 @@ import butterknife.ButterKnife;
  * Created by Antonio on 22/10/16.
  */
 public class mApplication extends Application {
+    private static mApplication app;
+
     @Override
     public void onCreate() {
         super.onCreate();
         // app
         app = this;
         // fonts
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/OpenSans-Regular.ttf");
+        TPUtils.setDefaultFont(this, "MONOSPACE", "fonts/OpenSans-Regular.ttf");
         // init
         RetrofitManager.init(this);
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
         baseSocketManager.listen(getResources().getString(R.string.socket_event_invite_created), InviteUser.class, inviteCreatedCallback);
-    }
-
-    public static boolean isPointInsideView(int x, int y, View view) {
-        Rect area = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-
-        //point is inside view bounds
-        return area.contains(x, y);
     }
 
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();
@@ -56,7 +51,6 @@ public class mApplication extends Application {
         }
     };
 
-    private static mApplication app;
     public static mApplication getInstance() {
         return app;
     }
