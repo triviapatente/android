@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.widget.Button;
@@ -26,7 +27,8 @@ public class QuizHolder implements View.OnClickListener{
     private ImageView quizImage;
     private boolean isImageBig = false;
     private AnimationSet toSmall, toBig;
-    private int animDuration = 200, imageSmallSize, imageBigSize;
+    private Animation fadeIn, fadeOut;
+    private int resizeDuration = 200, fadeDuration = 100, imageSmallSize, imageBigSize;
     private TextView quizDescription;
     private Button trueButton, falseButton;
     private View itemView;
@@ -49,47 +51,92 @@ public class QuizHolder implements View.OnClickListener{
         trueButton = (Button) itemView.findViewById(R.id.trueButton);
         falseButton = (Button) itemView.findViewById(R.id.falseButton);
         // image resize and translate animation
+        setAnimations();
+        // setting elements
+        quizDescription.setMovementMethod(new ScrollingMovementMethod()); // to allow scroll
+        quizImage.setOnClickListener(this);
+        trueButton.setOnClickListener(this);
+        falseButton.setOnClickListener(this);
+    }
+
+    private void setAnimations() {
+        setFadeInAnimation();
+        setResizeAnimations();
+    }
+
+    private void setFadeInAnimation() {
+        fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                quizDescription.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        fadeIn.setDuration(fadeDuration);
+    }
+
+    private void setFadeOutAnimation() {
+        fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                quizDescription.setVisibility(View.GONE);
+                quizImage.startAnimation(toBig);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        fadeOut.setDuration(fadeDuration);
+    }
+
+    private void setResizeAnimations() {
         imageSmallSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_small);
         imageBigSize = (int) context.getResources().getDimension(R.dimen.quiz_image_size_big);
         quizDescriptionBox.post(new Runnable() {
             @Override
             public void run() {
                 int dx = calculateXDelta();
-                toSmall = new AnimationSet(context, null);
-                toSmall.addAnimation(new ResizeAnimation(quizImage, imageBigSize, imageBigSize, imageSmallSize, imageSmallSize));
-                toSmall.addAnimation(new TranslateAnimation(quizImage, dx, 0, 0, 0));
-                toSmall.setDuration(animDuration);
-                toSmall.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {}
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) { quizDescription.setVisibility(View.VISIBLE); }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                });
-                toBig = new AnimationSet(context, null);
-                toBig.addAnimation(new ResizeAnimation(quizImage, imageSmallSize, imageSmallSize, imageBigSize, imageBigSize));
-                toBig.addAnimation(new TranslateAnimation(quizImage, 0, dx, 0, 0));
-                toBig.setDuration(animDuration);
-                toBig.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) { quizDescription.setVisibility(View.GONE); }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {}
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                });
+                setToSmallAnimation(dx);
+                setToBigAnimation(dx);
+                setFadeOutAnimation();
             }
         });
-        // setting elements
-        quizDescription.setMovementMethod(new ScrollingMovementMethod()); // to allow scroll
-        quizImage.setOnClickListener(this);
-        trueButton.setOnClickListener(this);
-        falseButton.setOnClickListener(this);
+    }
+
+    private void setToSmallAnimation(int dx) {
+        toSmall = new AnimationSet(context, null);
+        toSmall.addAnimation(new ResizeAnimation(quizImage, imageBigSize, imageBigSize, imageSmallSize, imageSmallSize));
+        toSmall.addAnimation(new TranslateAnimation(quizImage, dx, 0, 0, 0));
+        toSmall.setDuration(resizeDuration);
+        toSmall.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                quizDescription.startAnimation(fadeIn);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+    }
+
+    private void setToBigAnimation(int dx) {
+        toBig = new AnimationSet(context, null);
+        toBig.addAnimation(new ResizeAnimation(quizImage, imageSmallSize, imageSmallSize, imageBigSize, imageBigSize));
+        toBig.addAnimation(new TranslateAnimation(quizImage, 0, dx, 0, 0));
+        toBig.setDuration(resizeDuration);
     }
 
     private int calculateXDelta() {
@@ -144,7 +191,7 @@ public class QuizHolder implements View.OnClickListener{
             quizImage.startAnimation(toSmall);
             isImageBig = false;
         } else {
-            quizImage.startAnimation(toBig);
+            quizDescription.startAnimation(fadeOut);
             isImageBig = true;
         }
     }
