@@ -373,7 +373,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     public void setMenuOptionsOnClickListener() {
         toolbar.menuLogoutOptionButton.setOnClickListener(this);
         toolbar.menuAboutOptionButton.setOnClickListener(this);
-        toolbar.menuProfileOptionButton.setOnClickListener(this);
+        toolbar.menuSettingsOptionButton.setOnClickListener(this);
         toolbar.menuProfileOptionButton.setOnClickListener(this);
     }
 
