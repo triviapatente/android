@@ -19,4 +19,6 @@
     <string name="menu_preferences">Preferenze</string>
     <string name="menu_us">Chi siamo</string>
     <string name="menu_logout">Logout</string>
+
+    <string name="menu_logot_unable_to_logout">Impossibile disconnettersi al momento, riprova più tardi</string>
 </resources>

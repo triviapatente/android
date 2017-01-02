@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
@@ -34,6 +35,7 @@ import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.responses.InviteUser;
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
@@ -81,7 +83,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // server down
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
-    private AuthSocketManager socketManager = new AuthSocketManager();
+    private AuthSocketManager authSocketManager= new AuthSocketManager();
     // menu options
     TPDialog logoutDialog;
     @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
@@ -121,7 +123,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                 // on connect
                 @Override
                 public void execute() {
-                    socketManager.authenticate(new SocketCallback<Hints>() {
+                    authSocketManager.authenticate(new SocketCallback<Hints>() {
                         @Override
                         public void response(final Hints response) {
                             if (response.success) {
@@ -167,8 +169,19 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         logoutDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, null) {
             @Override
             public void onNegativeButtonClick() {
-                SharedTPPreferences.deleteAll();
-                backToFirstAccess();
+                authSocketManager.logout(new SocketCallback<Success>() {
+                    @Override
+                    public void response(Success response) {
+                        if(response.success) {
+                            SharedTPPreferences.deleteAll();
+                            backToFirstAccess();
+                        } else {
+                            Toast.makeText(MainPageActivity.this, getResources().getString(R.string.menu_logot_unable_to_logout),
+                                    Toast.LENGTH_LONG).show();
+                            onPositiveButtonClick();
+                        }
+                    }
+                });
             }
 
             @Override
@@ -359,6 +372,9 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
     public void setMenuOptionsOnClickListener() {
         toolbar.menuLogoutOptionButton.setOnClickListener(this);
+        toolbar.menuAboutOptionButton.setOnClickListener(this);
+        toolbar.menuProfileOptionButton.setOnClickListener(this);
+        toolbar.menuProfileOptionButton.setOnClickListener(this);
     }
 
     // menu buttons onclick
@@ -366,7 +382,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.menuLogoutOption: logout(); break;
-            default: return;
+            default: Intent intent = new Intent(this, AlphaView.class); startActivity(intent);
         }
     }
 
