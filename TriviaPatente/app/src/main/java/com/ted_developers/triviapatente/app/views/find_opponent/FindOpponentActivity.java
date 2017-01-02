@@ -28,14 +28,14 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.AccountLinkerDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPTellAFriendFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
+import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -93,7 +93,7 @@ public class FindOpponentActivity extends TPActivity {
     // modal
     @BindView(R.id.playersListBlock) RelativeLayout playersListBlock;
     private boolean firstTime = true;
-    private AccountLinkerDialog facebookDialog;
+    private TPDialog facebookDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,27 +191,28 @@ public class FindOpponentActivity extends TPActivity {
     }
 
     private void initDialog() {
-        facebookDialog = new AccountLinkerDialog(this) {
+        facebookDialog = new TPDialog(this, R.layout.modal_view_connect_to_facebook, 0.4f, true, new DialogInterface.OnCancelListener() {
             @Override
-            public void onExit() {
+            public void onCancel(DialogInterface dialog) {
+                allButtonClick();
+            }
+        }) {
+            @Override
+            public void onNegativeButtonClick() {
                 allButtonClick();
                 this.hide();
             }
 
             @Override
-            public void onConfirm() {
+            public void onPositiveButtonClick() {
                 // todo connect to facebook
+                Intent intent = new Intent(FindOpponentActivity.this, AlphaView.class);
+                FindOpponentActivity.this.startActivity(intent);
             }
         };
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
         params.gravity = Gravity.TOP;
         params.y = toolbar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
-        facebookDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                allButtonClick();
-            }
-        });
     }
 
     private void setPlayersListItems(List<User> userList) {
