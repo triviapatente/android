@@ -5,12 +5,18 @@
         <item name="android:buttonStyle">@style/TPButtonStyle</item>
         <item name="editTextStyle">@style/TPEditTextStyle</item>
         <item name="android:textViewStyle">@style/TPTextViewStyle</item>
+        <item name="android:dialogTheme">@style/TPDialog</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="TPDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:typeface">monospace</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
