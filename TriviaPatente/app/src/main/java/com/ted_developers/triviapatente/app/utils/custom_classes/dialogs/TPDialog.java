@@ -35,12 +35,12 @@ public abstract class TPDialog extends Dialog implements android.view.View.OnCli
     }
 
     public TPDialog(Context context, int themeResId) {
-        super(context, themeResId);
+        super(context);
         this.themeResId = themeResId;
     }
 
     public TPDialog(Context context, int themeResId, float dimAmount) {
-        super(context, themeResId);
+        super(context);
         this.themeResId = themeResId;
         this.dimAmount = dimAmount;
     }
@@ -52,7 +52,7 @@ public abstract class TPDialog extends Dialog implements android.view.View.OnCli
     }
 
     public TPDialog(Context context, int themeResId, float dimAmount, boolean cancelable, OnCancelListener cancelListener) {
-        super(context, themeResId);
+        super(context);
         this.cancelable = cancelable;
         this.cancelListener = cancelListener;
         this.themeResId = themeResId;
