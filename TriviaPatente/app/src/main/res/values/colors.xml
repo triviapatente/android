@@ -6,6 +6,7 @@
     <color name="mainColorPressed">#00a0ff</color>
     <color name="menuColor">#2D91E0</color>
     <color name="menuColorDark">#2D81E0</color>
+    <color name="blurredBlue">#602D81E0</color>
     <color name="mainColorLight">#7000b0ff</color>
     <color name="whiteLight">#70ffffff</color>
     <color name="backgroundFiltered">#70000000</color>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/modal_view_logout_width"
+    android:layout_height="@dimen/modal_view_logout_height"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_big_white_box"
+    android:visibility="gone"
+    android:id="@+id/modal_logout">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/modal_view_logout_message"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:textColor="@color/mainColor"
+        android:layout_marginTop="@dimen/modal_view_logout_message_margin_top"
+        android:layout_marginBottom="@dimen/modal_view_logout_message_margin_bottom"
+        android:layout_marginLeft="@dimen/modal_view_logout_message_margin_horizontal"
+        android:layout_marginRight="@dimen/modal_view_logout_message_margin_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/modal_view_logout_button_margin_vertical">
+
+        <Button
+            android:id="@+id/buttonStay"
+            android:layout_width="@dimen/modal_view_logout_button_width"
+            android:layout_height="@dimen/modal_view_logout_button_height"
+            android:background="@drawable/button_green"
+            android:text="@string/modal_view_logout_button_stay_text"/>
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="@dimen/modal_view_logout_button_width"
+            android:layout_height="@dimen/modal_view_logout_button_height"
+            android:background="@drawable/button_red"
+            android:layout_marginLeft="@dimen/modal_view_logout_button_margin_inner"
+            android:text="@string/modal_view_logout_button_exit_text"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 
@@ -48,7 +49,7 @@ public class TPActionBar extends RelativeLayout {
     // menu
     public View menu;
     private boolean show_menu;
-    private Button menuProfileOptionButton, menuSettingsOptionButton, menuAboutOptionButton, menuLogoutOptionButton;
+    public Button menuProfileOptionButton, menuSettingsOptionButton, menuAboutOptionButton, menuLogoutOptionButton;
 
     public TPActionBar(Context context) {
         super(context);
@@ -198,35 +199,6 @@ public class TPActionBar extends RelativeLayout {
         menuAboutOptionButton = (Button) menu.findViewById(R.id.menuAboutOption);
         menuSettingsOptionButton = (Button) menu.findViewById(R.id.menuSettingsOption);
         menuLogoutOptionButton = (Button) menu.findViewById(R.id.menuLogoutOption);
-        // set on click
-        menuProfileOptionButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AlphaView.class);
-                getContext().startActivity(intent);
-            }
-        });
-        menuSettingsOptionButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AlphaView.class);
-                getContext().startActivity(intent);
-            }
-        });
-        menuAboutOptionButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AlphaView.class);
-                getContext().startActivity(intent);
-            }
-        });
-        menuLogoutOptionButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AlphaView.class);
-                getContext().startActivity(intent);
-            }
-        });
     }
 
     public void showMenu() {
@@ -236,10 +208,17 @@ public class TPActionBar extends RelativeLayout {
     }
 
     public void hideMenu() {
+        hideMenu(null);
+    }
+
+    public void hideMenu(final SimpleCallback cb) {
         menu.animate().alpha(0.0f).setDuration(200).withEndAction(new Runnable() {
             @Override
             public void run() {
                 menu.setVisibility(GONE);
+                if(cb != null) {
+                    cb.execute();
+                }
             }
         });
         show_menu = true;

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -17,11 +19,9 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Simpl
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar;
-import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
@@ -38,19 +38,21 @@ import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainPageActivity extends TPActivity {
+public class MainPageActivity extends TPActivity implements Button.OnClickListener{
     // content
     @BindView(R.id.content) RelativeLayout mainPageContent;
+    @BindView(R.id.mainPageContainer) RelativeLayout mainPageContainer;
     // top bar
-    @BindView(R.id.toolbar)
-    HeartsPictureSettingsTPActionBar toolbar;
+    @BindView(R.id.toolbar) HeartsPictureSettingsTPActionBar toolbar;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
@@ -77,6 +79,11 @@ public class MainPageActivity extends TPActivity {
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
     private AuthSocketManager socketManager = new AuthSocketManager();
+    // menu options
+    @BindView(R.id.modal_logout) LinearLayout modalLogout;
+    @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
+    @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
+    private boolean isBlurred = false;
     // sockets
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
@@ -162,6 +169,8 @@ public class MainPageActivity extends TPActivity {
         toolbar.setLifeCounter(3);
         // set menu
         toolbar.setMenu();
+        // set menu options click listeners
+        setMenuOptionsOnClickListener();
     }
 
     private void initOptionButtons() {
@@ -283,7 +292,10 @@ public class MainPageActivity extends TPActivity {
 
     // touch handler
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev){
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(isBlurred) {
+            return true;
+        }
         if(MotionEvent.ACTION_UP == ev.getAction()
                 && toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE
                 && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
@@ -329,5 +341,33 @@ public class MainPageActivity extends TPActivity {
     @Override
     public void onBackPressed() {
         // todo implement exit page
+    }
+
+    public void setMenuOptionsOnClickListener() {
+        toolbar.menuLogoutOptionButton.setOnClickListener(this);
+    }
+
+    // menu buttons onclick
+    public void logout() {
+        // setting blurry background
+        toolbar.hideMenu(new SimpleCallback() {
+            @Override
+            public void execute() {
+                Blurry.with(MainPageActivity.this).sampling(3).radius(13).capture(mainPageContainer).into(blurredBackgroundView);
+                blurredBackgroundContainer.setVisibility(View.VISIBLE);
+                isBlurred = true;
+                // showing modal
+                modalLogout.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.menuLogoutOption: logout(); break;
+            default: return;
+        }
     }
 }

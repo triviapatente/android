@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- modal -->
+    <dimen name="modal_view_logout_width">300dp</dimen>
+    <dimen name="modal_view_logout_height">250dp</dimen>
+    <!-- message -->
+    <string name="modal_view_logout_message">Sei sicuro di voler disconnettere il tuo account?</string>
+    <dimen name="modal_view_logout_message_margin_horizontal">30dp</dimen>
+    <dimen name="modal_view_logout_message_margin_top">40dp</dimen>
+    <dimen name="modal_view_logout_message_margin_bottom">10dp</dimen>
+    <!-- buttons -->
+    <dimen name="modal_view_logout_button_width">100dp</dimen>
+    <dimen name="modal_view_logout_button_height">35dp</dimen>
+    <dimen name="modal_view_logout_button_margin_vertical">30dp</dimen>
+    <dimen name="modal_view_logout_button_margin_inner">20dp</dimen>
+    <string name="modal_view_logout_button_stay_text">Rimani</string>
+    <string name="modal_view_logout_button_exit_text">Esci</string>
+</resources>
