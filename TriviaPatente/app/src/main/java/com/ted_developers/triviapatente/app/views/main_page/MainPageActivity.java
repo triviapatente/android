@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.main_page;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +13,14 @@ import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
@@ -80,10 +83,9 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     @BindString(R.string.server_down_message) String serverDownMessage;
     private AuthSocketManager socketManager = new AuthSocketManager();
     // menu options
-    @BindView(R.id.modal_logout) LinearLayout modalLogout;
+    TPDialog logoutDialog;
     @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
     @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
-    private boolean isBlurred = false;
     // sockets
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
@@ -110,6 +112,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     private void init() {
+        initDialog();
         // connect to socket
         if(!BaseSocketManager.isConnected()) {
             // start loading
@@ -158,6 +161,22 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                 }
             });
         }
+    }
+
+    private void initDialog() {
+        logoutDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, null) {
+            @Override
+            public void onNegativeButtonClick() {
+                SharedTPPreferences.deleteAll();
+                backToFirstAccess();
+            }
+
+            @Override
+            public void onPositiveButtonClick() {
+                blurredBackgroundContainer.setVisibility(View.GONE);
+                dismiss();
+            }
+        };
     }
 
     private void initToolbar() {
@@ -293,9 +312,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(isBlurred) {
-            return true;
-        }
         if(MotionEvent.ACTION_UP == ev.getAction()
                 && toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE
                 && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
@@ -348,6 +364,15 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     // menu buttons onclick
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.menuLogoutOption: logout(); break;
+            default: return;
+        }
+    }
+
+    // logout
     public void logout() {
         // setting blurry background
         toolbar.hideMenu(new SimpleCallback() {
@@ -355,19 +380,9 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
             public void execute() {
                 Blurry.with(MainPageActivity.this).sampling(3).radius(13).capture(mainPageContainer).into(blurredBackgroundView);
                 blurredBackgroundContainer.setVisibility(View.VISIBLE);
-                isBlurred = true;
                 // showing modal
-                modalLogout.setVisibility(View.VISIBLE);
+                logoutDialog.show();
             }
         });
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.menuLogoutOption: logout(); break;
-            default: return;
-        }
     }
 }
