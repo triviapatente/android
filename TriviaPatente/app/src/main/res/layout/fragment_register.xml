@@ -82,7 +82,6 @@
                 android:layout_height="@dimen/field_height"
                 android:text="@string/button_register"
                 android:id="@+id/register_button"
-                android:textAllCaps="false"
                 android:background="@drawable/button_first_access"
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="@dimen/field_margin"

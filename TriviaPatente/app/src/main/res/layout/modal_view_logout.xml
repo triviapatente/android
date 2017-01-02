@@ -33,7 +33,6 @@
             android:layout_height="@dimen/modal_view_logout_button_height"
             android:background="@drawable/button_green"
             android:textColor="@android:color/white"
-            android:textAllCaps="false"
             android:text="@string/modal_view_logout_button_stay_text"/>
 
         <Button
@@ -42,7 +41,6 @@
             android:layout_height="@dimen/modal_view_logout_button_height"
             android:background="@drawable/button_red"
             android:textColor="@android:color/white"
-            android:textAllCaps="false"
             android:layout_marginLeft="@dimen/modal_view_logout_button_margin_inner"
             android:text="@string/modal_view_logout_button_exit_text"/>
     </LinearLayout>
