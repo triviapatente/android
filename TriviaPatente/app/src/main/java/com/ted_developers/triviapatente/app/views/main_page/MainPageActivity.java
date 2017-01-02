@@ -243,9 +243,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                 hint += multipleInvites;
             }
             // set hints
-            if(!hint.equals(buttonNewGame.currentText)) {
-                buttonNewGame.setHintText(new String[] { hint });
-            }
+            buttonNewGame.setHintText(new String[] { hint });
         } else {
             buttonNewGame.setHintText(new String[] {""});
         }

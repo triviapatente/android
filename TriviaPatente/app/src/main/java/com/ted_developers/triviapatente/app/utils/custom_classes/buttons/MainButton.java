@@ -159,8 +159,10 @@ public class MainButton extends LinearLayout {
         if(activity != null && hintTexts != null && hintTexts.length > 0) {
             setHintFactory(color);
             if(hintTexts.length == 1) {
-                hintTextSwitcher.setText(hintTexts[0]);
-                currentText = hintTexts[0];
+                if(!hintTexts[0].equals(currentText)) {
+                    hintTextSwitcher.setText(hintTexts[0]);
+                    currentText = hintTexts[0];
+                }
             }
             else {
                 this.hintTexts = hintTexts;
