@@ -79,15 +79,9 @@ public class TPActionBar extends RelativeLayout {
                 R.styleable.TPActionBar,
                 0, 0);
         try {
-            if(a.hasValue(R.styleable.TPActionBar_action_bar_title)) {
-                setTitle(a.getString(R.styleable.TPActionBar_action_bar_title));
-            }
-            if(a.hasValue(R.styleable.TPActionBar_action_bar_back_title)) {
-                setBackButtonText(a.getString(R.styleable.TPActionBar_action_bar_back_title));
-            }
-            if(a.hasValue(R.styleable.TPActionBar_action_bar_type)) {
-                setType(a.getInt(R.styleable.TPActionBar_action_bar_type, 0));
-            }
+            setTitle(a.getString(R.styleable.TPActionBar_action_bar_title));
+            setBackButtonText(a.getString(R.styleable.TPActionBar_action_bar_back_title));
+            setType(a.getInt(R.styleable.TPActionBar_action_bar_type, 0));
         } finally {
             a.recycle();
         }
