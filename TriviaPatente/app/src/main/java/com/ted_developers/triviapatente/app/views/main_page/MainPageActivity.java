@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.main_page;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -164,7 +165,12 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     private void initDialog() {
-        logoutDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, null) {
+        logoutDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                blurredBackgroundContainer.setVisibility(View.GONE);
+            }
+        }) {
             @Override
             public void onNegativeButtonClick() {
                 authSocketManager.logout(new SocketCallback<Success>() {
@@ -184,7 +190,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
             @Override
             public void onPositiveButtonClick() {
-                blurredBackgroundContainer.setVisibility(View.GONE);
                 dismiss();
             }
         };

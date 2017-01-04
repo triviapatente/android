@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -96,7 +97,12 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     }
 
     private void initLeaveDialog() {
-        leaveDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, null) {
+        leaveDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                blurredBackgroundContainer.setVisibility(View.GONE);
+            }
+        }) {
             @Override
             public void onNegativeButtonClick() {
 
@@ -104,7 +110,6 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
 
             @Override
             public void onPositiveButtonClick() {
-                blurredBackgroundContainer.setVisibility(View.GONE);
                 dismiss();
             }
         };
