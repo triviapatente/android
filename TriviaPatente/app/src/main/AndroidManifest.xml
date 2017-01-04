@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.views.game_page.NewGameActivity"
+            android:name=".app.views.find_opponent.NewGameActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

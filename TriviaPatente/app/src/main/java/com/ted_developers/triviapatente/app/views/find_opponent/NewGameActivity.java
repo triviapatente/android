@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.game_page;
+package com.ted_developers.triviapatente.app.views.find_opponent;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
@@ -28,17 +28,9 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class NewGameActivity extends TPGameActivity {
+public class NewGameActivity extends TPActivity {
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    // action bar
-    @BindString(R.string.new_game_title) String toolbarTitle;
-    @BindString(R.string.main_page_title) String backTitle;
-    // options
-    @BindView(R.id.option_panel) LinearLayout optionPanel;
-    @BindView(R.id.findOpponent) Button findOpponent;
-    @BindView(R.id.findRandomOpponent) Button findRandomOpponent;
-    @BindView(R.id.option_panel_title) TextView optionPanelTitle;
     // invites
     TPExpandableList<Invite> invites;
     @BindString(R.string.invites_title) String invitesTitle;

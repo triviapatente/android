@@ -19,7 +19,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listE
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
-import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
+import com.ted_developers.triviapatente.app.views.find_opponent.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;

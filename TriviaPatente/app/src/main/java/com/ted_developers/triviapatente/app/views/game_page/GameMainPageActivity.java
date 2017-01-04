@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +22,7 @@ import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
-import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.Accepted;
 import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
@@ -42,21 +39,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class GameMainPageActivity extends TPGameActivity {
-    // option button
-    @BindView(R.id.gameChatButton) Button gameChatButton;
-    @BindView(R.id.gameDetailsButton) Button gameDetailsButton;
-    @BindView(R.id.gameLeaveButton) Button gameLeaveButton;
     // data
-    @BindString(R.string.extra_string_opponent) String extraStringOpponent;
     @BindString(R.string.extra_boolean_game) String extraBooleanGame;
-    @BindString(R.string.extra_long_game) String extraLongGame;
-    @BindString(R.string.extra_string_round) String extraStringRound;
-    @BindString(R.string.extra_string_category) String extraStringCategory;
     private Drawable opponentImage;
-    private User opponent;
-    private Long gameID;
-    private Category currentCategory;
-    private Round currentRound;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
@@ -179,15 +164,9 @@ public class GameMainPageActivity extends TPGameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main_page);
         //init
-        Intent intent = getIntent();
-        try {
-            opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringOpponent), User.class);
-        } catch (Exception e) {
-            opponent = null;
-        }
         smallInit();
         startLoading();
-        if(intent.getBooleanExtra(extraBooleanGame, false)) {
+        if(getIntent().getBooleanExtra(extraBooleanGame, false)) {
             Call<SuccessGameUser> call;
             if(opponent != null) {
                 call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
@@ -214,8 +193,6 @@ public class GameMainPageActivity extends TPGameActivity {
                 }
             });
         } else {
-            gameID = intent.getLongExtra(extraLongGame, -1);
-            setOpponentData();
             join_room();
             init_listening();
         }
@@ -306,17 +283,17 @@ public class GameMainPageActivity extends TPGameActivity {
 
     private void chooseCategory() {
         Intent intent = new Intent(this, ChooseCategoryActivity.class);
-        intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
-        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+        intent.putExtra(this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
+        intent.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
         startActivity(intent);
         finish();
     }
 
     private void playRound() {
         Intent intent = new Intent(this, PlayRoundActivity.class);
-        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
-        intent.putExtra(extraStringRound, RetrofitManager.gson.toJson(currentRound));
-        intent.putExtra(extraStringCategory, RetrofitManager.gson.toJson(currentCategory));
+        intent.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+        intent.putExtra(this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
+        intent.putExtra(this.getString(R.string.extra_string_category), RetrofitManager.gson.toJson(currentCategory));
         startActivity(intent);
         finish();
     }
@@ -341,17 +318,5 @@ public class GameMainPageActivity extends TPGameActivity {
     @Override
     protected Drawable getActionBarProfilePicture() {
         return null;
-    }
-
-    @Override
-    protected boolean needsLeaveRoom() {
-        return false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainPageActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
     }
 }

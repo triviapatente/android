@@ -1,7 +1,5 @@
 package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
@@ -10,37 +8,17 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
-import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
-import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.auth.User;
-import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Quiz;
-import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.SuccessAnsweredCorrectly;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.BindViews;
-import butterknife.OnClick;
 
 public class PlayRoundActivity extends TPGameActivity implements View.OnClickListener {
-    // game data
-    User opponent;
-    Round currentRound;
-    Category currentCategory;
-    // game header
-    @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
-    @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
     // quizzes
     @BindView(R.id.quizzes) ViewPager quizzesViewPager;
     @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
@@ -49,11 +27,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
     @DrawableRes int noAnswerSelectedRes = R.drawable.button_play_round_no_answer_selected, noAnswerRes = R.drawable.button_play_round_no_answer,
                      redRes = R.drawable.button_play_round_red, redSelectedRes = R.drawable.button_play_round_red_selected,
                      greenRes = R.drawable.button_play_round_green, greenSelectedRes = R.drawable.button_play_round_green_selected;
-    // leave game
-    TPDialog leaveDialog;
-    @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
-    @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
-    @BindView(R.id.game_container) RelativeLayout gameContainer;
     Pair<Drawable, Drawable>[] quizButtonsBackgrounds;
     // quiz send answer
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
@@ -83,33 +56,8 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         init();
     }
 
-    private void initLeaveDialog() {
-        leaveDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                blurredBackgroundContainer.setVisibility(View.GONE);
-            }
-        }) {
-            @Override
-            public void onNegativeButtonClick() {
-
-            }
-
-            @Override
-            public void onPositiveButtonClick() {
-                dismiss();
-            }
-        };
-    }
-
     private void init() {
-        initLeaveDialog();
-        Intent intent = getIntent();
-        opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_opponent)), User.class);
-        currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_round)), Round.class);
-        currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
-        myInitActionBar();
-        initGameHeader();
+        setGameHeader("Round " + currentRound.number, currentCategory.hint, ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
         quizzesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -148,29 +96,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         }
     }
 
-    private void myInitActionBar() {
-        // title
-        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        // profile picture
-        // todo do dinamically
-        actionBar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
-    }
-
-    @Override
-    protected Drawable getActionBarProfilePicture() {
-        return null;
-    }
-
-    private void initGameHeader() {
-        // game header title
-        gameHeaderTitle.setText("Round " + currentRound.number);
-        // game header subtitle
-        gameHeaderSubtitle.setText(currentCategory.hint);
-        // todo set game header subtitle image dinamically
-        gameHeaderSubtitleImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
-        gameHeaderSubtitleImage.setVisibility(View.VISIBLE);
-    }
-
     private void loadQuizzes() {
         gameSocketManager.get_questions(currentRound.game_id, currentRound.id, new SocketCallback<SuccessQuizzes>() {
             @Override
@@ -189,37 +114,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                 });
             }
         });
-    }
-
-    // option button panel
-    @OnClick(R.id.gameChatButton)
-    public void gameChatButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
-    @OnClick(R.id.gameDetailsButton)
-    public void gameDetailsButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
-    @OnClick(R.id.gameLeaveButton)
-    public void gameLeaveButtonClick() {
-        TPUtils.blurContainerIntoImageView(PlayRoundActivity.this, gameContainer, blurredBackgroundView);
-        blurredBackgroundContainer.setVisibility(View.VISIBLE);
-        //showing modal
-        leaveDialog.show();
-    }
-
-    @Override
-    protected boolean needsLeaveRoom() {
-        return false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainPageActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     Integer lastSelectedButtonPosition = null;

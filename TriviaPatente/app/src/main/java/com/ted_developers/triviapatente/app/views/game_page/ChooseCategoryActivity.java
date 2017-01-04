@@ -2,24 +2,19 @@ package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPEnterAnimListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.CategoryHolder;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
-import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
@@ -27,24 +22,11 @@ import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.SuccessCategories;
 import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
-
 import java.util.List;
-
 import butterknife.BindDimen;
-import butterknife.BindString;
 import butterknife.BindView;
 
 public class ChooseCategoryActivity extends TPGameActivity {
-    // data
-    @BindString(R.string.extra_string_round) String extraStringRound;
-    @BindString(R.string.extra_string_opponent) String extraStringOpponent;
-    private User opponent;
-    private Round currentRound;
-    // game header
-    @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
-    @BindString(R.string.choose_category_game_header_subtitle) String chooseCategoryGameHeaderSubtitle;
-    @BindView(R.id.subtitleImage) RoundedImageView subtitleImage;
     // get categories
     GameSocketManager gameSocketManager = new GameSocketManager();
     @BindView(R.id.proposed_categories) RecyclerView proposedCategories;
@@ -57,25 +39,10 @@ public class ChooseCategoryActivity extends TPGameActivity {
         setContentView(R.layout.activity_choose_category);
         // init
         Intent intent = getIntent();
-        opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringOpponent), User.class);
-        currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringRound), Round.class);
-        myInitActionBar();
-        initGameHeader();
+        opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(getString(R.string.extra_string_opponent)), User.class);
+        currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(getString(R.string.extra_string_round)), Round.class);
+        setGameHeader("Round " + currentRound.number, getString(R.string.choose_category_game_header_subtitle), null);
         loadProposedCategories();
-    }
-
-    private void myInitActionBar() {
-        // title
-        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        // picture
-        // todo get dinamically
-        actionBar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
-        actionBar.setBackButtonOnClick(MainPageActivity.class);
-    }
-
-    private void initGameHeader() {
-        gameHeaderTitle.setText("Round " + currentRound.number);
-        gameHeaderSubtitle.setText(chooseCategoryGameHeaderSubtitle);
     }
 
     private void loadProposedCategories() {
@@ -101,18 +68,6 @@ public class ChooseCategoryActivity extends TPGameActivity {
             }
         });
 
-    }
-
-    @Override
-    protected boolean needsLeaveRoom() {
-        return false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainPageActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
     }
 
     public void chooseCategory(final Category category) {
