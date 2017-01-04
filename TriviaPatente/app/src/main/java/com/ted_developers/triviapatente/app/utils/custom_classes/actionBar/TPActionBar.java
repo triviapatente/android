@@ -90,15 +90,7 @@ public class TPActionBar extends RelativeLayout {
     }
 
     private void init(Context context) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.action_bar, null);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.addRule(CENTER_IN_PARENT);
-        v.setLayoutParams(params);
-        this.addView(v);
+        inflate(context, R.layout.action_bar, this);
         bindElements();
         initElements(context);
     }
