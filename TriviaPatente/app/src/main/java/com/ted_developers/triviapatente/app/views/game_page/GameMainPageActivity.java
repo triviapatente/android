@@ -298,23 +298,6 @@ public class GameMainPageActivity extends TPGameActivity {
         finish();
     }
 
-    // option button panel
-    @OnClick(R.id.gameChatButton)
-    public void gameChatButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
-    @OnClick(R.id.gameDetailsButton)
-    public void gameDetailsButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
-    @OnClick(R.id.gameLeaveButton)
-    public void gameLeaveButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
-
     @Override
     protected Drawable getActionBarProfilePicture() {
         return null;

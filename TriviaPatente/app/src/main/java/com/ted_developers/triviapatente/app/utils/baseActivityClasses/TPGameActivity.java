@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -31,11 +32,12 @@ public class TPGameActivity extends TPActivity {
     protected @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     protected @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
     // game data
-    // game data
     protected User opponent;
     protected Round currentRound;
     protected Category currentCategory;
     protected Long gameID;
+    // game options utils
+    protected TPDialog leaveDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class TPGameActivity extends TPActivity {
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         gameID = intent.getLongExtra(this.getString(R.string.extra_long_game), (currentRound == null)? -1 : currentRound.game_id);
         super.onCreate(savedInstanceState);
+        initLeaveDialog();
     }
 
     // game header centralized management
@@ -76,12 +79,14 @@ public class TPGameActivity extends TPActivity {
     @Optional
     @OnClick(R.id.gameLeaveButton)
     public void gameLeaveButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-        //TPUtils.blurContainerIntoImageView(TPGameActivity.this, gameContainer, blurredBackgroundView);
-        //blurredBackgroundContainer.setVisibility(View.VISIBLE);
+        TPUtils.blurContainerIntoImageView(TPGameActivity.this, activityContainer, blurredBackgroundView);
+        blurredBackgroundContainer.setVisibility(View.VISIBLE);
         //showing modal
         //leaveDialog.show();
+    }
+
+    protected void initLeaveDialog() {
+
     }
 
     @Override

@@ -6,7 +6,6 @@
     android:background="@android:color/white">
 
     <include layout="@layout/layout_profile_picture_and_username"/>
-    
 
     <ImageButton
         android:id="@+id/acceptButton"
