@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="modal_view_leave_game_inner_margin">15dp</dimen>
+    <!-- modal -->
+    <dimen name="modal_view_leave_game_width">300dp</dimen>
+    <dimen name="modal_view_leave_game_inner_margin">35dp</dimen>
+    <!-- message -->
+    <string name="modal_view_leave_game_message_decrement">Sei sicuro di volerti arrendere?</string>
+    <string name="modal_view_leave_game_message_no_decrement">Sei sicuro di voler annullare la partita?</string>
+    <!-- buttons -->
+    <dimen name="modal_view_leave_game_button_width">100dp</dimen>
+    <dimen name="modal_view_leave_game_button_height">35dp</dimen>
+    <dimen name="modal_view_leave_game_button_margin_vertical">30dp</dimen>
+    <dimen name="modal_view_leave_game_button_margin_inner">20dp</dimen>
+    <string name="modal_view_leave_game_button_stay_text">Rimani</string>
+    <string name="modal_view_leave_game_button_exit_text">Esci</string>
 </resources>

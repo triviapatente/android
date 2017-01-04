@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/modal_view_logout_width"
-    android:layout_height="@dimen/modal_view_logout_height"
+    android:layout_width="@dimen/modal_view_leave_game_width"
+    android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:orientation="vertical"
     android:background="@drawable/rounded_big_white_box"
@@ -10,46 +10,41 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:id="@+id/leaveMessage"
         android:textSize="@dimen/TPTextSizeMedium"
         android:textColor="@color/mainColor"
-        android:layout_marginTop="@dimen/modal_view_logout_message_margin_top"
-        android:layout_marginBottom="@dimen/modal_view_logout_message_margin_bottom"
-        android:layout_marginLeft="@dimen/modal_view_logout_message_margin_horizontal"
-        android:layout_marginRight="@dimen/modal_view_logout_message_margin_horizontal"/>
+        android:layout_margin="@dimen/modal_view_leave_game_inner_margin"/>
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.ScoreIncrementView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:id="@+id/scoreIncView"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/modal_view_leave_game_inner_margin"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:gravity="center"
-        android:layout_marginBottom="@dimen/modal_view_logout_button_margin_vertical">
+        android:layout_marginBottom="@dimen/modal_view_leave_game_inner_margin">
 
         <Button
             android:id="@+id/positiveButton"
-            android:layout_width="@dimen/modal_view_logout_button_width"
-            android:layout_height="@dimen/modal_view_logout_button_height"
+            android:layout_width="@dimen/modal_view_leave_game_button_width"
+            android:layout_height="@dimen/modal_view_leave_game_button_height"
             android:background="@drawable/button_green"
             android:textColor="@android:color/white"
-            android:text="@string/modal_view_logout_button_stay_text"/>
+            android:text="@string/modal_view_leave_game_button_stay_text"/>
 
         <Button
             android:id="@+id/negativeButton"
-            android:layout_width="@dimen/modal_view_logout_button_width"
-            android:layout_height="@dimen/modal_view_logout_button_height"
+            android:layout_width="@dimen/modal_view_leave_game_button_width"
+            android:layout_height="@dimen/modal_view_leave_game_button_height"
             android:background="@drawable/button_red"
             android:textColor="@android:color/white"
-            android:layout_marginLeft="@dimen/modal_view_logout_button_margin_inner"
-            android:text="@string/modal_view_logout_button_exit_text"/>
+            android:layout_marginLeft="@dimen/modal_view_leave_game_button_margin_inner"
+            android:text="@string/modal_view_leave_game_button_exit_text"/>
     </LinearLayout>
 
 </LinearLayout>

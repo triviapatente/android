@@ -12,18 +12,24 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
+import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.Success;
+import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Optional;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Antonio on 04/01/17.
@@ -81,22 +87,57 @@ public class TPGameActivity extends TPActivity {
         TPUtils.blurContainerIntoImageView(TPGameActivity.this, activityContainer, blurredBackgroundView);
         blurredBackgroundContainer.setVisibility(View.VISIBLE);
         //showing modal
-        new TPLeaveDialog(this, -20, new DialogInterface.OnCancelListener() {
+        final HTTPGameEndpoint httpGameEndpoint = RetrofitManager.getHTTPGameEndpoint();
+        httpGameEndpoint.getLeaveDecrement(gameID).enqueue(new TPCallback<SuccessDecrement>() {
             @Override
-            public void onCancel(DialogInterface dialog) {
-                blurredBackgroundContainer.setVisibility(View.GONE);
-            }
-        }) {
-            @Override
-            public void onNegativeButtonClick() {
-                // todo leave game
+            public void mOnResponse(Call<SuccessDecrement> call, Response<SuccessDecrement> response) {
+                if(response.body().success) {
+                    new TPLeaveDialog(TPGameActivity.this, response.body().decrement, new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            blurredBackgroundContainer.setVisibility(View.GONE);
+                        }
+                    }) {
+                        @Override
+                        public void onNegativeButtonClick() {
+                            httpGameEndpoint.leaveGame(gameID).enqueue(new TPCallback<Success>() {
+                                @Override
+                                public void mOnResponse(Call<Success> call, Response<Success> response) {
+                                    if(response.body().success) {
+                                        TPGameActivity.this.onBackPressed();
+                                    }
+                                }
+
+                                @Override
+                                public void mOnFailure(Call<Success> call, Throwable t) {
+
+                                }
+
+                                @Override
+                                public void then() {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onPositiveButtonClick() {
+                            cancel();
+                        }
+                    }.show();
+                }
             }
 
             @Override
-            public void onPositiveButtonClick() {
-                cancel();
+            public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {
+
             }
-        }.show();
+
+            @Override
+            public void then() {
+
+            }
+        });
     }
 
     @Override

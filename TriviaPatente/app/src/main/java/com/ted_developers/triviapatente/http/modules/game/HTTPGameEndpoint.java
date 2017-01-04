@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.http.modules.game;
 
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessBadge;
+import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.models.responses.SuccessInvite;
@@ -45,4 +46,11 @@ public interface HTTPGameEndpoint {
 
     @GET("game/users/search")
     Call<SuccessUsers> getSearchResult(@Query("query") String query);
+
+    @GET("game/leave/decrement")
+    Call<SuccessDecrement> getLeaveDecrement(@Query("game_id") Long game_id);
+
+    @FormUrlEncoded
+    @POST("game/leave")
+    Call<Success> leaveGame(@Field("game_id") Long game_id);
 }
