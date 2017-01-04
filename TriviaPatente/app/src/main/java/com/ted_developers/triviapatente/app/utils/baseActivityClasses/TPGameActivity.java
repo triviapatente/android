@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.utils.baseActivityClasses;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -36,8 +38,6 @@ public class TPGameActivity extends TPActivity {
     protected Round currentRound;
     protected Category currentCategory;
     protected Long gameID;
-    // game options utils
-    protected TPDialog leaveDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class TPGameActivity extends TPActivity {
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         gameID = intent.getLongExtra(this.getString(R.string.extra_long_game), (currentRound == null)? -1 : currentRound.game_id);
         super.onCreate(savedInstanceState);
-        initLeaveDialog();
     }
 
     // game header centralized management
@@ -82,11 +81,22 @@ public class TPGameActivity extends TPActivity {
         TPUtils.blurContainerIntoImageView(TPGameActivity.this, activityContainer, blurredBackgroundView);
         blurredBackgroundContainer.setVisibility(View.VISIBLE);
         //showing modal
-        //leaveDialog.show();
-    }
+        new TPLeaveDialog(this, -20, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                blurredBackgroundContainer.setVisibility(View.GONE);
+            }
+        }) {
+            @Override
+            public void onNegativeButtonClick() {
+                // todo leave game
+            }
 
-    protected void initLeaveDialog() {
-
+            @Override
+            public void onPositiveButtonClick() {
+                cancel();
+            }
+        }.show();
     }
 
     @Override

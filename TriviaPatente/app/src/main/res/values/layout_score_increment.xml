@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="score_inc_image_width">18dp</dimen>
+    <dimen name="score_inc_image_height">33dp</dimen>
+    <dimen name="score_inc_inner_margin">10dp</dimen>
+</resources>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="modal_view_leave_game_inner_margin">15dp</dimen>
+</resources>
