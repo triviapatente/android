@@ -8,7 +8,7 @@ public enum TPActionBarType {
     backPicture(1),
     heartPictureMenu(2);
 
-    int id;
+    public int id;
 
     TPActionBarType(int id) {
         this.id = id;

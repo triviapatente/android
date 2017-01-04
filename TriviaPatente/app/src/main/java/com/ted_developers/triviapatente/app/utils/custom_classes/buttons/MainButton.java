@@ -40,13 +40,14 @@ public class MainButton extends LinearLayout {
     private String[] hintTexts;
     public String currentText = "";
     private ImageView image;
-    private Activity activity = null;
     private int rotationTime = 5000;
     private Timer rotator = null;
     private @ColorInt int textSwitcherColor;
+    private Context context;
 
     public MainButton(Context context) {
         super(context);
+        this.context = context;
         init(context);
     }
 
@@ -156,7 +157,7 @@ public class MainButton extends LinearLayout {
     }
 
     public void setHintText(String[] hintTexts, int color) {
-        if(activity != null && hintTexts != null && hintTexts.length > 0) {
+        if(context != null && hintTexts != null && hintTexts.length > 0) {
             setHintFactory(color);
             if(hintTexts.length == 1) {
                 if(!hintTexts[0].equals(currentText)) {
@@ -169,10 +170,6 @@ public class MainButton extends LinearLayout {
                 hintStartRotation();
             }
         }
-    }
-
-    public void setActivity(Activity a) {
-        activity = a;
     }
 
     public void setRotationTime(int rotationTime) {
@@ -193,8 +190,8 @@ public class MainButton extends LinearLayout {
                 new TimerTask() {
                     int counter = 0;
                     public void run() {
-                        if(activity != null && hintTexts != null && hintTexts.length > 1) {
-                            activity.runOnUiThread(new Runnable() {
+                        if(context != null && hintTexts != null && hintTexts.length > 1) {
+                            ((Activity)context).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     hintTextSwitcher.setText(hintTexts[counter]);

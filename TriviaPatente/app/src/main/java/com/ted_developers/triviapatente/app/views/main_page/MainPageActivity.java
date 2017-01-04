@@ -3,7 +3,6 @@ package com.ted_developers.triviapatente.app.views.main_page;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +13,6 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
-import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -25,7 +23,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listE
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
-import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.game_page.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
@@ -45,10 +42,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainPageActivity extends TPActivity implements Button.OnClickListener{
-    // content
-    @BindView(R.id.content) RelativeLayout mainPageContent;
-    @BindView(R.id.mainPageContainer) RelativeLayout mainPageContainer;
+public class MainPageActivity extends TPActivity implements Button.OnClickListener {
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
@@ -74,11 +68,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // server down
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
-    private AuthSocketManager authSocketManager= new AuthSocketManager();
-    // menu options
-    TPDialog logoutDialog;
-    @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
-    @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
     // sockets
     @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
     SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
@@ -105,7 +94,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     private void init() {
-        initDialog();
         // connect to socket
         if(!BaseSocketManager.isConnected()) {
             // start loading
@@ -127,11 +115,8 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                                         ReceivedData.global_rank_position = response.global_rank_position;
                                         ReceivedData.numberOfInvites = response.invites;
                                         initOptionButtons();
-                                        initToolbar();
                                         // load recent games
                                         loadRecentGames();
-                                        // show all
-                                        mainPageContent.setVisibility(View.VISIBLE);
                                     }
                                 });
                             } else {
@@ -156,57 +141,20 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         }
     }
 
-    private void initDialog() {
-        logoutDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                blurredBackgroundContainer.setVisibility(View.GONE);
-            }
-        }) {
-            @Override
-            public void onNegativeButtonClick() {
-                authSocketManager.logout(new SocketCallback<Success>() {
-                    @Override
-                    public void response(Success response) {
-                        if(response.success) {
-                            SharedTPPreferences.deleteAll();
-                            backToFirstAccess();
-                        } else {
-                            Toast.makeText(MainPageActivity.this, getResources().getString(R.string.menu_logot_unable_to_logout),
-                                    Toast.LENGTH_LONG).show();
-                            onPositiveButtonClick();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onPositiveButtonClick() {
-                dismiss();
-            }
-        };
-    }
-
-    private void initToolbar() {
+    @Override
+    protected void initActionBar() {
         // set profile picture
         // TODO get dinamically
         actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
         // todo set hearts box
         actionBar.setHeartImage();
         actionBar.setLifeCounter(3);
-        // set menu
-        actionBar.setMenu();
-        // set menu options click listeners
-        setMenuOptionsOnClickListener();
     }
 
     private void initOptionButtons() {
         // activity required to rotate hints
-        buttonShowStats.setActivity(this);
         initStatsHints();
-        buttonShowRank.setActivity(this);
         initRankHints();
-        buttonNewGame.setActivity(this);
         initInviteHints();
     }
 
@@ -293,41 +241,18 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         serverDownAlert.showAlert(serverDownMessage);
         serverDownAlert.setVisibility(View.VISIBLE);
         // hide items (if triggered when items already displayed)
-        bulkVisibilitySetting(View.GONE);
+        actionBar.setVisibility(View.GONE);
+        recentGames.getView().setVisibility(View.GONE);
+        optionPanel.setVisibility(View.GONE);
         // stop loading
         loadingView.setVisibility(View.GONE);
-    }
-
-    private void bulkVisibilitySetting(int visibility) {
-        actionBar.setVisibility(visibility);
-        recentGames.getView().setVisibility(visibility);
-        optionPanel.setVisibility(visibility);
     }
 
     private String[] listConverter(List<String> list) {
         return list.toArray(new String[] {});
     }
 
-    private void backToFirstAccess() {
-        // open first access page
-        Intent myIntent = new Intent(this, FirstAccessActivity.class);
-        startActivity(myIntent);
-        finish();
-    }
-
-    // touch handler
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(MotionEvent.ACTION_UP == ev.getAction()
-                && actionBar != null && actionBar.getMenuVisibility() == View.VISIBLE
-                && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), actionBar.menu)) {
-            actionBar.hideMenu();
-            return false;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    // button clicks
+    // main button clicks
     @OnClick(R.id.new_game)
     public void newGameClick() {
         Intent intent = new Intent(this, NewGameActivity.class);
@@ -363,35 +288,5 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     @Override
     public void onBackPressed() {
         // todo implement exit page
-    }
-
-    public void setMenuOptionsOnClickListener() {
-        actionBar.menuLogoutOptionButton.setOnClickListener(this);
-        actionBar.menuAboutOptionButton.setOnClickListener(this);
-        actionBar.menuSettingsOptionButton.setOnClickListener(this);
-        actionBar.menuProfileOptionButton.setOnClickListener(this);
-    }
-
-    // menu buttons onclick
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.menuLogoutOption: logout(); break;
-            default: Intent intent = new Intent(this, AlphaView.class); startActivity(intent);
-        }
-    }
-
-    // logout
-    public void logout() {
-        // setting blurry background
-        actionBar.hideMenu(new SimpleCallback() {
-            @Override
-            public void execute() {
-                TPUtils.blurContainerIntoImageView(MainPageActivity.this, mainPageContainer, blurredBackgroundView);
-                blurredBackgroundContainer.setVisibility(View.VISIBLE);
-                // showing modal
-                logoutDialog.show();
-            }
-        });
     }
 }

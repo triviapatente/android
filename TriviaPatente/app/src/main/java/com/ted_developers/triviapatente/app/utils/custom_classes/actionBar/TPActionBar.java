@@ -50,6 +50,7 @@ public class TPActionBar extends RelativeLayout {
     public View menu;
     private boolean show_menu;
     public Button menuProfileOptionButton, menuSettingsOptionButton, menuAboutOptionButton, menuLogoutOptionButton;
+    public int id;
 
     public TPActionBar(Context context) {
         super(context);
@@ -81,7 +82,8 @@ public class TPActionBar extends RelativeLayout {
         try {
             setTitle(a.getString(R.styleable.TPActionBar_action_bar_title));
             setBackButtonText(a.getString(R.styleable.TPActionBar_action_bar_back_title));
-            setType(a.getInt(R.styleable.TPActionBar_action_bar_type, 0));
+            id = a.getInt(R.styleable.TPActionBar_action_bar_type, 0);
+            setType();
         } finally {
             a.recycle();
         }
@@ -261,7 +263,7 @@ public class TPActionBar extends RelativeLayout {
     }
 
     // set action bar type
-    private void setType(int id) {
+    private void setType() {
         switch (TPActionBarType.fromId(id)) {
             case backPicture: {
                 // hide heart box
