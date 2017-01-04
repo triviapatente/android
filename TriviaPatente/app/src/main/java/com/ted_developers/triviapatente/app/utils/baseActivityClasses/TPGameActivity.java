@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.models.game.Round;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Antonio on 04/01/17.
@@ -60,16 +61,19 @@ public class TPGameActivity extends TPActivity {
 
     // game options centralized management
     // option button panel
+    @Optional
     @OnClick(R.id.gameChatButton)
     public void gameChatButtonClick() {
         Intent intent = new Intent(this, AlphaView.class);
         startActivity(intent);
     }
+    @Optional
     @OnClick(R.id.gameDetailsButton)
     public void gameDetailsButtonClick() {
         Intent intent = new Intent(this, AlphaView.class);
         startActivity(intent);
     }
+    @Optional
     @OnClick(R.id.gameLeaveButton)
     public void gameLeaveButtonClick() {
         Intent intent = new Intent(this, AlphaView.class);
