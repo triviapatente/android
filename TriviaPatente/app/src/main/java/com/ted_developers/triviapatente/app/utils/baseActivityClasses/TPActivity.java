@@ -1,10 +1,9 @@
-package com.ted_developers.triviapatente.app.utils;
+package com.ted_developers.triviapatente.app.utils.baseActivityClasses;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBarType;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
@@ -26,7 +27,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
-import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;

@@ -1,10 +1,9 @@
 package com.ted_developers.triviapatente.app.views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 
 public class AlphaView extends TPActivity {
 
