@@ -2,9 +2,12 @@ package com.ted_developers.triviapatente.app.utils;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,6 +26,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
@@ -129,7 +133,14 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
     }
 
     // action bar management
-    protected void initActionBar() {}
+    protected void initActionBar() {
+        actionBar.setProfilePicture(getActionBarProfilePicture());
+    }
+
+    // override this to take a particular profile picture
+    protected Drawable getActionBarProfilePicture() {
+        return ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
+    }
 
     // to automatically hide menu
     @Override

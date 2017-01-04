@@ -108,7 +108,7 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_opponent)), User.class);
         currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_round)), Round.class);
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
-        initActionbar();
+        myInitActionBar();
         initGameHeader();
         quizzesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -148,18 +148,17 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         }
     }
 
-    private void initActionbar() {
+    private void myInitActionBar() {
         // title
-        if(opponent != null && actionBar.getTitle().equals("")) {
-            if(opponent.name == null || opponent.surname == null) {
-                actionBar.setTitle(opponent.username);
-            } else {
-                actionBar.setTitle(opponent.name + " " + opponent.surname);
-            }
-        }
+        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         // profile picture
         // todo do dinamically
         actionBar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
+    }
+
+    @Override
+    protected Drawable getActionBarProfilePicture() {
+        return null;
     }
 
     private void initGameHeader() {

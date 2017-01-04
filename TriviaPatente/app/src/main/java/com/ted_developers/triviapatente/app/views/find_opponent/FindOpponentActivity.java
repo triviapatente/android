@@ -97,7 +97,6 @@ public class FindOpponentActivity extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_opponent);
         // init action_bar
-        initToolbar();
         if(getIntent().getBooleanExtra("random", false)) {
             searchRandomOpponent();
         } else {
@@ -246,12 +245,6 @@ public class FindOpponentActivity extends TPActivity {
         } else {
             setPlayersListItems(suggestedUsers);
         }
-    }
-
-    private void initToolbar() {
-        // set profile picture
-        // TODO get dinamically
-        actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
     }
 
     @OnClick(R.id.all_button)

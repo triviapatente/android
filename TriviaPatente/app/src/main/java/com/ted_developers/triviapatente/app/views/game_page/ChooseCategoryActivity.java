@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,20 +59,14 @@ public class ChooseCategoryActivity extends TPActivity {
         Intent intent = getIntent();
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringOpponent), User.class);
         currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(extraStringRound), Round.class);
-        initToolbar();
+        myInitActionBar();
         initGameHeader();
         loadProposedCategories();
     }
 
-    private void initToolbar() {
+    private void myInitActionBar() {
         // title
-        if(opponent != null && actionBar.getTitle().equals("")) {
-            if(opponent.name == null || opponent.surname == null) {
-                actionBar.setTitle(opponent.username);
-            } else {
-                actionBar.setTitle(opponent.name + " " + opponent.surname);
-            }
-        }
+        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         // picture
         // todo get dinamically
         actionBar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
@@ -136,5 +131,10 @@ public class ChooseCategoryActivity extends TPActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected Drawable getActionBarProfilePicture() {
+        return null;
     }
 }

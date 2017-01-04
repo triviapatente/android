@@ -143,9 +143,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
     @Override
     protected void initActionBar() {
-        // set profile picture
-        // TODO get dinamically
-        actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
+        super.initActionBar();
         // todo set hearts box
         actionBar.setHeartImage();
         actionBar.setLifeCounter(3);

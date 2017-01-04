@@ -191,8 +191,6 @@ public class GameMainPageActivity extends TPActivity {
             Call<SuccessGameUser> call;
             if(opponent != null) {
                 call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
-                setToolbarTitle();
-                setOpponentData();
             } else {
                 call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
             }
@@ -210,7 +208,6 @@ public class GameMainPageActivity extends TPActivity {
 
                 @Override
                 public void then() {
-                    setToolbarTitle();
                     setOpponentData();
                     join_room();
                     init_listening();
@@ -218,14 +215,15 @@ public class GameMainPageActivity extends TPActivity {
             });
         } else {
             gameID = intent.getLongExtra(extraLongGame, -1);
+            setOpponentData();
             join_room();
             init_listening();
         }
     }
 
     private void smallInit() {
+        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         opponentImage = ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
-        setToolbarTitle();
         actionBar.setProfilePicture(opponentImage);
         actionBar.setBackButtonOnClick(MainPageActivity.class);
         profilePicture.setImageDrawable(opponentImage);
@@ -238,18 +236,9 @@ public class GameMainPageActivity extends TPActivity {
         loadingCircle.startAnimation(animation);
     }
 
-    private void setToolbarTitle() {
-        if(opponent != null && actionBar.getTitle().equals("")) {
-            if(opponent.name == null || opponent.surname == null) {
-                actionBar.setTitle(opponent.username);
-            } else {
-                actionBar.setTitle(opponent.name + " " + opponent.surname);
-            }
-        }
-    }
-
     private void setOpponentData() {
         // todo do dinamically
+        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.image_no_profile_picture);
         actionBar.setProfilePicture(opponentImage);
         profilePicture.setImageDrawable(opponentImage);
@@ -349,6 +338,10 @@ public class GameMainPageActivity extends TPActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected Drawable getActionBarProfilePicture() {
+        return null;
+    }
 
     @Override
     protected boolean needsLeaveRoom() {

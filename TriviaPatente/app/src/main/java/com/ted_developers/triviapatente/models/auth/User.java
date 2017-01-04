@@ -37,4 +37,12 @@ public class User extends CommonPK {
         this.surname = surname;
         this.image = image;
     }
+
+    public String toString() {
+        if(name == null || surname == null) {
+            return username;
+        } else {
+            return name + " " + surname;
+        }
+    }
 }

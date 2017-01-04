@@ -65,29 +65,8 @@ public class NewGameActivity extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         invites = (TPExpandableList<Invite>) getSupportFragmentManager().findFragmentById(R.id.invites);
-        // init
-        init();
         // listening to events
         listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
-    }
-
-    private void init() {
-        // start loading
-        loadingView.setVisibility(View.VISIBLE);
-        // hide other elements
-        bulkVisibilitySetting(View.GONE);
-        initToolbar();
-        //loadInvites();
-        // show other elements
-        bulkVisibilitySetting(View.VISIBLE);
-        // stop loading
-        loadingView.setVisibility(View.GONE);
-    }
-
-    private void initToolbar() {
-        // set profile picture
-        // TODO get dinamically
-        actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
     }
 
     private void loadInvites() {
@@ -140,12 +119,6 @@ public class NewGameActivity extends TPActivity {
         Intent intent = new Intent(this, FindOpponentActivity.class);
         intent.putExtra("random", true);
         this.startActivity(intent);
-    }
-
-    private void bulkVisibilitySetting(int visibility) {
-        actionBar.setVisibility(visibility);
-        invites.getView().setVisibility(visibility);
-        optionPanel.setVisibility(visibility);
     }
 
     @Override
