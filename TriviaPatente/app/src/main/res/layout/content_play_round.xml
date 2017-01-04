@@ -4,8 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        layout="@layout/game_header"
+        android:id="@+id/gameHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/play_round_content_margin"/>
+
     <LinearLayout
         android:id="@+id/quizPanel"
+        android:layout_below="@+id/gameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -57,10 +65,19 @@
 
     </LinearLayout>
 
+    <include
+        layout="@layout/game_options"
+        android:id="@+id/gameOptions"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/play_round_content_margin"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/quizzes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/quizPanel"/>
+        android:layout_below="@id/quizPanel"
+        android:layout_above="@id/gameOptions"/>
 
 </RelativeLayout>

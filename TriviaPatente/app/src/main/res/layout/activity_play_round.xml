@@ -13,25 +13,12 @@
         android:layout_alignParentTop="true"
         custom:action_bar_back_title="@string/main_page_title"/>
 
-    <include
-        layout="@layout/game_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/play_round_content_margin"
-        android:layout_below="@+id/toolbar"/>
-
     <include layout="@layout/content_play_round"
+        android:id="@+id/game_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/gameHeader"
-        android:layout_above="@+id/gameOptions"/>
-
-    <include
-        layout="@layout/game_options"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_above="@+id/banner"
-        android:layout_marginBottom="@dimen/play_round_content_margin"/>
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/banner"/>
     
     <View
         android:id="@+id/banner"
@@ -39,5 +26,7 @@
         android:layout_height="@dimen/banner_height"
         android:background="@color/red"
         android:layout_alignParentBottom="true"/>
+
+    <include layout="@layout/layout_blurred_blue"/>
 
 </RelativeLayout>

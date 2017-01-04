@@ -4,10 +4,14 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by Antonio on 30/12/16.
@@ -52,5 +56,9 @@ public class TPUtils {
 
     public static String getEmojiByUnicode(int unicode) {
         return new String(Character.toChars(unicode));
+    }
+
+    public static void blurContainerIntoImageView(Context context, ViewGroup container, ImageView imageView) {
+        Blurry.with(context).sampling(3).radius(13).capture(container).into(imageView);
     }
 }

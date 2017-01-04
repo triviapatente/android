@@ -2,12 +2,16 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@+id/toolbar"
     android:layout_marginTop="@dimen/tp_toolbar_margin">
+
+    <include
+        layout="@layout/game_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/bigProfilePicture"
@@ -41,5 +45,12 @@
         android:translationZ="1000dp"
         android:layout_alignTop="@+id/bigProfilePicture"
         android:layout_alignLeft="@+id/bigProfilePicture"/>
+
+    <include
+        layout="@layout/game_options"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/play_round_content_margin"/>
 
 </RelativeLayout>

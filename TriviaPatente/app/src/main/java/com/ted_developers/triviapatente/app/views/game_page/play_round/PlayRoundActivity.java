@@ -12,11 +12,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -24,6 +30,7 @@ import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessAnsweredCorrectly;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
 
@@ -54,6 +61,11 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     @DrawableRes int noAnswerSelectedRes = R.drawable.button_play_round_no_answer_selected, noAnswerRes = R.drawable.button_play_round_no_answer,
                      redRes = R.drawable.button_play_round_red, redSelectedRes = R.drawable.button_play_round_red_selected,
                      greenRes = R.drawable.button_play_round_green, greenSelectedRes = R.drawable.button_play_round_green_selected;
+    // leave game
+    TPDialog leaveDialog;
+    @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
+    @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
+    @BindView(R.id.game_container) RelativeLayout gameContainer;
     Pair<Drawable, Drawable>[] quizButtonsBackgrounds;
     // quiz send answer
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
@@ -83,7 +95,23 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
         init();
     }
 
+    private void initLeaveDialog() {
+        leaveDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, null) {
+            @Override
+            public void onNegativeButtonClick() {
+
+            }
+
+            @Override
+            public void onPositiveButtonClick() {
+                blurredBackgroundContainer.setVisibility(View.GONE);
+                dismiss();
+            }
+        };
+    }
+
     private void init() {
+        initLeaveDialog();
         Intent intent = getIntent();
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_opponent)), User.class);
         currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_round)), Round.class);
@@ -185,8 +213,10 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     }
     @OnClick(R.id.gameLeaveButton)
     public void gameLeaveButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
+        TPUtils.blurContainerIntoImageView(PlayRoundActivity.this, gameContainer, blurredBackgroundView);
+        blurredBackgroundContainer.setVisibility(View.VISIBLE);
+        //showing modal
+        leaveDialog.show();
     }
 
     @Override

@@ -14,16 +14,10 @@
         custom:action_bar_back_title="@string/main_page_title"/>
 
     <include
-        layout="@layout/game_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
-
-    <include
         android:id="@+id/choseCategoryPage"
         layout="@layout/content_choose_category_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/gameHeader"/>
+        android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>

@@ -15,23 +15,10 @@
         custom:action_bar_back_title="@string/main_page_title"/>
 
     <include
-        layout="@layout/game_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
-
-    <include
         android:id="@+id/waitPage"
         layout="@layout/content_game_main_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/gameHeader"/>
-
-    <include
-        layout="@layout/game_options"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/wait_page_margin"/>
+        android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>
