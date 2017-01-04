@@ -51,9 +51,7 @@ public class ProposedOpponentHolder extends TPHolder<User> {
             profilePicture.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
         }
         // set username or, if possible, name and surname
-        if(element.name != null && element.surname != null) {
-            usernameTextField.setText(element.name + " " + element.surname);
-        } else { usernameTextField.setText(element.username); }
+        usernameTextField.setText(element.toString());
         // set score
         scoreTextField.setText(String.valueOf(element.score));
         // set on click on profile picture

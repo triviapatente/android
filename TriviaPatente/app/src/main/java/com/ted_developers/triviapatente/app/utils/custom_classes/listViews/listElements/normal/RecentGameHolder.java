@@ -22,10 +22,6 @@ import com.ted_developers.triviapatente.models.game.Game;
  * Created by Antonio on 12/11/16.
  */
 public class RecentGameHolder extends TPHolder<Game> {
-    // status strings
-    private String playNowStatus, detailsStatus, summaryStatus, contactStatus;
-    // status traffic lights
-    private Drawable playNowTL, detailsTL, summaryTL, contactTL;
     // status text view
     private TextView statusText;
     // player name
@@ -46,16 +42,6 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     private void bind(Context context) {
         this.context = context;
-        // status
-        playNowStatus = context.getResources().getString(R.string.play_now_status);
-        detailsStatus = context.getResources().getString(R.string.details_status);
-        summaryStatus = context.getResources().getString(R.string.new_game_status);
-        contactStatus = context.getResources().getString(R.string.contact_status);
-        // traffic lights
-        playNowTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_green);
-        detailsTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_yellow);
-        summaryTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_red);
-        contactTL = ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_no_lights);
         // other elements
         playButton = (PlayButton) itemView.findViewById(R.id.recentGameButton);
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
@@ -101,26 +87,26 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     private void setPlayNow() {
         playButton.setPlayNow();
-        statusText.setText(playNowStatus);
-        trafficLights.setImageDrawable(playNowTL);
+        statusText.setText(context.getString(R.string.play_now_status));
+        trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_green));
     }
 
     private void setSummary() {
         playButton.setSummary();
-        statusText.setText(summaryStatus);
-        trafficLights.setImageDrawable(summaryTL);
+        statusText.setText(context.getString(R.string.new_game_status));
+        trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_red));
     }
 
     private void setDetails() {
         playButton.setDetails();
-        statusText.setText(detailsStatus);
-        trafficLights.setImageDrawable(detailsTL);
+        statusText.setText(context.getString(R.string.details_status));
+        trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_yellow));
     }
 
     private void setContact() {
         playButton.setContact();
-        statusText.setText(contactStatus);
-        trafficLights.setImageDrawable(contactTL);
+        statusText.setText(context.getString(R.string.contact_status));
+        trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_no_lights));
     }
 
     private void setUsernameText(String text) {

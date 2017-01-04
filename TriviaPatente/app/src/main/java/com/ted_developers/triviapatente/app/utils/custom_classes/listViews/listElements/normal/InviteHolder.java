@@ -38,8 +38,8 @@ public class InviteHolder extends TPHolder<Invite> {
     private TPExpandableList<Invite> expandableList;
     // context
     Context context;
-    // invite accepted
-    String extraStringOpponent, extraLongGame;
+    // opponent
+    private User opponent = new User();
 
     public InviteHolder(View itemView, TPExpandableList<Invite> expandableList) {
         super(itemView);
@@ -49,8 +49,6 @@ public class InviteHolder extends TPHolder<Invite> {
 
     private void init(Context context) {
         this.context = context;
-        extraStringOpponent = context.getResources().getString(R.string.extra_string_opponent);
-        extraLongGame = context.getResources().getString(R.string.extra_long_game);
         profilePicture = (RoundedImageView) itemView.findViewById(R.id.profilePicture);
         usernameText = (TextView) itemView.findViewById(R.id.username);
         usernameText.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
@@ -61,9 +59,12 @@ public class InviteHolder extends TPHolder<Invite> {
 
     @Override
     public void bind(final Invite element) {
-        if(element.sender_name != null && element.sender_surname != null) {
-            usernameText.setText(element.sender_name + " " + element.sender_surname);
-        } else { usernameText.setText(element.sender_username); }
+        opponent.username = element.sender_username;
+        opponent.name = element.sender_name;
+        opponent.surname = element.sender_surname;
+        opponent.image = element.sender_image;
+        opponent.id = element.sender_id;
+        usernameText.setText(opponent.toString());
         if(false) {
             // TODO get image
         } else {
@@ -115,14 +116,8 @@ public class InviteHolder extends TPHolder<Invite> {
                     // if accepted go to init round
                     if(accepted) {
                         Intent intent = new Intent(context, GameMainPageActivity.class);
-                        User opponent = new User();
-                        opponent.username = element.sender_username;
-                        opponent.name = element.sender_name;
-                        opponent.surname = element.sender_surname;
-                        opponent.image = element.sender_image;
-                        opponent.id = element.sender_id;
-                        intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
-                        intent.putExtra(extraLongGame, element.game_id);
+                        intent.putExtra(context.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+                        intent.putExtra(context.getString(R.string.extra_long_game), element.game_id);
                         context.startActivity(intent);
                     }
                 }
