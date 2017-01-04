@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
-import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPEnterAnimListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -34,7 +34,7 @@ import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 
-public class ChooseCategoryActivity extends TPActivity {
+public class ChooseCategoryActivity extends TPGameActivity {
     // data
     @BindString(R.string.extra_string_round) String extraStringRound;
     @BindString(R.string.extra_string_opponent) String extraStringOpponent;
