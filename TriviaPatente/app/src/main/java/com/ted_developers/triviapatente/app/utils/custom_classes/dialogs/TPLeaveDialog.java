@@ -48,9 +48,9 @@ public abstract class TPLeaveDialog extends TPDialog {
         ((ScoreIncrementView) findViewById(R.id.scoreIncView)).setScoreInc(scoreInc);
         TextView leaveMessageTextView = ((TextView) findViewById(R.id.leaveMessage));
         if(scoreInc == 0) {
-            leaveMessageTextView.setText("Culoso");
+            leaveMessageTextView.setText(getContext().getString(R.string.modal_view_leave_game_message_no_decrement));
         } else {
-            leaveMessageTextView.setText("Sfigato");
+            leaveMessageTextView.setText(R.string.modal_view_leave_game_message_decrement);
         }
     }
 
