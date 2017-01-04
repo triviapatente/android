@@ -2,26 +2,20 @@ package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
@@ -31,14 +25,9 @@ import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.game.Round;
-import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessAnsweredCorrectly;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
@@ -48,8 +37,6 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
     User opponent;
     Round currentRound;
     Category currentCategory;
-    // action bar
-    @BindView(R.id.toolbar) BackPictureTPActionBar toolbar;
     // game header
     @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
@@ -163,16 +150,16 @@ public class PlayRoundActivity extends TPActivity implements View.OnClickListene
 
     private void initActionbar() {
         // title
-        if(opponent != null && toolbar.getTitle().equals("")) {
+        if(opponent != null && actionBar.getTitle().equals("")) {
             if(opponent.name == null || opponent.surname == null) {
-                toolbar.setTitle(opponent.username);
+                actionBar.setTitle(opponent.username);
             } else {
-                toolbar.setTitle(opponent.name + " " + opponent.surname);
+                actionBar.setTitle(opponent.name + " " + opponent.surname);
             }
         }
         // profile picture
         // todo do dinamically
-        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
+        actionBar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
     }
 
     private void initGameHeader() {

@@ -11,6 +11,11 @@
     <declare-styleable name="TPActionBar">
         <attr name="action_bar_title" format="string"/>
         <attr name="action_bar_back_title" format="string"/>
+        <attr name="action_bar_type" format="enum">
+            <enum name="backPictureMenu" value="0"/>
+            <enum name="backPicture" value="1"/>
+            <enum name="heartPictureMenu" value="2"/>
+        </attr>
     </declare-styleable>
 
     <!-- Main Button -->

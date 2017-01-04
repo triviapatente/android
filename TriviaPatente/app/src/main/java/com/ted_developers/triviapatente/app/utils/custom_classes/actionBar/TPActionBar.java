@@ -79,8 +79,15 @@ public class TPActionBar extends RelativeLayout {
                 R.styleable.TPActionBar,
                 0, 0);
         try {
-            setTitle(a.getString(R.styleable.TPActionBar_action_bar_title));
-            setBackButtonText(a.getString(R.styleable.TPActionBar_action_bar_back_title));
+            if(a.hasValue(R.styleable.TPActionBar_action_bar_title)) {
+                setTitle(a.getString(R.styleable.TPActionBar_action_bar_title));
+            }
+            if(a.hasValue(R.styleable.TPActionBar_action_bar_back_title)) {
+                setBackButtonText(a.getString(R.styleable.TPActionBar_action_bar_back_title));
+            }
+            if(a.hasValue(R.styleable.TPActionBar_action_bar_type)) {
+                setType(a.getInt(R.styleable.TPActionBar_action_bar_type, 0));
+            }
         } finally {
             a.recycle();
         }
@@ -257,5 +264,25 @@ public class TPActionBar extends RelativeLayout {
                 ((Activity)getContext()).overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
             }
         });
+    }
+
+    // set action bar type
+    private void setType(int id) {
+        switch (TPActionBarType.fromId(id)) {
+            case backPicture: {
+                // hide heart box
+                heartsBox.setVisibility(GONE);
+                // hide settings
+                settings.setVisibility(GONE);
+            } break;
+            case backPictureMenu: {
+                // hide heart box
+                heartsBox.setVisibility(GONE);
+            } break;
+            case heartPictureMenu: {
+                // hide back button
+                backButton.setVisibility(GONE);
+            } break;
+        }
     }
 }

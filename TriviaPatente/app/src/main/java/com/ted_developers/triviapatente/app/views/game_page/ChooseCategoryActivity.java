@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
 import com.ted_developers.triviapatente.app.utils.TPActivity;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPEnterAnimListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -40,9 +39,6 @@ public class ChooseCategoryActivity extends TPActivity {
     @BindString(R.string.extra_string_opponent) String extraStringOpponent;
     private User opponent;
     private Round currentRound;
-    // action_bar
-    @BindView(R.id.toolbar)
-    BackPictureTPActionBar toolbar;
     // game header
     @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
@@ -69,17 +65,17 @@ public class ChooseCategoryActivity extends TPActivity {
 
     private void initToolbar() {
         // title
-        if(opponent != null && toolbar.getTitle().equals("")) {
+        if(opponent != null && actionBar.getTitle().equals("")) {
             if(opponent.name == null || opponent.surname == null) {
-                toolbar.setTitle(opponent.username);
+                actionBar.setTitle(opponent.username);
             } else {
-                toolbar.setTitle(opponent.name + " " + opponent.surname);
+                actionBar.setTitle(opponent.name + " " + opponent.surname);
             }
         }
         // picture
         // todo get dinamically
-        toolbar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
-        toolbar.setBackButtonOnClick(MainPageActivity.class);
+        actionBar.setProfilePicture(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
+        actionBar.setBackButtonOnClick(MainPageActivity.class);
     }
 
     private void initGameHeader() {

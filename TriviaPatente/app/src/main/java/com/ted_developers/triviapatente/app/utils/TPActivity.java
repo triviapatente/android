@@ -2,28 +2,26 @@ package com.ted_developers.triviapatente.app.utils;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
-import com.ted_developers.triviapatente.models.game.Invite;
-import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by Antonio on 08/12/16.
  */
 public class TPActivity extends AppCompatActivity {
+    // used for toolbar configuration utils
+    protected @Nullable @BindView(R.id.action_bar) TPActionBar actionBar;
 
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();
     //public List<String> pathListened = new ArrayList<>();
@@ -91,4 +89,7 @@ public class TPActivity extends AppCompatActivity {
     protected boolean needsFullScreen() {
         return true;
     }
+
+    // action bar management
+
 }

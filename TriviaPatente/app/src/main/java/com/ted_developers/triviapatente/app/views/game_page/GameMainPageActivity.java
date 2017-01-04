@@ -19,7 +19,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle;
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.CircleRotatingAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
@@ -58,9 +57,6 @@ public class GameMainPageActivity extends TPActivity {
     private Long gameID;
     private Category currentCategory;
     private Round currentRound;
-    // action_bar
-    @BindView(R.id.toolbar)
-    BackPictureTPActionBar toolbar;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
@@ -230,8 +226,8 @@ public class GameMainPageActivity extends TPActivity {
     private void smallInit() {
         opponentImage = ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
         setToolbarTitle();
-        toolbar.setProfilePicture(opponentImage);
-        toolbar.setBackButtonOnClick(MainPageActivity.class);
+        actionBar.setProfilePicture(opponentImage);
+        actionBar.setBackButtonOnClick(MainPageActivity.class);
         profilePicture.setImageDrawable(opponentImage);
     }
 
@@ -243,11 +239,11 @@ public class GameMainPageActivity extends TPActivity {
     }
 
     private void setToolbarTitle() {
-        if(opponent != null && toolbar.getTitle().equals("")) {
+        if(opponent != null && actionBar.getTitle().equals("")) {
             if(opponent.name == null || opponent.surname == null) {
-                toolbar.setTitle(opponent.username);
+                actionBar.setTitle(opponent.username);
             } else {
-                toolbar.setTitle(opponent.name + " " + opponent.surname);
+                actionBar.setTitle(opponent.name + " " + opponent.surname);
             }
         }
     }
@@ -255,7 +251,7 @@ public class GameMainPageActivity extends TPActivity {
     private void setOpponentData() {
         // todo do dinamically
         opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.image_no_profile_picture);
-        toolbar.setProfilePicture(opponentImage);
+        actionBar.setProfilePicture(opponentImage);
         profilePicture.setImageDrawable(opponentImage);
     }
 

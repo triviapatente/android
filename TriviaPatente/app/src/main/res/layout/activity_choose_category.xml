@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".app.views.game_page.ChooseCategoryActivity">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar
-        android:id="@+id/toolbar"
+    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBar
+        android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tp_toolbar_height"
         android:layout_alignParentTop="true"
+        custom:action_bar_type="backPicture"
         custom:action_bar_back_title="@string/main_page_title"/>
 
     <include
@@ -18,6 +19,6 @@
         layout="@layout/content_choose_category_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/action_bar"/>
 
 </RelativeLayout>

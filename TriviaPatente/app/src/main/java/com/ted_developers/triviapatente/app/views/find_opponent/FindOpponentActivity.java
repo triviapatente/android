@@ -34,7 +34,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPTellAFriendFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.ProposedOpponentHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -69,8 +68,6 @@ public class FindOpponentActivity extends TPActivity {
     private boolean all;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    // action_bar
-    @BindView(R.id.toolbar) BackPictureTPActionBar toolbar;
     // players
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
@@ -212,7 +209,7 @@ public class FindOpponentActivity extends TPActivity {
         };
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
         params.gravity = Gravity.TOP;
-        params.y = toolbar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
+        params.y = actionBar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
     }
 
     private void setPlayersListItems(List<User> userList) {
@@ -254,7 +251,7 @@ public class FindOpponentActivity extends TPActivity {
     private void initToolbar() {
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
+        actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
     }
 
     @OnClick(R.id.all_button)

@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
@@ -24,7 +23,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialo
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.HeartsPictureSettingsTPActionBar;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
@@ -38,16 +36,12 @@ import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
-import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -55,8 +49,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // content
     @BindView(R.id.content) RelativeLayout mainPageContent;
     @BindView(R.id.mainPageContainer) RelativeLayout mainPageContainer;
-    // top bar
-    @BindView(R.id.toolbar) HeartsPictureSettingsTPActionBar toolbar;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
@@ -198,12 +190,12 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     private void initToolbar() {
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
+        actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
         // todo set hearts box
-        toolbar.setHeartImage();
-        toolbar.setLifeCounter(3);
+        actionBar.setHeartImage();
+        actionBar.setLifeCounter(3);
         // set menu
-        toolbar.setMenu();
+        actionBar.setMenu();
         // set menu options click listeners
         setMenuOptionsOnClickListener();
     }
@@ -307,7 +299,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     private void bulkVisibilitySetting(int visibility) {
-        toolbar.setVisibility(visibility);
+        actionBar.setVisibility(visibility);
         recentGames.getView().setVisibility(visibility);
         optionPanel.setVisibility(visibility);
     }
@@ -327,9 +319,9 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if(MotionEvent.ACTION_UP == ev.getAction()
-                && toolbar != null && toolbar.getMenuVisibility() == View.VISIBLE
-                && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), toolbar.menu)) {
-            toolbar.hideMenu();
+                && actionBar != null && actionBar.getMenuVisibility() == View.VISIBLE
+                && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), actionBar.menu)) {
+            actionBar.hideMenu();
             return false;
         }
         return super.dispatchTouchEvent(ev);
@@ -374,10 +366,10 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     public void setMenuOptionsOnClickListener() {
-        toolbar.menuLogoutOptionButton.setOnClickListener(this);
-        toolbar.menuAboutOptionButton.setOnClickListener(this);
-        toolbar.menuSettingsOptionButton.setOnClickListener(this);
-        toolbar.menuProfileOptionButton.setOnClickListener(this);
+        actionBar.menuLogoutOptionButton.setOnClickListener(this);
+        actionBar.menuAboutOptionButton.setOnClickListener(this);
+        actionBar.menuSettingsOptionButton.setOnClickListener(this);
+        actionBar.menuProfileOptionButton.setOnClickListener(this);
     }
 
     // menu buttons onclick
@@ -392,7 +384,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // logout
     public void logout() {
         // setting blurry background
-        toolbar.hideMenu(new SimpleCallback() {
+        actionBar.hideMenu(new SimpleCallback() {
             @Override
             public void execute() {
                 TPUtils.blurContainerIntoImageView(MainPageActivity.this, mainPageContainer, blurredBackgroundView);

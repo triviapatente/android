@@ -14,18 +14,13 @@ import com.ted_developers.triviapatente.app.utils.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.InviteHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.BackPictureTPActionBar;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Invite;
 import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInvites;
-
-import java.util.List;
-
 import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -36,9 +31,7 @@ import retrofit2.Response;
 public class NewGameActivity extends TPActivity {
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    // action_bar
-    @BindView(R.id.toolbar)
-    BackPictureTPActionBar toolbar;
+    // action bar
     @BindString(R.string.new_game_title) String toolbarTitle;
     @BindString(R.string.main_page_title) String backTitle;
     // options
@@ -94,7 +87,7 @@ public class NewGameActivity extends TPActivity {
     private void initToolbar() {
         // set profile picture
         // TODO get dinamically
-        toolbar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
+        actionBar.setProfilePicture(getResources().getDrawable(R.drawable.image_no_profile_picture));
     }
 
     private void loadInvites() {
@@ -150,7 +143,7 @@ public class NewGameActivity extends TPActivity {
     }
 
     private void bulkVisibilitySetting(int visibility) {
-        toolbar.setVisibility(visibility);
+        actionBar.setVisibility(visibility);
         invites.getView().setVisibility(visibility);
         optionPanel.setVisibility(visibility);
     }
