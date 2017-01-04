@@ -24,35 +24,26 @@ public class PlayButton extends Button implements View.OnClickListener {
     Long gameID;
     User opponent;
     boolean new_game;
-    String extraBooleanGame, extraLongGame, extraStringOpponent;
 
     public PlayButton(Context context) {
         super(context);
-        bindElements(context);
+        setOnClickListener(this);
     }
 
     public PlayButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        bindElements(context);
+        setOnClickListener(this);
     }
 
     public PlayButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        bindElements(context);
+        setOnClickListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PlayButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        bindElements(context);
-    }
-
-    private void bindElements(Context context) {
         setOnClickListener(this);
-        // bind strings for extras
-        extraStringOpponent = getResources().getString(R.string.extra_string_opponent);
-        extraBooleanGame = getResources().getString(R.string.extra_boolean_game);
-        extraLongGame = getResources().getString(R.string.extra_long_game);
     }
 
     // the button is a play now one
@@ -101,13 +92,14 @@ public class PlayButton extends Button implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), GameMainPageActivity.class);
+        Context context = getContext();
         if(new_game) {
-            intent.putExtra(extraBooleanGame, true);
+            intent.putExtra(context.getString(R.string.extra_boolean_game), true);
         } else if(gameID != null) {
-            intent.putExtra(extraLongGame, gameID);
+            intent.putExtra(context.getString(R.string.extra_long_game), gameID);
         }
         if(opponent != null) {
-            intent.putExtra(extraStringOpponent, RetrofitManager.gson.toJson(opponent));
+            intent.putExtra(context.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
         }
         getContext().startActivity(intent);
     }
