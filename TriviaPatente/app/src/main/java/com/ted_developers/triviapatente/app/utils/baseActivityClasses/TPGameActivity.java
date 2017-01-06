@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
+import com.ted_developers.triviapatente.app.views.game_page.ChatActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -72,7 +72,8 @@ public class TPGameActivity extends TPActivity {
     @Optional
     @OnClick(R.id.gameChatButton)
     public void gameChatButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
         startActivity(intent);
     }
     @Optional
