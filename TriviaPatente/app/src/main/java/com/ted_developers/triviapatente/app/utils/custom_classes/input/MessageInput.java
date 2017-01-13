@@ -84,7 +84,7 @@ public class MessageInput extends RelativeLayout implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sendButton: {
-                sendButton.setVisibility(GONE);
+                sendButton.setVisibility(INVISIBLE);
                 loadingSendingMessageProgressBar.setVisibility(VISIBLE);
                 // TODO send message and then stop loading
                 // TODO trim message
