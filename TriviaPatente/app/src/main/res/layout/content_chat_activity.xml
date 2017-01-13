@@ -6,14 +6,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/action_bar"
+        android:layout_height="match_parent"
         android:layout_above="@+id/messageInput"
         android:background="@color/red"/>
 
-    <EditText
-        android:id="@+id/messageInput"
+    <com.ted_developers.triviapatente.app.utils.custom_classes.input.MessageInput
         android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/messageInput"/>
 </RelativeLayout>

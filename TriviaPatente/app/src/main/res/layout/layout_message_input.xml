@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/mainColorDark">
+    android:layout_margin="@dimen/chat_message_input_padding"
+    android:background="@drawable/rounded_white_box">
 
     <EditText
+        android:id="@+id/messageInputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="abfidtd"
-        android:background="@drawable/rounded_white_box"/>
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:layout_toLeftOf="@+id/sendButton"
+        android:maxLines="@integer/chat_message_input_maximum_lines_number"
+        android:padding="@dimen/chat_message_input_padding_inner"
+        android:background="@null"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="@dimen/chat_message_input_send_button_size"
+        android:layout_height="@dimen/chat_message_input_send_button_size"
+        android:background="@drawable/chat_image_send_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/chat_message_input_send_button_margin_right"
+        android:layout_centerVertical="true"/>
+
+    <ProgressBar
+        android:id="@+id/loadingSendingMessage"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="@dimen/chat_message_input_send_button_size"
+        android:layout_height="@dimen/chat_message_input_send_button_size"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/chat_message_input_send_button_margin_right"
+        android:layout_centerVertical="true"
+        android:indeterminateDrawable="@drawable/chat_animation_sending_message"
+        android:visibility="gone">
+    </ProgressBar>
+
+</RelativeLayout>
