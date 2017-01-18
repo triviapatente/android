@@ -18,8 +18,8 @@
 
     <Button
         android:id="@+id/sendButton"
-        android:layout_width="@dimen/chat_message_input_send_button_size"
-        android:layout_height="@dimen/chat_message_input_send_button_size"
+        android:layout_width="@dimen/chat_message_input_send_button_width"
+        android:layout_height="@dimen/chat_message_input_send_button_height"
         android:background="@drawable/chat_image_send_button"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/chat_message_input_send_button_margin_right"
@@ -28,8 +28,8 @@
     <ProgressBar
         android:id="@+id/loadingSendingMessage"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="@dimen/chat_message_input_send_button_size"
-        android:layout_height="@dimen/chat_message_input_send_button_size"
+        android:layout_width="@dimen/chat_message_input_send_button_width"
+        android:layout_height="@dimen/chat_message_input_send_button_width"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/chat_message_input_send_button_margin_right"
         android:layout_centerVertical="true"
