@@ -7,8 +7,6 @@
     <string name="button_stats">Statistiche</string>
     <string name="button_shop">Negozio</string>
     <!-- main page hints -->
-    <string name="multiple_invites"> inviti a giocare</string>
-    <string name="single_invites"> invito a giocare</string>
     <string name="global">Globale: </string>
     <string name="friends">Amici: </string>
     <!-- main page dimen -->

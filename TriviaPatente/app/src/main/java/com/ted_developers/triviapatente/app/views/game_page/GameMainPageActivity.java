@@ -47,11 +47,9 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
     // titles
     @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    @BindString(R.string.wait_page_title_pendingInvite) String pendingInviteTitle;
     // subtitles
     @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     @BindView(R.id.subtitleImage) RoundedImageView subtitleImage;
-    @BindString(R.string.wait_page_subtitle_pendingInvite) String pendingInviteSubtitle;
     @BindString(R.string.wait_page_subtitle_waitingCategory) String waitingCategorySubtitle;
     @BindString(R.string.wait_page_subtitle_offline) String offlineSubtitle;
     // status
@@ -59,7 +57,6 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindString(R.string.wait_page_offline_status) String offlineStatus;
     @BindString(R.string.wait_page_playing_status) String playingStatus;
     @BindString(R.string.wait_page_waitingCategory_status) String waitingCategoryStatus;
-    @BindString(R.string.wait_page_pendingInvite_status) String pendingInviteStatus;
     // animation
     @BindView(R.id.loadingCircle) Circle loadingCircle;
     @BindColor(R.color.red) int redColor;
@@ -72,16 +69,13 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindColor(android.R.color.white) int whiteColor;
     // sockets
     @BindString(R.string.room_name_game) String roomName;
-    @BindString(R.string.invite_refused) String inviteRefused;
     GameSocketManager gameSocketManager = new GameSocketManager();
     // sockets parameters
     @BindString(R.string.socket_response_waiting_category) String waitingCategory;
     @BindString(R.string.socket_response_waiting_game) String waitingGame;
-    @BindString(R.string.socket_response_waiting_invite) String waitingInvite;
     // sockets events
     @BindString(R.string.socket_event_game_ended) String eventGameEnded;
     @BindString(R.string.socket_event_game_left) String eventGameLeft;
-    @BindString(R.string.socket_event_invite_processed) String eventInviteProcessed;
     @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
     @BindString(R.string.socket_event_round_started) String eventRoundStarted;
     @BindString(R.string.socket_event_category_chosen) String eventCategoryChosen;
@@ -97,8 +91,6 @@ public class GameMainPageActivity extends TPGameActivity {
                         currentCategory = response.category;
                         if(response.ended != null && response.ended) {
                             // todo go to round details
-                        } else if(waitingInvite.equals(response.waiting)) {
-                            waitingInvite();
                         } else if(response.waiting_for.username.equals(opponent.username)) {
                             if(response.isOpponentOnline) {
                                 if(waitingGame.equals(response.waiting)) {
@@ -138,17 +130,6 @@ public class GameMainPageActivity extends TPGameActivity {
         @Override
         public void response(WinnerPartecipationsUserleft response) {
             // todo go to round details
-        }
-    }, inviteCallback = new SocketCallback<Accepted>() {
-        @Override
-        public void response(Accepted response) {
-            if(response.accepted) {
-                init_round();
-            } else {
-                Toast.makeText(GameMainPageActivity.this, inviteRefused,
-                        Toast.LENGTH_LONG).show();
-                GameMainPageActivity.this.finish();
-            }
         }
     }, chosenCategoryCallback = new SocketCallback<Category>() {
         @Override
@@ -241,7 +222,6 @@ public class GameMainPageActivity extends TPGameActivity {
     private void init_listening() {
         listen(eventGameEnded, WinnerPartecipationsUserleft.class, gameCallback);
         listen(eventGameLeft, WinnerPartecipationsUserleft.class, gameCallback);
-        listen(eventInviteProcessed, Accepted.class, inviteCallback);
         listen(eventRoundStarted, RoundUserData.class, roundCallback);
         listen(eventRoundEnded, RoundUserData.class, roundCallback);
         listen(eventCategoryChosen, Category.class, chosenCategoryCallback);
@@ -261,10 +241,6 @@ public class GameMainPageActivity extends TPGameActivity {
             loadingCircle.setColorUnder(underColor);
             loadingCircle.setColorOver(overColor);
         }
-    }
-
-    private void waitingInvite() {
-        updateWaitPage(pendingInviteTitle, pendingInviteSubtitle, pendingInviteStatus, null, redColor, redColorLight);
     }
 
     private void waitingCategory() {

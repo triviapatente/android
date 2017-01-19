@@ -24,7 +24,6 @@ import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
-import com.ted_developers.triviapatente.models.responses.InviteUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import java.util.ArrayList;
@@ -52,8 +51,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // hints
     @BindString(R.string.friends) String friendRankHint;
     @BindString(R.string.global) String globalRankHint;
-    @BindString(R.string.multiple_invites) String multipleInvites;
-    @BindString(R.string.single_invites) String singleInvites;
     // recent games
     @BindString(R.string.recent_games) String recentGamesTitle;
     @BindString(R.string.no_games) String recentGamesAlternativeTitle;
@@ -62,29 +59,12 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // server down
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
-    // sockets
-    @BindString(R.string.socket_event_invite_created) String eventInviteCreated;
-    SocketCallback<InviteUser> inviteCreatedCallback = new SocketCallback<InviteUser>() {
-        @Override
-        public void response(InviteUser response) {
-            if(visible) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initInviteHints();
-                    }
-                });
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
-        // listening to events
-        listen(eventInviteCreated, InviteUser.class, inviteCreatedCallback);
     }
 
     private void init() {
@@ -107,7 +87,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                                         ReceivedData.statsHints = response.stats;
                                         ReceivedData.friends_rank_position = response.friends_rank_position;
                                         ReceivedData.global_rank_position = response.global_rank_position;
-                                        ReceivedData.numberOfInvites = response.invites;
                                         initOptionButtons();
                                         // load recent games
                                         loadRecentGames();
@@ -147,7 +126,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         // activity required to rotate hints
         initStatsHints();
         initRankHints();
-        initInviteHints();
     }
 
     private void initStatsHints() {
@@ -176,24 +154,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
             }
             // set hints
             buttonShowRank.setHintText(listConverter(hintsStrings));
-        }
-    }
-
-    private void initInviteHints() {
-        // it is sad to say "no invites" :(
-        Integer numberOfInvites = (ReceivedData.pendingInvites == null)? ReceivedData.numberOfInvites : ReceivedData.pendingInvites.size();
-        if(numberOfInvites != null && numberOfInvites > 0) {
-            // build hints
-            String hint = numberOfInvites + " ";
-            if(numberOfInvites == 1) {
-                hint += singleInvites;
-            } else {
-                hint += multipleInvites;
-            }
-            // set hints
-            buttonNewGame.setHintText(new String[] { hint });
-        } else {
-            buttonNewGame.setHintText(new String[] {""});
         }
     }
 
@@ -273,7 +233,6 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         // init
         init();
 
-        initInviteHints();
         initRankHints();
     }
 

@@ -1,56 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/option_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/main_button_margin"
+    android:layout_marginLeft="@dimen/main_button_margin"
+    android:layout_marginRight="@dimen/main_button_margin"
+    android:layout_marginStart="@dimen/main_button_margin"
+    android:layout_marginTop="@dimen/new_game_option_panel_margin"
     android:background="@color/mainColor">
 
-    <LinearLayout
-        android:id="@+id/option_panel"
+    <TextView
+        android:id="@+id/option_panel_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical"
-        android:layout_marginEnd="@dimen/main_button_margin"
-        android:layout_marginLeft="@dimen/main_button_margin"
-        android:layout_marginRight="@dimen/main_button_margin"
-        android:layout_marginStart="@dimen/main_button_margin"
-        android:layout_marginTop="@dimen/new_game_option_panel_margin">
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeSmall"
+        android:text="@string/new_game_option_title"/>
 
-        <TextView
-            android:id="@+id/option_panel_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/TPTextSizeSmall"
-            android:text="@string/new_game_option_title"/>
-
-        <Button
-            android:id="@+id/findOpponent"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/new_game_button_height"
-            android:layout_marginTop="@dimen/new_game_option_panel_title_margin"
-            android:background="@drawable/button_green_big"
-            android:text="@string/find_your_opponent"/>
-
-        <Button
-            android:id="@+id/findRandomOpponent"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/new_game_option_panel_margin"
-            android:layout_height="@dimen/new_game_button_height"
-            android:background="@drawable/button_orange_big"
-            android:text="@string/find_your_random_opponent"/>
-
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/invites"
+    <Button
+        android:id="@+id/findOpponent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/option_panel"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/new_game_option_panel_margin"
-        android:name="com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
-    </fragment>
+        android:layout_height="@dimen/new_game_button_height"
+        android:layout_marginTop="@dimen/new_game_option_panel_title_margin"
+        android:background="@drawable/button_green_big"
+        android:text="@string/find_your_opponent"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/findRandomOpponent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/new_game_option_panel_margin"
+        android:layout_height="@dimen/new_game_button_height"
+        android:background="@drawable/button_orange_big"
+        android:text="@string/find_your_random_opponent"/>
+
+</LinearLayout>

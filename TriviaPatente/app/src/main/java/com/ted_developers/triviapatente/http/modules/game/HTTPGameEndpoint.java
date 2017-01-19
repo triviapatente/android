@@ -1,12 +1,9 @@
 package com.ted_developers.triviapatente.http.modules.game;
 
 import com.ted_developers.triviapatente.models.responses.Success;
-import com.ted_developers.triviapatente.models.responses.SuccessBadge;
 import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
-import com.ted_developers.triviapatente.models.responses.SuccessInvite;
-import com.ted_developers.triviapatente.models.responses.SuccessInvites;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
 import retrofit2.Call;
@@ -14,7 +11,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -27,16 +23,6 @@ public interface HTTPGameEndpoint {
 
     @POST("game/new/random")
     Call<SuccessGameUser> newRandomGame();
-
-    @GET("game/invites")
-    Call<SuccessInvites> getPendingInvites();
-
-    @GET("game/invites/badge")
-    Call<SuccessBadge> getPendingInvitesBadge();
-
-    @FormUrlEncoded
-    @POST("game/invites/{game_id}")
-    Call<SuccessInvite> processInvite(@Path("game_id") long game_id, @Field("accepted") boolean accepted);
 
     @GET("game/recents")
     Call<SuccessGames> getRecentsGames();

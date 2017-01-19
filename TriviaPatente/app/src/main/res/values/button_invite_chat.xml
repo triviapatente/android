@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- invite -->
-    <dimen name="button_invite_chat_symbol_margin_vertical">7dp</dimen>
-    <dimen name="button_invite_chat_symbol_margin_horizontal">7dp</dimen>
-</resources>
