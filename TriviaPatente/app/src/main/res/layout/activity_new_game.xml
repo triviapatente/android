@@ -4,7 +4,8 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.views.find_opponent.NewGameActivity">
+    tools:context=".app.views.find_opponent.NewGameActivity"
+    android:background="@color/mainColor">
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBar
         android:id="@+id/action_bar"
@@ -18,5 +19,8 @@
     <include layout="@layout/content_new_game"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/action_bar"/>
+        android:layout_below="@+id/action_bar"
+        android:layout_marginLeft="@dimen/main_button_margin"
+        android:layout_marginRight="@dimen/main_button_margin"
+        android:layout_marginTop="@dimen/new_game_option_panel_margin"/>
 </RelativeLayout>

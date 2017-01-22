@@ -125,14 +125,10 @@ public class FindOpponentActivity extends TPActivity {
         });
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -163,9 +159,7 @@ public class FindOpponentActivity extends TPActivity {
                     }
 
                     @Override
-                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-
-                    }
+                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {}
 
                     @Override
                     public void then() {
@@ -232,14 +226,10 @@ public class FindOpponentActivity extends TPActivity {
                 }
 
                 @Override
-                public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-
-                }
+                public void mOnFailure(Call<SuccessUsers> call, Throwable t) {}
 
                 @Override
-                public void then() {
-
-                }
+                public void then() {}
             });
         } else {
             setPlayersListItems(suggestedUsers);

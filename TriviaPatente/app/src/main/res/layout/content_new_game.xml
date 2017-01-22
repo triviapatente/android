@@ -3,13 +3,7 @@
     android:id="@+id/option_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginEnd="@dimen/main_button_margin"
-    android:layout_marginLeft="@dimen/main_button_margin"
-    android:layout_marginRight="@dimen/main_button_margin"
-    android:layout_marginStart="@dimen/main_button_margin"
-    android:layout_marginTop="@dimen/new_game_option_panel_margin"
-    android:background="@color/mainColor">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/option_panel_title"
