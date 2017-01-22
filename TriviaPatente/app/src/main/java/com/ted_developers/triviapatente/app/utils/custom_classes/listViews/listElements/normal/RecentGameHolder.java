@@ -53,17 +53,16 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     @Override
     public void bind(Game element) {
+        Log.i("TEST", "ended: " + element.ended);
+        Log.i("TEST", "my turn: " + element.my_turn);
         playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
-        if(!element.started) {
-            setContact();
-        }
-        else if(element.ended) {
+        if(element.ended) {
             setSummary();
         } else {
-            if(element.my_turn) {
-                setPlayNow();
-            } else {
+            if(!element.my_turn) {
                 setDetails();
+            } else {
+                setPlayNow();
             }
         }
         if(element.opponent_name != null && element.opponent_surname != null) {
@@ -101,12 +100,6 @@ public class RecentGameHolder extends TPHolder<Game> {
         playButton.setDetails();
         statusText.setText(context.getString(R.string.details_status));
         trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_yellow));
-    }
-
-    private void setContact() {
-        playButton.setContact();
-        statusText.setText(context.getString(R.string.contact_status));
-        trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_no_lights));
     }
 
     private void setUsernameText(String text) {

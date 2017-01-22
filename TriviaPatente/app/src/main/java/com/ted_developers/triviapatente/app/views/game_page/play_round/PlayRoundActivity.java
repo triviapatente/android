@@ -38,12 +38,19 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                 Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
                 currentQuiz.answered_correctly = response.correct_answer;
                 quizzesAdapter.quizzesList.set(position, currentQuiz);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        quizzesViewPager.setCurrentItem(getNextCurrentItem(position));
-                    }
-                });
+                final int nextPosition = getNextCurrentItem(position);
+                if(nextPosition != position) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            quizzesViewPager.setCurrentItem(nextPosition);
+                        }
+                    });
+                } else {
+                    // my round ended
+
+                }
+
             }
         }
     };

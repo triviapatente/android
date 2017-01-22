@@ -147,36 +147,39 @@ public class GameMainPageActivity extends TPGameActivity {
         //init
         smallInit();
         startLoading();
-        if(getIntent().getBooleanExtra(extraBooleanGame, false)) {
-            Call<SuccessGameUser> call;
-            if(opponent != null) {
-                call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
-            } else {
-                call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
-            }
-            call.enqueue(new TPCallback<SuccessGameUser>() {
-                @Override
-                public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
-                    if(response.code() == 200 && response.body().success) {
-                        gameID = response.body().game.id;
-                        opponent = response.body().user;
-                    }
-                }
-
-                @Override
-                public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {}
-
-                @Override
-                public void then() {
-                    setOpponentData();
-                    join_room();
-                    init_listening();
-                }
-            });
-        } else {
+        if(getIntent().getBooleanExtra(extraBooleanGame, false)) { createGame(); }
+        else {
             join_room();
             init_listening();
         }
+    }
+
+    private void createGame() {
+        Call<SuccessGameUser> call;
+        if(opponent != null) {
+            call = RetrofitManager.getHTTPGameEndpoint().newGame(opponent.id);
+        } else {
+            call = RetrofitManager.getHTTPGameEndpoint().newRandomGame();
+        }
+        call.enqueue(new TPCallback<SuccessGameUser>() {
+            @Override
+            public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
+                if(response.code() == 200 && response.body().success) {
+                    gameID = response.body().game.id;
+                    opponent = response.body().user;
+                }
+            }
+
+            @Override
+            public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {}
+
+            @Override
+            public void then() {
+                setOpponentData();
+                join_room();
+                init_listening();
+            }
+        });
     }
 
     private void smallInit() {

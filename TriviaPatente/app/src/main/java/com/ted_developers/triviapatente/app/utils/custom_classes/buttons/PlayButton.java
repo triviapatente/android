@@ -66,11 +66,6 @@ public class PlayButton extends Button implements View.OnClickListener {
         setUIData(R.drawable.button_yellow_on_white, R.color.yellow_on_white, R.string.details_button_text);
     }
 
-    // the button is a contact one
-    public void setContact() {
-        setUIData(R.drawable.button_grey_on_white, R.color.grey_on_white, R.string.contact_button_text);
-    }
-
     private void setUIData(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {
         Context context = getContext();
         this.setText(context.getString(stringRes));
