@@ -53,8 +53,6 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     @Override
     public void bind(Game element) {
-        Log.i("TEST", "ended: " + element.ended);
-        Log.i("TEST", "my turn: " + element.my_turn);
         playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
         if(element.ended) {
             setSummary();

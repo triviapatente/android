@@ -135,7 +135,7 @@ public class GameMainPageActivity extends TPGameActivity {
         @Override
         public void response(Category response) {
             currentCategory = response;
-            // todo go to play round
+            playRound();
         }
     };
 
