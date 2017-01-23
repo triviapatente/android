@@ -50,7 +50,7 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();
     //public List<String> pathListened = new ArrayList<>();
     protected boolean visible;
-    protected GameSocketManager gameSocketManager = new GameSocketManager();
+    public GameSocketManager gameSocketManager = new GameSocketManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

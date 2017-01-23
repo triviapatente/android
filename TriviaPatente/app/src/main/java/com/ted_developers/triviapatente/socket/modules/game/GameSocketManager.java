@@ -11,6 +11,7 @@ import com.ted_developers.triviapatente.models.responses.SuccessCategories;
 import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
+import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 import org.json.JSONException;
@@ -60,5 +61,9 @@ public class GameSocketManager extends BaseSocketManager {
                         new Pair<>("quiz_id", (Object) quizID),
                         new Pair<>("answer", (Object) answer)),
                 SuccessAnsweredCorrectly.class, answerCallback);
+    }
+
+    public void round_details(Long gameID, SocketCallback<SuccessRoundDetails> roundDetailsCallback) {
+        emit("round_details", buildJSONObject(new Pair<>("game", (Object) gameID)), SuccessRoundDetails.class, roundDetailsCallback);
     }
 }

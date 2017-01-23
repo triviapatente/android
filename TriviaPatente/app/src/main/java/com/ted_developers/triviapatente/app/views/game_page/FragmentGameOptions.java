@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,20 @@ import android.view.ViewGroup;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDetailsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
+import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -61,26 +69,52 @@ public class FragmentGameOptions extends Fragment {
         TPUtils.blurContainerIntoImageView(activity, activity.activityContainer, activity.blurredBackgroundView);
         activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
         //showing modal
-        final HTTPGameEndpoint httpGameEndpoint = RetrofitManager.getHTTPGameEndpoint();
-        httpGameEndpoint.getLeaveDecrement(activity.gameID).enqueue(new TPCallback<SuccessDecrement>() {
+        activity.gameSocketManager.round_details(activity.gameID, new SocketCallback<SuccessRoundDetails>() {
             @Override
-            public void mOnResponse(Call<SuccessDecrement> call, Response<SuccessDecrement> response) {
-                if(response.body().success) {
-                    new TPDetailsDialog(activity, 20, 30, "", "", new DialogInterface.OnCancelListener() {
+            public void response(SuccessRoundDetails response) {
+                if(response.success) {
+                    final Pair<String, Integer> user = getUserImagePathAndScoreFromID(
+                            response.users,
+                            response.answers,
+                            activity.opponent.id,
+                            false
+                    ), opponent = getUserImagePathAndScoreFromID(
+                            response.users,
+                            response.answers,
+                            activity.opponent.id,
+                            true
+                    );
+                    activity.runOnUiThread(new Runnable() {
                         @Override
-                        public void onCancel(DialogInterface dialog) {
-                            activity.blurredBackgroundContainer.setVisibility(View.GONE);
+                        public void run() {
+                            new TPDetailsDialog(activity, user.second, opponent.second, user.first, user.first, new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    activity.blurredBackgroundContainer.setVisibility(View.GONE);
+                                }
+                            }).show();
                         }
-                    }).show();
+                    });
                 }
             }
-
-            @Override
-            public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {}
-
-            @Override
-            public void then() {}
         });
+    }
+
+    private Pair<String, Integer> getUserImagePathAndScoreFromID(List<User> users, List<Question> answers, Long ID, boolean is) {
+        User matchingUser = null;
+        for(User user : users) {
+            if((is && user.id.equals(ID)) || (!is && !user.id.equals(ID))) {
+                matchingUser = user;
+                break;
+            }
+        }
+        Integer score = 0;
+        for(Question question : answers) {
+            if(((is && question.user_id.equals(ID)) || (!is && !question.user_id.equals(ID))) && question.correct) {
+                score++;
+            }
+        }
+        return new Pair<>(matchingUser.image, score);
     }
 
     @OnClick(R.id.gameLeaveButton)
