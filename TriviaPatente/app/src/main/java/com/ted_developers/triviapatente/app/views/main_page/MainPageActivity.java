@@ -50,6 +50,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     @BindView(R.id.rank) MainButton buttonShowRank;
     // hints
     @BindString(R.string.friends) String friendRankHint;
+    @BindString(R.string.friendsNotAvailable) String friendRankHintNotAvailable;
     @BindString(R.string.global) String globalRankHint;
     // recent games
     @BindString(R.string.recent_games) String recentGamesTitle;
@@ -142,18 +143,16 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
     private void initRankHints() {
         List<String> hintsStrings = new ArrayList<String>();
-        if(ReceivedData.friends_rank_position != null || ReceivedData.global_rank_position != null) {
-            // build hints
-            hintsStrings.clear();
-            if(ReceivedData.friends_rank_position != null) {
-                hintsStrings.add(friendRankHint + " " + ReceivedData.friends_rank_position);
-            }
-            if(ReceivedData.global_rank_position != null) {
-                hintsStrings.add(globalRankHint + " " + ReceivedData.global_rank_position);
-            }
-            // set hints
-            buttonShowRank.setHintText(listConverter(hintsStrings));
+        // build hints
+        hintsStrings.clear();
+        hintsStrings.add(globalRankHint + " " + ReceivedData.global_rank_position);
+        if(ReceivedData.friends_rank_position != null) {
+            hintsStrings.add(friendRankHint + " " + ReceivedData.friends_rank_position);
+        } else {
+            hintsStrings.add(friendRankHintNotAvailable);
         }
+        // set hints
+        buttonShowRank.setHintText(listConverter(hintsStrings));
     }
 
     private void loadRecentGames() {

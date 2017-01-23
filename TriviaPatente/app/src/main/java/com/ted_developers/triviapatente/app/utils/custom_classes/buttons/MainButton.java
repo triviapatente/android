@@ -76,6 +76,7 @@ public class MainButton extends LinearLayout {
         try {
             setImage(a.getDrawable(R.styleable.MainButton_main_button_image));
             setButtonText(a.getString(R.styleable.MainButton_main_button_name), a.getColor(R.styleable.MainButton_main_button_text_color, Color.WHITE));
+            setRotationTime(a.getInteger(R.styleable.MainButton_main_button_hint_rotation_speed, 5000));
         } finally {
             a.recycle();
         }
