@@ -35,12 +35,13 @@
         android:id="@+id/gameHeaderSubtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/game_header_margin"
         android:textSize="@dimen/TPTextSizeMedium"
         android:text="@string/wait_page_subtitle_waitingConnection"
+        android:textColor="@android:color/white"
         android:singleLine="true"
-        android:layout_marginRight="@dimen/game_header_margin"
-        android:ellipsize="end"
-        android:textColor="@android:color/white"/>
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"/>
 
 
 </LinearLayout>
