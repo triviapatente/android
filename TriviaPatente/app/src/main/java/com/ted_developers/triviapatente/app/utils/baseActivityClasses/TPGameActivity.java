@@ -72,8 +72,9 @@ public class TPGameActivity extends TPActivity {
     @Optional
     @OnClick(R.id.gameChatButton)
     public void gameChatButtonClick() {
-        Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+        Intent intent = new Intent(this, AlphaView.class);
+        /*Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));*/
         startActivity(intent);
     }
     @Optional
