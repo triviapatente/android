@@ -38,10 +38,6 @@ public class ChooseCategoryActivity extends TPGameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_category);
         // init
-        Intent intent = getIntent();
-        opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(getString(R.string.extra_string_opponent)), User.class);
-        currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(getString(R.string.extra_string_round)), Round.class);
-        setGameHeader("Round " + currentRound.number, getString(R.string.choose_category_game_header_subtitle), null);
         loadProposedCategories();
     }
 

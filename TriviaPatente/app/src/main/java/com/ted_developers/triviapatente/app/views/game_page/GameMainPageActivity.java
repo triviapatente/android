@@ -45,13 +45,6 @@ public class GameMainPageActivity extends TPGameActivity {
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
-    // titles
-    @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    // subtitles
-    @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
-    @BindView(R.id.subtitleImage) RoundedImageView subtitleImage;
-    @BindString(R.string.wait_page_subtitle_waitingCategory) String waitingCategorySubtitle;
-    @BindString(R.string.wait_page_subtitle_offline) String offlineSubtitle;
     // status
     @BindView(R.id.status) TextView gameStatus;
     @BindString(R.string.wait_page_offline_status) String offlineStatus;
@@ -226,34 +219,25 @@ public class GameMainPageActivity extends TPGameActivity {
         listen(eventCategoryChosen, Category.class, chosenCategoryCallback);
     }
 
-    private void updateWaitPage(String title, String subtitle, String status, Drawable subtitleImage, @ColorInt int overColor, @ColorInt int underColor) {
+    private void updateWaitPage(String status, @ColorInt int overColor, @ColorInt int underColor) {
         if(visible) {
-            gameHeaderTitle.setText(title);
-            gameHeaderSubtitle.setText(subtitle);
+            gameHeader.setHeader(currentRound, currentCategory);
             gameStatus.setText(status);
-            if(subtitleImage == null) {
-                this.subtitleImage.setVisibility(View.GONE);
-            } else {
-                this.subtitleImage.setImageDrawable(subtitleImage);
-                this.subtitleImage.setVisibility(View.VISIBLE);
-            }
             loadingCircle.setColorUnder(underColor);
             loadingCircle.setColorOver(overColor);
         }
     }
 
     private void waitingCategory() {
-        updateWaitPage("Round " + currentRound.number, waitingCategorySubtitle, waitingCategoryStatus, null, yellowColor, yellowColorLight);
+        updateWaitPage(waitingCategoryStatus, yellowColor, yellowColorLight);
     }
 
     private void waitingRound() {
-        // todo get image and set it
-        Drawable d = getResources().getDrawable(R.drawable.image_no_profile_picture);
-        updateWaitPage("Round " + currentRound.number, currentCategory.name, playingStatus, d, greenColor, greenColorLight);
+        updateWaitPage(playingStatus, greenColor, greenColorLight);
     }
 
     private void offline() {
-        updateWaitPage("Round " + currentRound.number, offlineSubtitle, offlineStatus, null, whiteColor, mainColorLight);
+        updateWaitPage(offlineStatus, whiteColor, mainColorLight);
     }
 
     private void chooseCategory() {

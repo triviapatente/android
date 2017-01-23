@@ -15,6 +15,7 @@ public class Category extends CommonPK {
     @SerializedName("total_answers") public int total_answers;
     @SerializedName("correct_answers") public int correct_answers;
     @SerializedName("color") public String color;
+    @SerializedName("imagePath") public String imagePath;
 
     public Category() {}
 }

@@ -64,7 +64,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
     }
 
     private void init() {
-        setGameHeader("Round " + currentRound.number, currentCategory.hint, ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
         quizzesViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}

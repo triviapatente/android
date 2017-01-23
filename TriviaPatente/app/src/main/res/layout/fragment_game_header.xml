@@ -14,7 +14,7 @@
         android:textSize="@dimen/TPTextSizeLarge"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:text="@string/wait_page_title_waitingConnection"
+        android:text="@string/game_header_waiting_title"
         android:layout_marginLeft="@dimen/game_header_margin"/>
 
     <View
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/game_header_margin"
         android:textSize="@dimen/TPTextSizeMedium"
-        android:text="@string/wait_page_subtitle_waitingConnection"
+        android:text="@string/game_header_waiting_subtitle"
         android:textColor="@android:color/white"
         android:singleLine="true"
         android:ellipsize="marquee"

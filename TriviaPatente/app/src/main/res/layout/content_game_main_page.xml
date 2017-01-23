@@ -8,8 +8,9 @@
     android:layout_below="@+id/toolbar"
     android:layout_marginTop="@dimen/tp_toolbar_margin">
 
-    <include
-        layout="@layout/game_header"
+    <fragment
+        android:name="com.ted_developers.triviapatente.app.views.game_page.GameHeader"
+        android:id="@+id/gameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

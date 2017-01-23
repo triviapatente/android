@@ -4,18 +4,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.WindowManager;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.game_page.ChatActivity;
+import com.ted_developers.triviapatente.app.views.game_page.GameHeader;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -25,7 +26,7 @@ import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
 
-import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 import retrofit2.Call;
@@ -35,15 +36,13 @@ import retrofit2.Response;
  * Created by Antonio on 04/01/17.
  */
 public class TPGameActivity extends TPActivity {
-    // game header
-    protected @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
-    protected @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
-    protected @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
     // game data
     protected User opponent;
     protected Round currentRound;
     protected Category currentCategory;
     protected Long gameID;
+    // game header
+    protected GameHeader gameHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +54,15 @@ public class TPGameActivity extends TPActivity {
         super.onCreate(savedInstanceState);
     }
 
-    // game header centralized management
-    protected void setGameHeader(String titleText, String subtitleText, Drawable subtitleImage) {
-        gameHeaderTitle.setText(titleText);
-        gameHeaderSubtitle.setText(subtitleText);
-        if(subtitleImage == null) {
-            gameHeaderSubtitleImage.setVisibility(View.GONE);
-        } else {
-            gameHeaderSubtitleImage.setImageDrawable(subtitleImage);
-            gameHeaderSubtitleImage.setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        // init fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        gameHeader = (GameHeader) fragmentManager.findFragmentById(R.id.gameHeader);
+        gameHeader.setHeader(currentRound, currentCategory);
     }
+
 
     // game options centralized management
     // option button panel
@@ -111,14 +108,10 @@ public class TPGameActivity extends TPActivity {
                                 }
 
                                 @Override
-                                public void mOnFailure(Call<Success> call, Throwable t) {
-
-                                }
+                                public void mOnFailure(Call<Success> call, Throwable t) {}
 
                                 @Override
-                                public void then() {
-
-                                }
+                                public void then() {}
                             });
                         }
 
