@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Round;
@@ -35,11 +36,13 @@ public class FragmentGameHeader extends Fragment {
     public void setHeader(Round round, Category category) {
         gameHeaderTitle.setText((round == null)? getString(R.string.game_header_waiting_title) : "Round " + round.number);
         gameHeaderSubtitle.setText((category == null)? getString(R.string.game_header_waiting_subtitle) : category.hint);
-        if(category == null || category.imagePath == null || "".equals(category.imagePath)) {
+        if(category == null) {
             gameHeaderSubtitleImage.setVisibility(View.GONE);
         } else {
-            // todo get dinamically
-            gameHeaderSubtitleImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.image_no_profile_picture));
+            Picasso.with(getContext())
+                    .load(getString(R.string.baseUrl) + "category/image/" + category.id)
+                    .error(R.drawable.image_no_image_found)
+                    .into(gameHeaderSubtitleImage);
             gameHeaderSubtitleImage.setVisibility(View.VISIBLE);
         }
         gameHeaderSubtitle.setSelected(true);

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.ResizeAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.TranslateAnimation;
@@ -35,6 +36,7 @@ public class QuizHolder implements View.OnClickListener{
     private Context context;
     private Quiz element;
     private LinearLayout quizDescriptionBox;
+    private String baseUrl;
 
     public QuizHolder(PlayRoundActivity context, Quiz quizElement) {
         itemView = LayoutInflater.from(context).inflate(R.layout.view_pager_element_quiz_holder, null, false);
@@ -44,6 +46,8 @@ public class QuizHolder implements View.OnClickListener{
     }
 
     private void init() {
+        // base url
+        baseUrl = context.getString(R.string.baseUrl);
         // binding elements
         quizImage = (ImageView) itemView.findViewById(R.id.quizImage);
         quizDescription = (TextView) itemView.findViewById(R.id.quizDescription);
@@ -150,8 +154,10 @@ public class QuizHolder implements View.OnClickListener{
             quizImage.setVisibility(View.GONE);
         } else {
             quizImage.setVisibility(View.VISIBLE);
-            // todo set dinamically
-            quizImage.setImageDrawable(itemView.getResources().getDrawable(R.drawable.image_no_profile_picture));
+            Picasso.with(context)
+                    .load(baseUrl + "quiz/image/" + element.image_id)
+                    .error(R.drawable.image_no_image_found)
+                    .into(quizImage);
         }
         // if already answered
         if(element.my_answer != null) {

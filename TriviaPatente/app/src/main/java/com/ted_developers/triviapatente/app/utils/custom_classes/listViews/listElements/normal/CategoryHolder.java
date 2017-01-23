@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.AlphaView;
@@ -56,9 +58,11 @@ public class CategoryHolder extends TPHolder<Category> {
 
     @Override
     public void bind(final Category element) {
-        // todo do dinamically
-        Drawable d = ContextCompat.getDrawable(itemView.getContext(), R.drawable.image_no_profile_picture);
-        categoryImage.setImageDrawable(d);
+        Context context = itemView.getContext();
+        Picasso.with(context)
+                .load(context.getString(R.string.baseUrl) + "category/image/" + element.id)
+                .error(R.drawable.image_no_image_found)
+                .into(categoryImage);
         Drawable backgroundLayerDrawable = backgroundLayer.getBackground();
         if (backgroundLayerDrawable instanceof ShapeDrawable) {
             ((ShapeDrawable)backgroundLayerDrawable).getPaint().setColor(Color.parseColor(element.color));
@@ -67,7 +71,6 @@ public class CategoryHolder extends TPHolder<Category> {
         } else if (backgroundLayerDrawable instanceof ColorDrawable) {
             ((ColorDrawable)backgroundLayerDrawable).setColor(Color.parseColor(element.color));
         }
-        //backgroundLayer.setBackground(backgroundLayerDrawable);
         categoryTitle.setText(element.hint);
         if(getAdapterPosition() == numberOfProposedCategories - 1) {
             separator.setVisibility(View.GONE);
