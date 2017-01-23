@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity">
+    tools:context="com.ted_developers.triviapatente.app.views.access.FirstAccessActivity">
 
     <include layout="@layout/content_first_access" />
 </android.support.design.widget.CoordinatorLayout>

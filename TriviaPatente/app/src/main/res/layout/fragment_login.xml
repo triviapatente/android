@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.views.first_access.Login.LoginFragment"
+    tools:context=".app.views.access.Login.LoginFragment"
     android:background="@color/mainColor"
     android:weightSum="1">
 

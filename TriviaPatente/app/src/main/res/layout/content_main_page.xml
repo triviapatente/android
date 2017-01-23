@@ -36,7 +36,8 @@
             android:background="@drawable/button_orange"
             android:layout_marginBottom="@dimen/element_margin"
             custom:main_button_name="@string/button_rank"
-            custom:main_button_image="@drawable/image_main_button_trophy"/>
+            custom:main_button_image="@drawable/image_main_button_trophy"
+            custom:main_button_hint_rotation_speed="7500"/>
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"

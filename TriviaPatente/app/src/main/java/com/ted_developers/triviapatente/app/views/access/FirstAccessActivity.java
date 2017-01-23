@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.first_access;
+package com.ted_developers.triviapatente.app.views.access;
 
 import android.content.Context;
 import android.content.Intent;

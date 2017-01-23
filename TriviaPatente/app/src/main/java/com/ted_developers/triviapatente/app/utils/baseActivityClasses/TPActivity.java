@@ -26,7 +26,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Simpl
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity"
+    tools:context="com.ted_developers.triviapatente.app.views.access.FirstAccessActivity"
     tools:showIn="@layout/activity_first_access">
 
     <android.support.v4.view.ViewPager

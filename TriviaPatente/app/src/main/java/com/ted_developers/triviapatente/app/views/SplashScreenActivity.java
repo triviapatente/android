@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
-import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {

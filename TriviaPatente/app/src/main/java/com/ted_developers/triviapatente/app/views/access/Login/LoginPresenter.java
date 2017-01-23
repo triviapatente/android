@@ -1,9 +1,9 @@
-package com.ted_developers.triviapatente.app.views.first_access.Login;
+package com.ted_developers.triviapatente.app.views.access.Login;
 
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.loading.ManageLoading;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.views.first_access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
