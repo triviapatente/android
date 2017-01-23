@@ -74,10 +74,8 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindString(R.string.socket_response_waiting_category) String waitingCategory;
     @BindString(R.string.socket_response_waiting_game) String waitingGame;
     // sockets events
-    @BindString(R.string.socket_event_game_ended) String eventGameEnded;
-    @BindString(R.string.socket_event_game_left) String eventGameLeft;
+    @BindString(R.string.socket_event_game_event) String eventGameEvent;
     @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
-    @BindString(R.string.socket_event_round_started) String eventRoundStarted;
     @BindString(R.string.socket_event_category_chosen) String eventCategoryChosen;
     // sockets callbacks
     SocketCallback initRoundCallback = new SocketCallback<SuccessInitRound>() {
@@ -223,9 +221,7 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void init_listening() {
-        listen(eventGameEnded, WinnerPartecipationsUserleft.class, gameCallback);
-        listen(eventGameLeft, WinnerPartecipationsUserleft.class, gameCallback);
-        listen(eventRoundStarted, RoundUserData.class, roundCallback);
+        listen(eventGameEvent, WinnerPartecipationsUserleft.class, gameCallback);
         listen(eventRoundEnded, RoundUserData.class, roundCallback);
         listen(eventCategoryChosen, Category.class, chosenCategoryCallback);
     }

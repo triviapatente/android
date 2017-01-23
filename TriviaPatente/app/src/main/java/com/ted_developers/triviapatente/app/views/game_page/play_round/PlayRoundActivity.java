@@ -86,6 +86,7 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
             Button b = quizButtons.get(position);
             b.setOnClickListener(this);
             Quiz quiz = quizzesAdapter.quizzesList.get(position);
+            b.setText(String.valueOf(currentRound.number * 4 + position - 3)); // as (number - 1) * 4 + position + 1
             @DrawableRes int backgroundRes, backgroundSelectedRes;
             if(quiz.my_answer == null) {
                 backgroundRes = noAnswerRes;
