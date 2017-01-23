@@ -47,7 +47,6 @@ public class MainButton extends LinearLayout {
 
     public MainButton(Context context) {
         super(context);
-        this.context = context;
         init(context);
     }
 
@@ -83,6 +82,7 @@ public class MainButton extends LinearLayout {
     }
 
     private void init(Context context) {
+        this.context = context;
         LayoutParams params;
         int horizontalMargin = (int) getResources().getDimension(R.dimen.main_button_margin_horizontal);
         int fieldHeight = (int) getResources().getDimension(R.dimen.main_page_button_heigth);
