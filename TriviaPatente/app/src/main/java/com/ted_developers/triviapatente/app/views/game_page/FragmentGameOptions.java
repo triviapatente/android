@@ -16,6 +16,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDetailsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
@@ -57,8 +58,29 @@ public class FragmentGameOptions extends Fragment {
 
     @OnClick(R.id.gameDetailsButton)
     public void gameDetailsButtonClick() {
-        Intent intent = new Intent(getContext(), AlphaView.class);
-        startActivity(intent);
+        TPUtils.blurContainerIntoImageView(activity, activity.activityContainer, activity.blurredBackgroundView);
+        activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
+        //showing modal
+        final HTTPGameEndpoint httpGameEndpoint = RetrofitManager.getHTTPGameEndpoint();
+        httpGameEndpoint.getLeaveDecrement(activity.gameID).enqueue(new TPCallback<SuccessDecrement>() {
+            @Override
+            public void mOnResponse(Call<SuccessDecrement> call, Response<SuccessDecrement> response) {
+                if(response.body().success) {
+                    new TPDetailsDialog(activity, 20, 30, "", "", new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            activity.blurredBackgroundContainer.setVisibility(View.GONE);
+                        }
+                    }).show();
+                }
+            }
+
+            @Override
+            public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {}
+
+            @Override
+            public void then() {}
+        });
     }
 
     @OnClick(R.id.gameLeaveButton)
