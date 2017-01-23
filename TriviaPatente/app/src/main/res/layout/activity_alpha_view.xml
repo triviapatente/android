@@ -7,11 +7,11 @@
     android:background="@color/mainColor">
 
     <TextView
+        android:id="@+id/alphaTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@android:color/white"
         android:textSize="@dimen/TPTextSizeMedium"
         android:layout_margin="@dimen/main_button_margin"
-        android:gravity="center"
-        android:text="Questa view non \nè ancora disponibile :)"/>
+        android:gravity="center"/>
 </RelativeLayout>
