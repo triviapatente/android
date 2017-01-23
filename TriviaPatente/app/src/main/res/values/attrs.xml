@@ -23,5 +23,6 @@
         <attr name="main_button_image" format="integer"/>
         <attr name="main_button_name" format="string"/>
         <attr name="main_button_text_color" format="color"/>
+        <attr name="main_button_hint_rotation_speed" format="integer"/>
     </declare-styleable>
 </resources>
