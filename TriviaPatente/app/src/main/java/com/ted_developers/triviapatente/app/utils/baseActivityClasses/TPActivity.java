@@ -41,10 +41,10 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
     // used for toolbar configuration utils
     protected @Nullable @BindView(R.id.action_bar) TPActionBar actionBar;
     // menu options
-    protected @Nullable @BindView(R.id.activityContainer) RelativeLayout activityContainer;
+    public @Nullable @BindView(R.id.activityContainer) RelativeLayout activityContainer;
     TPDialog logoutDialog;
-    @Nullable @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
-    @Nullable @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
+    public @Nullable @BindView(R.id.fullBlurredView) ImageView blurredBackgroundView;
+    public @Nullable @BindView(R.id.fullBlurredContainer) RelativeLayout blurredBackgroundContainer;
     // sockets
     protected AuthSocketManager authSocketManager = new AuthSocketManager();
     protected BaseSocketManager baseSocketManager = new BaseSocketManager();

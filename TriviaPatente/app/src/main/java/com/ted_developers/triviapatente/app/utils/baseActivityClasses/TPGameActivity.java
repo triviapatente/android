@@ -34,10 +34,10 @@ import retrofit2.Response;
  */
 public class TPGameActivity extends TPActivity {
     // game data
-    protected User opponent;
-    protected Round currentRound;
-    protected Category currentCategory;
-    protected Long gameID;
+    public User opponent;
+    public Round currentRound;
+    public Category currentCategory;
+    public Long gameID;
     // game header
     protected FragmentGameHeader gameHeader;
 
@@ -58,78 +58,6 @@ public class TPGameActivity extends TPActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         gameHeader = (FragmentGameHeader) fragmentManager.findFragmentById(R.id.gameHeader);
         gameHeader.setHeader(currentRound, currentCategory);
-    }
-
-
-    // game options centralized management
-    // option button panel
-    @Optional
-    @OnClick(R.id.gameChatButton)
-    public void gameChatButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        /*Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));*/
-        startActivity(intent);
-    }
-    @Optional
-    @OnClick(R.id.gameDetailsButton)
-    public void gameDetailsButtonClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
-    @Optional
-    @OnClick(R.id.gameLeaveButton)
-    public void gameLeaveButtonClick() {
-        TPUtils.blurContainerIntoImageView(TPGameActivity.this, activityContainer, blurredBackgroundView);
-        blurredBackgroundContainer.setVisibility(View.VISIBLE);
-        //showing modal
-        final HTTPGameEndpoint httpGameEndpoint = RetrofitManager.getHTTPGameEndpoint();
-        httpGameEndpoint.getLeaveDecrement(gameID).enqueue(new TPCallback<SuccessDecrement>() {
-            @Override
-            public void mOnResponse(Call<SuccessDecrement> call, Response<SuccessDecrement> response) {
-                if(response.body().success) {
-                    new TPLeaveDialog(TPGameActivity.this, response.body().decrement, new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            blurredBackgroundContainer.setVisibility(View.GONE);
-                        }
-                    }) {
-                        @Override
-                        public void onNegativeButtonClick() {
-                            httpGameEndpoint.leaveGame(gameID).enqueue(new TPCallback<Success>() {
-                                @Override
-                                public void mOnResponse(Call<Success> call, Response<Success> response) {
-                                    if(response.body().success) {
-                                        TPGameActivity.this.onBackPressed();
-                                    }
-                                }
-
-                                @Override
-                                public void mOnFailure(Call<Success> call, Throwable t) {}
-
-                                @Override
-                                public void then() {}
-                            });
-                        }
-
-                        @Override
-                        public void onPositiveButtonClick() {
-                            cancel();
-                        }
-                    }.show();
-                }
-            }
-
-            @Override
-            public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {
-
-            }
-
-            @Override
-            public void then() {
-
-            }
-        });
     }
 
     @Override

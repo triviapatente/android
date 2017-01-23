@@ -47,8 +47,9 @@
         android:layout_alignTop="@+id/bigProfilePicture"
         android:layout_alignLeft="@+id/bigProfilePicture"/>
 
-    <include
-        layout="@layout/game_options"
+    <fragment
+        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameOptions"
+        android:id="@+id/gameOptions"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"

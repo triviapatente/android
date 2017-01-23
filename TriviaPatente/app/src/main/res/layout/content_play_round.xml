@@ -65,8 +65,8 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/game_options"
+    <fragment
+        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameOptions"
         android:id="@+id/gameOptions"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
