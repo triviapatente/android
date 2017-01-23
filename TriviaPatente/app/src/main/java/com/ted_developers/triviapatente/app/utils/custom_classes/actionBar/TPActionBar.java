@@ -39,7 +39,7 @@ public class TPActionBar extends RelativeLayout {
     // hearts box
     protected RelativeLayout heartsBox;
     protected ImageView heartImage;
-    protected TextSwitcher lifeCounter;
+    protected TextView lifeCounter;
     // title
     protected TextView toolbarTitle;
     // profile picture
@@ -101,22 +101,6 @@ public class TPActionBar extends RelativeLayout {
     }
 
     private void initElements(final Context context) {
-        // init text switchers
-        lifeCounter.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                TextView myText = new TextView(context);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                );
-                myText.setLayoutParams(params);
-                myText.setGravity(Gravity.CENTER | Gravity.TOP);
-                myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeSmall));
-                myText.setTextColor(Color.WHITE);
-                return myText;
-            }
-        });
         backButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +132,7 @@ public class TPActionBar extends RelativeLayout {
         // hearts box
         heartsBox = (RelativeLayout) findViewById(R.id.heartsBoxImage);
         heartImage = (ImageView) findViewById(R.id.heartImage);
-        lifeCounter = (TextSwitcher) findViewById(R.id.lifeCounter);
+        lifeCounter = (TextView) findViewById(R.id.lifeCounter);
         // title
         toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
         // profile picture
@@ -238,7 +222,8 @@ public class TPActionBar extends RelativeLayout {
     }
 
     public void setLifeCounter(int counter) {
-        lifeCounter.setText(String.valueOf(counter));
+        String strCounter = (counter == - 1)? "∞" : String.valueOf(counter);
+        lifeCounter.setText(strCounter);
     }
 
     public void setBackButtonText(String text) { backButtonText.setText(text); }

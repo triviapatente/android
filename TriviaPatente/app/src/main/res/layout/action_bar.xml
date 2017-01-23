@@ -36,23 +36,26 @@
     <!-- heart image or plus with counter -->
     <RelativeLayout
         android:id="@+id/heartsBoxImage"
-        android:layout_width="@dimen/heart_image_size"
-        android:layout_height="@dimen/heart_image_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/main_button_margin"
         android:layout_centerVertical="true">
-
         <!-- heart or plus image -->
         <ImageView
             android:id="@+id/heartImage"
             android:layout_width="@dimen/heart_image_size"
-            android:layout_height="@dimen/heart_image_size"/>
+            android:layout_height="@dimen/heart_image_size"
+            android:layout_centerInParent="true"/>
         <!-- life counter -->
-        <TextSwitcher
+        <TextView
             android:id="@+id/lifeCounter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:paddingTop="@dimen/text_size_very_small_padding"/>
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textSize="@dimen/TPTextSizeLarge"
+            android:paddingBottom="@dimen/text_size_very_small_padding"/>
     </RelativeLayout>
 
     <!-- title top bar -->
