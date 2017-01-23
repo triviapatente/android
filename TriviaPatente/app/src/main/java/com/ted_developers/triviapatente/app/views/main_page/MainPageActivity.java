@@ -59,6 +59,8 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     // server down
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
+    // recent game event
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +94,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                                         loadRecentGames();
                                     }
                                 });
-                            } else {
-                                // todo avvisare login richiesto
-                                backToFirstAccess();
-                            }
+                            } else { backToFirstAccess(); }
                         }
                     });
                 }
@@ -119,7 +118,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         super.initActionBar();
         // todo set hearts box
         actionBar.setHeartImage();
-        actionBar.setLifeCounter(3);
+        actionBar.setLifeCounter(-1);
     }
 
     private void initOptionButtons() {
