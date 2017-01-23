@@ -17,12 +17,12 @@ import com.ted_developers.triviapatente.models.game.Round;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GameHeader extends Fragment {
+public class FragmentGameHeader extends Fragment {
     protected @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     protected @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     protected @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
 
-    public GameHeader() {}
+    public FragmentGameHeader() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

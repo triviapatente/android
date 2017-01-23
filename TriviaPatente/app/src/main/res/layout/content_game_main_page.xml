@@ -9,7 +9,7 @@
     android:layout_marginTop="@dimen/tp_toolbar_margin">
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.GameHeader"
+        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader"
         android:id="@+id/gameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

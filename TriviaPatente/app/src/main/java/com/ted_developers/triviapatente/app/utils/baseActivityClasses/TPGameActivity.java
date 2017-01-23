@@ -7,16 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
-import com.ted_developers.triviapatente.app.views.game_page.GameHeader;
+import com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -26,7 +24,6 @@ import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 import retrofit2.Call;
@@ -42,7 +39,7 @@ public class TPGameActivity extends TPActivity {
     protected Category currentCategory;
     protected Long gameID;
     // game header
-    protected GameHeader gameHeader;
+    protected FragmentGameHeader gameHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,7 @@ public class TPGameActivity extends TPActivity {
         super.setContentView(layoutResID);
         // init fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        gameHeader = (GameHeader) fragmentManager.findFragmentById(R.id.gameHeader);
+        gameHeader = (FragmentGameHeader) fragmentManager.findFragmentById(R.id.gameHeader);
         gameHeader.setHeader(currentRound, currentCategory);
     }
 
