@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Socket events -->
-    <string name="socket_event_round_started">round_started</string>
     <string name="socket_event_round_ended">round_ended</string>
-    <string name="socket_event_game_ended">game_ended</string>
-    <string name="socket_event_game_left">game_left</string>
+    <string name="socket_event_game_event">game</string>
     <string name="socket_event_category_chosen">category_chosen</string>
+    <string name="socket_recent_game_update">recent_game</string>
     <!-- Socket responses -->
     <string name="socket_response_waiting_category">category</string>
     <string name="socket_response_waiting_game">game</string>
