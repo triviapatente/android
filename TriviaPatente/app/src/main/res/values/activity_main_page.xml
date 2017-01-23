@@ -9,6 +9,7 @@
     <!-- main page hints -->
     <string name="global">Globale: </string>
     <string name="friends">Amici: </string>
+    <string name="friendsNotAvailable">Entra con facebook!</string>
     <!-- main page dimen -->
     <dimen name="main_page_option_margin">25dp</dimen>
     <dimen name="main_page_image_size">30dp</dimen>
