@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
@@ -141,6 +142,7 @@ public class GameMainPageActivity extends TPGameActivity {
         startLoading();
         if(getIntent().getBooleanExtra(extraBooleanGame, false)) { createGame(); }
         else {
+            setOpponentData();
             join_room();
             init_listening();
         }
@@ -176,7 +178,6 @@ public class GameMainPageActivity extends TPGameActivity {
 
     private void smallInit() {
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        actionBar.setProfilePicture(null);
         actionBar.setBackButtonOnClick(MainPageActivity.class);
         profilePicture.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
     }
@@ -192,7 +193,7 @@ public class GameMainPageActivity extends TPGameActivity {
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         actionBar.setProfilePicture(opponent.image);
         Picasso.with(this)
-                .load(opponent.image)
+                .load(TPUtils.getUserImageFromID(this, opponent.id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
                 .into(profilePicture);
@@ -257,10 +258,5 @@ public class GameMainPageActivity extends TPGameActivity {
         intent.putExtra(this.getString(R.string.extra_string_category), RetrofitManager.gson.toJson(currentCategory));
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected String getActionBarProfilePicture() {
-        return (opponent == null)? null : getUserImageFromID(opponent.id);
     }
 }
