@@ -40,12 +40,12 @@ public class TPDetailsDialog extends Dialog {
         ((TextView) findViewById(R.id.roundDetailsUserScore)).setText(String.valueOf(userScore));
         ((TextView) findViewById(R.id.roundDetailsOpponentScore)).setText(String.valueOf(opponentScore));
         Context context = getContext();
-        Picasso.with(context)
+        TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, userID))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
                 .into((RoundedImageView) findViewById(R.id.roundDetailsUser));
-        Picasso.with(context)
+        TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, opponentID))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
