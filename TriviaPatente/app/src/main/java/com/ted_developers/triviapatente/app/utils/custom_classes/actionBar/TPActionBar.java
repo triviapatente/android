@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
@@ -209,8 +211,13 @@ public class TPActionBar extends RelativeLayout {
     public String getTitle() {
         return toolbarTitle.getText().toString();
     }
-    public void setProfilePicture(Drawable image) {
-        profilePicture.setImageDrawable(image);
+    public void setProfilePicture(String imageURL) {
+        Log.i("TEST", (imageURL == null)? "null": imageURL);
+        Picasso.with(getContext())
+                .load(imageURL)
+                .placeholder(R.drawable.image_no_profile_picture)
+                .error(R.drawable.image_no_profile_picture)
+                .into(profilePicture);
     }
 
     public void setHeartImage() {

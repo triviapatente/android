@@ -85,7 +85,7 @@ public class ChooseCategoryActivity extends TPGameActivity {
     }
 
     @Override
-    protected Drawable getActionBarProfilePicture() {
-        return null;
+    protected String getActionBarProfilePicture() {
+        return (opponent == null)? null : getUserImageFromID(opponent.id);
     }
 }

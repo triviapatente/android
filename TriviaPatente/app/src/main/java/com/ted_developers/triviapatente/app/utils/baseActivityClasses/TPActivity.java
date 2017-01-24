@@ -27,10 +27,13 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
+import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
+
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -38,6 +41,8 @@ import butterknife.ButterKnife;
  * Created by Antonio on 08/12/16.
  */
 public class TPActivity extends AppCompatActivity implements Button.OnClickListener {
+    public @BindString(R.string.baseUrl) String baseUrl;
+    public User currentUser;
     // used for toolbar configuration utils
     protected @Nullable @BindView(R.id.action_bar) TPActionBar actionBar;
     // menu options
@@ -56,6 +61,7 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+        currentUser = SharedTPPreferences.currentUser();
     }
 
     private void initUI() {
@@ -139,8 +145,12 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
     }
 
     // override this to take a particular profile picture
-    protected Drawable getActionBarProfilePicture() {
-        return ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
+    protected String getActionBarProfilePicture() {
+        return (currentUser == null)? null : getUserImageFromID(currentUser.id);
+    }
+
+    protected String getUserImageFromID(long ID) {
+        return baseUrl + "account/image/" + ID;
     }
 
     // to automatically hide menu

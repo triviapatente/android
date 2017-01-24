@@ -11,6 +11,8 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -41,7 +43,6 @@ import retrofit2.Response;
 public class GameMainPageActivity extends TPGameActivity {
     // data
     @BindString(R.string.extra_boolean_game) String extraBooleanGame;
-    private Drawable opponentImage;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
@@ -175,10 +176,9 @@ public class GameMainPageActivity extends TPGameActivity {
 
     private void smallInit() {
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        opponentImage = ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
-        actionBar.setProfilePicture(opponentImage);
+        actionBar.setProfilePicture(null);
         actionBar.setBackButtonOnClick(MainPageActivity.class);
-        profilePicture.setImageDrawable(opponentImage);
+        profilePicture.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
     }
 
     private void startLoading() {
@@ -189,11 +189,13 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void setOpponentData() {
-        // todo do dinamically
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        opponentImage = ContextCompat.getDrawable(GameMainPageActivity.this, R.drawable.image_no_profile_picture);
-        actionBar.setProfilePicture(opponentImage);
-        profilePicture.setImageDrawable(opponentImage);
+        actionBar.setProfilePicture(opponent.image);
+        Picasso.with(this)
+                .load(opponent.image)
+                .placeholder(R.drawable.image_no_profile_picture)
+                .error(R.drawable.image_no_profile_picture)
+                .into(profilePicture);
     }
 
     private void join_room() {
@@ -258,7 +260,7 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     @Override
-    protected Drawable getActionBarProfilePicture() {
-        return null;
+    protected String getActionBarProfilePicture() {
+        return (opponent == null)? null : getUserImageFromID(opponent.id);
     }
 }

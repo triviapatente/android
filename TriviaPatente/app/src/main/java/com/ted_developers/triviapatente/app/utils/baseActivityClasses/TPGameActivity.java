@@ -70,9 +70,8 @@ public class TPGameActivity extends TPActivity {
     }
 
     @Override
-    protected Drawable getActionBarProfilePicture() {
-        // todo return opponent image
-        return ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture);
+    protected String getActionBarProfilePicture() {
+        return getUserImageFromID(opponent.id);
     }
 
     @Override
