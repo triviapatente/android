@@ -156,7 +156,7 @@ public class QuizHolder implements View.OnClickListener{
         } else {
             quizImage.setVisibility(View.VISIBLE);
             Picasso.with(context)
-                    .load(TPUtils.getQuizImageFromID(context, element.id))
+                    .load(TPUtils.getQuizImageFromID(context, element.image_id))
                     .error(R.drawable.image_no_image_found)
                     .into(quizImage);
         }
