@@ -87,15 +87,10 @@ public class GameMainPageActivity extends TPGameActivity {
                         if(response.ended != null && response.ended) {
                             // todo go to round details
                         } else if(response.waiting_for.username.equals(opponent.username)) {
-                            if(response.isOpponentOnline) {
-                                if(waitingGame.equals(response.waiting)) {
-                                    waitingRound();
-                                } else if(waitingCategory.equals(response.waiting)) {
-                                    waitingCategory();
-                                }
-                            } else {
-                                offline();
-                            }
+                            //if(response.isOpponentOnline) {
+                                if(waitingGame.equals(response.waiting)) { waitingRound(); }
+                                else if(waitingCategory.equals(response.waiting)) { waitingCategory(); }
+                            //} else { offline(); }
                         } else {
                             if(waitingGame.equals(response.waiting)) {
                                 playRound();
