@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
@@ -66,12 +67,11 @@ public class RecentGameHolder extends TPHolder<Game> {
         if(element.opponent_name != null && element.opponent_surname != null) {
             setUsernameText(element.opponent_name + " " + element.opponent_surname);
         } else { setUsernameText(element.opponent_username); }
-        if(element.opponent_image != null) {
-            // TODO get image
-            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
-        } else {
-            setProfilePicture(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
-        }
+        Picasso.with(context)
+                .load(TPUtils.getUserImageFromID(context, element.opponent_id))
+                .placeholder(R.drawable.image_no_profile_picture)
+                .error(R.drawable.image_no_profile_picture)
+                .into(profilePicture);
         // set on click on profile picture
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +102,5 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     private void setUsernameText(String text) {
         usernameText.setText(text);
-    }
-
-    private void setProfilePicture(Drawable image) {
-        profilePicture.setImageDrawable(image);
     }
 }

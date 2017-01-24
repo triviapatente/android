@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;
@@ -45,11 +47,11 @@ public class ProposedOpponentHolder extends TPHolder<User> {
     @Override
     public void bind(User element) {
         // set image
-        if(false) {
-            // TODO get image
-        } else {
-            profilePicture.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_no_profile_picture));
-        }
+        Picasso.with(context)
+                .load(TPUtils.getUserImageFromID(context, element.id))
+                .placeholder(R.drawable.image_no_profile_picture)
+                .error(R.drawable.image_no_profile_picture)
+                .into(profilePicture);
         // set username or, if possible, name and surname
         usernameTextField.setText(element.toString());
         // set score
