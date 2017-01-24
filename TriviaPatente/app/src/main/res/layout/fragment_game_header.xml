@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/game_header_inner_margin"
         android:layout_marginRight="@dimen/game_header_inner_margin"/>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+    <ImageView
         android:id="@+id/subtitleImage"
         android:layout_width="@dimen/game_header_image_size"
         android:layout_height="@dimen/game_header_image_size"

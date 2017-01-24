@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
@@ -155,7 +156,7 @@ public class QuizHolder implements View.OnClickListener{
             quizImage.setVisibility(View.GONE);
         } else {
             quizImage.setVisibility(View.VISIBLE);
-            Picasso.with(context)
+            TPUtils.picasso
                     .load(TPUtils.getQuizImageFromID(context, element.image_id))
                     .error(R.drawable.image_no_image_found)
                     .into(quizImage);

@@ -27,6 +27,7 @@ import android.widget.ViewSwitcher;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.views.AlphaView;
@@ -213,7 +214,7 @@ public class TPActionBar extends RelativeLayout {
     }
 
     public void setProfilePicture(String imageURL) {
-        Picasso.with(getContext())
+        TPUtils.picasso
                 .load(imageURL)
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)

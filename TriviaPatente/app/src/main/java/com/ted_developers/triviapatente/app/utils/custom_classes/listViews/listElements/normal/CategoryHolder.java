@@ -60,7 +60,7 @@ public class CategoryHolder extends TPHolder<Category> {
     @Override
     public void bind(final Category element) {
         Context context = itemView.getContext();
-        Picasso.with(context)
+        TPUtils.picasso
                 .load(TPUtils.getCategoryImageFromID(context, element.id))
                 .error(R.drawable.image_no_image_found)
                 .into(categoryImage);

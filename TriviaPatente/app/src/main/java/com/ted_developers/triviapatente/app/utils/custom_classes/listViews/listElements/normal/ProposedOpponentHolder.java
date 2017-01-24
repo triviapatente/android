@@ -47,7 +47,7 @@ public class ProposedOpponentHolder extends TPHolder<User> {
     @Override
     public void bind(User element) {
         // set image
-        Picasso.with(context)
+        TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, element.id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)

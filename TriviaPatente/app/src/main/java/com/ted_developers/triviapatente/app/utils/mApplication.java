@@ -23,6 +23,7 @@ public class mApplication extends Application {
         TPUtils.setDefaultFont(this, "MONOSPACE", "fonts/OpenSans-Regular.ttf");
         // init
         RetrofitManager.init(this);
+        TPUtils.initPicasso(this);
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
     }

@@ -42,9 +42,8 @@ public class RetrofitManager {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-                String token_name = context.getString(R.string.shared_token_key);
                 Request request = original.newBuilder()
-                        .header(token_name, SharedTPPreferences.getToken())
+                        .header(context.getString(R.string.shared_token_key), SharedTPPreferences.getToken())
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);

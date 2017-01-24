@@ -44,7 +44,7 @@ public class FragmentGameHeader extends Fragment {
         if(category == null) {
             gameHeaderSubtitleImage.setVisibility(View.GONE);
         } else {
-            Picasso.with(getContext())
+            TPUtils.picasso
                     .load(TPUtils.getCategoryImageFromID(getContext(), category.id))
                     .error(R.drawable.image_no_image_found)
                     .into(gameHeaderSubtitleImage);
