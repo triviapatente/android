@@ -163,16 +163,8 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
             @Override
             public void mOnResponse(Call<SuccessGames> call, Response<SuccessGames> response) {
                 if(response.code() == 200 && response.body().success) {
-                    int counter = 0;
-                    if(response.body().recent_games != null) {
-                        ReceivedData.recentGames = response.body().recent_games;
-                        recentGames.setItems(ReceivedData.recentGames,
-                                R.layout.list_element_recent_game_holder, RecentGameHolder.class,
-                                R.layout.list_element_recent_game_footer, TPEmoticonFooter.class,
-                                recentGameHeight);
-                        counter = response.body().recent_games.size();
-                    }
-                    recentGames.setListCounter(counter);
+                    if(response.body().recent_games != null) { ReceivedData.recentGames = response.body().recent_games; }
+                    updateRecentGames();
                     // stop loading
                     loadingView.setVisibility(View.GONE);
                 }
@@ -185,6 +177,14 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
             @Override
             public void then() {}
         });
+    }
+
+    private void updateRecentGames() {
+        recentGames.setItems(ReceivedData.recentGames,
+                R.layout.list_element_recent_game_holder, RecentGameHolder.class,
+                R.layout.list_element_recent_game_footer, TPEmoticonFooter.class,
+                recentGameHeight);
+        recentGames.setListCounter(ReceivedData.recentGames.size());
     }
 
     private void errorConnectingToServer() {
@@ -228,10 +228,15 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     public void onResume() {
         super.onResume();
 
-        // init
+        // check web socket connection
         init();
 
+        // update recent games
+        updateRecentGames();
+
+        // update hints
         initRankHints();
+        initStatsHints();
     }
 
     @Override

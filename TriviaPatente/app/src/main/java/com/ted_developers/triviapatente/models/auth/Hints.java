@@ -11,12 +11,7 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Hints extends Success {
-    @SerializedName("invites")
-    public Integer invites;
-    @SerializedName("global_rank_position")
-    public Integer global_rank_position;
-    @SerializedName("friends_rank_position")
-    public Integer friends_rank_position;
-    @SerializedName("stats")
-    public Category[] stats;
+    @SerializedName("global_rank_position") public Integer global_rank_position;
+    @SerializedName("friends_rank_position") public Integer friends_rank_position;
+    @SerializedName("stats") public Category[] stats;
 }
