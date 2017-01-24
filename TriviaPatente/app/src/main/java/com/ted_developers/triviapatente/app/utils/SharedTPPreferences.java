@@ -30,6 +30,7 @@ public class SharedTPPreferences {
     public static void saveUser(User user) {
         String userString = RetrofitManager.gson.toJson(user, User.class);
         editor.putString(shared_user, userString);
+        editor.apply();
     }
 
     public static User currentUser() {
@@ -39,7 +40,7 @@ public class SharedTPPreferences {
 
     public static void saveToken(String token) {
         editor.putString(shared_token_key, token);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getToken() {
