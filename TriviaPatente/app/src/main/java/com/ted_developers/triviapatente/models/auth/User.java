@@ -23,7 +23,8 @@ public class User extends CommonPK {
 
     public User() {}
 
-    public User(String username, String image, Boolean last_game_won, Integer score) {
+    public User(Long id, String username, String image, Boolean last_game_won, Integer score) {
+        this.id = id;
         this.username = username;
         this.image = image;
         this.last_game_won = last_game_won;

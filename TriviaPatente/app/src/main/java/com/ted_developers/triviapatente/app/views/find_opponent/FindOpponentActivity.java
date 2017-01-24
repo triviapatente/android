@@ -75,16 +75,16 @@ public class FindOpponentActivity extends TPActivity {
     List<User> suggestedUsers;
     // friends not shown
     List<User> fakeUsers = Arrays.asList(
-            new User("TriviaPatente", null, true, 8000),
-            new User("UnGioco", null, true, 7689),
-            new User("Davvero", null, false, 6578),
-            new User("Davvero", null, true, 6000),
-            new User("Davvero", null, false, 5789),
-            new User("Fantastico", null, false, 5788),
-            new User("Probabilmente", null, true, 5748),
-            new User("IlMigliore", null, true, 3499),
-            new User("InAssoluto", null, true, 3000),
-            new User("LoAdoro", null, false, 2999)
+            new User(-1l, "TriviaPatente", null, true, 8000),
+            new User(-1l, "UnGioco", null, true, 7689),
+            new User(-1l, "Davvero", null, false, 6578),
+            new User(-1l, "Davvero", null, true, 6000),
+            new User(-1l, "Davvero", null, false, 5789),
+            new User(-1l, "Fantastico", null, false, 5788),
+            new User(-1l, "Probabilmente", null, true, 5748),
+            new User(-1l, "IlMigliore", null, true, 3499),
+            new User(-1l, "InAssoluto", null, true, 3000),
+            new User(-1l, "LoAdoro", null, false, 2999)
     );
     // modal
     @BindView(R.id.playersListBlock) RelativeLayout playersListBlock;
