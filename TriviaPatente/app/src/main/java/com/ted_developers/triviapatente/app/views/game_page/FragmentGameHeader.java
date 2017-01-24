@@ -34,8 +34,12 @@ public class FragmentGameHeader extends Fragment {
     }
 
     public void setHeader(Round round, Category category) {
+        setHeader(round, category, true);
+    }
+
+    public void setHeader(Round round, Category category, boolean waiting) {
         gameHeaderTitle.setText((round == null)? getString(R.string.game_header_waiting_title) : "Round " + round.number);
-        gameHeaderSubtitle.setText((category == null)? getString(R.string.game_header_waiting_subtitle) : category.hint);
+        gameHeaderSubtitle.setText((category == null)? (waiting)? getString(R.string.game_header_waiting_subtitle) : getString(R.string.choose_category_game_header_subtitle) : category.hint);
         if(category == null) {
             gameHeaderSubtitleImage.setVisibility(View.GONE);
         } else {

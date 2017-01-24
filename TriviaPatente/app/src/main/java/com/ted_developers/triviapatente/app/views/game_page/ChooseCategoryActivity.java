@@ -63,7 +63,7 @@ public class ChooseCategoryActivity extends TPGameActivity {
                 });
             }
         });
-
+        gameHeader.setHeader(currentRound, currentCategory, false);
     }
 
     public void chooseCategory(final Category category) {
