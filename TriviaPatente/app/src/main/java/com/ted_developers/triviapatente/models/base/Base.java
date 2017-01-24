@@ -9,10 +9,8 @@ import org.parceler.Parcel;
  */
 @Parcel
 public abstract class Base {
-    @SerializedName("createdAt")
-    public String createdAt;
-    @SerializedName("updatedAt")
-    public String updatedAt;
+    @SerializedName("createdAt") public String createdAt;
+    @SerializedName("updatedAt") public String updatedAt;
 
     protected Base() {}
 }

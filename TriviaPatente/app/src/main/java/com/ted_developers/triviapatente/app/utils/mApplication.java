@@ -2,10 +2,14 @@ package com.ted_developers.triviapatente.app.utils;
 
 import android.app.Application;
 import android.content.Intent;
+import android.util.Log;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.EventAction;
+import com.ted_developers.triviapatente.models.responses.ActionRecentGame;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 /**
@@ -26,6 +30,18 @@ public class mApplication extends Application {
         TPUtils.initPicasso(this);
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
+        // recent games events
+        BaseSocketManager baseSocketManager = new BaseSocketManager();
+        baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
+            @Override
+            public void response(ActionRecentGame response) {
+                // look at response action
+                switch (EventAction.fromString(response.action)) {
+                    case create: { ReceivedData.addGame(response.game); } break;
+                    case update: { ReceivedData.updateGame(response.game); } break;
+                }
+            }
+        });
     }
 
     public static mApplication getInstance() {

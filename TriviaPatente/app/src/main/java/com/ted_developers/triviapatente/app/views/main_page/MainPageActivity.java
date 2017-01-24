@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.main_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,9 +22,11 @@ import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.NewGameActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.EventAction;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
+import com.ted_developers.triviapatente.models.responses.ActionRecentGame;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import java.util.ArrayList;
@@ -62,12 +65,21 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     @BindString(R.string.server_down_message) String serverDownMessage;
     // recent game event
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
+        baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
+            @Override
+            public void response(ActionRecentGame response) {
+                // TODO do better
+                if(visible) {
+                    Log.i("TEST", "recent game on main page activity");
+                    loadRecentGames();
+                }
+            }
+        });
     }
 
     private void init() {
@@ -163,7 +175,10 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
             @Override
             public void mOnResponse(Call<SuccessGames> call, Response<SuccessGames> response) {
                 if(response.code() == 200 && response.body().success) {
-                    if(response.body().recent_games != null) { ReceivedData.recentGames = response.body().recent_games; }
+                    if(response.body().recent_games != null) {
+                        ReceivedData.recentGames = response.body().recent_games;
+                        ReceivedData.orderGames();
+                    }
                     updateRecentGames();
                     // stop loading
                     loadingView.setVisibility(View.GONE);
@@ -232,7 +247,8 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
         init();
 
         // update recent games
-        updateRecentGames();
+        //updateRecentGames();
+        loadRecentGames();
 
         // update hints
         initRankHints();

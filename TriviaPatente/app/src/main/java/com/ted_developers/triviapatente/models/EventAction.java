@@ -3,7 +3,7 @@ package com.ted_developers.triviapatente.models;
 /**
  * Created by Antonio on 22/01/17.
  */
-public enum EventActions {
+public enum EventAction {
     create("create"),
     update("update"),
     destroy("destroy"),
@@ -16,10 +16,18 @@ public enum EventActions {
 
     String action;
 
-    EventActions(String action) {
+    EventAction(String action) {
         this.action = action;
     }
 
+    public static EventAction fromString(String actionString) {
+        for(EventAction action : EventAction.values()) {
+            if(action.toString().equals(actionString)) {
+                return action;
+            }
+        }
+        return null;
+    }
     public String toString() {
         return action;
     }

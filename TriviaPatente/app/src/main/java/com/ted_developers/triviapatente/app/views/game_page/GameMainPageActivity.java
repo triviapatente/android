@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -26,6 +27,7 @@ import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRound
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Category;
+import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.responses.Accepted;
 import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
@@ -69,7 +71,7 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindString(R.string.socket_response_waiting_category) String waitingCategory;
     @BindString(R.string.socket_response_waiting_game) String waitingGame;
     // sockets events
-    @BindString(R.string.socket_event_game_event) String eventGameEvent;
+    @BindString(R.string.socket_event_game) String eventGameEvent;
     @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
     @BindString(R.string.socket_event_category_chosen) String eventCategoryChosen;
     // sockets callbacks
@@ -159,8 +161,10 @@ public class GameMainPageActivity extends TPGameActivity {
             @Override
             public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
                 if(response.code() == 200 && response.body().success) {
-                    gameID = response.body().game.id;
+                    Game game = response.body().game;
+                    gameID = game.id;
                     opponent = response.body().user;
+                    ReceivedData.addGame(game);
                 }
             }
 
