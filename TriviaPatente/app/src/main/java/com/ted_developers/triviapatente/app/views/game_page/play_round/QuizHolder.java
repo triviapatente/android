@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.ResizeAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.TranslateAnimation;
 import com.ted_developers.triviapatente.models.game.Quiz;
@@ -155,7 +156,7 @@ public class QuizHolder implements View.OnClickListener{
         } else {
             quizImage.setVisibility(View.VISIBLE);
             Picasso.with(context)
-                    .load(baseUrl + "quiz/image/" + element.image_id)
+                    .load(TPUtils.getQuizImageFromID(context, element.id))
                     .error(R.drawable.image_no_image_found)
                     .into(quizImage);
         }

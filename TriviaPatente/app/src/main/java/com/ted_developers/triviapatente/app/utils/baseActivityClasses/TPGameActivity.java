@@ -71,7 +71,7 @@ public class TPGameActivity extends TPActivity {
 
     @Override
     protected String getActionBarProfilePicture() {
-        return getUserImageFromID(opponent.id);
+        return (opponent == null)? null : TPUtils.getUserImageFromID(this, opponent.id);
     }
 
     @Override

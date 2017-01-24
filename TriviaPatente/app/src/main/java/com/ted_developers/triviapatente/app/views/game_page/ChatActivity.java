@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -30,6 +31,6 @@ public class ChatActivity extends TPActivity {
 
     @Override
     protected String getActionBarProfilePicture() {
-        return (opponent == null)? null : getUserImageFromID(opponent.id);
+        return (opponent == null)? null : TPUtils.getUserImageFromID(this, opponent.id);
     }
 }

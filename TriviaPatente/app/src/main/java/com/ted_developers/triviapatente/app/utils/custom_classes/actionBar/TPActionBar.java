@@ -212,7 +212,6 @@ public class TPActionBar extends RelativeLayout {
         return toolbarTitle.getText().toString();
     }
     public void setProfilePicture(String imageURL) {
-        Log.i("TEST", (imageURL == null)? "null": imageURL);
         Picasso.with(getContext())
                 .load(imageURL)
                 .placeholder(R.drawable.image_no_profile_picture)

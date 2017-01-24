@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Round;
 
@@ -44,7 +45,7 @@ public class FragmentGameHeader extends Fragment {
             gameHeaderSubtitleImage.setVisibility(View.GONE);
         } else {
             Picasso.with(getContext())
-                    .load(getString(R.string.baseUrl) + "category/image/" + category.id)
+                    .load(TPUtils.getCategoryImageFromID(getContext(), category.id))
                     .error(R.drawable.image_no_image_found)
                     .into(gameHeaderSubtitleImage);
             gameHeaderSubtitleImage.setVisibility(View.VISIBLE);

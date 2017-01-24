@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.TPHolder;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.ChooseCategoryActivity;
@@ -60,7 +61,7 @@ public class CategoryHolder extends TPHolder<Category> {
     public void bind(final Category element) {
         Context context = itemView.getContext();
         Picasso.with(context)
-                .load(context.getString(R.string.baseUrl) + "category/image/" + element.id)
+                .load(TPUtils.getCategoryImageFromID(context, element.id))
                 .error(R.drawable.image_no_image_found)
                 .into(categoryImage);
         Drawable backgroundLayerDrawable = backgroundLayer.getBackground();

@@ -73,7 +73,7 @@ public class FragmentGameOptions extends Fragment {
             @Override
             public void response(SuccessRoundDetails response) {
                 if(response.success) {
-                    final Pair<String, Integer> user = getUserImagePathAndScoreFromID(
+                    final Pair<Long, Integer> user = getUserImagePathAndScoreFromID(
                             response.users,
                             response.answers,
                             activity.opponent.id,
@@ -100,7 +100,7 @@ public class FragmentGameOptions extends Fragment {
         });
     }
 
-    private Pair<String, Integer> getUserImagePathAndScoreFromID(List<User> users, List<Question> answers, Long ID, boolean is) {
+    private Pair<Long, Integer> getUserImagePathAndScoreFromID(List<User> users, List<Question> answers, Long ID, boolean is) {
         User matchingUser = null;
         for(User user : users) {
             if((is && user.id.equals(ID)) || (!is && !user.id.equals(ID))) {
@@ -114,7 +114,7 @@ public class FragmentGameOptions extends Fragment {
                 score++;
             }
         }
-        return new Pair<>(matchingUser.image, score);
+        return new Pair<>(matchingUser.id, score);
     }
 
     @OnClick(R.id.gameLeaveButton)

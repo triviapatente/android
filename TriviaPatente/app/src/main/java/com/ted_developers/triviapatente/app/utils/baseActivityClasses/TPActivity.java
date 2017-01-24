@@ -41,7 +41,6 @@ import butterknife.ButterKnife;
  * Created by Antonio on 08/12/16.
  */
 public class TPActivity extends AppCompatActivity implements Button.OnClickListener {
-    public @BindString(R.string.baseUrl) String baseUrl;
     public User currentUser;
     // used for toolbar configuration utils
     protected @Nullable @BindView(R.id.action_bar) TPActionBar actionBar;
@@ -146,11 +145,7 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
 
     // override this to take a particular profile picture
     protected String getActionBarProfilePicture() {
-        return (currentUser == null)? null : getUserImageFromID(currentUser.id);
-    }
-
-    protected String getUserImageFromID(long ID) {
-        return baseUrl + "account/image/" + ID;
+        return (currentUser == null)? null : TPUtils.getUserImageFromID(this, currentUser.id);
     }
 
     // to automatically hide menu

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPEnterAnimListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
@@ -86,6 +87,6 @@ public class ChooseCategoryActivity extends TPGameActivity {
 
     @Override
     protected String getActionBarProfilePicture() {
-        return (opponent == null)? null : getUserImageFromID(opponent.id);
+        return (opponent == null)? null : TPUtils.getUserImageFromID(this, opponent.id);
     }
 }
