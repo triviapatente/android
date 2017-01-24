@@ -73,21 +73,15 @@ public class FragmentGameOptions extends Fragment {
             @Override
             public void response(SuccessRoundDetails response) {
                 if(response.success) {
-                    final Pair<Long, Integer> user = getUserImagePathAndScoreFromID(
-                            response.users,
-                            response.answers,
-                            activity.opponent.id,
-                            false
-                    ), opponent = getUserImagePathAndScoreFromID(
-                            response.users,
-                            response.answers,
-                            activity.opponent.id,
-                            true
-                    );
+                    final List<Question> answers = response.answers;
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new TPDetailsDialog(activity, user.second, opponent.second, user.first, user.first, new DialogInterface.OnCancelListener() {
+                            new TPDetailsDialog(
+                                    activity,
+                                    getUserScoreFromID(answers, activity.currentUser.id),
+                                    getUserScoreFromID(answers, activity.opponent.id),
+                                    activity.currentUser.id, activity.opponent.id, new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
                                     activity.blurredBackgroundContainer.setVisibility(View.GONE);
@@ -100,21 +94,14 @@ public class FragmentGameOptions extends Fragment {
         });
     }
 
-    private Pair<Long, Integer> getUserImagePathAndScoreFromID(List<User> users, List<Question> answers, Long ID, boolean is) {
-        User matchingUser = null;
-        for(User user : users) {
-            if((is && user.id.equals(ID)) || (!is && !user.id.equals(ID))) {
-                matchingUser = user;
-                break;
-            }
-        }
-        Integer score = 0;
+    private int getUserScoreFromID(List<Question> answers, Long userID) {
+        int score = 0;
         for(Question question : answers) {
-            if(((is && question.user_id.equals(ID)) || (!is && !question.user_id.equals(ID))) && question.correct) {
+            if(question.user_id.equals(userID) && question.correct) {
                 score++;
             }
         }
-        return new Pair<>(matchingUser.id, score);
+        return score;
     }
 
     @OnClick(R.id.gameLeaveButton)
