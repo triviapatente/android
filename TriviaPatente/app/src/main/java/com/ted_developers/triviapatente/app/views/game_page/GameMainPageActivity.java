@@ -191,7 +191,7 @@ public class GameMainPageActivity extends TPGameActivity {
 
     private void setOpponentData() {
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        actionBar.setProfilePicture(opponent.image);
+        actionBar.setProfilePicture(TPUtils.getUserImageFromID(this, opponent.id));
         Picasso.with(this)
                 .load(TPUtils.getUserImageFromID(this, opponent.id))
                 .placeholder(R.drawable.image_no_profile_picture)
