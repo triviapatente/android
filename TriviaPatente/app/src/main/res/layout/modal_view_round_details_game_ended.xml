@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/modal_view_round_details_width"
+    android:layout_height="@dimen/modal_view_round_details_height_game_ended"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_big_white_box"
+    android:id="@+id/modal_logout">
+
+    <TextView
+        android:id="@+id/modal_details_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/TPTextSizeLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/modal_view_round_details_margin"
+        android:layout_marginBottom="@dimen/modal_view_round_details_margin"/>
+
+    <com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.ScoreIncrementView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modal_details_message"
+        android:id="@+id/incrementView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/modal_view_round_details_margin"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/incrementView">
+
+        <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            android:id="@+id/roundDetailsUser"
+            android:layout_width="@dimen/modal_view_round_details_user_picture"
+            android:layout_height="@dimen/modal_view_round_details_user_picture"
+            android:layout_marginLeft="@dimen/modal_view_round_details_margin"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/modal_view_round_details_score_label_height"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/modal_view_round_details_margin"
+            android:layout_marginRight="@dimen/modal_view_round_details_margin">
+
+            <TextView
+                android:id="@+id/roundDetailsUserScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/TPTextSizeLarge"
+                android:layout_gravity="center"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/mainColor"
+                android:layout_marginLeft="@dimen/modal_view_round_details_score_margin"
+                android:layout_marginRight="@dimen/modal_view_round_details_score_margin"/>
+
+            <TextView
+                android:id="@+id/roundDetailsOpponentScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/TPTextSizeLarge"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            android:id="@+id/roundDetailsOpponent"
+            android:layout_width="@dimen/modal_view_round_details_user_picture"
+            android:layout_height="@dimen/modal_view_round_details_user_picture"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/modal_view_round_details_margin"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

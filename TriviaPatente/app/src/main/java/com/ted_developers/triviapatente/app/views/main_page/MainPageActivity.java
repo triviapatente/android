@@ -242,6 +242,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        recentGames.setMinimizedHeightMode();
 
         // check web socket connection
         init();

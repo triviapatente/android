@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.models.game.Question;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,6 +105,16 @@ public class TPUtils {
 
     public static String getCategoryImageFromID(Context context, long ID) {
         return context.getString(R.string.baseUrl)+ "category/image/" + ID;
+    }
+
+    public static int getUserScoreFromID(List<Question> answers, Long userID) {
+        int score = 0;
+        for(Question question : answers) {
+            if(question.user_id.equals(userID) && question.correct) {
+                score++;
+            }
+        }
+        return score;
     }
 
 }

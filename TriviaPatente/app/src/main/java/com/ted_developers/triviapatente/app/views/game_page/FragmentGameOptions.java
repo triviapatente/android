@@ -79,8 +79,8 @@ public class FragmentGameOptions extends Fragment {
                         public void run() {
                             new TPDetailsDialog(
                                     activity,
-                                    getUserScoreFromID(answers, activity.currentUser.id),
-                                    getUserScoreFromID(answers, activity.opponent.id),
+                                    TPUtils.getUserScoreFromID(answers, activity.currentUser.id),
+                                    TPUtils.getUserScoreFromID(answers, activity.opponent.id),
                                     activity.currentUser.id, activity.opponent.id, new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
@@ -92,16 +92,6 @@ public class FragmentGameOptions extends Fragment {
                 }
             }
         });
-    }
-
-    private int getUserScoreFromID(List<Question> answers, Long userID) {
-        int score = 0;
-        for(Question question : answers) {
-            if(question.user_id.equals(userID) && question.correct) {
-                score++;
-            }
-        }
-        return score;
     }
 
     @OnClick(R.id.gameLeaveButton)

@@ -43,7 +43,7 @@
         custom:stroke_width="5dp"
         custom:circle_colorOver="@android:color/white"
         custom:circle_colorUnder="@color/mainColorLight"
-        android:translationZ="1000dp"
+        android:translationZ="10dp"
         android:layout_alignTop="@+id/bigProfilePicture"
         android:layout_alignLeft="@+id/bigProfilePicture"/>
 
@@ -54,5 +54,13 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/play_round_content_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/blueView"
+        android:background="@color/mainColor"
+        android:visibility="gone"
+        android:translationZ="100dp"/>
 
 </RelativeLayout>

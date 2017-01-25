@@ -9,7 +9,9 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class Partecipation {
-    @SerializedName("user_id") Long user_id;
-    @SerializedName("game_id") Long game_id;
-    @SerializedName("score_increment") Integer score_increment;
+    @SerializedName("user_id") public Long user_id;
+    @SerializedName("game_id") public Long game_id;
+    @SerializedName("score_increment") public Integer score_increment;
+
+    Partecipation() {}
 }

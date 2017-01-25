@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -21,6 +22,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle;
 import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.CircleRotatingAnimation;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDetailsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
@@ -28,14 +30,19 @@ import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
+import com.ted_developers.triviapatente.models.game.Partecipation;
+import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.responses.Accepted;
 import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
+import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 import com.ted_developers.triviapatente.models.responses.WinnerPartecipationsUserleft;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
+
+import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -267,6 +274,35 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void roundDetails() {
-
+        gameSocketManager.round_details(gameID, new SocketCallback<SuccessRoundDetails>() {
+            @Override
+            public void response(SuccessRoundDetails response) {
+                if(response.success) {
+                    final List<Question> answers = response.answers;
+                    for(Partecipation partecipation : response.partecipations) {
+                        if(partecipation.user_id.equals(currentUser.id)) {
+                            final Integer scoreIncrement = partecipation.score_increment;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    findViewById(R.id.blueView).setVisibility(View.VISIBLE);
+                                    new TPDetailsDialog(
+                                            GameMainPageActivity.this,
+                                            TPUtils.getUserScoreFromID(answers, currentUser.id),
+                                            TPUtils.getUserScoreFromID(answers, opponent.id),
+                                            currentUser.id, opponent.id, scoreIncrement, new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            finish();
+                                        }
+                                    }).show();
+                                }
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
 }
