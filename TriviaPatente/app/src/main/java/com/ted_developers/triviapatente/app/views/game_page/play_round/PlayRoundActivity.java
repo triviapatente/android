@@ -1,16 +1,20 @@
 package com.ted_developers.triviapatente.app.views.game_page.play_round;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.responses.SuccessAnsweredCorrectly;
 import com.ted_developers.triviapatente.models.responses.SuccessQuizzes;
@@ -48,7 +52,11 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     });
                 } else {
                     // my round ended
-
+                    Intent intent = new Intent(PlayRoundActivity.this, GameMainPageActivity.class);
+                    intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+                    intent.putExtra(getString(R.string.extra_long_game), gameID);
+                    intent.putExtra(getString(R.string.extra_boolean_join_room), false);
+                    startActivity(intent);
                 }
 
             }
