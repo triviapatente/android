@@ -57,6 +57,7 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     intent.putExtra(getString(R.string.extra_long_game), gameID);
                     intent.putExtra(getString(R.string.extra_boolean_join_room), false);
                     startActivity(intent);
+                    finish();
                 }
 
             }
