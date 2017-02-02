@@ -6,6 +6,8 @@ import com.ted_developers.triviapatente.models.responses.Success;
 
 import org.parceler.Parcel;
 
+import java.util.List;
+
 /**
  * Created by Antonio on 31/10/16.
  */
@@ -13,5 +15,5 @@ import org.parceler.Parcel;
 public class Hints extends Success {
     @SerializedName("global_rank_position") public Integer global_rank_position;
     @SerializedName("friends_rank_position") public Integer friends_rank_position;
-    @SerializedName("stats") public Category[] stats;
+    @SerializedName("stats") public List<Category> stats;
 }

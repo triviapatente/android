@@ -142,7 +142,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
     private void initStatsHints() {
         List<String> hintsStrings = new ArrayList<String>();
-        if(ReceivedData.statsHints.length > 0) {
+        if(ReceivedData.statsHints.size() > 0) {
             // build hints
             hintsStrings.clear();
             for(Category c : ReceivedData.statsHints) {

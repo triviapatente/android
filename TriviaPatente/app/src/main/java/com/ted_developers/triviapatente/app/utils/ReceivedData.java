@@ -16,7 +16,7 @@ public class ReceivedData {
     public static Integer global_rank_position = new Integer(0), friends_rank_position = new Integer(0);
 
     // stats
-    public static Category[] statsHints = new Category[0];
+    public static List<Category> statsHints = new ArrayList<>(0);
 
     // recent games
     public static List<Game> recentGames = new ArrayList<>(0);

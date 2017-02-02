@@ -18,7 +18,7 @@
         android:layout_marginStart="@dimen/main_button_margin"
         android:layout_marginTop="@dimen/main_page_option_margin"
         android:orientation="vertical"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/action_bar">
 
         <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
