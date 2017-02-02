@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading;
+package com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading;
 
 import android.annotation.TargetApi;
 import android.content.Context;

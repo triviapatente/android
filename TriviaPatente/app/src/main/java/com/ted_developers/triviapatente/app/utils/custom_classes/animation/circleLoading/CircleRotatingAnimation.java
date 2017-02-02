@@ -1,6 +1,5 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading;
+package com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading;
 
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 

@@ -2,7 +2,6 @@ package com.ted_developers.triviapatente.app.views.game_page;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
@@ -20,19 +18,16 @@ import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle;
-import com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.CircleRotatingAnimation;
+import com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading.Circle;
+import com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading.CircleRotatingAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDetailsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
-import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.game.Partecipation;
 import com.ted_developers.triviapatente.models.game.Question;
-import com.ted_developers.triviapatente.models.responses.Accepted;
 import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessCategory;
@@ -47,7 +42,6 @@ import java.util.List;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -118,14 +112,11 @@ public class GameMainPageActivity extends TPGameActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i("TEST", "round callback");
                     if(globally == null) {
-                        Log.i("TEST", "started");
                         // round started
                         waitingCategory();
                     } else if(globally) {
                         // round ended
-                        Log.i("TEST", "ended");
                         init_round();
                     }
                 }
@@ -134,13 +125,23 @@ public class GameMainPageActivity extends TPGameActivity {
     }, gameCallback = new SocketCallback<WinnerPartecipationsUserleft>() {
         @Override
         public void response(WinnerPartecipationsUserleft response) {
-            roundDetails();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    roundDetails();
+                }
+            });
         }
     }, chosenCategoryCallback = new SocketCallback<SuccessCategory>() {
         @Override
         public void response(SuccessCategory response) {
             currentCategory = response.category;
-            playRound();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    playRound();
+                }
+            });
         }
     };
 

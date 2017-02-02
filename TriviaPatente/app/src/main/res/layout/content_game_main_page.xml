@@ -36,7 +36,7 @@
         android:layout_below="@+id/bigProfilePicture"
         android:layout_marginTop="@dimen/wait_page_margin"/>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.circleLoading.Circle
+    <com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading.Circle
         android:id="@+id/loadingCircle"
         android:layout_width="@dimen/big_profile_picture_size"
         android:layout_height="@dimen/big_profile_picture_size"
