@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Picture -->
+    <dimen name="activity_change_user_details_picture_size">157dp</dimen>
+    <dimen name="activity_change_user_details_picture_button_size">50dp</dimen>
+    <dimen name="activity_change_user_details_picture_button_margin">19dp</dimen>
+    <dimen name="activity_change_user_details_picture_margin_from_buttons">40dp</dimen>
+    <!-- Name & Surname -->
+    <dimen name="activity_change_user_details_field_height">45dp</dimen>
+    <dimen name="activity_change_user_details_name_field_horizontal_margin">30dp</dimen>
+    <dimen name="activity_change_user_details_field_vertical_margin">10dp</dimen>
+    <string name="activity_change_user_details_name_hint">New name</string>
+    <string name="activity_change_user_details_surname_hint">New surname</string>
+    <string name="activity_change_user_details_wrong_string">Input non valido..</string>
+    <!-- Overall -->
+    <dimen name="activity_change_user_details_margin">30dp</dimen>
+    <!-- Confirm -->
+    <string name="activity_change_user_details_confirm_button_text">Conferma</string>
+</resources>

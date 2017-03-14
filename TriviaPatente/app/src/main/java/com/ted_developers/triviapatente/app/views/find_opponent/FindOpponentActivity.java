@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -217,6 +218,7 @@ public class FindOpponentActivity extends TPActivity {
                 public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                     if(response.code() == 200 && response.body().success && response.body().users != null) {
                         suggestedUsers = response.body().users;
+                        Log.d("TEST", String.valueOf(suggestedUsers.size()));
                         setPlayersListItems(suggestedUsers);
                     }
                     // show other items

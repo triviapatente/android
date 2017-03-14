@@ -96,7 +96,7 @@ public class TPExpandableList<T> extends Fragment {
     public void setListCounter(int counter) {
         setListCounter(counter, true);
     }
-
+    
     public void setListCounter(final int counter, final boolean needUpdateLayoutParams) {
         if(counter == 0) { setCounterZero(); } else { setCounterNonZero(counter); }
         this.getView().post(new Runnable() {

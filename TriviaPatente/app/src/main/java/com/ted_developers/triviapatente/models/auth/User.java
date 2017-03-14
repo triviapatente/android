@@ -1,9 +1,7 @@
 package com.ted_developers.triviapatente.models.auth;
 
-import android.content.Intent;
 
 import com.google.gson.annotations.SerializedName;
-import com.ted_developers.triviapatente.models.base.Base;
 import com.ted_developers.triviapatente.models.base.CommonPK;
 
 import org.parceler.Parcel;

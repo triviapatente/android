@@ -27,6 +27,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
+import com.ted_developers.triviapatente.app.views.preferences.ChangeUserDetailsActivity;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
@@ -175,9 +176,17 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.menuLogoutOption: logout(); break;
+            case R.id.menuSettingsOption: settings(); break;
             default: Intent intent = new Intent(this, AlphaView.class); startActivity(intent);
         }
     }
+
+    // settings
+    public void settings() {
+        Intent intent = new Intent(this, ChangeUserDetailsActivity.class);
+        startActivity(intent);
+    }
+
     // logout
     public void logout() {
         // setting blurry background

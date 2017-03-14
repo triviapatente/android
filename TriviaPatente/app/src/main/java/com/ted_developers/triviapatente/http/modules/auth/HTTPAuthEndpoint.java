@@ -5,6 +5,7 @@ import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -39,7 +40,7 @@ public interface HTTPAuthEndpoint {
 
     @Multipart
     @POST("account/image/edit")
-    Call<User> changeImage(@Part("image") RequestBody image);
+    Call<User> changeImage(@Part MultipartBody.Part image);
 
     @GET("account/user")
     Call<User> getCurrentuser();
