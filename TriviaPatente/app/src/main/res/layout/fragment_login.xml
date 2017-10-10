@@ -82,10 +82,10 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="@dimen/negative_element_margin"/>
 
-        <!-- or separator -->
+        <!--&lt;!&ndash; or separator &ndash;&gt;
         <include layout="@layout/layout_or"/>
 
-        <!-- facebook login button -->
+        &lt;!&ndash; facebook login button &ndash;&gt;
         <ImageButton
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
@@ -93,6 +93,6 @@
             android:scaleType="fitCenter"
             android:src="@mipmap/fb_logo"
             android:background="@android:color/transparent"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal" />-->
     </LinearLayout>
 </FrameLayout>
