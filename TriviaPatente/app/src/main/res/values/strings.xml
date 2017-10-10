@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
-    <string name="baseUrl">http://46.19.235.163:8000/</string>
-    <!--<string name="baseUrl">http://192.168.1.160:8000/</string>-->
+    <string name="baseUrl">http://158.110.242.100:8000/</string>
     <string name="old_session">Sessione scaduta. Accedi per continuare</string>
 </resources>

@@ -25,7 +25,7 @@ import butterknife.BindView;
 
 public class FirstAccessActivity extends TPActivity {
 
-    @BindView(R.id.pager) ViewPager mViewPager;
+    @BindView(R.id.pager) public ViewPager mViewPager;
     @BindView(R.id.pagerIndicator) CirclePageIndicator mIndicator;
     // error messages
     @BindString(R.string.field_required) public String field_required_error;
@@ -59,8 +59,8 @@ public class FirstAccessActivity extends TPActivity {
         });
         // ViewPager Indicator
         mIndicator.setViewPager(mViewPager);
-        // Start from welcome page
-        mViewPager.setCurrentItem(1);
+        // Start from register page
+        mViewPager.setCurrentItem(0);
     }
 
     // hide keyboard

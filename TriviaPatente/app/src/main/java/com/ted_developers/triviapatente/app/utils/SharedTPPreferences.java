@@ -2,8 +2,6 @@ package com.ted_developers.triviapatente.app.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;

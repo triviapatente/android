@@ -14,7 +14,7 @@ public class FirstAccessAdapter extends FragmentPagerAdapter {
 
     Fragment[] elements = {
             RegisterFragment.newInstance(),
-            WelcomeFragment.newInstance(),
+            // WelcomeFragment.newInstance(),
             LoginFragment.newInstance()
     };
 
