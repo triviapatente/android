@@ -6,12 +6,12 @@
     android:id="@+id/gameOptions"
     android:gravity="center_horizontal">
 
-    <Button
+    <!--<Button
         android:id="@+id/gameChatButton"
         android:layout_width="@dimen/button_game_panel_size"
         android:layout_height="@dimen/button_game_panel_size"
         android:background="@drawable/button_game_chat"
-        android:layout_marginRight="@dimen/button_game_panel_inner_margin"/>
+        android:layout_marginRight="@dimen/button_game_panel_inner_margin"/>-->
 
     <Button
         android:id="@+id/gameDetailsButton"

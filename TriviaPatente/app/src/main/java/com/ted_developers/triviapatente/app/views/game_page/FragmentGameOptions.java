@@ -56,13 +56,13 @@ public class FragmentGameOptions extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.gameChatButton)
+    /*@OnClick(R.id.gameChatButton)
     public void gameChatButtonClick() {
         Intent intent = new Intent(activity, AlphaView.class);
-        /*Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));*/
+        *//*Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));*//*
         startActivity(intent);
-    }
+    }*/
 
     @OnClick(R.id.gameDetailsButton)
     public void gameDetailsButtonClick() {
