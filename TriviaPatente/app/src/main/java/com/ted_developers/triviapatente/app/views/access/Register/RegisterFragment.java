@@ -96,4 +96,9 @@ public class RegisterFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @OnClick(R.id.already_registered)
+    public void swipeToLogin() {
+        ((FirstAccessActivity) getActivity()).mViewPager.setCurrentItem(1);
+    }
 }

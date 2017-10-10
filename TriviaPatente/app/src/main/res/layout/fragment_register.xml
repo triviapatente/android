@@ -91,10 +91,28 @@
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
 
-        <!-- or separator -->
+        <!-- Already registered option -->
+        <TextView
+            android:id="@+id/already_registered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/TPTextSizeSmall"
+            android:textStyle="italic"
+            android:text="@string/already_registered"
+            android:layout_gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:paddingLeft="@dimen/or_padding"
+            android:paddingRight="@dimen/or_padding"
+            android:paddingStart="@dimen/or_padding"
+            android:paddingEnd="@dimen/or_padding"
+            android:paddingBottom="@dimen/or_bottom_padding"
+            android:clickable="true"/>
+
+       <!-- &lt;!&ndash; or separator &ndash;&gt;
         <include layout="@layout/layout_or"/>
 
-        <!-- facebook login button -->
+        &lt;!&ndash; facebook login button &ndash;&gt;
         <ImageButton
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
@@ -102,6 +120,6 @@
             android:scaleType="fitCenter"
             android:src="@mipmap/fb_logo"
             android:background="@android:color/transparent"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal" />-->
     </LinearLayout>
 </FrameLayout>
