@@ -12,11 +12,12 @@
     <string name="hint_repeat_password">Ripeti password</string>
     <string name="hint_email">Email</string>
     <!-- first access errors -->
+    <dimen name="alertbox_inner_padding">10dp</dimen>
     <string name="field_required">Campo richiesto!</string>
     <string name="blank_not_allowed">Non sono ammessi spazi!</string>
     <string name="not_valid_email">Email non valida!</string>
     <string name="not_matching_pwd">Le password non coincidono!</string>
-    <string name="login_failed">Login fallito.\nVerifica di aver inserito nome utente e password corretti, e che il tuo account sia attivo.</string>
+    <string name="login_failed">Login fallito. Verifica di aver inserito correttamente nome utente e password.</string>
     <string name="forgot_username_password">Nome utente o password dimenticati?</string>
     <string name="operation_failed">Ci dispiace ma i server sono in manutenzione..\nRiprova tra un po\'! :/</string>
     <!--failed register-->

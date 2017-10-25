@@ -71,16 +71,18 @@
         </RelativeLayout>
 
         <!-- forgot username or password button -->
-        <Button
+        <TextView
             android:id="@+id/forgot_button"
             android:layout_width="match_parent"
             android:layout_height="@dimen/field_height"
             android:text="@string/forgot_username_password"
             android:textStyle="italic"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/negative_element_margin"/>
+            android:layout_marginTop="@dimen/negative_element_margin"
+            android:clickable="true"/>
 
         <!--&lt;!&ndash; or separator &ndash;&gt;
         <include layout="@layout/layout_or"/>

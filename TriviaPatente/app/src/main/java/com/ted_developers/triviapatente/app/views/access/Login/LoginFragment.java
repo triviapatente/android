@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.access.Login;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
@@ -33,7 +35,7 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.password_field) LabeledInput passwordField;
     @BindView(R.id.login_button) LoadingButton loginButton;
     @BindView(R.id.alertMessage) MessageBox alertMessageView;
-    @BindView(R.id.forgot_button) Button loginFailedButton;
+    @BindView(R.id.forgot_button) TextView loginFailedButton;
     // useful strings
     @BindString(R.string.hint_password) String passwordHint;
     @BindString(R.string.hint_username) String usernameHint;
@@ -122,5 +124,12 @@ public class LoginFragment extends Fragment {
         if (loginFailedButton.getVisibility() == View.VISIBLE) {
             loginFailedButton.setVisibility(View.GONE);
         }
+    }
+
+    // forgot password or username
+    @OnClick(R.id.forgot_button)
+    public void forgotUsernamePassword(){
+        Intent i = new Intent(getActivity(), CredentialsRecovery.class);
+        getActivity().startActivity(i);
     }
 }

@@ -47,7 +47,7 @@ public class MessageBox extends LinearLayout {
 
     private void init(Context context) {
         LayoutParams params;
-        int margin = (int) getResources().getDimension(R.dimen.element_margin);
+        int margin = (int) getResources().getDimension(R.dimen.alertbox_inner_padding);
         // icon of message box
         image = new ImageView(context);
         // default image
