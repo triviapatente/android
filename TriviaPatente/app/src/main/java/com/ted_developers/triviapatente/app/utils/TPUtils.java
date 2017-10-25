@@ -116,5 +116,4 @@ public class TPUtils {
         }
         return score;
     }
-
 }

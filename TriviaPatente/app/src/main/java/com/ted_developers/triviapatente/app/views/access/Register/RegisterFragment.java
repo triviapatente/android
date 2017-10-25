@@ -1,11 +1,17 @@
 package com.ted_developers.triviapatente.app.views.access.Register;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
@@ -13,6 +19,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.loading.Loading
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +39,7 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.email_field) LabeledInput emailField;
     @BindView(R.id.register_button) LoadingButton registerButton;
     @BindView(R.id.alertMessage) MessageBox alertMessageView;
+    @BindView(R.id.terms_and_condition) TextView termsandconditionsLink;
     // useful strings
     @BindString(R.string.hint_password) String passwordHint;
     @BindString(R.string.hint_username) String usernameHint;
@@ -40,6 +48,10 @@ public class RegisterFragment extends Fragment {
     @BindString(R.string.operation_failed) String operationFailed;
     @BindString(R.string.username_already_exist) String already_registered_username;
     @BindString(R.string.email_already_exist) String already_registered_email;
+    @BindString(R.string.terms_and_conditions_registration1) String terms_and_conditions_registration;
+    @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions;
+    // colors
+    @BindColor(R.color.greenTermsAndConditions) int green;
 
     private Unbinder unbinder;
 
@@ -71,6 +83,16 @@ public class RegisterFragment extends Fragment {
         initLabeledInputs();
         // hide alert
         alertMessageView.hideAlert();
+        // change color to terms and conditions
+        String str = terms_and_conditions_registration + terms_and_conditions;
+        Spannable spannable = new SpannableString(str);
+        spannable.setSpan(
+                new ForegroundColorSpan(green),
+                terms_and_conditions_registration.length(),
+                str.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+        termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
         return v;
     }
 
@@ -100,5 +122,10 @@ public class RegisterFragment extends Fragment {
     @OnClick(R.id.already_registered)
     public void swipeToLogin() {
         ((FirstAccessActivity) getActivity()).mViewPager.setCurrentItem(1);
+    }
+
+    @OnClick(R.id.terms_and_condition)
+    public void seeTermsConditions() {
+        Toast.makeText(getContext(), "Belli sti termini", Toast.LENGTH_SHORT).show();
     }
 }

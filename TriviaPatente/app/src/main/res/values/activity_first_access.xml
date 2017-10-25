@@ -6,7 +6,7 @@
     <string name="button_register">Registrati</string>
     <string name="welcoming_message">Ciao!\n\nIniziamo?</string>
     <string name="or">oppure</string>
-    <string name="already_registered">Hai un account? Accedi!</string>
+    <string name="already_registered">Hai un account? <u>Accedi</u>!</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="hint_repeat_password">Ripeti password</string>
@@ -34,4 +34,11 @@
 
     <!-- activity started due to old session -->
     <string name="is_old_session">old_session</string>
+
+    <!-- terms and conditions -->
+    <string name="terms_and_conditions_registration1">Iscrivendoti accetti&#160;</string>
+    <string name="terms_and_conditions_registration2">Termini e Condizioni</string>
+    <dimen name="terms_and_conditions_margin_v_registration">65dp</dimen>
+    <dimen name="terms_and_conditions_margin_h_registration">25dp</dimen>
+
 </resources>

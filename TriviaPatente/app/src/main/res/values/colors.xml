@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="mainColorGradTop">#00d0FF</color>
     <color name="mainColor">#00b0ff</color>
     <color name="mainColorDark">#0182FF</color>
     <color name="mainColorDark2">#0170FF</color>
@@ -17,6 +18,7 @@
     <color name="greenDark">#53C769</color>
     <color name="greenOpaque">#2ECC71</color>
     <color name="greenOpaqueDark">#19AA6D</color>
+    <color name="greenTermsAndConditions">#84f9b6</color>
     <color name="orangeLight">#70FD9426</color>
     <color name="orange">#FD9426</color>
     <color name="orangeDark">#FD8426</color>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".app.views.access.Register.RegisterFragment"
-    android:background="@color/mainColor">
+    android:background="@drawable/background_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,4 +122,16 @@
             android:background="@android:color/transparent"
             android:layout_gravity="center_horizontal" />-->
     </LinearLayout>
+    <TextView
+        android:id="@+id/terms_and_condition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/TPTextSizeSmall"
+        android:textColor="@android:color/white"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/terms_and_conditions_margin_v_registration"
+        android:layout_marginRight="@dimen/terms_and_conditions_margin_h_registration"
+        android:layout_marginLeft="@dimen/terms_and_conditions_margin_h_registration"
+        android:clickable="true"/>
 </FrameLayout>
