@@ -8,6 +8,7 @@
     <string name="or">oppure</string>
     <string name="already_registered">Hai un account? <u>Accedi</u>!</string>
     <string name="hint_username">Username</string>
+    <string name="hint_username_or_email">Username o email</string>
     <string name="hint_password">Password</string>
     <string name="hint_repeat_password">Ripeti password</string>
     <string name="hint_email">Email</string>
@@ -19,7 +20,7 @@
     <string name="not_matching_pwd">Le password non coincidono!</string>
     <string name="login_failed">Login fallito. Verifica di aver inserito correttamente nome utente e password.</string>
     <string name="forgot_username_password">Nome utente o password dimenticati?</string>
-    <string name="operation_failed">Ci dispiace ma i server sono in manutenzione..\nRiprova tra un po\'! :/</string>
+    <string name="operation_failed">Impossibile connettersi..\nRiprova! 0x1F614</string>
     <!--failed register-->
     <string name="username_already_exist">Username non disponibile!</string>
     <string name="email_already_exist">Email non disponibile!</string>
@@ -28,8 +29,11 @@
     <dimen name="line_length">50dp</dimen>
     <dimen name="line_thickness">1dp</dimen>
     <dimen name="or_bottom_padding">5dp</dimen>
-    <!--button forgot username password-->
+    <!--forgot username password-->
     <dimen name="forgot_username_password_margin">30dp</dimen>
+    <string name="forgot_username_password_explanatory">Se devi recuperare username e/o password puoi chiederci di inviarti un\'email e provvederemo a farti avere un link attraverso il quale potrai farlo! Non vogliamo che il tuo divertimento finisca 0x1F60D</string>
+    <string name="forgot_username_password_recovery_button">Recupera password</string>
+    <string name="credentials_recovery">Recupero credenziali</string>
     <!-- loading spin -->
     <dimen name="first_access_loading_size">25dp</dimen>
 

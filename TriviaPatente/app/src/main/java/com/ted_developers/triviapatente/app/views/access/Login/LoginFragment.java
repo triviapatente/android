@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
@@ -38,7 +38,7 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.forgot_button) TextView loginFailedButton;
     // useful strings
     @BindString(R.string.hint_password) String passwordHint;
-    @BindString(R.string.hint_username) String usernameHint;
+    @BindString(R.string.hint_username_or_email) String usernameHint;
     @BindString(R.string.login_failed) String forgotUsernamePassword;
     @BindString(R.string.operation_failed) String operationFailed;
     // useful dimension
@@ -81,6 +81,8 @@ public class LoginFragment extends Fragment {
         // hide alert and forgot button
         alertMessageView.hideAlert();
         hideForgotButton();
+        // translate emoticon
+        operationFailed = TPUtils.translateEmoticons(operationFailed);
         return v;
     }
 

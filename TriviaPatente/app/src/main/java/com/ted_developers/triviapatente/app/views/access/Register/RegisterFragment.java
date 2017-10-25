@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
@@ -93,6 +94,8 @@ public class RegisterFragment extends Fragment {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         );
         termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
+        // translate emoticon
+        operationFailed = TPUtils.translateEmoticons(operationFailed);
         return v;
     }
 

@@ -55,7 +55,7 @@ public class MessageBox extends LinearLayout {
         // layout params
         int imageSize = (int) getResources().getDimension(R.dimen.alert_image_size);
         params = new LayoutParams(imageSize, imageSize);
-        params.setMargins(margin, 0, margin, 0);
+        params.setMargins(2*margin, 0, margin, 0);
         params.gravity = Gravity.CENTER;
         image.setLayoutParams(params);
         this.addView(image);
