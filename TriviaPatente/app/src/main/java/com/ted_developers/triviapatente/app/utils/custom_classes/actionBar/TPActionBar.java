@@ -214,11 +214,11 @@ public class TPActionBar extends RelativeLayout {
     }
 
     public void setProfilePicture(String imageURL) {
-        TPUtils.picasso
+        /*TPUtils.picasso
                 .load(imageURL)
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
-                .into(profilePicture);
+                .into(profilePicture);*/
     }
 
     public void setHeartImage() {
