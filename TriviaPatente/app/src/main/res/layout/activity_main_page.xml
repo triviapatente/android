@@ -33,18 +33,30 @@
 
             <include layout="@layout/layout_loading_view"/>
 
-            <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
-                android:id="@+id/serverDownAlert"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/alert_height"
-                android:background="@drawable/rounded_alertbox"
-                android:layout_marginBottom="@dimen/element_margin"
-                android:layout_marginLeft="@dimen/field_margin"
-                android:layout_marginStart="@dimen/field_margin"
-                android:layout_marginRight="@dimen/field_margin"
-                android:layout_marginEnd="@dimen/field_margin"
+            <LinearLayout
                 android:layout_centerInParent="true"
-                android:visibility="gone"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
+                    android:id="@+id/serverDownAlert"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/alert_height"
+                    android:background="@drawable/rounded_alertbox"
+                    android:layout_marginBottom="@dimen/element_margin"
+                    android:layout_marginLeft="@dimen/field_margin"
+                    android:layout_marginStart="@dimen/field_margin"
+                    android:layout_marginRight="@dimen/field_margin"
+                    android:layout_marginEnd="@dimen/field_margin"
+                    android:visibility="gone"/>
+
+                <ImageButton
+                    android:id="@+id/retryConnectionButton"
+                    android:layout_width="@dimen/retry_connection_size"
+                    android:layout_height="@dimen/retry_connection_size"
+                    android:background="@drawable/sync"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
 
             <include layout="@layout/layout_blurred_blue"/>
         </RelativeLayout>

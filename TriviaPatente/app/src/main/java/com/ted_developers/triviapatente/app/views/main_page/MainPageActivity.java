@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -66,9 +67,10 @@ public class MainPageActivity extends TPActivity {
     @BindString(R.string.no_games) String recentGamesAlternativeTitle;
     TPExpandableList<Game> recentGames;
     @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
-    // server down
+    // connection error
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
+    @BindView(R.id.retryConnectionButton) ImageButton retryConnectionButton;
     // recent game event
 
     @Override
@@ -218,11 +220,23 @@ public class MainPageActivity extends TPActivity {
         serverDownAlert.showAlert(serverDownMessage);
         serverDownAlert.setVisibility(View.VISIBLE);
         // hide items (if triggered when items already displayed)
-        //actionBar.setVisibility(View.GONE);
         recentGames.getView().setVisibility(View.GONE);
         optionPanel.setVisibility(View.GONE);
         // stop loading
         loadingView.setVisibility(View.GONE);
+        retryConnectionButton.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.retryConnectionButton)
+    public void retryConnection() {
+        // reset ui items and launch init again
+        if(toolbar != null) toolbar.setVisibility(View.VISIBLE);
+        serverDownAlert.hideAlert();
+        serverDownAlert.setVisibility(View.GONE);
+        recentGames.getView().setVisibility(View.VISIBLE);
+        optionPanel.setVisibility(View.VISIBLE);
+        retryConnectionButton.setVisibility(View.GONE);
+        init();
     }
 
     private String[] listConverter(List<String> list) {
