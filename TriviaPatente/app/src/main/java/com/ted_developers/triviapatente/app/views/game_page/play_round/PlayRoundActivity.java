@@ -64,6 +64,14 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         }
     };
 
+    @Override
+    protected String getToolbarTitle(){ return opponent.toString(); }
+    @Override
+    protected int getBackButtonVisibility(){
+        return View.VISIBLE;
+    }
+    @Override
+    protected int getHeartCounterVisibility() { return View.GONE; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

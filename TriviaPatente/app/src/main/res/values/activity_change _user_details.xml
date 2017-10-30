@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="activity_change_user_details_title">Account</string>
     <!-- Picture -->
     <dimen name="activity_change_user_details_picture_size">157dp</dimen>
     <dimen name="activity_change_user_details_picture_button_size">50dp</dimen>
@@ -9,9 +10,13 @@
     <dimen name="activity_change_user_details_field_height">45dp</dimen>
     <dimen name="activity_change_user_details_name_field_horizontal_margin">30dp</dimen>
     <dimen name="activity_change_user_details_field_vertical_margin">10dp</dimen>
-    <string name="activity_change_user_details_name_hint">New name</string>
-    <string name="activity_change_user_details_surname_hint">New surname</string>
+    <string name="activity_change_user_details_name_hint">Nome</string>
+    <string name="activity_change_user_details_surname_hint">Cognome</string>
     <string name="activity_change_user_details_wrong_string">Input non valido..</string>
+    <string name="activity_change_user_details_error">Al momento non è possibile cambiare l\'immagine..</string>
+    <string name="activity_change_user_details_name_modified">Nome modificato</string>
+    <string name="activity_change_user_details_surname_modified">Cognome modificato</string>
+    <string name="activity_change_user_details_name_and_surname_modified">Nome e cognome modificati</string>
     <!-- Overall -->
     <dimen name="activity_change_user_details_margin">30dp</dimen>
     <!-- Confirm -->

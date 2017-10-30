@@ -8,6 +8,13 @@
     tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity"
     tools:showIn="@layout/activity_main_page">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_gradient"
+        android:layout_above="@+id/recentGames"
+        android:layout_below="@+id/toolbar"/>
+
     <LinearLayout
         android:id="@+id/option_panel"
         android:layout_width="match_parent"

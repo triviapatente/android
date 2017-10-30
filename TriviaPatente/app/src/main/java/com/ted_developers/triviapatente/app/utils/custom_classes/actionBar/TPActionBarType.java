@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.actionBar;
 /**
  * Created by Antonio on 04/01/17.
  */
+@Deprecated
 public enum TPActionBarType {
     backPictureMenu(0),
     backPicture(1),

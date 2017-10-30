@@ -1,0 +1,29 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:padding="@dimen/drawer_inner_margin">
+    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+        android:id="@+id/bigProfilePicture"
+        android:layout_width="@dimen/drawerBigPictureSize"
+        android:layout_height="@dimen/drawerBigPictureSize"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/drawer_option_inner_margin"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/TPTextSizeLarge"
+        android:textColor="@android:color/white"
+        android:gravity="center_horizontal"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/username"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/TPTextSizeSmall"
+        android:textColor="@android:color/white"/>
+</LinearLayout>

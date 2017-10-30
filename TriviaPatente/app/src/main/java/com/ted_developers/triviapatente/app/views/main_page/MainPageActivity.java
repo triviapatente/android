@@ -3,10 +3,15 @@ package com.ted_developers.triviapatente.app.views.main_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
@@ -38,7 +43,8 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainPageActivity extends TPActivity implements Button.OnClickListener {
+public class MainPageActivity extends TPActivity {
+    @BindString(R.string.main_page_title) String pageTitle;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // buttons name
@@ -80,6 +86,11 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
                 }
             }
         });
+    }
+
+    @Override
+    protected String getToolbarTitle(){
+        return pageTitle;
     }
 
     private void init() {
@@ -128,10 +139,10 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
     @Override
     protected void initActionBar() {
-        super.initActionBar();
+        //super.initActionBar();
         // todo set hearts box
-        actionBar.setHeartImage();
-        actionBar.setLifeCounter(-1);
+        //actionBar.setHeartImage();
+        //actionBar.setLifeCounter(-1);
     }
 
     private void initOptionButtons() {
@@ -203,10 +214,11 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
     }
 
     private void errorConnectingToServer() {
+        if(toolbar != null) toolbar.setVisibility(View.GONE);
         serverDownAlert.showAlert(serverDownMessage);
         serverDownAlert.setVisibility(View.VISIBLE);
         // hide items (if triggered when items already displayed)
-        actionBar.setVisibility(View.GONE);
+        //actionBar.setVisibility(View.GONE);
         recentGames.getView().setVisibility(View.GONE);
         optionPanel.setVisibility(View.GONE);
         // stop loading
@@ -258,6 +270,7 @@ public class MainPageActivity extends TPActivity implements Button.OnClickListen
 
     @Override
     public void onBackPressed() {
-        // todo implement exit page
+        logout();
     }
 }
+

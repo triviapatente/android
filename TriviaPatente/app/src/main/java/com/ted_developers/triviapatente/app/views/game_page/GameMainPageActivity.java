@@ -46,6 +46,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class GameMainPageActivity extends TPGameActivity {
+    @BindString(R.string.main_page_title) String title;
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
@@ -145,13 +146,20 @@ public class GameMainPageActivity extends TPGameActivity {
         }
     };
 
+    @Override
+    protected String getToolbarTitle(){ return (opponent == null)? title : opponent.toString(); }
+    @Override
+    protected int getBackButtonVisibility(){
+        return View.VISIBLE;
+    }
+    @Override
+    protected int getHeartCounterVisibility() { return View.GONE; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main_page);
         //init
-        smallInit();
         startLoading();
         Intent intent = getIntent();
         if(intent.getBooleanExtra(getString(R.string.extra_boolean_game), false)) { createGame(); }
@@ -193,12 +201,6 @@ public class GameMainPageActivity extends TPGameActivity {
         });
     }
 
-    private void smallInit() {
-        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        actionBar.setBackButtonOnClick(MainPageActivity.class);
-        profilePicture.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.image_no_profile_picture));
-    }
-
     private void startLoading() {
         CircleRotatingAnimation animation = new CircleRotatingAnimation(loadingCircle);
         animation.setDuration(7000);
@@ -207,6 +209,8 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void setOpponentData() {
+        setToolbarTitle(opponent.toString());
+        /*
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         actionBar.setProfilePicture(TPUtils.getUserImageFromID(this, opponent.id));
         Picasso.with(this)
@@ -214,6 +218,7 @@ public class GameMainPageActivity extends TPGameActivity {
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
                 .into(profilePicture);
+        */
     }
 
     private void join_room() {

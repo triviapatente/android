@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- action_bar -->
+    <dimen name="drawer_width">300dp</dimen>
+    <dimen name="drawer_divider_offset">30dp</dimen>
+    <dimen name="drawer_divider_width">270dp</dimen>
+    <dimen name="drawer_divider_height">1px</dimen>
+    <dimen name="drawer_item_height">100dp</dimen>
+    <string name="drawer_closed"></string>
+    <string name="drawer_opened"></string>
+    <dimen name="drawer_option_image_dimen">20dp</dimen>
+    <dimen name="drawer_option_inner_margin">20dp</dimen>
+    <dimen name="drawer_inner_margin">30dp</dimen>
+    <string name="drawerProfileOption">Profilo</string>
+    <string name="drawerContactsOption">Contattaci</string>
+    <string name="drawerInformationsOption">Informazioni</string>
+    <string name="drawerLogoutOption">Logout</string>
+    <dimen name="drawerBigPictureSize">125dp</dimen>
+
     <dimen name="tp_toolbar_height">70dp</dimen>
     <dimen name="back_button_width">10dp</dimen>
     <dimen name="back_button_height">17dp</dimen>

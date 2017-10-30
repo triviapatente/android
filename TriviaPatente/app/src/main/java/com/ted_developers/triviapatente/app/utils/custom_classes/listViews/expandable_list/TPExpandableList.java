@@ -137,7 +137,7 @@ public class TPExpandableList<T> extends Fragment {
         if(maxNumberOfShownItems > 3) {
             maxNumberOfShownItems = 3;
         }
-        maximizedHeight = getResources().getDisplayMetrics().heightPixels - toolBarHeight;
+        maximizedHeight = getResources().getDisplayMetrics().heightPixels;
     }
 
     private void calculateMinimizedHeight(int counter) {

@@ -63,10 +63,12 @@ public class TPGameActivity extends TPActivity {
     @Override
     protected void initActionBar() {
         super.initActionBar();
+        /*
         if(opponent != null) {
             actionBar.setTitle(opponent.toString());
         }
         actionBar.setBackButtonOnClick(MainPageActivity.class);
+        */
     }
 
     @Override

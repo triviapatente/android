@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainColor">
+    android:background="@drawable/background_gradient">
 
     <!-- Set of items -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/tp_toolbar_margin"
         android:layout_marginRight="@dimen/activity_change_user_details_name_field_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_change_user_details_name_field_horizontal_margin">
         <!-- Picture -->
@@ -49,6 +49,16 @@
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/TPTextSizeMedium"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="@dimen/activity_change_user_details_margin"/>
+
         <!-- Name & Surname -->
         <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/inputName"

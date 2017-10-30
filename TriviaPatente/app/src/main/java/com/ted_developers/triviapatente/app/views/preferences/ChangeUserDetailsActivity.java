@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
@@ -44,13 +45,14 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // User data
     User user;
-
+    @BindString(R.string.activity_change_user_details_title) String title;
     // Name & Surname
     @BindView(R.id.inputName) LabeledInput nameInput;
     @BindView(R.id.inputSurname) LabeledInput surnameInput;
     @BindString(R.string.activity_change_user_details_name_hint) String nameHint;
     @BindString(R.string.activity_change_user_details_surname_hint) String surnameHint;
     @BindString(R.string.activity_change_user_details_wrong_string) String invalidInput;
+    @BindView(R.id.email) TextView emailLabel;
 
     // Image
     @BindView(R.id.bigProfilePicture) RoundedImageView bigProfilePicture;
@@ -59,7 +61,20 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // Overall
     @BindView(R.id.confirmButton) LoadingButton confirmButton;
-    String msg, error = "Al momento non è possibile cambiare l'immagine..";
+    String msg;
+    @BindString(R.string.activity_change_user_details_error) String error;
+    @BindString(R.string.activity_change_user_details_name_modified) String msg_name_modified;
+    @BindString(R.string.activity_change_user_details_surname_modified) String msg_surname_modified;
+    @BindString(R.string.activity_change_user_details_name_and_surname_modified) String msg_name_surname_modified;
+
+    @Override
+    protected String getToolbarTitle(){ return title; }
+    @Override
+    protected int getBackButtonVisibility(){
+        return View.VISIBLE;
+    }
+    @Override
+    protected int getHeartCounterVisibility() { return View.GONE; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +116,9 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // init labeled inputs
     private void initLabeledInputs() {
-        nameInput.setHint(/*(user.name != null && !user.name.equals(""))? user.name : */nameHint);
-        surnameInput.setHint(/*(user.surname != null && !user.name.equals(""))? user.surname : */surnameHint);
+        emailLabel.setText(user.email);
+        nameInput.setHint((user.name != null && !user.name.equals(""))? user.name : nameHint);
+        surnameInput.setHint((user.surname != null && !user.name.equals(""))? user.surname : surnameHint);
     }
 
     /*
@@ -176,7 +192,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     // TODO save data on local shared preferences
-                    msg = "Nome modificato";
+                    msg = msg_name_modified;
                     surnameUpdate();
                 }
                 @Override
@@ -209,9 +225,9 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 public void mOnResponse(Call<User> call, Response<User> response) {
                     // TODO save data on local shared preferences
                     if(msg == null || msg.equals("")) {
-                        msg = "Cognome modificato";
+                        msg = msg_surname_modified;
                     } else {
-                        msg = "Nome e cognome modificati";
+                        msg = msg_name_surname_modified;
                     }
                     imageUpdate();
                 }

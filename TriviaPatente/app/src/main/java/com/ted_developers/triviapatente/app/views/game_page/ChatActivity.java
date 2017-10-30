@@ -11,6 +11,7 @@ import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 
+@Deprecated
 public class ChatActivity extends TPActivity {
 
     private User opponent;
@@ -26,7 +27,7 @@ public class ChatActivity extends TPActivity {
     @Override
     protected void initActionBar() {
         super.initActionBar();
-        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
+        //if(opponent != null) { actionBar.setTitle(opponent.toString()); }
     }
 
     @Override

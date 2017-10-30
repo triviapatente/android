@@ -2,29 +2,38 @@ package com.ted_developers.triviapatente.app.utils.baseActivityClasses;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBar;
-import com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBarType;
-import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.DrawerOption;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.TPDrawerAdapter;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.drawer_options_type;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.preferences.ChangeUserDetailsActivity;
@@ -34,6 +43,10 @@ import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,10 +54,20 @@ import butterknife.ButterKnife;
 /**
  * Created by Antonio on 08/12/16.
  */
-public class TPActivity extends AppCompatActivity implements Button.OnClickListener {
+public class TPActivity extends AppCompatActivity {
     public User currentUser;
     // used for toolbar configuration utils
-    protected @Nullable @BindView(R.id.action_bar) TPActionBar actionBar;
+    protected @Nullable @BindView(R.id.toolbar) Toolbar toolbar;
+    protected @Nullable @BindView(R.id.toolbarTitle) TextView toolbarTitle;
+    protected @Nullable @BindView(R.id.heartImageButton) ImageButton heartCounter;
+    @BindString(R.string.drawerProfileOption) String profileOptionString;
+    @BindString(R.string.drawerContactsOption) String contactsOptionString;
+    @BindString(R.string.drawerInformationsOption) String informationsOptionString;
+    @BindString(R.string.drawerLogoutOption) String logoutOptionString;
+    // side drawer
+    protected  @Nullable @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    protected  @Nullable @BindView(R.id.left_drawer) ListView mDrawerList;
+    protected ActionBarDrawerToggle mDrawerToggle;
     // menu options
     public @Nullable @BindView(R.id.activityContainer) RelativeLayout activityContainer;
     TPDialog logoutDialog;
@@ -64,15 +87,100 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
         currentUser = SharedTPPreferences.currentUser();
     }
 
+    @SuppressWarnings("ResourceType")
     private void initUI() {
-        if(actionBar != null) {
-            if(actionBar.id != TPActionBarType.backPicture.id) {
-                setMenu();
-                initLogoutDialog();
+        if(toolbar != null) {
+            setSupportActionBar(toolbar);
+            if(getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(null);
+                getSupportActionBar().setElevation(0);
             }
-            initActionBar();
+            if(mDrawerLayout != null) initDrawer();
+            if(getBackButtonVisibility() == View.VISIBLE) {
+                toolbar.setNavigationIcon(R.drawable.image_back_chevron);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {onBackPressed();
+                    }
+                });
+            }
+            if(heartCounter != null) {
+                heartCounter.setVisibility(getHeartCounterVisibility());
+            }
+            initLogoutDialog();
+        }
+
+        setToolbarTitle(getToolbarTitle());
+
+    }
+
+    protected void setToolbarTitle(String title) {
+        if(toolbarTitle != null) toolbarTitle.setText(title);
+    }
+
+    private void initDrawer() {
+        List<DrawerOption> options = new ArrayList<DrawerOption>();
+        options.add(new DrawerOption(R.layout.drawer_list_item, drawer_options_type.image, currentUser));
+        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_profile, drawer_options_type.profile, profileOptionString));
+        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_contacts, drawer_options_type.contacts, contactsOptionString));
+        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_informations, drawer_options_type.information, informationsOptionString));
+        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_logout, drawer_options_type.logout, logoutOptionString));
+        // Set the adapter for the list view
+        TPDrawerAdapter adapter = new TPDrawerAdapter(this, R.layout.drawer_list_item, options);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new TPDrawerItemClickListener(adapter));
+        // Set the list's click listener
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_opened, R.string.drawer_closed) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this,  mDrawerLayout, toolbar,
+                R.string.button_shop, R.string.button_stats
+        );
+        mDrawerToggle.syncState();
+    }
+
+    private class TPDrawerItemClickListener implements ListView.OnItemClickListener {
+        TPDrawerAdapter adapter;
+        public TPDrawerItemClickListener(TPDrawerAdapter adapter) {
+            this.adapter = adapter;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            DrawerOption option = adapter.getItem(position);
+            switch (option.optionType) {
+                case image:
+                case profile: settings(); break;
+                case contacts:
+                case information:
+                    break;
+                case logout: mDrawerLayout.closeDrawers(); logout(); break;
+            }
         }
     }
+
+    protected String getToolbarTitle(){
+        return "";
+    }
+
+    protected int getBackButtonVisibility(){
+        return View.GONE;
+    }
+    protected int getHeartCounterVisibility() { return View.VISIBLE; }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {
         //pathListened.add(path);
@@ -141,44 +249,12 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
 
     // action bar management
     protected void initActionBar() {
-        actionBar.setProfilePicture(getActionBarProfilePicture());
+        //actionBar.setProfilePicture(getActionBarProfilePicture());
     }
 
     // override this to take a particular profile picture
     protected String getActionBarProfilePicture() {
         return (currentUser == null)? null : TPUtils.getUserImageFromID(this, currentUser.id);
-    }
-
-    // to automatically hide menu
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(MotionEvent.ACTION_UP == ev.getAction()
-                && actionBar != null && actionBar.getMenuVisibility() == View.VISIBLE
-                && !TPUtils.isPointInsideView((int) ev.getX(), (int) ev.getY(), actionBar.menu)) {
-            actionBar.hideMenu();
-            return false;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    // menu options management
-    private void setMenu() {
-        // set menu
-        actionBar.setMenu();
-        // set menu on click listener
-        actionBar.menuLogoutOptionButton.setOnClickListener(this);
-        actionBar.menuAboutOptionButton.setOnClickListener(this);
-        actionBar.menuSettingsOptionButton.setOnClickListener(this);
-        actionBar.menuProfileOptionButton.setOnClickListener(this);
-    }
-    // on click listener
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.menuLogoutOption: logout(); break;
-            case R.id.menuSettingsOption: settings(); break;
-            default: Intent intent = new Intent(this, AlphaView.class); startActivity(intent);
-        }
     }
 
     // settings
@@ -189,16 +265,10 @@ public class TPActivity extends AppCompatActivity implements Button.OnClickListe
 
     // logout
     public void logout() {
-        // setting blurry background
-        actionBar.hideMenu(new SimpleCallback() {
-            @Override
-            public void execute() {
-                TPUtils.blurContainerIntoImageView(TPActivity.this, activityContainer, blurredBackgroundView);
-                blurredBackgroundContainer.setVisibility(View.VISIBLE);
-                // showing modal
-                logoutDialog.show();
-            }
-        });
+        TPUtils.blurContainerIntoImageView(TPActivity.this, activityContainer, blurredBackgroundView);
+        blurredBackgroundContainer.setVisibility(View.VISIBLE);
+        // showing modal
+        logoutDialog.show();
     }
     private void initLogoutDialog() {
         logoutDialog = new TPDialog(this, R.layout.modal_view_logout, 0, false, new DialogInterface.OnCancelListener() {

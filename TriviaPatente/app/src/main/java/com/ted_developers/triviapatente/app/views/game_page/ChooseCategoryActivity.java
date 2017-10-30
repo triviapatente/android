@@ -35,6 +35,15 @@ public class ChooseCategoryActivity extends TPGameActivity {
     @BindView(R.id.loadingView) RelativeLayout loadingView;
 
     @Override
+    protected String getToolbarTitle(){ return opponent.toString(); }
+    @Override
+    protected int getBackButtonVisibility(){
+        return View.VISIBLE;
+    }
+    @Override
+    protected int getHeartCounterVisibility() { return View.GONE; }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_category);

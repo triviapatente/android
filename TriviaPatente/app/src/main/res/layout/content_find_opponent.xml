@@ -2,13 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient">
 
     <include
         layout="@layout/all_or_friends_and_search"
+        android:id="@+id/all_or_friends"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/action_bar"/>
+        android:layout_width="match_parent"/>
 
     <RelativeLayout
         android:id="@+id/playersListBlock"
@@ -32,8 +33,7 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/TPTextSizeMedium"
-            android:visibility="gone"
-            android:background="@color/mainColor"/>
+            android:visibility="gone"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

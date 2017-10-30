@@ -1,11 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:buttonStyle">@style/TPButtonStyle</item>
         <item name="editTextStyle">@style/TPEditTextStyle</item>
         <item name="android:textViewStyle">@style/TPTextViewStyle</item>
         <item name="android:dialogTheme">@style/TPDialog</item>
+        <!-- Action bar theme -->
+        <item name="android:actionBarStyle">@style/TPActionBar</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <!-- Colors -->
+        <item name="colorPrimary">@color/mainColorGradTop</item>
+        <item name="colorPrimaryDark">@color/mainColor</item>
+        <item name="colorAccent">@color/mainColor</item>
+    </style>
+
+    <style name="TPActionBar" parent="@android:style/Widget.ActionBar">
+        <item name="android:background">@color/mainColorGradTop</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,14 +24,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
     <style name="TPDialog" parent="@android:style/Theme.Dialog">
         <item name="android:typeface">monospace</item>
     </style>
-
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="TPEditTextStyle" parent="@android:style/Widget.Holo.EditText">
         <item name="android:typeface">monospace</item>

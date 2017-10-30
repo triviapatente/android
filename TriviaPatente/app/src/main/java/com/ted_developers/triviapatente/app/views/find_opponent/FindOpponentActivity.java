@@ -46,6 +46,7 @@ import java.util.List;
 import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import jp.wasabeef.blurry.Blurry;
@@ -53,6 +54,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class FindOpponentActivity extends TPActivity {
+    @BindString(R.string.find_opponent_title) String title;
     // all or friends
     @BindView(R.id.all_or_friends) LinearLayout allOrFriendsBlock;
     @BindView(R.id.all_button) Button allButton;
@@ -91,6 +93,15 @@ public class FindOpponentActivity extends TPActivity {
     @BindView(R.id.playersListBlock) RelativeLayout playersListBlock;
     private boolean firstTime = true;
     private TPDialog facebookDialog;
+
+    @Override
+    protected String getToolbarTitle(){ return title; }
+    @Override
+    protected int getBackButtonVisibility(){
+        return View.VISIBLE;
+    }
+    @Override
+    protected int getHeartCounterVisibility() { return View.GONE; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +213,7 @@ public class FindOpponentActivity extends TPActivity {
         };
         WindowManager.LayoutParams params = facebookDialog.getWindow().getAttributes();
         params.gravity = Gravity.TOP;
-        params.y = actionBar.getMeasuredHeight() + allOrFriendsBlock.getMeasuredHeight();
+        params.y = /*actionBar.getMeasuredHeight()*/ + allOrFriendsBlock.getMeasuredHeight();
     }
 
     private void setPlayersListItems(List<User> userList) {
