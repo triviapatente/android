@@ -17,7 +17,6 @@ public class NewGameActivity extends TPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
-        findViewById(R.id.tournamentDisabled).setEnabled(false); // TODO implement tournament
     }
 
     @OnClick(R.id.findOpponent)

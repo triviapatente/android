@@ -44,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/button_red_big"
+            android:textColor="@android:color/white"
+            android:enabled="false"
             android:text="@string/tournament" />
         <View
             android:layout_width="match_parent"
