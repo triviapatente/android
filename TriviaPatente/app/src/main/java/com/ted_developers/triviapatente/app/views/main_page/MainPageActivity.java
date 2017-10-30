@@ -236,15 +236,9 @@ public class MainPageActivity extends TPActivity {
         startActivity(intent);
     }
     @OnClick(R.id.shop)
-    public void shopClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
+    public void shopClick() {}
     @OnClick(R.id.stats)
-    public void statsClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
-    }
+    public void statsClick() {}
     @OnClick(R.id.rank)
     public void rankClick() {
         Intent intent = new Intent(this, AlphaView.class);

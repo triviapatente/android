@@ -36,4 +36,6 @@
     <color name="blueOpaque">#6583BE</color>
     <color name="blueOpaqueDark">#5876B0</color>
 
+    <color name="disabledOptionColor">#400182FF</color>
+
 </resources>

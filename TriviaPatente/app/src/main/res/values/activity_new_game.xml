@@ -4,9 +4,11 @@
     <dimen name="new_game_option_panel_margin">30dp</dimen>
     <dimen name="new_game_option_panel_title_margin">10dp</dimen>
     <dimen name="new_game_button_height">100dp</dimen>
+    <dimen name="new_game_coming_soon_width">160dp</dimen>
     <!-- strings -->
     <string name="find_your_opponent">Ricerca avversario</string>
     <string name="find_your_random_opponent">Avversario casuale</string>
+    <string name="tournament">Torneo</string>
     <string name="new_game_title">Gioca</string>
     <string name="new_game_option_title">Chi vuoi sfidare?</string>
 </resources>

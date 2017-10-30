@@ -16,12 +16,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -34,7 +36,7 @@ import java.util.TimerTask;
 /**
  * Created by Antonio on 30/10/16.
  */
-public class MainButton extends LinearLayout {
+public class MainButton extends RelativeLayout {
     private TextView mainTextView;
     private TextSwitcher hintTextSwitcher;
     private String[] hintTexts;
@@ -44,10 +46,11 @@ public class MainButton extends LinearLayout {
     private Timer rotator = null;
     private @ColorInt int textSwitcherColor;
     private Context context;
+    private boolean disabled = false;
 
     public MainButton(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public MainButton(Context context, AttributeSet attrs) {
@@ -67,7 +70,8 @@ public class MainButton extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        init(context);
+        //init(context);
+        inflateLayout(context);
 
         TypedArray a = getContext().getTheme().obtainStyledAttributes(
                 attrs,
@@ -77,53 +81,40 @@ public class MainButton extends LinearLayout {
             setImage(a.getDrawable(R.styleable.MainButton_main_button_image));
             setButtonText(a.getString(R.styleable.MainButton_main_button_name), a.getColor(R.styleable.MainButton_main_button_text_color, Color.WHITE));
             setRotationTime(a.getInteger(R.styleable.MainButton_main_button_hint_rotation_speed, 5000));
+            disabled = a.getBoolean(R.styleable.MainButton_main_button_disabled, false);
         } finally {
             a.recycle();
         }
+
+        if(!disabled) { initTextSwitcher(); }
+        else {
+            findViewById(R.id.upperLayer).setVisibility(View.VISIBLE);
+            findViewById(R.id.comingSoon).setVisibility(View.VISIBLE);
+            setEnabled(false);
+        }
     }
 
-    private void init(Context context) {
-        this.context = context;
-        LayoutParams params;
-        int horizontalMargin = (int) getResources().getDimension(R.dimen.main_button_margin_horizontal);
-        int fieldHeight = (int) getResources().getDimension(R.dimen.main_page_button_heigth);
-
-        // image on the left
-        image = new ImageView(context);
-        // layout params
-        int imageSize = (int) getResources().getDimension(R.dimen.main_page_image_size);
-        params = new LayoutParams(imageSize, imageSize);
-        params.setMargins(horizontalMargin, 0, horizontalMargin, 0);
-        params.gravity = Gravity.CENTER;
-        image.setLayoutParams(params);
-        this.addView(image);
-
-        // button name on the center
-        mainTextView = new TextView(context);
-        // button on the center params
-        params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, horizontalMargin, 0);
-        params.gravity = Gravity.CENTER;
-        mainTextView.setLayoutParams(params);
-        // text
-        mainTextView.setGravity(Gravity.CENTER);
-        mainTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeMedium));
-        this.addView(mainTextView);
-
-        // hints on the right
-        hintTextSwitcher = new TextSwitcher(context);
+    private void initTextSwitcher() {
         // Declare the in and out animations and initialize them
         Animation in = AnimationUtils.loadAnimation(context, R.anim.slide_up_in);
         Animation out = AnimationUtils.loadAnimation(context,R.anim.slide_up_out);
         // set the animation type of textSwitcher
         hintTextSwitcher.setInAnimation(in);
         hintTextSwitcher.setOutAnimation(out);
-        // hints params
-        params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, horizontalMargin, 0);
-        params.gravity = Gravity.CENTER;
-        hintTextSwitcher.setLayoutParams(params);
-        this.addView(hintTextSwitcher);
+    }
+
+    private void inflateLayout(Context context) {
+        this.context = context;
+
+        // inflate layout
+
+        LayoutInflater li = LayoutInflater.from(context);
+        li.inflate(R.layout.layout_main_button, this);
+
+        // get components
+        image = (ImageView) findViewById(R.id.main_button_image);
+        mainTextView = (TextView) findViewById(R.id.main_button_text);
+        hintTextSwitcher = (TextSwitcher) findViewById(R.id.hintSwitcher);
     }
 
     private void setHintFactory(final int color) {
@@ -191,7 +182,7 @@ public class MainButton extends LinearLayout {
                 new TimerTask() {
                     int counter = 0;
                     public void run() {
-                        if(context != null && hintTexts != null && hintTexts.length > 1) {
+                        if(!disabled && context != null && hintTexts != null && hintTexts.length > 1) {
                             ((Activity)context).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
