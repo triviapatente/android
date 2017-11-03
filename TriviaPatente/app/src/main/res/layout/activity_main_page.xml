@@ -52,8 +52,8 @@
 
                 <ImageButton
                     android:id="@+id/retryConnectionButton"
-                    android:layout_width="@dimen/retry_connection_size"
-                    android:layout_height="@dimen/retry_connection_size"
+                    android:layout_width="@dimen/retry_connection_width"
+                    android:layout_height="@dimen/retry_connection_height"
                     android:background="@drawable/sync"
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>

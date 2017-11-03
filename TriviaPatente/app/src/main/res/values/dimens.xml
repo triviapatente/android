@@ -21,5 +21,6 @@
     <!--loading spin-->
     <dimen name="loading_view_size">75dp</dimen>
 
-    <dimen name="retry_connection_size">45dp</dimen>
+    <dimen name="retry_connection_width">45dp</dimen>
+    <dimen name="retry_connection_height">55dp</dimen>
 </resources>
