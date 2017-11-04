@@ -40,7 +40,7 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.email_field) LabeledInput emailField;
     @BindView(R.id.register_button) LoadingButton registerButton;
     @BindView(R.id.alertMessage) MessageBox alertMessageView;
-    @BindView(R.id.terms_and_condition) TextView termsandconditionsLink;
+    @BindView(R.id.terms_and_conditions) TextView termsandconditionsLink;
     // useful strings
     @BindString(R.string.hint_password) String passwordHint;
     @BindString(R.string.hint_username) String usernameHint;
@@ -127,7 +127,7 @@ public class RegisterFragment extends Fragment {
         ((FirstAccessActivity) getActivity()).mViewPager.setCurrentItem(1);
     }
 
-    @OnClick(R.id.terms_and_condition)
+    @OnClick(R.id.terms_and_conditions)
     public void seeTermsConditions() {
         Toast.makeText(getContext(), "Belli sti termini", Toast.LENGTH_SHORT).show();
     }

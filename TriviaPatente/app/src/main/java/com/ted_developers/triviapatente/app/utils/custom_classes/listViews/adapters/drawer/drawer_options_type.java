@@ -4,6 +4,6 @@ public enum drawer_options_type {
     image,
     profile,
     contacts,
-    information,
+    new_game,
     logout
 }

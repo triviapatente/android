@@ -4,7 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".app.utils.mApplication"
@@ -12,72 +15,36 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:launchMode="singleTask"
+        android:screenOrientation="portrait">
         <activity
             android:name=".app.views.access.FirstAccessActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".app.views.main_page.MainPageActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".app.views.main_page.MainPageActivity"/>
         <activity android:name=".app.views.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".app.views.find_opponent.NewGameActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".app.views.find_opponent.NewGameActivity"/>
         <activity
             android:name=".app.views.find_opponent.FindOpponentActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".app.views.game_page.GameMainPageActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".app.views.game_page.ChooseCategoryActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".app.views.AlphaView"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".app.views.game_page.play_round.PlayRoundActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".app.views.game_page.GameMainPageActivity"/>
+        <activity android:name=".app.views.game_page.ChooseCategoryActivity"/>
+        <activity android:name=".app.views.AlphaView"/>
+        <activity android:name=".app.views.game_page.play_round.PlayRoundActivity"/>
         <activity
             android:name=".app.views.game_page.ChatActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".app.views.preferences.ChangeUserDetailsActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".app.views.menu_activities.ChangeUserDetailsActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".app.views.access.Login.CredentialsRecovery"
-            android:launchMode="singleTask"
-            android:label="@string/title_activity_credentials_recovery"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".app.views.access.Login.CredentialsRecovery"/>
+        <activity android:name=".app.views.menu_activities.ContactsActivity"/>
     </application>
 
 </manifest>

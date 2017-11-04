@@ -8,11 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:padding="@dimen/drawer_option_inner_margin">
         <ImageView
             android:layout_width="@dimen/drawer_option_image_dimen"
             android:layout_height="@dimen/drawer_option_image_dimen"
             android:layout_marginRight="@dimen/drawer_option_inner_margin"
+            android:layout_marginEnd="@dimen/drawer_option_inner_margin"
             android:id="@+id/optionImage"/>
         <TextView
             android:id="@+id/optionName"
@@ -25,6 +27,7 @@
     <View
         android:id="@+id/separator"
         android:layout_marginLeft="@dimen/drawer_divider_offset"
+        android:layout_marginStart="@dimen/drawer_divider_offset"
         android:layout_width="@dimen/drawer_divider_width"
         android:layout_height="@dimen/drawer_divider_height"
         android:background="@android:color/white"/>

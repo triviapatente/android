@@ -20,14 +20,37 @@
                     android:gravity="center"
                     android:layout_centerInParent="true"/>
 
-                <TextView
+                <!-- <TextView
                     android:id="@+id/listCounter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="@dimen/TPTextSizeMedium"
                     android:gravity="center"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/list_rigth_margin_title"/>
+                    android:layout_marginRight="@dimen/list_right_margin_title"/> -->
+
+                <ImageButton
+                    android:id="@+id/syncRecentGames"
+                    android:layout_width="@dimen/sync_button_size"
+                    android:layout_height="@dimen/sync_button_size"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/list_right_margin_title"
+                    android:layout_marginEnd="@dimen/list_right_margin_title"
+                    android:background="@drawable/sync"
+                    android:visibility="gone"/>
+                <ProgressBar
+                    android:id="@+id/syncProgress"
+                    android:layout_width="@dimen/sync_button_size"
+                    android:layout_height="@dimen/sync_button_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/list_right_margin_title"
+                    android:layout_marginEnd="@dimen/list_right_margin_title"
+                    android:indeterminateDrawable="@drawable/animation_progress"
+                    android:visibility="gone"/>
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView

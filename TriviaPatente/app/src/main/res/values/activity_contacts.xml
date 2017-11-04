@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_contacts_title">Contattaci</string>
+    <dimen name="map_margin_bottom">50dp</dimen>
+
+    <string name="developers">Luigi Donadel ● Antonio Terpin ● Gabriel Ciulei</string>
+    <dimen name="developers_margin">15dp</dimen>
+    <dimen name="activity_contacts_terms_and_conditions_margin">15dp</dimen>
+    <dimen name="activity_contacts_separator_bottom_margin_horizontal">80dp</dimen>
+    <dimen name="activity_contacts_separator_margin_vertical">20dp</dimen>
+
+    <string name="activity_contacts_terms_and_conditions1">Utilizzando questa applicazione accetti&#160;</string>
+    <string name="activity_contacts_terms_and_conditions2">Termini e Condizioni</string>
+    <string name="activity_contacts_motivation">Motivazione</string>
+    <string name="activity_contacts_message_title">Messaggio</string>
+    <dimen name="activity_contacts_motivation_margin_top">40dp</dimen>
+    <dimen name="activity_contacts_margin_horizontal">40dp</dimen>
+    <dimen name="activity_contacts_motivation_margin_bottom">10dp</dimen>
+
+    <integer name="activity_contacts_message_max_length">250</integer>
+    <integer name="activity_contacts_message_lines">4</integer>
+
+    <string-array name="motivations_array">
+        <item>Suggerimento</item>
+        <item>Segnalazione Bug</item>
+        <item>Altro</item>
+    </string-array>
+
+    <dimen name="activity_contacts_sendButtonSize">45dp</dimen>
+    <string name="activity_contacts_messageSentString">Messaggio inviato!</string>
+    <string name="activity_contacts_messageNotSentString">Come può aiutarci un messaggio vuoto? 0x1F625</string>
+
+    <dimen name="send_button_padding">10dp</dimen>
+    <dimen name="send_button_padding_left">12dp</dimen>
+</resources>

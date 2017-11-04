@@ -12,7 +12,7 @@
     <dimen name="drawer_inner_margin">30dp</dimen>
     <string name="drawerProfileOption">Profilo</string>
     <string name="drawerContactsOption">Contattaci</string>
-    <string name="drawerInformationsOption">Informazioni</string>
+    <string name="drawerNewGameOption">Partita veloce</string>
     <string name="drawerLogoutOption">Logout</string>
     <dimen name="drawerBigPictureSize">125dp</dimen>
 

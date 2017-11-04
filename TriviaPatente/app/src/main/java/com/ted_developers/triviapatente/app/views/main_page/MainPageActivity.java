@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.main_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -44,7 +46,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainPageActivity extends TPActivity {
+public class MainPageActivity extends TPActivity implements View.OnClickListener{
     @BindString(R.string.main_page_title) String pageTitle;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
@@ -65,6 +67,7 @@ public class MainPageActivity extends TPActivity {
     // recent games
     @BindString(R.string.recent_games) String recentGamesTitle;
     @BindString(R.string.no_games) String recentGamesAlternativeTitle;
+    @BindView(R.id.syncProgress) ProgressBar syncProgress;
     TPExpandableList<Game> recentGames;
     @BindDimen(R.dimen.recent_game_height) int recentGameHeight;
     // connection error
@@ -78,6 +81,7 @@ public class MainPageActivity extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
+        recentGames.setSyncButtonOnClickListner(this);
         baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
             @Override
             public void response(ActionRecentGame response) {
@@ -180,7 +184,12 @@ public class MainPageActivity extends TPActivity {
         buttonShowRank.setHintText(listConverter(hintsStrings));
     }
 
-    private void loadRecentGames() {
+    private void loadRecentGames() { loadRecentGames(null); }
+    private void loadRecentGames(final View syncButton) {
+        if(syncButton != null) {
+            syncButton.setVisibility(View.GONE);
+            syncProgress.setVisibility(View.VISIBLE);
+        }
         recentGames.setTitles(recentGamesTitle, recentGamesAlternativeTitle);
         // request recent games
         Call<SuccessGames> call = RetrofitManager.getHTTPGameEndpoint().getRecentsGames();
@@ -203,7 +212,12 @@ public class MainPageActivity extends TPActivity {
             }
 
             @Override
-            public void then() {}
+            public void then() {
+                if(syncButton != null) {
+                    syncProgress.setVisibility(View.GONE);
+                    syncButton.setVisibility(View.VISIBLE);
+                }
+            }
         });
     }
 
@@ -269,7 +283,7 @@ public class MainPageActivity extends TPActivity {
 
         // update recent games
         //updateRecentGames();
-        loadRecentGames();
+        loadRecentGames(findViewById(R.id.syncRecentGames));
 
         // update hints
         initRankHints();
@@ -279,6 +293,13 @@ public class MainPageActivity extends TPActivity {
     @Override
     public void onBackPressed() {
         logout();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.syncRecentGames) {
+            loadRecentGames(v);
+        }
     }
 }
 

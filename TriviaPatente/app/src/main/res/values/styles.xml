@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <item name="android:buttonStyle">@style/TPButtonStyle</item>
         <item name="editTextStyle">@style/TPEditTextStyle</item>
         <item name="android:textViewStyle">@style/TPTextViewStyle</item>
@@ -13,6 +13,10 @@
         <item name="colorPrimary">@color/mainColorGradTop</item>
         <item name="colorPrimaryDark">@color/mainColor</item>
         <item name="colorAccent">@color/mainColor</item>
+        <!-- Spinner -->
+        <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
     </style>
 
     <style name="TPActionBar" parent="@android:style/Widget.ActionBar">
@@ -46,4 +50,21 @@
         <item name="android:typeface">monospace</item>
     </style>
 
+    <style name="CounterStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="SpinnerStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">@android:color/white</item>
+        <item name="android:dividerHeight">0.5dp</item>
+    </style>
+    
+    <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="SpinnerItem.DropDownItem" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

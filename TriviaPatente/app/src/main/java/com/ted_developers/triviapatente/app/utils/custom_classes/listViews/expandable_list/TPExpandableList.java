@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,12 +26,14 @@ import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TPExpandableList<T> extends Fragment {
     // list elements
     public TPExpandableListAdapter<T> adapter;
     @BindView(R.id.listTitle) TextView listTitle;
-    @BindView(R.id.listCounter) TextView listCounter;
+    // @BindView(R.id.listCounter) TextView listCounter;
+    @BindView(R.id.syncRecentGames) ImageButton syncRecentGamesButton;
     @BindView(R.id.listView) public RecyclerView listView;
     @BindView(R.id.listHeader) RelativeLayout listHeader;
     // list dimens
@@ -64,7 +67,7 @@ public class TPExpandableList<T> extends Fragment {
         View v = inflater.inflate(R.layout.fragment_tpexpandable_list, container, false);
         ButterKnife.bind(this, v);
         listTitle.setTextColor(Color.WHITE);
-        listCounter.setTextColor(Color.WHITE);
+        // listCounter.setTextColor(Color.WHITE);
         listView.addItemDecoration(new DividerItemDecoration(mainColor, v.getWidth()));
         listLayoutManager = new mLinearLayoutManager(getContext());
         listView.setLayoutManager(listLayoutManager);
@@ -76,6 +79,11 @@ public class TPExpandableList<T> extends Fragment {
         headerSwipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
         headerSwipeListener.needScrollWithOffset = true;
         return v;
+    }
+
+    public void setSyncButtonOnClickListner(View.OnClickListener onClickListner) {
+        syncRecentGamesButton.setOnClickListener(onClickListner);
+        syncRecentGamesButton.setVisibility(View.VISIBLE);
     }
 
     public void setTitles(String defaultTitle, String alternativeTitle) {
@@ -121,14 +129,14 @@ public class TPExpandableList<T> extends Fragment {
 
     private void setCounterNonZero(int counter) {
         listTitle.setText(defaultTitle);
-        listCounter.setVisibility(View.VISIBLE);
+        //listCounter.setVisibility(View.VISIBLE);
         listHeader.setOnTouchListener(headerSwipeListener);
-        listCounter.setText(String.valueOf(counter));
+        //listCounter.setText(String.valueOf(counter));
     }
 
     private void setCounterZero() {
         listTitle.setText(alternativeTitle);
-        listCounter.setVisibility(View.GONE);
+        //listCounter.setVisibility(View.GONE);
         listHeader.setOnTouchListener(null);
     }
 
@@ -184,5 +192,4 @@ public class TPExpandableList<T> extends Fragment {
             maximized = true;
         }
     }
-
 }

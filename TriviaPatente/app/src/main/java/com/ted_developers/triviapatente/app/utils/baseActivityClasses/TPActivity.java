@@ -3,23 +3,20 @@ package com.ted_developers.triviapatente.app.utils.baseActivityClasses;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,13 +27,13 @@ import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.DrawerOption;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.TPDrawerAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.drawer_options_type;
-import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
-import com.ted_developers.triviapatente.app.views.preferences.ChangeUserDetailsActivity;
+import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
+import com.ted_developers.triviapatente.app.views.menu_activities.ChangeUserDetailsActivity;
+import com.ted_developers.triviapatente.app.views.menu_activities.ContactsActivity;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
@@ -46,7 +43,6 @@ import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +58,7 @@ public class TPActivity extends AppCompatActivity {
     protected @Nullable @BindView(R.id.heartImageButton) ImageButton heartCounter;
     @BindString(R.string.drawerProfileOption) String profileOptionString;
     @BindString(R.string.drawerContactsOption) String contactsOptionString;
-    @BindString(R.string.drawerInformationsOption) String informationsOptionString;
+    @BindString(R.string.drawerNewGameOption) String drawerNewGameOptionString;
     @BindString(R.string.drawerLogoutOption) String logoutOptionString;
     // side drawer
     protected  @Nullable @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -122,8 +118,8 @@ public class TPActivity extends AppCompatActivity {
         List<DrawerOption> options = new ArrayList<DrawerOption>();
         options.add(new DrawerOption(R.layout.drawer_list_item, drawer_options_type.image, currentUser));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_profile, drawer_options_type.profile, profileOptionString));
+        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_car, drawer_options_type.new_game, drawerNewGameOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_contacts, drawer_options_type.contacts, contactsOptionString));
-        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_informations, drawer_options_type.information, informationsOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_logout, drawer_options_type.logout, logoutOptionString));
         // Set the adapter for the list view
         TPDrawerAdapter adapter = new TPDrawerAdapter(this, R.layout.drawer_list_item, options);
@@ -161,14 +157,14 @@ public class TPActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mDrawerLayout.closeDrawers();
             DrawerOption option = adapter.getItem(position);
             switch (option.optionType) {
                 case image:
                 case profile: settings(); break;
-                case contacts:
-                case information:
-                    break;
-                case logout: mDrawerLayout.closeDrawers(); logout(); break;
+                case contacts: contacts(); break;
+                case new_game: randomGame(); break;
+                case logout: logout(); break;
             }
         }
     }
@@ -255,6 +251,19 @@ public class TPActivity extends AppCompatActivity {
     // override this to take a particular profile picture
     protected String getActionBarProfilePicture() {
         return (currentUser == null)? null : TPUtils.getUserImageFromID(this, currentUser.id);
+    }
+
+    // contacts
+    public void contacts() {
+        Intent intent = new Intent(this, ContactsActivity.class);
+        TPActivity.this.startActivity(intent);
+    }
+
+    // new random game
+    public void randomGame() {
+        Intent intent = new Intent(this, FindOpponentActivity.class);
+        intent.putExtra("random", true);
+        TPActivity.this.startActivity(intent);
     }
 
     // settings
