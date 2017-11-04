@@ -32,6 +32,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapt
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.drawer_options_type;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
+import com.ted_developers.triviapatente.app.views.menu_activities.ChangePasswordActivity;
 import com.ted_developers.triviapatente.app.views.menu_activities.ChangeUserDetailsActivity;
 import com.ted_developers.triviapatente.app.views.menu_activities.ContactsActivity;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -46,6 +47,8 @@ import java.util.List;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Antonio on 08/12/16.
@@ -56,6 +59,7 @@ public class TPActivity extends AppCompatActivity {
     protected @Nullable @BindView(R.id.toolbar) Toolbar toolbar;
     protected @Nullable @BindView(R.id.toolbarTitle) TextView toolbarTitle;
     protected @Nullable @BindView(R.id.heartImageButton) ImageButton heartCounter;
+    protected @Nullable @BindView(R.id.settingsButton) ImageButton settingsButton;
     @BindString(R.string.drawerProfileOption) String profileOptionString;
     @BindString(R.string.drawerContactsOption) String contactsOptionString;
     @BindString(R.string.drawerNewGameOption) String drawerNewGameOptionString;
@@ -102,6 +106,9 @@ public class TPActivity extends AppCompatActivity {
             }
             if(heartCounter != null) {
                 heartCounter.setVisibility(getHeartCounterVisibility());
+            }
+            if(settingsButton != null) {
+                settingsButton.setVisibility(getSettingsVisibility());
             }
             initLogoutDialog();
         }
@@ -173,10 +180,30 @@ public class TPActivity extends AppCompatActivity {
         return "";
     }
 
+    protected int getSettingsVisibility(){
+        return View.GONE;
+    }
     protected int getBackButtonVisibility(){
         return View.GONE;
     }
     protected int getHeartCounterVisibility() { return View.VISIBLE; }
+
+    @Optional
+    @OnClick(R.id.settingsButton)
+    public void settingsButtonClick() {
+        Intent i = new Intent(this, ChangePasswordActivity.class);
+        startActivity(i);
+    }
+
+    @Optional
+    @OnClick(R.id.heartImageButton)
+    public void heartImageButtonClick() {
+        showHeartDialog();
+    }
+
+    protected void showHeartDialog() {
+        Toast.makeText(this, "Che culo", Toast.LENGTH_SHORT).show();
+    }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {
         //pathListened.add(path);

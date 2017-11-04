@@ -73,13 +73,13 @@ public class RecentGameHolder extends TPHolder<Game> {
                 .error(R.drawable.image_no_profile_picture)
                 .into(profilePicture);
         // set on click on profile picture
-        profilePicture.setOnClickListener(new View.OnClickListener() {
+        /*profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AlphaView.class);
                 context.startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void setPlayNow() {

@@ -21,4 +21,11 @@
     <dimen name="activity_change_user_details_margin">30dp</dimen>
     <!-- Confirm -->
     <string name="activity_change_user_details_confirm_button_text">Conferma</string>
+
+
+    <string name="activity_change_password_title">Cambia password</string>
+    <string name="activity_change_password_button">Conferma</string>
+    <string name="activity_change_password_old_password">Password precedente</string>
+    <string name="activity_change_password_new_password">Nuova password</string>
+    <string name="activity_change_password_repeat_password">Ripeti password</string>
 </resources>

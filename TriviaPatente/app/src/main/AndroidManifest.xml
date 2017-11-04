@@ -14,14 +14,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
         android:launchMode="singleTask"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".app.views.access.FirstAccessActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".app.views.main_page.MainPageActivity"/>
+        <activity android:name=".app.views.main_page.MainPageActivity" />
         <activity android:name=".app.views.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,22 +29,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.views.find_opponent.NewGameActivity"/>
+        <activity android:name=".app.views.find_opponent.NewGameActivity" />
         <activity
             android:name=".app.views.find_opponent.FindOpponentActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".app.views.game_page.GameMainPageActivity"/>
-        <activity android:name=".app.views.game_page.ChooseCategoryActivity"/>
-        <activity android:name=".app.views.AlphaView"/>
-        <activity android:name=".app.views.game_page.play_round.PlayRoundActivity"/>
+        <activity android:name=".app.views.game_page.GameMainPageActivity" />
+        <activity android:name=".app.views.game_page.ChooseCategoryActivity" />
+        <activity android:name=".app.views.AlphaView" />
+        <activity android:name=".app.views.game_page.play_round.PlayRoundActivity" />
         <activity
             android:name=".app.views.game_page.ChatActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".app.views.menu_activities.ChangeUserDetailsActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".app.views.access.Login.CredentialsRecovery"/>
-        <activity android:name=".app.views.menu_activities.ContactsActivity"/>
+        <activity android:name=".app.views.access.Login.CredentialsRecovery" />
+        <activity android:name=".app.views.menu_activities.ContactsActivity" />
+        <activity android:name=".app.views.menu_activities.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

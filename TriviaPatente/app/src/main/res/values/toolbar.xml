@@ -21,6 +21,7 @@
     <dimen name="back_button_height">17dp</dimen>
     <dimen name="tp_toolbar_margin">11dp</dimen>
     <dimen name="heart_image_size">30dp</dimen>
+    <dimen name="settings_image_size">25dp</dimen>
     <dimen name="text_size_very_small_padding">3sp</dimen>
     <dimen name="life_counter_size">18sp</dimen>
     <dimen name="profile_image_size">32dp</dimen>

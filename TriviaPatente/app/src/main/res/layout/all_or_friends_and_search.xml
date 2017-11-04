@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:visibility="gone">
 
         <Button
             android:layout_width="0dp"
@@ -50,9 +51,11 @@
                 android:layout_width="@dimen/search_icon_size"
                 android:layout_height="@dimen/search_icon_size"
                 android:background="@drawable/image_search_icon"
-                android:layout_marginLeft="@dimen/search_margin"/>
+                android:layout_marginLeft="@dimen/search_margin"
+                android:layout_marginStart="@dimen/search_margin"/>
             <EditText
                 android:layout_marginLeft="@dimen/search_margin"
+                android:layout_marginStart="@dimen/search_margin"
                 android:id="@+id/search_bar"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -61,6 +64,8 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:hint="@string/search_hint"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/greyDark"
                 android:textCursorDrawable="@drawable/edittext_cursor"
                 android:background="@null"/>
             <ImageButton
@@ -68,7 +73,8 @@
                 android:layout_width="@dimen/search_x_button_size"
                 android:layout_height="@dimen/search_x_button_size"
                 android:background="@drawable/button_x"
-                android:layout_marginRight="@dimen/search_margin"/>
+                android:layout_marginRight="@dimen/search_margin"
+                android:layout_marginEnd="@dimen/search_margin"/>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

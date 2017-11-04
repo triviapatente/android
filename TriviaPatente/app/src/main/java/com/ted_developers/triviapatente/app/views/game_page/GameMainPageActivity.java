@@ -213,12 +213,12 @@ public class GameMainPageActivity extends TPGameActivity {
         /*
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         actionBar.setProfilePicture(TPUtils.getUserImageFromID(this, opponent.id));
-        Picasso.with(this)
+        */
+        TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(this, opponent.id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
                 .into(profilePicture);
-        */
     }
 
     private void join_room() {

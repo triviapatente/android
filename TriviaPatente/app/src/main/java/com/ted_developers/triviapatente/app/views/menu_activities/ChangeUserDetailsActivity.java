@@ -72,6 +72,10 @@ public class ChangeUserDetailsActivity extends TPActivity {
         return View.VISIBLE;
     }
     @Override
+    protected int getSettingsVisibility(){
+        return View.VISIBLE;
+    }
+    @Override
     protected int getHeartCounterVisibility() { return View.GONE; }
 
     @Override

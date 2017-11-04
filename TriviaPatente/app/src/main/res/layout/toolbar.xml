@@ -23,4 +23,13 @@
         android:layout_marginRight="@dimen/tp_toolbar_margin"
         android:layout_marginEnd="@dimen/tp_toolbar_margin"/>
 
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="@dimen/settings_image_size"
+        android:layout_height="@dimen/settings_image_size"
+        android:background="@drawable/settings"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginRight="@dimen/tp_toolbar_margin"
+        android:layout_marginEnd="@dimen/tp_toolbar_margin"/>
+
 </android.support.v7.widget.Toolbar>
