@@ -86,10 +86,11 @@ public class MainButton extends RelativeLayout {
             a.recycle();
         }
 
-        if(!disabled) { initTextSwitcher(); }
-        else {
+        if(!disabled) {
+            initTextSwitcher();
+            findViewById(R.id.comingSoon).setVisibility(View.GONE);
+        } else {
             findViewById(R.id.upperLayer).setVisibility(View.VISIBLE);
-            findViewById(R.id.comingSoon).setVisibility(View.VISIBLE);
             setEnabled(false);
         }
     }

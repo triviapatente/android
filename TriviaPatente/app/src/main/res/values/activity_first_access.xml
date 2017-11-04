@@ -34,6 +34,8 @@
     <string name="forgot_username_password_explanatory">Se devi recuperare username e/o password puoi chiederci di inviarti un\'email e provvederemo a farti avere un link attraverso il quale potrai farlo! Non vogliamo che il tuo divertimento finisca 0x1F60D</string>
     <string name="forgot_username_password_recovery_button">Recupera password</string>
     <string name="credentials_recovery">Recupero credenziali</string>
+    <dimen name="activity_credentials_recovery_margin_vertical">100dp</dimen>
+    <dimen name="activity_credentials_recovery_margin_horizontal">20dp</dimen>
     <!-- loading spin -->
     <dimen name="first_access_loading_size">25dp</dimen>
 
@@ -45,5 +47,6 @@
     <string name="terms_and_conditions_registration2">Termini e Condizioni</string>
     <dimen name="terms_and_conditions_margin_v_registration">65dp</dimen>
     <dimen name="terms_and_conditions_margin_h_registration">25dp</dimen>
+    <string name="terms_and_conditions_easteregg">Non farci causa 0x1F602</string>
 
 </resources>

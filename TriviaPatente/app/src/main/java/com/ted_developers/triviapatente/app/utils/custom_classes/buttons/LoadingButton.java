@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.utils.custom_classes.loading;
+package com.ted_developers.triviapatente.app.utils.custom_classes.buttons;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.loading.ManageLoading;
 
 /**
  * Created by Antonio on 23/10/16.

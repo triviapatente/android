@@ -136,11 +136,6 @@ public class FirstAccessActivity extends TPActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        // todo exit page
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
 

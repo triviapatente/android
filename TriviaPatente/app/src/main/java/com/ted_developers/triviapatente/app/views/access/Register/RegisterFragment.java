@@ -1,7 +1,6 @@
 package com.ted_developers.triviapatente.app.views.access.Register;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 
@@ -51,6 +50,7 @@ public class RegisterFragment extends Fragment {
     @BindString(R.string.email_already_exist) String already_registered_email;
     @BindString(R.string.terms_and_conditions_registration1) String terms_and_conditions_registration;
     @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions;
+    @BindString(R.string.terms_and_conditions_easteregg) String terms_and_conditions_easteregg;
     // colors
     @BindColor(R.color.greenTermsAndConditions) int green;
 
@@ -94,6 +94,7 @@ public class RegisterFragment extends Fragment {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         );
         termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
+        terms_and_conditions_easteregg = TPUtils.translateEmoticons(terms_and_conditions_easteregg);
         // translate emoticon
         operationFailed = TPUtils.translateEmoticons(operationFailed);
         return v;
@@ -129,6 +130,8 @@ public class RegisterFragment extends Fragment {
 
     @OnClick(R.id.terms_and_conditions)
     public void seeTermsConditions() {
+        Toast.makeText(getContext(), terms_and_conditions_easteregg, Toast.LENGTH_SHORT).show();
         Toast.makeText(getContext(), "Belli sti termini", Toast.LENGTH_SHORT).show();
+        // TODO open terms
     }
 }

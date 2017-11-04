@@ -62,6 +62,7 @@ public class MessageBox extends LinearLayout {
         // message of message box
         message = new TextView(context);
         message.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.TPTextSizeSmall));
+        message.setTextColor(ContextCompat.getColor(context, android.R.color.black));
         // layout params
         params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.setMargins(margin, 0, margin, 0);

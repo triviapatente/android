@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 

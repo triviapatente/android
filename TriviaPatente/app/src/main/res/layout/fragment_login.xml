@@ -59,7 +59,7 @@
             android:layout_marginEnd="@dimen/field_margin">
 
             <!-- login loading button -->
-            <com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton
+            <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/field_height"
                 android:text="@string/button_login"

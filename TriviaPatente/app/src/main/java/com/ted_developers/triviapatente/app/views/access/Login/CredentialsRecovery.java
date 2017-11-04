@@ -12,7 +12,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
-import com.ted_developers.triviapatente.app.utils.custom_classes.loading.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -26,6 +26,7 @@ public class CredentialsRecovery extends TPActivity {
 
     @BindView(R.id.forgot_username_password_explanatory) TextView explanatory;
     @BindString(R.string.forgot_username_password_explanatory) String explanatoryStr;
+    @BindString(R.string.credentials_recovery) String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,15 @@ public class CredentialsRecovery extends TPActivity {
         usernameField.setHint(usernameemailHint);
     }
 
+    @Override
+    protected String getToolbarTitle(){
+        return title;
+    }
+    @Override
+    protected int getHeartCounterVisibility() { return View.GONE; }
+    @Override
+    protected int getBackButtonVisibility() { return View.VISIBLE; }
+
     // hide keyboard
     public void hideKeyboard() {
         // Check if no view has focus:
@@ -63,6 +73,7 @@ public class CredentialsRecovery extends TPActivity {
     public void recoveryUsernamePassword(){
         recoveryButton.startLoading();
         Toast.makeText(this, "Miao credici", Toast.LENGTH_SHORT).show();
+        // TODO change password request
         recoveryButton.stopLoading();
     }
 

@@ -22,20 +22,25 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    // SUPPORT
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    // CONNECTION AND DATA
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'org.parceler:parceler-api:1.0.4'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
     compile 'com.github.nkzawa:socket.io-client:0.3.0'
+    // BINDING (NEWER VERSION NEEDS TARGET SDK VERSION TO BE 25)
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    // GRAPHICAL
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
     compile 'jp.wasabeef:blurry:2.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    // TESTS
     testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

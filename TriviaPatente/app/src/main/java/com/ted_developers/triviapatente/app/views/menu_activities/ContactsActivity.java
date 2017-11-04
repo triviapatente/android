@@ -28,6 +28,7 @@ public class ContactsActivity extends TPActivity {
     @BindView(R.id.messageInput) EditText messageEditText;
     @BindString(R.string.activity_contacts_messageSentString) String messageSentString;
     @BindString(R.string.activity_contacts_messageNotSentString) String messageNotSentString;
+    @BindString(R.string.terms_and_conditions_easteregg) String terms_and_conditions_easteregg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,15 @@ public class ContactsActivity extends TPActivity {
         );
         termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
 
+        terms_and_conditions_easteregg = TPUtils.translateEmoticons(terms_and_conditions_easteregg);
         // hide keyboard not provided... in android the common way is to click the appropriate button.
     }
 
     @OnClick(R.id.terms_and_conditions)
     public void termsAndConditionsClick() {
+        Toast.makeText(this, terms_and_conditions_easteregg, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "Sciuar", Toast.LENGTH_SHORT).show();
+        // TODO see terms
     }
 
     @OnClick(R.id.sendButton)
@@ -61,6 +65,7 @@ public class ContactsActivity extends TPActivity {
         } else {
             Toast.makeText(this, messageSentString, Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Sciuar", Toast.LENGTH_SHORT).show();
+            // TODO send message
             this.finish();
         }
     }

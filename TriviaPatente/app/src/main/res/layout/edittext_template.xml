@@ -5,6 +5,7 @@
     android:layout_height="@dimen/field_height"
     android:textColor="@android:color/black"
     android:maxLines="1"
+    android:textColorHint="@color/grey"
     android:textSelectHandle="@color/mainColorDark"
     android:textSelectHandleLeft="@color/mainColorDark"
     android:textSelectHandleRight="@color/mainColorDark"

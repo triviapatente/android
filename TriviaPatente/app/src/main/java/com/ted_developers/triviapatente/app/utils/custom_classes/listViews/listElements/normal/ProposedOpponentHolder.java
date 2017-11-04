@@ -57,13 +57,13 @@ public class ProposedOpponentHolder extends TPHolder<User> {
         // set score
         scoreTextField.setText(String.valueOf(element.score));
         // set on click on profile picture
-        profilePicture.setOnClickListener(new View.OnClickListener() {
+        /*profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AlphaView.class);
                 context.startActivity(intent);
             }
-        });
+        });*/
         // set appropriate button
         if(element.last_game_won != null && element.last_game_won) {
             playButton.setPlayNow();

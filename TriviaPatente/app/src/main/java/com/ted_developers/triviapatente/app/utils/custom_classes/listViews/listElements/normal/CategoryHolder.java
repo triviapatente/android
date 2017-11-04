@@ -37,12 +37,6 @@ public class CategoryHolder extends TPHolder<Category> {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // todo open next page
-            }
-        });
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Intent intent = new Intent(itemView.getContext(), AlphaView.class);
                 itemView.getContext().startActivity(intent);
             }

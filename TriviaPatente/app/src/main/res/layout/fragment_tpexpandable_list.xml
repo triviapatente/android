@@ -9,7 +9,7 @@
             android:id="@+id/listHeader"
             android:layout_width="match_parent"
             android:layout_height="@dimen/list_title_height"
-            android:background="@color/mainColorDark"
+            android:background="@color/mainColorDark2"
             android:visibility="gone">
 
                 <TextView

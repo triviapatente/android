@@ -17,6 +17,7 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="@dimen/TPTextSizeMedium"
+        android:textColor="@color/greyDark"
         android:gravity="center_vertical"
         android:lines="1"
         android:ellipsize="end"

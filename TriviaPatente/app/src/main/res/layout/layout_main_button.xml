@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/main_page_button_heigth">
+    android:layout_height="@dimen/main_page_button_heigth"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
         android:id="@+id/upperLayer"
@@ -10,14 +11,22 @@
         android:background="@color/disabledOptionColor"
         android:visibility="gone"/>
 
-    <ImageView
-        android:layout_width="@dimen/main_button_coming_soon_width"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/coming_soon"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:visibility="gone"
-        android:id="@+id/comingSoon"/>
+        android:layout_marginBottom="-1dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/comingSoon">
+        <ImageView
+            android:background="@drawable/coming_soon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="2.13:1"/>
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
