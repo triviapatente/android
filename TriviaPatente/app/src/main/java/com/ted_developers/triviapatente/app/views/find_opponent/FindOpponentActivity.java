@@ -69,7 +69,6 @@ public class FindOpponentActivity extends RankActivity {
     @BindColor(android.R.color.white) @ColorInt int whiteColor;
     // search
     @BindView(R.id.search_bar) EditText searchBar;
-    private boolean all;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     // players
@@ -110,6 +109,35 @@ public class FindOpponentActivity extends RankActivity {
             // init
             init();
         }
+    }
+
+    @Override
+    protected void initSearchBar() {
+        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    FindOpponentActivity.this.doSearch(searchBar.getText().toString());
+                    hideKeyboard();
+                }
+                return false;
+            }
+        });
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().equals("")) {
+                    loadPlayers();
+                }
+            }
+        });
+        hideKeyboard();
     }
 
     @Override

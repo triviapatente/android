@@ -129,7 +129,7 @@ public class RankActivity extends TPActivity {
             @Override
             public void mOnResponse(Call<RankPosition> call, Response<RankPosition> response) {
                 if(response.code() == 200 && response.body().rank != null) {
-                    users.addAll(0, response.body().rank);
+                    users.addAll(first ? 0 : users.size() - 1, response.body().rank);
                     setPlayersListItems(users);
                     if(response.body().rank.size() == 0) {
                         // no users and first user is first.. absolute first
