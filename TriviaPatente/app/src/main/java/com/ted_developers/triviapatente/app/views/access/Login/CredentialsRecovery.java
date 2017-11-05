@@ -34,6 +34,7 @@ public class CredentialsRecovery extends TPActivity {
     @BindString(R.string.credentials_recovery) String title;
 
     @BindString(R.string.mail_sent) String mail_sent;
+    @BindString(R.string.activity_credentials_recovery_no_user_matching) String no_user_matching;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class CredentialsRecovery extends TPActivity {
 
         // translate emoticons
         explanatory.setText(TPUtils.translateEmoticons(explanatoryStr));
+        mail_sent = TPUtils.translateEmoticons(mail_sent);
 
         // init username field
         usernameField.setHint(usernameemailHint);
@@ -84,9 +86,10 @@ public class CredentialsRecovery extends TPActivity {
             @Override
             public void mOnResponse(Call<Success> call, Response<Success> response) {
                 if(response.code() == 401) {
-                    Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CredentialsRecovery.this, no_user_matching, Toast.LENGTH_SHORT).show();
                 } else if(response.code() == 200 && response.body().success) {
                     Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
             @Override

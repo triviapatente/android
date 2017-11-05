@@ -21,7 +21,7 @@
     <string name="wrong_pwd">Password errata!</string>
     <string name="same_pwd">Non stai cambiando password!</string>
     <string name="login_failed">Login fallito. Verifica di aver inserito correttamente nome utente e password.</string>
-    <string name="forgot_username_password">Nome utente o password dimenticati?</string>
+    <string name="forgot_username_password">Password dimenticata?</string>
     <string name="operation_failed">Impossibile connettersi..\nRiprova! 0x1F614</string>
     <!--failed register-->
     <string name="username_already_exist">Username non disponibile!</string>
@@ -33,9 +33,11 @@
     <dimen name="or_bottom_padding">5dp</dimen>
     <!--forgot username password-->
     <dimen name="forgot_username_password_margin">30dp</dimen>
-    <string name="forgot_username_password_explanatory">Se devi recuperare username e/o password puoi chiederci di inviarti un\'email e provvederemo a farti avere un link attraverso il quale potrai farlo! Non vogliamo che il tuo divertimento finisca 0x1F60D</string>
+    <string name="forgot_username_password_explanatory">Se devi recuperare la password puoi chiederci di inviarti un\'email e provvederemo a farti avere un link attraverso il quale potrai farlo! Non vogliamo che il tuo divertimento finisca 0x1F60D</string>
     <string name="forgot_username_password_recovery_button">Recupera password</string>
     <string name="credentials_recovery">Recupero credenziali</string>
+    <string name="mail_sent">Dovresti aver ricevuto una mail! Prova a controllare 0x263A</string>
+    <string name="activity_credentials_recovery_no_user_matching">Nessun utente trovato..</string>
     <dimen name="activity_credentials_recovery_margin_vertical">100dp</dimen>
     <dimen name="activity_credentials_recovery_margin_horizontal">20dp</dimen>
     <!-- loading spin -->

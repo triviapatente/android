@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.http.modules.auth;
 
 import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
 import java.util.List;
@@ -37,6 +38,14 @@ public interface HTTPAuthEndpoint {
     @FormUrlEncoded
     @POST("account/surname/edit")
     Call<User> changeSurname(@Field("surname") String surname);
+
+    @FormUrlEncoded
+    @POST("auth/password/edit")
+    Call<SuccessUserToken> changePassword(@Field("old_value") String old_password, @Field("new_value") String new_password);
+
+    @FormUrlEncoded
+    @POST("auth/password/request")
+    Call<Success> requestNewPassword(@Field("username") String username);
 
     @Multipart
     @POST("account/image/edit")
