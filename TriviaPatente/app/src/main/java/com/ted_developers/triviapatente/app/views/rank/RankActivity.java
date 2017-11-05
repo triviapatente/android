@@ -98,8 +98,7 @@ public class RankActivity extends TPActivity {
         addPagination();
     }
 
-    // TODO override in find opponent to empty block
-    protected void addPagination() {
+    private void addPagination() {
         mLayoutManager = new LinearLayoutManager(this);
         playersList.setLayoutManager(mLayoutManager);
         playersList.addOnScrollListener(new RecyclerView.OnScrollListener() {
