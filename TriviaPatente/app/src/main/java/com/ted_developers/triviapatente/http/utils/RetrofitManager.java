@@ -9,6 +9,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.http.modules.auth.HTTPAuthEndpoint;
+import com.ted_developers.triviapatente.http.modules.base.HTTPBaseEndpoint;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.modules.message.HTTPMessageEndpoint;
 import com.ted_developers.triviapatente.http.modules.preferences.HTTPPreferencesEndpoint;
@@ -94,5 +95,9 @@ public class RetrofitManager {
         return httpRankEndpoint;
     }
 
-
+    private static HTTPBaseEndpoint httpBaseEndpoint;
+    public static HTTPBaseEndpoint getHTTPBaseEndpoint() {
+        if (httpBaseEndpoint == null) { httpBaseEndpoint = retrofit.create(HTTPBaseEndpoint.class); }
+        return httpBaseEndpoint;
+    }
 }

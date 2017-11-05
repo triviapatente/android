@@ -26,6 +26,12 @@
         <item>Altro</item>
     </string-array>
 
+    <string-array name="scope_array">
+        <item>hint</item>
+        <item>complaint</item>
+        <item>other</item>
+    </string-array>
+
     <dimen name="activity_contacts_sendButtonSize">45dp</dimen>
     <string name="activity_contacts_messageSentString">Messaggio inviato!</string>
     <string name="activity_contacts_messageNotSentString">Come può aiutarci un messaggio vuoto? 0x1F625</string>

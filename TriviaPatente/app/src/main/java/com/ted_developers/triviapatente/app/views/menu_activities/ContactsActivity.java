@@ -6,17 +6,25 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.responses.Success;
 
+import butterknife.BindArray;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ContactsActivity extends TPActivity {
     @BindString(R.string.activity_contacts_title) String title;
@@ -29,6 +37,9 @@ public class ContactsActivity extends TPActivity {
     @BindString(R.string.activity_contacts_messageSentString) String messageSentString;
     @BindString(R.string.activity_contacts_messageNotSentString) String messageNotSentString;
     @BindString(R.string.terms_and_conditions_easteregg) String terms_and_conditions_easteregg;
+
+    @BindView(R.id.motivations_spinner) Spinner scopeSpinner;
+    @BindArray(R.array.scope_array) String[] scopeArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +74,27 @@ public class ContactsActivity extends TPActivity {
         if(messageEditText.getText().length() <= 0) {
             Toast.makeText(this, messageNotSentString, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, messageSentString, Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Sciuar", Toast.LENGTH_SHORT).show();
-            // TODO send message
-            this.finish();
+            Call<Success> call = RetrofitManager.getHTTPBaseEndpoint().contact(
+                    messageEditText.getText().toString(),
+                    scopeArray[scopeSpinner.getSelectedItemPosition()]
+            );
+            call.enqueue(new TPCallback<Success>() {
+                @Override
+                public void mOnResponse(Call<Success> call, Response<Success> response) {
+                    if(response.body().success) Toast.makeText(ContactsActivity.this, messageSentString, Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(ContactsActivity.this, messageNotSentString, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void mOnFailure(Call<Success> call, Throwable t) {
+                    Toast.makeText(ContactsActivity.this, messageNotSentString, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void then() {
+                    ContactsActivity.this.finish();
+                }
+            });
         }
     }
 
