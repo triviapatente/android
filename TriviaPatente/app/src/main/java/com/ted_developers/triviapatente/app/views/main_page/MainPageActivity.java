@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
@@ -37,7 +38,10 @@ import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.responses.ActionRecentGame;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import butterknife.BindDimen;
 import butterknife.BindString;
@@ -85,9 +89,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
             @Override
             public void response(ActionRecentGame response) {
-                // TODO do better
                 if(visible) {
-                    Log.i("TEST", "recent game on main page activity");
                     loadRecentGames();
                 }
             }
@@ -122,6 +124,13 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                                         initOptionButtons();
                                         // load recent games
                                         loadRecentGames();
+                                        // show popup if desired and last shown was yesterday
+                                        if(currentUser.showPopup &&
+                                                System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
+                                            showHeartPopup(true);
+                                            currentUser.lastPopupShowedDateMillis = System.currentTimeMillis();
+                                            SharedTPPreferences.saveUser(currentUser);
+                                        }
                                     }
                                 });
                             } else { backToFirstAccess(); }
@@ -141,14 +150,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                 }
             });
         }
-    }
-
-    @Override
-    protected void initActionBar() {
-        //super.initActionBar();
-        // todo set hearts box
-        //actionBar.setHeartImage();
-        //actionBar.setLifeCounter(-1);
     }
 
     private void initOptionButtons() {

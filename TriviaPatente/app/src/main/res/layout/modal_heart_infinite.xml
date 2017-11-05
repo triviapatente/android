@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/modalWidth"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/modal_rounded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/negativeButton"
+            android:layout_marginTop="@dimen/connectToFacebookExitButtonMargin"
+            android:layout_width="@dimen/connectToFacebookExitButtonSize"
+            android:layout_height="@dimen/connectToFacebookExitButtonSize"
+            android:layout_marginRight="@dimen/connectToFacebookExitButtonMargin"
+            android:layout_marginEnd="@dimen/connectToFacebookExitButtonMargin"
+            android:background="@drawable/button_x"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/modal_hearts_infinite_image_size"
+        android:layout_height="@dimen/modal_hearts_infinite_image_size"
+        android:background="@drawable/image_lucky"/>
+
+    <TextView
+        android:id="@+id/modal_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/modal_hearts_infinite_margin_little"
+        android:layout_marginStart="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginLeft="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginEnd="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginRight="@dimen/modal_hearts_infinite_margin"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="@dimen/modal_hearts_infinite_margin_little"
+        android:textSize="@dimen/TPTextSizeSmall"/>
+
+    <LinearLayout
+        android:id="@+id/notShowingAgainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/modal_hearts_infinite_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/TPTextSizeVerySmall"
+            android:text="@string/modal_hearts_infinite_text_not_show"
+            android:layout_marginRight="@dimen/modal_hearts_infinite_margin_little"
+            android:layout_marginEnd="@dimen/modal_hearts_infinite_margin_little"/>
+        <CheckBox
+            android:id="@+id/notShowingAgainCheckbox"
+            android:layout_width="@dimen/modal_hearts_infinite_checkbox_size"
+            android:layout_height="@dimen/modal_hearts_infinite_checkbox_size"
+            android:button="@drawable/tp_checkbox"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
+        android:id="@+id/positiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_hearts_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/invite"/>
+</LinearLayout>

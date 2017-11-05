@@ -27,6 +27,7 @@ import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPHeartDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.DrawerOption;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.TPDrawerAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.drawer_options_type;
@@ -68,6 +69,7 @@ public class TPActivity extends AppCompatActivity {
     protected  @Nullable @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     protected  @Nullable @BindView(R.id.left_drawer) ListView mDrawerList;
     protected ActionBarDrawerToggle mDrawerToggle;
+    protected TPDrawerAdapter drawerAdapter;
     // menu options
     public @Nullable @BindView(R.id.activityContainer) RelativeLayout activityContainer;
     TPDialog logoutDialog;
@@ -123,15 +125,15 @@ public class TPActivity extends AppCompatActivity {
 
     private void initDrawer() {
         List<DrawerOption> options = new ArrayList<DrawerOption>();
-        options.add(new DrawerOption(R.layout.drawer_list_item, drawer_options_type.image, currentUser));
+        options.add(new DrawerOption(R.layout.drawer_list_item, drawer_options_type.image));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_profile, drawer_options_type.profile, profileOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_car, drawer_options_type.new_game, drawerNewGameOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_contacts, drawer_options_type.contacts, contactsOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_logout, drawer_options_type.logout, logoutOptionString));
         // Set the adapter for the list view
-        TPDrawerAdapter adapter = new TPDrawerAdapter(this, R.layout.drawer_list_item, options);
-        mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new TPDrawerItemClickListener(adapter));
+        drawerAdapter = new TPDrawerAdapter(this, R.layout.drawer_list_item, options);
+        mDrawerList.setAdapter(drawerAdapter);
+        mDrawerList.setOnItemClickListener(new TPDrawerItemClickListener(drawerAdapter));
         // Set the list's click listener
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -198,11 +200,11 @@ public class TPActivity extends AppCompatActivity {
     @Optional
     @OnClick(R.id.heartImageButton)
     public void heartImageButtonClick() {
-        showHeartDialog();
+        showHeartPopup(false);
     }
 
-    protected void showHeartDialog() {
-        Toast.makeText(this, "Che culo", Toast.LENGTH_SHORT).show();
+    protected void showHeartPopup(boolean automatic) {
+        new TPHeartDialog(this, automatic).show();
     }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {
@@ -227,15 +229,11 @@ public class TPActivity extends AppCompatActivity {
         if(needsLeaveRoom()) {
             gameSocketManager.leave_room(new SocketCallback<Success>() {
                 @Override
-                public void response(Success response) {
-                    if(!response.success) {
-                        // todo vedere come avvisare
-                        Log.i("TEST", "ERRORE NEL LEAVE ROOM!!");
-                    }
-                }
+                public void response(Success response) {}
             });
         }
         visible = true;
+        if(drawerAdapter != null) drawerAdapter.notifyDataSetChanged(); // user data can be modified, take it again from shared preferences
     }
 
     @Override
@@ -268,16 +266,6 @@ public class TPActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, FirstAccessActivity.class);
         startActivity(myIntent);
         finish();
-    }
-
-    // action bar management
-    protected void initActionBar() {
-        //actionBar.setProfilePicture(getActionBarProfilePicture());
-    }
-
-    // override this to take a particular profile picture
-    protected String getActionBarProfilePicture() {
-        return (currentUser == null)? null : TPUtils.getUserImageFromID(this, currentUser.id);
     }
 
     // contacts

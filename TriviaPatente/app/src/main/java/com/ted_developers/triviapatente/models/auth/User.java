@@ -6,6 +6,8 @@ import com.ted_developers.triviapatente.models.base.CommonPK;
 
 import org.parceler.Parcel;
 
+import java.util.Date;
+
 /**
  * Created by Antonio on 22/10/16.
  */
@@ -18,6 +20,8 @@ public class User extends CommonPK {
     @SerializedName("image") public String image;
     @SerializedName("score") public Integer score;
     @SerializedName("last_game_won") public Boolean last_game_won;
+    @SerializedName("showPopup") public Boolean showPopup = true;
+    @SerializedName("lastPopupShowedDate") public long lastPopupShowedDateMillis = 0;
 
     public User() {}
 

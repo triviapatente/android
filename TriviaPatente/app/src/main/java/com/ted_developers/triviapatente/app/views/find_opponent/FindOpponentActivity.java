@@ -229,7 +229,6 @@ public class FindOpponentActivity extends TPActivity {
                 public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                     if(response.code() == 200 && response.body().success && response.body().users != null) {
                         suggestedUsers = response.body().users;
-                        Log.d("TEST", String.valueOf(suggestedUsers.size()));
                         setPlayersListItems(suggestedUsers);
                     }
                     // show other items

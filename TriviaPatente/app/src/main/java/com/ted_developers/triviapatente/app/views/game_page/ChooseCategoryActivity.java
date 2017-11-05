@@ -93,9 +93,4 @@ public class ChooseCategoryActivity extends TPGameActivity {
             }
         });
     }
-
-    @Override
-    protected String getActionBarProfilePicture() {
-        return (opponent == null)? null : TPUtils.getUserImageFromID(this, opponent.id);
-    }
 }

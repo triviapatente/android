@@ -101,9 +101,6 @@ public class GameMainPageActivity extends TPGameActivity {
                         }
                     }
                 });
-            } else {
-                // todo communicate error on init round
-                Log.i("TEST", "error");
             }
         }
     }, roundCallback = new SocketCallback<RoundUserData>() {
@@ -226,7 +223,6 @@ public class GameMainPageActivity extends TPGameActivity {
             @Override
             public void response(Success response) {
                 if(response.success) { init_round(); }
-                else { Log.i("TEST", "ERRORE NEL JOIN ROOM"); }
             }
         });
     }

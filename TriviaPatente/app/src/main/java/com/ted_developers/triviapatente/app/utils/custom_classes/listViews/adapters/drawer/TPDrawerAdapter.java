@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
+import com.ted_developers.triviapatente.models.auth.User;
 
 import java.util.List;
 
@@ -45,14 +47,15 @@ public class TPDrawerAdapter extends ArrayAdapter<DrawerOption> {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             if(option.optionType == drawer_options_type.image) {
+                User user = SharedTPPreferences.currentUser();
                 v = vi.inflate(R.layout.drawer_picture_element, null);
-                if(option.user.name != null || option.user.surname != null) {
-                    ((TextView) v.findViewById(R.id.name)).setText(option.user.name + " " + option.user.surname);
+                if(user.name != null || user.surname != null) {
+                    ((TextView) v.findViewById(R.id.name)).setText(user.name + " " + user.surname);
                     v.findViewById(R.id.name).setVisibility(View.VISIBLE);
                 }
-                ((TextView) v.findViewById(R.id.username)).setText("@" + option.user.username);
+                ((TextView) v.findViewById(R.id.username)).setText("@" + user.username);
                 TPUtils.picasso
-                        .load(TPUtils.getUserImageFromID(getContext(), option.user.id))
+                        .load(TPUtils.getUserImageFromID(getContext(), user.id))
                         .placeholder(R.drawable.image_no_profile_picture)
                         .error(R.drawable.image_no_profile_picture)
                         .into((RoundedImageView) v.findViewById(R.id.bigProfilePicture));
@@ -63,10 +66,6 @@ public class TPDrawerAdapter extends ArrayAdapter<DrawerOption> {
                 ((TextView) v.findViewById(R.id.optionName)).setText(option.optionName);
             }
         }
-
-
-
-
 
         return v;
     }

@@ -8,8 +8,7 @@ import com.ted_developers.triviapatente.models.auth.User;
 public class DrawerOption {
     int layoutResource, drawableResource;
     public drawer_options_type optionType;
-    String optionName;
-    User user;
+    public String optionName;
 
     public DrawerOption (@LayoutRes int layoutResource, @DrawableRes int drawableResource, drawer_options_type optionType, String optionName){
         this.layoutResource = layoutResource;
@@ -18,9 +17,8 @@ public class DrawerOption {
         this.optionName = optionName;
     }
 
-    public DrawerOption (@LayoutRes int layoutResource, drawer_options_type optionType, User user){
+    public DrawerOption (@LayoutRes int layoutResource, drawer_options_type optionType){
         this.layoutResource = layoutResource;
         this.optionType = optionType;
-        this.user = user;
     }
 }

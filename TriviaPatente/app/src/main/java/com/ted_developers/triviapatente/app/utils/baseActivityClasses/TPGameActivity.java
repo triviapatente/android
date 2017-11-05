@@ -61,22 +61,6 @@ public class TPGameActivity extends TPActivity {
     }
 
     @Override
-    protected void initActionBar() {
-        super.initActionBar();
-        /*
-        if(opponent != null) {
-            actionBar.setTitle(opponent.toString());
-        }
-        actionBar.setBackButtonOnClick(MainPageActivity.class);
-        */
-    }
-
-    @Override
-    protected String getActionBarProfilePicture() {
-        return (opponent == null)? null : TPUtils.getUserImageFromID(this, opponent.id);
-    }
-
-    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainPageActivity.class);
         startActivity(intent);

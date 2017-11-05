@@ -193,7 +193,8 @@ public class ChangeUserDetailsActivity extends TPActivity {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    // TODO save data on local shared preferences
+                    user.name = nameInput.toString();
+                    SharedTPPreferences.saveUser(user);
                     msg = msg_name_modified;
                     surnameUpdate();
                 }
@@ -225,7 +226,8 @@ public class ChangeUserDetailsActivity extends TPActivity {
             call.enqueue(new TPCallback<User>() {
                 @Override
                 public void mOnResponse(Call<User> call, Response<User> response) {
-                    // TODO save data on local shared preferences
+                    user.surname = surnameInput.toString();
+                    SharedTPPreferences.saveUser(user);
                     if(msg == null || msg.equals("")) {
                         msg = msg_surname_modified;
                     } else {
@@ -258,15 +260,10 @@ public class ChangeUserDetailsActivity extends TPActivity {
             Call<User> call = RetrofitManager.getHTTPAuthEndpoint().changeImage(imageField);
             call.enqueue(new TPCallback<User>() {
                 @Override
-                public void mOnResponse(Call<User> call, Response<User> response) {
-                    // TODO save data on local shared preferences
-                    Log.i("TEST", "response");
-                }
+                public void mOnResponse(Call<User> call, Response<User> response) {}
 
                 @Override
-                public void mOnFailure(Call<User> call, Throwable t) {
-                    Log.i("TEST", "failure");
-                }
+                public void mOnFailure(Call<User> call, Throwable t) {}
 
                 @Override
                 public void then() {

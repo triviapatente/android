@@ -23,15 +23,4 @@ public class ChatActivity extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
     }
-
-    @Override
-    protected void initActionBar() {
-        super.initActionBar();
-        //if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-    }
-
-    @Override
-    protected String getActionBarProfilePicture() {
-        return (opponent == null)? null : TPUtils.getUserImageFromID(this, opponent.id);
-    }
 }

@@ -6,6 +6,7 @@
     <string name="button_rank">Classifica</string>
     <string name="button_stats">Statistiche</string>
     <string name="button_shop">Negozio</string>
+    <dimen name="main_page_button_height">60dp</dimen>
     <!-- main page hints -->
     <string name="global">Globale: </string>
     <string name="friends">Amici: </string>
@@ -13,9 +14,19 @@
     <!-- main page dimen -->
     <dimen name="main_page_option_margin">25dp</dimen>
     <dimen name="main_page_image_size">30dp</dimen>
-    <dimen name="main_page_button_heigth">50dp</dimen>
     <dimen name="main_button_margin">20dp</dimen>
     <dimen name="main_button_margin_horizontal">15dp</dimen>
     <!-- server down alert -->
     <string name="server_down_message">Spiacenti, impossibile connettersi al server :(</string>
+
+    <!-- dialog -->
+    <dimen name="modal_hearts_infinite_image_size">70dp</dimen>
+    <string name="modal_hearts_infinite_text">Godere di vite infinite è un privilegio dei fedelissimi!
+        \nPerchè non permettere anche ai tuoi amici di accedere a questo beneficio? 0x1F609</string>
+    <string name="modal_hearts_infinite_text_not_show">Non mostrare più</string>
+    <dimen name="modal_hearts_infinite_margin">25dp</dimen>
+    <dimen name="modal_hearts_infinite_margin_little">10dp</dimen>
+    <dimen name="modal_hearts_infinite_checkbox_size">15dp</dimen>
+    <string name="invite">Invita</string>
+    <string name="invite_friends_string">Scarica anche tu TriviaPatente e prova a battermi! http://shesh.com</string>
 </resources>
