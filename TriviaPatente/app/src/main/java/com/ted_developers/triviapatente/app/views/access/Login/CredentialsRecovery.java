@@ -11,12 +11,17 @@ import android.widget.Toast;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.responses.Success;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class CredentialsRecovery extends TPActivity {
     @BindView(R.id.forgot_username_password_recovery_button) LoadingButton recoveryButton;
@@ -27,6 +32,8 @@ public class CredentialsRecovery extends TPActivity {
     @BindView(R.id.forgot_username_password_explanatory) TextView explanatory;
     @BindString(R.string.forgot_username_password_explanatory) String explanatoryStr;
     @BindString(R.string.credentials_recovery) String title;
+
+    @BindString(R.string.mail_sent) String mail_sent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +79,23 @@ public class CredentialsRecovery extends TPActivity {
     @OnClick(R.id.forgot_username_password_recovery_button)
     public void recoveryUsernamePassword(){
         recoveryButton.startLoading();
-        Toast.makeText(this, "Miao credici", Toast.LENGTH_SHORT).show();
-        // TODO change password request
-        recoveryButton.stopLoading();
+        Call<Success> call = RetrofitManager.getHTTPAuthEndpoint().requestNewPassword(usernameField.getText().toString());
+        call.enqueue(new TPCallback<Success>() {
+            @Override
+            public void mOnResponse(Call<Success> call, Response<Success> response) {
+                if(response.code() == 401) {
+                    Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
+                } else if(response.code() == 200 && response.body().success) {
+                    Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void mOnFailure(Call<Success> call, Throwable t) {}
+            @Override
+            public void then() {
+                recoveryButton.stopLoading();
+            }
+        });
     }
 
 }

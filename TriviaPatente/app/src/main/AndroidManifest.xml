@@ -45,7 +45,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".app.views.access.Login.CredentialsRecovery" />
         <activity android:name=".app.views.menu_activities.ContactsActivity" />
-        <activity android:name=".app.views.menu_activities.ChangePasswordActivity"></activity>
+        <activity android:name=".app.views.menu_activities.ChangePasswordActivity" />
+        <activity android:name=".app.views.rank.RankActivity"></activity>
     </application>
 
 </manifest>

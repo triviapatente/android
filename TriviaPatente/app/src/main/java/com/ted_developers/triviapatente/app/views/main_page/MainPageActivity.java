@@ -30,6 +30,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageB
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.NewGameActivity;
+import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.EventAction;
 import com.ted_developers.triviapatente.models.auth.Hints;
@@ -101,7 +102,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         return pageTitle;
     }
 
-    private void init() {
+    private void init() { init(null); }
+    private void init(final View syncButton) {
         // connect to socket
         if(!BaseSocketManager.isConnected()) {
             // start loading
@@ -123,7 +125,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                                         ReceivedData.global_rank_position = response.global_rank_position;
                                         initOptionButtons();
                                         // load recent games
-                                        loadRecentGames();
+                                        loadRecentGames(syncButton);
                                         // show popup if desired and last shown was yesterday
                                         if(currentUser.showPopup &&
                                                 System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
@@ -160,7 +162,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     private void initStatsHints() {
         List<String> hintsStrings = new ArrayList<String>();
-        if(ReceivedData.statsHints.size() > 0) {
+        if(ReceivedData.statsHints != null && ReceivedData.statsHints.size() > 0) {
             // build hints
             hintsStrings.clear();
             for(Category c : ReceivedData.statsHints) {
@@ -270,8 +272,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     public void statsClick() {}
     @OnClick(R.id.rank)
     public void rankClick() {
-        Intent intent = new Intent(this, AlphaView.class);
-        startActivity(intent);
+        Intent i = new Intent(this, RankActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -280,15 +282,13 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         recentGames.setMinimizedHeightMode();
 
         // check web socket connection
-        init();
+        init(findViewById(R.id.syncRecentGames));
 
         // update recent games
         //updateRecentGames();
-        loadRecentGames(findViewById(R.id.syncRecentGames));
 
         // update hints
-        initRankHints();
-        initStatsHints();
+        initOptionButtons();
     }
 
     @Override
