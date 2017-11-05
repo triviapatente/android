@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.find_opponent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -182,7 +183,6 @@ public class FindOpponentActivity extends TPActivity {
         } else {
             // todo search on friends
         }
-
     }
 
     private void initPlayerList() {

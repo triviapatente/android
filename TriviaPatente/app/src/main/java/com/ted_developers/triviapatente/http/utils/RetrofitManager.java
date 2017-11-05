@@ -13,6 +13,7 @@ import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.modules.message.HTTPMessageEndpoint;
 import com.ted_developers.triviapatente.http.modules.preferences.HTTPPreferencesEndpoint;
 import com.ted_developers.triviapatente.http.modules.purchases.HTTPPurchasesEndpoint;
+import com.ted_developers.triviapatente.http.modules.rank.HTTPRankEndpoint;
 
 import java.io.IOException;
 
@@ -85,6 +86,12 @@ public class RetrofitManager {
     public static HTTPPurchasesEndpoint getHTTPPurchasesEndpoint() {
         if (httpPurchasesEndpoint == null) { httpPurchasesEndpoint = retrofit.create(HTTPPurchasesEndpoint.class); }
         return httpPurchasesEndpoint;
+    }
+
+    private static HTTPRankEndpoint httpRankEndpoint;
+    public static HTTPRankEndpoint getHTTPRankEndpoint() {
+        if (httpRankEndpoint == null) { httpRankEndpoint = retrofit.create(HTTPRankEndpoint.class); }
+        return httpRankEndpoint;
     }
 
 

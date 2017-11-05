@@ -15,8 +15,11 @@ public class TPTellAFriendFooter extends TPFooter {
         itemView.findViewById(R.id.tellAFriendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(itemView.getContext(), AlphaView.class);
-                itemView.getContext().startActivity(intent);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, itemView.getContext().getString(R.string.invite_friends_string));
+                sendIntent.setType("text/plain");
+                itemView.getContext().startActivity(sendIntent);
             }
         });
     }

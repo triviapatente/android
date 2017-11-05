@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_rank_title">Classifica</string>
+    <dimen name="activity_rank_scroll_option_size">35dp</dimen>
+
+    <string name="first_position">0x1F680</string>
+    <string name="second_position">0x1F697</string>
+    <string name="third_position">0x1F6B2</string>
+
+    <string name="direction_up">up</string>
+    <string name="direction_down">down</string>
+</resources>

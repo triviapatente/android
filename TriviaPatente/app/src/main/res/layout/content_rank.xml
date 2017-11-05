@@ -5,7 +5,7 @@
     android:background="@drawable/background_gradient">
 
     <include
-        layout="@layout/layout_all_or_friends_and_search"
+        layout="@layout/layout_all_or_friends_and_search_with_rank_scroll_option"
         android:id="@+id/all_or_friends"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>

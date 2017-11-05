@@ -22,6 +22,7 @@ public class User extends CommonPK {
     @SerializedName("last_game_won") public Boolean last_game_won;
     @SerializedName("showPopup") public Boolean showPopup = true;
     @SerializedName("lastPopupShowedDate") public long lastPopupShowedDateMillis = 0;
+    @SerializedName("position") public Integer position;
 
     public User() {}
 

@@ -81,6 +81,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @BindView(R.id.retryConnectionButton) ImageButton retryConnectionButton;
     // recent game event
 
+    private boolean onCreate = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +153,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                     });
                 }
             });
-        }
+        } else loadRecentGames(syncButton);
     }
 
     private void initOptionButtons() {
@@ -282,10 +284,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         recentGames.setMinimizedHeightMode();
 
         // check web socket connection
-        init(findViewById(R.id.syncRecentGames));
-
-        // update recent games
-        //updateRecentGames();
+        init();
 
         // update hints
         initOptionButtons();

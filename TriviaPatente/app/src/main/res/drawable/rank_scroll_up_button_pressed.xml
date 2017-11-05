@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval"/>
+    </item>
+    <item
+        android:right="@dimen/button_x_symbol_margin"
+        android:left="@dimen/button_x_symbol_margin"
+        android:top="@dimen/button_x_symbol_margin"
+        android:bottom="@dimen/button_x_symbol_margin"
+        android:drawable="@drawable/image_rank_scroll_up"/>
+</layer-list>
