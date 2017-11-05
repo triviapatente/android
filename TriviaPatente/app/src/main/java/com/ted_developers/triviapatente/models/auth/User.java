@@ -49,4 +49,12 @@ public class User extends CommonPK {
             return name + " " + surname;
         }
     }
+
+    @Override
+    public boolean equals(Object anotherObject) {
+        if (!(anotherObject instanceof User)) {
+            return false;
+        }
+        return this.id == ((User) anotherObject).id;
+    }
 }

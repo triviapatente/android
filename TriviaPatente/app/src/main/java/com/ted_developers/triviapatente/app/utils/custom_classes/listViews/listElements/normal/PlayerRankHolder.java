@@ -42,6 +42,12 @@ public class PlayerRankHolder extends TPHolder<User> {
             itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.mainColor));
             positionTextField.setTextColor(ContextCompat.getColor(context, android.R.color.white));
             scoreTextField.setTextColor(ContextCompat.getColor(context, android.R.color.white));
+            usernameTextField.setTextColor(ContextCompat.getColor(context, android.R.color.white));
+        } else {
+            itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
+            positionTextField.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
+            scoreTextField.setTextColor(ContextCompat.getColor(context, R.color.mainColor));
+            usernameTextField.setTextColor(ContextCompat.getColor(context, android.R.color.black));
         }
         // set image
         TPUtils.picasso
