@@ -1,18 +1,26 @@
 package com.ted_developers.triviapatente.app.views.menu_activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
+import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class ChangePasswordActivity extends TPActivity {
 
@@ -25,6 +33,8 @@ public class ChangePasswordActivity extends TPActivity {
     @BindString(R.string.activity_change_password_repeat_password) String repeatPassword;
     @BindString(R.string.not_matching_pwd) String not_matching_pwd;
     @BindString(R.string.field_required) String field_required;
+    @BindString(R.string.wrong_pwd) String wrong_pwd;
+    @BindString(R.string.same_pwd) String same_pwd;
     @BindView(R.id.confirmButton) LoadingButton confirmButton;
 
     @Override
@@ -58,6 +68,9 @@ public class ChangePasswordActivity extends TPActivity {
         if("".equals(newPasswordInput.getText().toString())) {
             newPasswordInput.showLabel(field_required);
             validData = false;
+        } else if(oldPasswordInput.getText().toString().equals(newPasswordInput.getText().toString())) {
+            newPasswordInput.showLabel(same_pwd);
+            validData = false;
         }
         if("".equals(repeatPasswordInput.getText().toString())) {
             repeatPasswordInput.showLabel(field_required);
@@ -71,10 +84,26 @@ public class ChangePasswordActivity extends TPActivity {
 
     private void updatePassword(String oldPassword, String newPassword) {
         confirmButton.startLoading();
-        Toast.makeText(this, "Password cambiata da " + oldPassword + " a " + newPassword, Toast.LENGTH_SHORT).show();
-        // TODO update password
-        confirmButton.stopLoading();
-        finish();
+        Call<SuccessUserToken> call = RetrofitManager.getHTTPAuthEndpoint().changePassword(oldPassword, newPassword);
+        call.enqueue(new TPCallback<SuccessUserToken>() {
+            @Override
+            public void mOnResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
+                if(response.code() == 403) {
+                    oldPasswordInput.showLabel(wrong_pwd);
+                } else if(response.code() == 200 && response.body().success) {
+                    SharedTPPreferences.saveToken(response.body().token);
+                    finish();
+                }
+            }
+            @Override
+            public void mOnFailure(Call<SuccessUserToken> call, Throwable t) {
+                Log.e("error", "Errore nel cambio di password");
+            }
+            @Override
+            public void then() {
+                confirmButton.stopLoading();
+            }
+        });
     }
 
     @Override

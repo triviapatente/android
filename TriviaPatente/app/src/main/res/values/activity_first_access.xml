@@ -18,6 +18,8 @@
     <string name="blank_not_allowed">Non sono ammessi spazi!</string>
     <string name="not_valid_email">Email non valida!</string>
     <string name="not_matching_pwd">Le password non coincidono!</string>
+    <string name="wrong_pwd">Password errata!</string>
+    <string name="same_pwd">Non stai cambiando password!</string>
     <string name="login_failed">Login fallito. Verifica di aver inserito correttamente nome utente e password.</string>
     <string name="forgot_username_password">Nome utente o password dimenticati?</string>
     <string name="operation_failed">Impossibile connettersi..\nRiprova! 0x1F614</string>
