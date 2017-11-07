@@ -8,6 +8,8 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.mApplication;
@@ -40,6 +42,8 @@ public class BaseSocketManager {
         mSocket.disconnect();
     }
 
+    private static String TOKEN_KEY;
+
     public static void init(Context context) {
         try {
             mSocket = IO.socket(context.getString(R.string.baseUrl));
@@ -47,6 +51,7 @@ public class BaseSocketManager {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        TOKEN_KEY = context.getString(R.string.shared_token_key);
     }
 
     public static void connect(final SimpleCallback onConnectCallback, final SimpleCallback onTimeoutCallback) {
@@ -119,7 +124,19 @@ public class BaseSocketManager {
                 }
             }
         });
-        mSocket.emit(path, parameters);
+        JSONObject body = generateBodyFrom(parameters);
+        mSocket.emit(path, body);
+    }
+    //metodo che a partire da parametri sfusi ottiene il body della richiesta socket con il token
+    public JSONObject generateBodyFrom(JSONObject params) {
+        JSONObject output = new JSONObject();
+        try {
+            output.put("body", params);
+            output.put(TOKEN_KEY, SharedTPPreferences.getToken());
+        } catch(JSONException e) {
+            Log.e("JSONException", e.getLocalizedMessage());
+        }
+        return output;
     }
 
     public <T extends Success> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {

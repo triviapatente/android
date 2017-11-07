@@ -114,7 +114,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                 // on connect
                 @Override
                 public void execute() {
-                    authSocketManager.authenticate(new SocketCallback<Hints>() {
+                    authSocketManager.global_infos(new SocketCallback<Hints>() {
                         @Override
                         public void response(final Hints response) {
                             if (response.success) {

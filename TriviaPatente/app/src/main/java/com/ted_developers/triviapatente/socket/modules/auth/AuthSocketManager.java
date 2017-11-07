@@ -18,9 +18,8 @@ import java.util.Map;
  * Created by Antonio on 31/10/16.
  */
 public class AuthSocketManager extends BaseSocketManager {
-    public void authenticate(SocketCallback<Hints> cb) {
-        String token = SharedTPPreferences.getToken();
-        emit("auth", buildJSONObject(new Pair<>("token", (Object) token)), Hints.class, cb);
+    public void global_infos(SocketCallback<Hints> cb) {
+        emit("global_infos", new JSONObject(), Hints.class, cb);
     }
 
     public void logout(SocketCallback<Success> cb) {
