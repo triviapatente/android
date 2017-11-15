@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.ted_developers.triviapatente"
@@ -35,7 +34,7 @@ dependencies {
     compile 'com.github.nkzawa:socket.io-client:0.3.0'
     // BINDING (NEWER VERSION NEEDS TARGET SDK VERSION TO BE 25)
     compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // GRAPHICAL
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
     compile 'jp.wasabeef:blurry:2.0.3'

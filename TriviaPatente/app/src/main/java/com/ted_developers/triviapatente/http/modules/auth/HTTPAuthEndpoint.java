@@ -45,7 +45,7 @@ public interface HTTPAuthEndpoint {
 
     @FormUrlEncoded
     @POST("auth/password/request")
-    Call<Success> requestNewPassword(@Field("username") String username);
+    Call<Success> requestNewPassword(@Field("usernameOrEmail") String usernameOrEmail);
 
     @Multipart
     @POST("account/image/edit")

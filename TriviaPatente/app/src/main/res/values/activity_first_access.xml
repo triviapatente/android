@@ -37,7 +37,7 @@
     <string name="forgot_username_password_recovery_button">Recupera password</string>
     <string name="credentials_recovery">Recupero credenziali</string>
     <string name="mail_sent">Dovresti aver ricevuto una mail! Prova a controllare 0x263A</string>
-    <string name="activity_credentials_recovery_no_user_matching">Nessun utente trovato..</string>
+    <string name="activity_credentials_recovery_no_user_matching">Non esiste alcun utente nel sistema con questo username o email</string>
     <dimen name="activity_credentials_recovery_margin_vertical">100dp</dimen>
     <dimen name="activity_credentials_recovery_margin_horizontal">20dp</dimen>
     <!-- loading spin -->
