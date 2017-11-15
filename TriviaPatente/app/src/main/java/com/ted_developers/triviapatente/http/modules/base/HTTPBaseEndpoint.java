@@ -20,6 +20,6 @@ import retrofit2.http.Part;
  */
 public interface HTTPBaseEndpoint {
     @FormUrlEncoded
-    @POST("ws/contact/")
+    @POST("ws/contact")
     Call<Success> contact(@Field("message") String message, @Field("scope") String scope);
 }
