@@ -21,7 +21,7 @@ public class User extends CommonPK {
     @SerializedName("score") public Integer score;
     @SerializedName("last_game_won") public Boolean last_game_won;
     @SerializedName("showPopup") public Boolean showPopup = true;
-    @SerializedName("lastPopupShowedDate") public long lastPopupShowedDateMillis = 0;
+    @SerializedName("lastPopupShowedDate") public Long lastPopupShowedDateMillis = null; // null if is the first time the app has been opened
     @SerializedName("position") public Integer position;
 
     public User() {}

@@ -128,13 +128,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                                         initOptionButtons();
                                         // load recent games
                                         loadRecentGames(syncButton);
-                                        // show popup if desired and last shown was yesterday
-                                        if(currentUser.showPopup &&
-                                                System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
-                                            showHeartPopup(true);
-                                            currentUser.lastPopupShowedDateMillis = System.currentTimeMillis();
-                                            SharedTPPreferences.saveUser(currentUser);
-                                        }
                                     }
                                 });
                             } else { backToFirstAccess(); }
@@ -221,6 +214,17 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                 if(syncButton != null) {
                     syncProgress.setVisibility(View.GONE);
                     syncButton.setVisibility(View.VISIBLE);
+                } else {
+                    // show popup if desired and last shown was yesterday
+                    if(currentUser.showPopup && currentUser.lastPopupShowedDateMillis != null &&
+                            System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
+                        showHeartPopup(true);
+                        currentUser.lastPopupShowedDateMillis = System.currentTimeMillis();
+                        SharedTPPreferences.saveUser(currentUser);
+                    } else if(currentUser.lastPopupShowedDateMillis == null) {
+                        currentUser.lastPopupShowedDateMillis = 0l;
+                        SharedTPPreferences.saveUser(currentUser);
+                    }
                 }
             }
         });

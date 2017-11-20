@@ -31,8 +31,8 @@
 
                 <ImageButton
                     android:id="@+id/syncRecentGames"
-                    android:layout_width="@dimen/sync_button_size"
-                    android:layout_height="@dimen/sync_button_size"
+                    android:layout_width="@dimen/sync_button_width"
+                    android:layout_height="@dimen/sync_button_height"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
@@ -42,8 +42,8 @@
                     android:visibility="gone"/>
                 <ProgressBar
                     android:id="@+id/syncProgress"
-                    android:layout_width="@dimen/sync_button_size"
-                    android:layout_height="@dimen/sync_button_size"
+                    android:layout_width="@dimen/sync_button_width"
+                    android:layout_height="@dimen/sync_button_height"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"

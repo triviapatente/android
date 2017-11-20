@@ -3,5 +3,6 @@
     <dimen name="list_title_height">55dp</dimen>
     <dimen name="list_right_margin_title">20dp</dimen>
     <dimen name="min_footer_height">100dp</dimen>
-    <dimen name="sync_button_size">20dp</dimen>
+    <dimen name="sync_button_height">25dp</dimen>
+    <dimen name="sync_button_width">20dp</dimen>
 </resources>
