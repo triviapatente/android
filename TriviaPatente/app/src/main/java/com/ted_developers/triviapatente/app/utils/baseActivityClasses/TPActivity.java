@@ -227,7 +227,7 @@ public class TPActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         if(needsLeaveRoom()) {
-            gameSocketManager.leave_room(new SocketCallback<Success>() {
+            gameSocketManager.leave(new SocketCallback<Success>() {
                 @Override
                 public void response(Success response) {}
             });

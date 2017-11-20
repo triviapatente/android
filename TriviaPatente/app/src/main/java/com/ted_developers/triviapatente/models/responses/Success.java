@@ -13,4 +13,8 @@ public class Success {
     @SerializedName("status_code") public Integer status_code;
 
     public Success() {}
+    public Success(Boolean success, Integer status_code) {
+        this.success = success;
+        this.status_code = status_code;
+    }
 }

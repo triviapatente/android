@@ -30,18 +30,6 @@ public class mApplication extends Application {
         TPUtils.initPicasso(this);
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
-        // recent games events
-        BaseSocketManager baseSocketManager = new BaseSocketManager();
-        baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
-            @Override
-            public void response(ActionRecentGame response) {
-                // look at response action
-                switch (EventAction.fromString(response.action)) {
-                    case create: { ReceivedData.addGame(response.game); } break;
-                    case update: { ReceivedData.updateGame(response.game); } break;
-                }
-            }
-        });
     }
 
     public static mApplication getInstance() {

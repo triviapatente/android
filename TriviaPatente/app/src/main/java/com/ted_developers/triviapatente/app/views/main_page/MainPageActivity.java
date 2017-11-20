@@ -173,11 +173,12 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         // build hints
         hintsStrings.clear();
         hintsStrings.add(globalRankHint + " " + ReceivedData.global_rank_position);
-        if(ReceivedData.friends_rank_position != null) {
+        //Facebook link code
+        /*if(ReceivedData.friends_rank_position != null) {
             hintsStrings.add(friendRankHint + " " + ReceivedData.friends_rank_position);
         } else {
             hintsStrings.add(friendRankHintNotAvailable);
-        }
+        }*/
         // set hints
         buttonShowRank.setHintText(listConverter(hintsStrings));
     }

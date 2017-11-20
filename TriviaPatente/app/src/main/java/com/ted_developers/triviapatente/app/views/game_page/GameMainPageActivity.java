@@ -3,15 +3,12 @@ package com.ted_developers.triviapatente.app.views.game_page;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
@@ -23,7 +20,6 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.animation.circl
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDetailsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
-import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.game.Partecipation;
@@ -74,9 +70,13 @@ public class GameMainPageActivity extends TPGameActivity {
     // sockets events
     @BindString(R.string.socket_event_game) String eventGameEvent;
     @BindString(R.string.socket_event_round_ended) String eventRoundEnded;
+    @BindString(R.string.socket_event_user_left) String eventUserLeft;
+    @BindString(R.string.socket_event_user_joined) String eventUserJoined;
     @BindString(R.string.socket_event_category_chosen) String eventCategoryChosen;
+
+    private Boolean isWaiting = false;
     // sockets callbacks
-    SocketCallback initRoundCallback = new SocketCallback<SuccessInitRound>() {
+    SocketCallback roundInitCallback = new SocketCallback<SuccessInitRound>() {
         @Override
         public void response(final SuccessInitRound response) {
             if(response.success) {
@@ -85,20 +85,7 @@ public class GameMainPageActivity extends TPGameActivity {
                     public void run() {
                         currentRound = response.round;
                         currentCategory = response.category;
-                        if(response.ended != null && response.ended) {
-                            roundDetails();
-                        } else if(response.waiting_for.username.equals(opponent.username)) {
-                            //if(response.isOpponentOnline) {
-                                if(waitingGame.equals(response.waiting)) { waitingRound(); }
-                                else if(waitingCategory.equals(response.waiting)) { waitingCategory(); }
-                            //} else { offline(); }
-                        } else {
-                            if(waitingGame.equals(response.waiting)) {
-                                playRound();
-                            } else if(waitingCategory.equals(response.waiting)) {
-                                chooseCategory();
-                            }
-                        }
+                        GameMainPageActivity.this.processResponse(response);
                     }
                 });
             }
@@ -112,6 +99,7 @@ public class GameMainPageActivity extends TPGameActivity {
                 public void run() {
                     if(globally == null) {
                         // round started
+                        currentCategory = null;
                         waitingCategory();
                     } else if(globally) {
                         // round ended
@@ -141,6 +129,11 @@ public class GameMainPageActivity extends TPGameActivity {
                 }
             });
         }
+    }, userJoinedLeftCallback = new SocketCallback<Success>() {
+        @Override
+        public void response(Success response) {
+            GameMainPageActivity.this.init_round();
+        }
     };
 
     @Override
@@ -163,8 +156,44 @@ public class GameMainPageActivity extends TPGameActivity {
         else {
             setOpponentData();
             if(intent.getBooleanExtra(getString(R.string.extra_boolean_join_room), true)) { join_room(); }
-            else { init_round(); }
-            init_listening();
+            else {
+                init_round();
+                init_listening();
+            }
+        }
+    }
+    public void processResponse(SuccessInitRound response) {
+        if (response.ended != null && response.ended) {
+            this.redirect("round_details");
+        } else if (response.waiting != null && response.waiting_for != null) {
+            isWaiting = !(response.waiting_for.equals(currentUser));
+            if (!isWaiting) {
+                this.redirect(response.waiting);
+            } else if (response.isOpponentOnline != null && !response.isOpponentOnline) {
+                this.offline();
+            } else {
+                switch (response.waiting) {
+                    case "category":
+                        this.waitingCategory();
+                        break;
+                    case "game":
+                        this.waitingRound();
+                        break;
+                }
+            }
+        }
+    }
+    public void redirect(String state) {
+        switch (state) {
+            case "category":
+                this.chooseCategory();
+                break;
+            case "game":
+                this.playRound();
+                break;
+            case "round_details":
+                this.roundDetails();
+                break;
         }
     }
 
@@ -193,7 +222,6 @@ public class GameMainPageActivity extends TPGameActivity {
             public void then() {
                 setOpponentData();
                 join_room();
-                init_listening();
             }
         });
     }
@@ -220,27 +248,31 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void join_room() {
-        gameSocketManager.join_room(gameID, roomName, new SocketCallback<Success>() {
+        gameSocketManager.join(gameID, roomName, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
-                if(response.success) { init_round(); }
+                if(response.success) {
+                    init_listening();
+                    init_round();
+                }
             }
         });
     }
-
     private void init_round() {
-        gameSocketManager.init_round(gameID, initRoundCallback);
+        gameSocketManager.init_round(gameID, roundInitCallback);
     }
 
     private void init_listening() {
         listen(eventGameEvent, WinnerPartecipationsUserleft.class, gameCallback);
         listen(eventRoundEnded, RoundUserData.class, roundCallback);
         listen(eventCategoryChosen, SuccessCategory.class, chosenCategoryCallback);
+        listen(eventUserJoined, Success.class, userJoinedLeftCallback);
+        listen(eventUserLeft, Success.class, userJoinedLeftCallback);
     }
 
     private void updateWaitPage(String status, @ColorInt int overColor, @ColorInt int underColor) {
         if(visible) {
-            gameHeader.setHeader(currentRound, currentCategory);
+            gameHeader.setHeader(currentRound, currentCategory, isWaiting);
             gameStatus.setText(status);
             loadingCircle.setColorUnder(underColor);
             loadingCircle.setColorOver(overColor);

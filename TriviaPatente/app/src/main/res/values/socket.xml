@@ -4,6 +4,8 @@
     <string name="socket_event_round_ended">round_ended</string>
     <string name="socket_event_game">game</string>
     <string name="socket_event_category_chosen">category_chosen</string>
+    <string name="socket_event_user_joined">user_joined</string>
+    <string name="socket_event_user_left">user_left</string>
     <string name="socket_event_recent_game">recent_game</string>
     <!-- Socket responses -->
     <string name="socket_response_waiting_category">category</string>

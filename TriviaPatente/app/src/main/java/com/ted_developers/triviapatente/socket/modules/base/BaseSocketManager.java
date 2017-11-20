@@ -12,6 +12,7 @@ import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.mApplication;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.Hints;
@@ -23,7 +24,12 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Antonio on 31/10/16.
@@ -31,9 +37,6 @@ import java.util.List;
 public class BaseSocketManager {
     protected static Socket mSocket;
     public final static int timeout = 6000;
-    private static Long id = null;
-    private static String type = null;
-
     public static boolean isConnected() {
         return mSocket.connected();
     }
@@ -78,24 +81,6 @@ public class BaseSocketManager {
             mSocket.connect();
         }
 
-    }
-
-    public void join_room(Long id, String type, final SocketCallback<Success> onJoinRoomCallback) {
-        if(this.id == null && this.type == null) {
-            JSONObject room = createRoom(id, type);
-            emit("join_room", room, Success.class, onJoinRoomCallback);
-            this.id = id;
-            this.type = type;
-        }
-    }
-
-    public void leave_room(final SocketCallback<Success> onLeaveRoomCallback) {
-        if(id != null && type != null) {
-            JSONObject room = createRoom(id, type);
-            emit("leave_room", room, Success.class, onLeaveRoomCallback);
-            id = null;
-            type = null;
-        }
     }
 
     private JSONObject createRoom(Long id, String type) {
@@ -171,6 +156,49 @@ public class BaseSocketManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    static Map<String, Long> joinedRooms = new HashMap<>();
+
+    public void leave(final String type, final SocketCallback<Success> cb) {
+        if(joinedRooms.containsKey(type)) {
+            this.emit("leave_room", buildJSONObject(new Pair<String, Object>("type", type)), Success.class, new SocketCallback<Success>() {
+                @Override
+                public void response(Success response) {
+                    joinedRooms.remove(type);
+                    cb.response(response);
+                }
+            });
+        } else {
+            Success response = new Success(true, 200);
+            cb.response(response);
+        }
+    }
+    public void join(final Long id, final String type, final SocketCallback<Success> cb) {
+        if(this.isJoined(id, type)) {
+            Success response = new Success(true, 200);
+            cb.response(response);
+        } else {
+            JSONObject params = buildJSONObject(new Pair<String, Object>("type", type), new Pair<String, Object>("id", id));
+            this.emit("join_room", params, Success.class, new SocketCallback<Success>() {
+                @Override
+                public void response(Success response) {
+                    if (response.success == true) {
+                        joinedRooms.put(type, id);
+                    }
+                    cb.response(response);
+                }
+            });
+        }
+    }
+    public Boolean isJoined(Long id, String type) {
+        return id == joinedRooms.get(type);
+    }
+
+    public void stopListen(String... events) {
+        for(String event : events) {
+            this.stopListen(event);
+        }
     }
 
 }
