@@ -13,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.ted_developers.triviapatente.app.utils.TPUtils;
+
 /**
  * Created by Antonio on 12/11/16.
  */
@@ -42,7 +44,8 @@ public class RoundedImageView extends ImageView {
         if (getWidth() == 0 || getHeight() == 0) {
             return;
         }
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
+        //Bitmap b = ((BitmapDrawable) drawable).getBitmap();
+        Bitmap b = TPUtils.drawableToBitmap(drawable);
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
 
         int w = getWidth(), h = getHeight();

@@ -47,11 +47,12 @@ public class ProposedOpponentHolder extends TPHolder<User> {
     @Override
     public void bind(User element) {
         // set image
-        TPUtils.picasso
+        /*TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, element.id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
-                .into(profilePicture);
+                .into(profilePicture);*/
+        TPUtils.injectUserImage(context, element, profilePicture);
         // set username or, if possible, name and surname
         usernameTextField.setText(element.toString());
         // set score

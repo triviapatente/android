@@ -96,11 +96,13 @@ public class ChangeUserDetailsActivity extends TPActivity {
         user = SharedTPPreferences.currentUser();
 
         // load current image
-        TPUtils.picasso
+        /*TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(this, user.id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
                 .into(bigProfilePicture);
+        */
+        TPUtils.injectUserImage(this, user, bigProfilePicture);
 
         // init labeled inputs
         initLabeledInputs();

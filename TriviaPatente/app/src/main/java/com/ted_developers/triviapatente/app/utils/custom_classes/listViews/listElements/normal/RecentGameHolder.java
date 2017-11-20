@@ -54,7 +54,8 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     @Override
     public void bind(Game element) {
-        playButton.goToGame(element.id, new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image));
+        User opponent = new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image);
+        playButton.goToGame(element.id, opponent);
         if(element.ended) {
             setSummary();
         } else {
@@ -67,11 +68,12 @@ public class RecentGameHolder extends TPHolder<Game> {
         if(element.opponent_name != null && element.opponent_surname != null) {
             setUsernameText(element.opponent_name + " " + element.opponent_surname);
         } else { setUsernameText(element.opponent_username); }
-        TPUtils.picasso
+        /*TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, element.opponent_id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
-                .into(profilePicture);
+                .into(profilePicture);*/
+        TPUtils.injectUserImage(context, opponent, profilePicture);
         // set on click on profile picture
         /*profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override

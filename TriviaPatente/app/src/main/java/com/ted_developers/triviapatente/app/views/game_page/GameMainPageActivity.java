@@ -211,11 +211,12 @@ public class GameMainPageActivity extends TPGameActivity {
         if(opponent != null) { actionBar.setTitle(opponent.toString()); }
         actionBar.setProfilePicture(TPUtils.getUserImageFromID(this, opponent.id));
         */
-        TPUtils.picasso
+        /*TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(this, opponent.id))
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
-                .into(profilePicture);
+                .into(profilePicture);*/
+        TPUtils.injectUserImage(this, opponent, profilePicture);
     }
 
     private void join_room() {
@@ -290,14 +291,17 @@ public class GameMainPageActivity extends TPGameActivity {
                                     findViewById(R.id.blueView).setVisibility(View.VISIBLE);
                                     new TPDetailsDialog(
                                             GameMainPageActivity.this,
+                                            currentUser,
                                             TPUtils.getUserScoreFromID(answers, currentUser.id),
+                                            opponent,
                                             TPUtils.getUserScoreFromID(answers, opponent.id),
-                                            currentUser.id, opponent.id, scoreIncrement, new DialogInterface.OnCancelListener() {
-                                        @Override
-                                        public void onCancel(DialogInterface dialog) {
-                                            finish();
-                                        }
-                                    }).show();
+                                            null, // TODO SET SCORE INCREMENT
+                                            new DialogInterface.OnCancelListener() {
+                                                @Override
+                                                public void onCancel(DialogInterface dialog) {
+                                                    blurredBackgroundContainer.setVisibility(View.GONE);
+                                                }
+                                            }).show();
                                 }
                             });
                             break;

@@ -1,16 +1,24 @@
 package com.ted_developers.triviapatente.app.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Question;
 
 import java.io.IOException;
@@ -95,6 +103,22 @@ public class TPUtils {
                 .downloader(new OkHttp3Downloader(client))
                 .build();
     }
+
+    public static void injectUserImage(Context context, User user, ImageView profilePicture) {
+        // letters drawable
+        String initialLetters;
+        if(user.name != null && user.surname != null) initialLetters = String.valueOf(user.name.charAt(0) + user.surname.charAt(0)).toUpperCase();
+        else initialLetters =  user.username.substring(0, 2).toUpperCase();
+        // create drawable
+        TextDrawable initialLettersDrawable = TextDrawable.builder().buildRound(initialLetters, ContextCompat.getColor(context, R.color.mainColor));
+        // set image
+        TPUtils.picasso
+                .load(TPUtils.getUserImageFromID(context, user.id))
+                .placeholder(initialLettersDrawable)
+                .error(initialLettersDrawable)
+                .into(profilePicture);
+    }
+
     public static String getUserImageFromID(Context context, long ID) {
         return context.getString(R.string.baseUrl)+ "account/image/" + ID;
     }
@@ -115,5 +139,24 @@ public class TPUtils {
             }
         }
         return score;
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+
+        int width = drawable.getIntrinsicWidth();
+        width = width > 0 ? width : 96; // Replaced the 1 by a 96
+        int height = drawable.getIntrinsicHeight();
+        height = height > 0 ? height : 96; // Replaced the 1 by a 96
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }

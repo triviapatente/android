@@ -79,9 +79,12 @@ public class FragmentGameOptions extends Fragment {
                         public void run() {
                             new TPDetailsDialog(
                                     activity,
+                                    activity.currentUser,
                                     TPUtils.getUserScoreFromID(answers, activity.currentUser.id),
+                                    activity.opponent,
                                     TPUtils.getUserScoreFromID(answers, activity.opponent.id),
-                                    activity.currentUser.id, activity.opponent.id, new DialogInterface.OnCancelListener() {
+                                    null, // TODO SET SCORE INCREMENT
+                                    new DialogInterface.OnCancelListener() {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
                                     activity.blurredBackgroundContainer.setVisibility(View.GONE);
