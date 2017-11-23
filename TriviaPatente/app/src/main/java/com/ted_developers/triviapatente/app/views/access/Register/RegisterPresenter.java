@@ -30,6 +30,7 @@ public class RegisterPresenter {
         // because of java short circuit condition evaluation
         // check username
         boolean valid = a.checkWithoutBlankSpacesField(username) && a.checkNotEmptyField(username);
+        valid = a.checkUsernameLength(username) && valid;
         // check email
         valid = a.isValidEmail(email) && valid;
         // check passwords
@@ -41,6 +42,7 @@ public class RegisterPresenter {
             // if password is a valid field
             valid = a.checkNotEmptyField(repeatPassword) && a.checkEquals(repeatPassword, password) && valid;
         }
+        valid = a.checkPasswordLength(password) && valid;
         if (valid) {
             // if no error raised
             // get values

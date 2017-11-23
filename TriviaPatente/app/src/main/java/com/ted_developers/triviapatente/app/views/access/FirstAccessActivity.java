@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 import com.ted_developers.triviapatente.socket.modules.auth.AuthSocketManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 
@@ -32,8 +33,13 @@ public class FirstAccessActivity extends TPActivity {
     @BindString(R.string.blank_not_allowed) public String blank_not_allowed_error;
     @BindString(R.string.not_matching_pwd) public String not_matching_pwd_error;
     @BindString(R.string.not_valid_email) public String not_valid_email_error;
+    @BindString(R.string.not_valid_username) public String not_valid_username_error;
+    @BindString(R.string.not_valid_password) public String not_valid_password_error;
     // intent
     @BindString(R.string.is_old_session) String isOldSession;
+
+    @BindInt(R.integer.min_username_length) public int minUsernameLength;
+    @BindInt(R.integer.min_password_length) public int minPasswordLength;
 
     private FirstAccessAdapter mAdapter;
 
@@ -101,6 +107,25 @@ public class FirstAccessActivity extends TPActivity {
     public boolean checkWithoutBlankSpacesField(LabeledInput input) {
         if(input.toString().contains(" ")) {
             input.showLabel(blank_not_allowed_error, Color.WHITE);
+            return false;
+        } else {
+            input.hideLabel();
+            return true;
+        }
+    }
+    public boolean checkUsernameLength(LabeledInput input) {
+        if(input.toString().length() < minUsernameLength) {
+            input.showLabel(not_valid_username_error, Color.WHITE);
+            return false;
+        } else {
+            input.hideLabel();
+            return true;
+        }
+    }
+
+    public boolean checkPasswordLength(LabeledInput input) {
+        if(input.toString().length() < minPasswordLength) {
+            input.showLabel(not_valid_password_error, Color.WHITE);
             return false;
         } else {
             input.hideLabel();

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="maxInputStringSize">50</integer>
+    <integer name="min_username_length">3</integer>
+    <integer name="min_password_length">7</integer>
 </resources>

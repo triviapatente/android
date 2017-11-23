@@ -15,6 +15,8 @@
     <!-- first access errors -->
     <dimen name="alertbox_inner_padding">10dp</dimen>
     <string name="field_required">Campo richiesto!</string>
+    <string name="not_valid_username">L\'username deve contenere almeno 3 caratteri!</string>
+    <string name="not_valid_password">La password deve contenere almeno 7 caratteri!</string>
     <string name="blank_not_allowed">Non sono ammessi spazi!</string>
     <string name="not_valid_email">Email non valida!</string>
     <string name="not_matching_pwd">Le password non coincidono!</string>

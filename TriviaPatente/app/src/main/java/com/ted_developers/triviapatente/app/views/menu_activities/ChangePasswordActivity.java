@@ -16,6 +16,7 @@ import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.SuccessUserToken;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,6 +36,9 @@ public class ChangePasswordActivity extends TPActivity {
     @BindString(R.string.field_required) String field_required;
     @BindString(R.string.wrong_pwd) String wrong_pwd;
     @BindString(R.string.same_pwd) String same_pwd;
+    @BindString(R.string.not_valid_password) public String not_valid_password_error;
+
+    @BindInt(R.integer.min_password_length) public int minPasswordLength;
     @BindView(R.id.confirmButton) LoadingButton confirmButton;
 
     @Override
@@ -67,6 +71,9 @@ public class ChangePasswordActivity extends TPActivity {
         }
         if("".equals(newPasswordInput.getText().toString())) {
             newPasswordInput.showLabel(field_required);
+            validData = false;
+        } else if(newPasswordInput.getText().length() < minPasswordLength) {
+            newPasswordInput.showLabel(not_valid_password_error);
             validData = false;
         } else if(oldPasswordInput.getText().toString().equals(newPasswordInput.getText().toString())) {
             newPasswordInput.showLabel(same_pwd);
