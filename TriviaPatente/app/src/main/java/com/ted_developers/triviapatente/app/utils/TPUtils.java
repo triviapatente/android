@@ -8,8 +8,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.custom_classes.TPImageView.TPGradientDrawable;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Question;
 
@@ -104,18 +104,19 @@ public class TPUtils {
                 .build();
     }
 
-    public static void injectUserImage(Context context, User user, ImageView profilePicture) {
-        // letters drawable
-        String initialLetters;
-        if(user.name != null && user.surname != null) initialLetters = String.valueOf(user.name.charAt(0) + user.surname.charAt(0)).toUpperCase();
-        else initialLetters =  user.username.substring(0, 2).toUpperCase();
-        // create drawable
-        TextDrawable initialLettersDrawable = TextDrawable.builder().buildRound(initialLetters, ContextCompat.getColor(context, R.color.mainColor));
+    public static void injectUserImage(final Context context, User user, final ImageView profilePicture) {
+        Drawable gradientDrawable = new TPGradientDrawable(context);
+        TextDrawable textDrawable = TextDrawable.builder()
+                                                .beginConfig()
+                                                    .width(profilePicture.getLayoutParams().width)
+                                                    .height(profilePicture.getLayoutParams().height)
+                                                .endConfig()
+                                                .buildRound(user.initialLetters(), Color.TRANSPARENT);
+        Drawable placeholder = new LayerDrawable(new Drawable[] {gradientDrawable, textDrawable});
         // set image
         TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, user.id))
-                .placeholder(initialLettersDrawable)
-                .error(initialLettersDrawable)
+                .placeholder(placeholder)
                 .into(profilePicture);
     }
 

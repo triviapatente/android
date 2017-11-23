@@ -26,6 +26,11 @@ public class User extends CommonPK {
 
     public User() {}
 
+    public String initialLetters() {
+        if(name != null && surname != null) return String.valueOf(name.charAt(0) + surname.charAt(0)).toUpperCase();
+        return username.substring(0, 2).toUpperCase();
+    }
+
     public User(Long id, String username, String image, Boolean last_game_won, Integer score) {
         this.id = id;
         this.username = username;
