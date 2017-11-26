@@ -50,6 +50,10 @@ public class PlayButton extends Button implements View.OnClickListener {
     public void setPlayNow() {
         setUIData(R.drawable.button_green_on_white, R.color.green_on_white, R.string.play_now_button_text);
     }
+    // the button is a play now one
+    public void setReplayNow() {
+        setUIData(R.drawable.button_green_on_white, R.color.green_on_white, R.string.replay_now_button_text);
+    }
 
     // the button is a new game one
     public void setNewGame() {

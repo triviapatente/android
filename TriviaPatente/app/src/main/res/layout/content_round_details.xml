@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar"
+    android:background="@drawable/background_gradient"
+    android:layout_marginTop="@dimen/tp_toolbar_margin">
+
+    <fragment
+        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader"
+        android:id="@+id/gameHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/gameScore"
+        android:layout_below="@+id/gameHeader">
+
+        <include layout="@layout/game_ended_view" android:id="@+id/gameEndedView" android:layout_width="match_parent" android:layout_height="match_parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/sectionList"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:scrollbars="none" />
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/answerList"
+            android:layout_toRightOf="@id/sectionList"
+            android:layout_toEndOf="@id/sectionList"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+
+    <fragment
+        android:name="com.ted_developers.triviapatente.app.views.game_page.round_details.FragmentGameDetailsScore"
+        android:id="@+id/gameScore"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

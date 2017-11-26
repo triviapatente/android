@@ -37,6 +37,11 @@ public class FragmentGameHeader extends Fragment {
     public void setHeader(Round round, Category category) {
         setHeader(round, category, true);
     }
+    public void endedGameHeader() {
+        gameHeaderTitle.setText("Fine");
+        gameHeaderSubtitle.setText("Risultato partita");
+        gameHeaderSubtitleImage.setVisibility(View.GONE);
+    }
 
     public void setHeader(Round round, Category category, boolean waiting) {
         gameHeaderTitle.setText((round == null)? getString(R.string.game_header_waiting_title) : "Round " + round.number);

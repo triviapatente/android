@@ -1,6 +1,5 @@
 package com.ted_developers.triviapatente.app.views.game_page;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
@@ -17,23 +17,18 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.Socke
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading.Circle;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading.CircleRotatingAnimation;
-import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDetailsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
+import com.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Game;
-import com.ted_developers.triviapatente.models.game.Partecipation;
-import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.responses.RoundUserData;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessCategory;
 import com.ted_developers.triviapatente.models.responses.SuccessGameUser;
 import com.ted_developers.triviapatente.models.responses.SuccessInitRound;
-import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 import com.ted_developers.triviapatente.models.responses.WinnerPartecipationsUserleft;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
-
-import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -183,6 +178,26 @@ public class GameMainPageActivity extends TPGameActivity {
             }
         }
     }
+
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        this.stop_listening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.join_room();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.stop_listening();
+    }
+
     public void redirect(String state) {
         switch (state) {
             case "category":
@@ -269,6 +284,9 @@ public class GameMainPageActivity extends TPGameActivity {
         listen(eventUserJoined, Success.class, userJoinedLeftCallback);
         listen(eventUserLeft, Success.class, userJoinedLeftCallback);
     }
+    private void stop_listening() {
+        gameSocketManager.stopListen(eventGameEvent, eventRoundEnded, eventUserJoined, eventUserLeft, eventCategoryChosen);
+    }
 
     private void updateWaitPage(String status, @ColorInt int overColor, @ColorInt int underColor) {
         if(visible) {
@@ -309,38 +327,9 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void roundDetails() {
-        gameSocketManager.round_details(gameID, new SocketCallback<SuccessRoundDetails>() {
-            @Override
-            public void response(SuccessRoundDetails response) {
-                if(response.success) {
-                    final List<Question> answers = response.answers;
-                    for(Partecipation partecipation : response.partecipations) {
-                        if(partecipation.user_id.equals(currentUser.id)) {
-                            final Integer scoreIncrement = partecipation.score_increment;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    findViewById(R.id.blueView).setVisibility(View.VISIBLE);
-                                    new TPDetailsDialog(
-                                            GameMainPageActivity.this,
-                                            currentUser,
-                                            TPUtils.getUserScoreFromID(answers, currentUser.id),
-                                            opponent,
-                                            TPUtils.getUserScoreFromID(answers, opponent.id),
-                                            null, // TODO SET SCORE INCREMENT
-                                            new DialogInterface.OnCancelListener() {
-                                                @Override
-                                                public void onCancel(DialogInterface dialog) {
-                                                    blurredBackgroundContainer.setVisibility(View.GONE);
-                                                }
-                                            }).show();
-                                }
-                            });
-                            break;
-                        }
-                    }
-                }
-            }
-        });
+        Intent intent = new Intent(GameMainPageActivity.this, RoundDetailsActivity.class);
+        intent.putExtra(this.getString(R.string.extra_long_game), gameID);
+        intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(opponent));
+        startActivity(intent);
     }
 }

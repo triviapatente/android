@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
-    <string name="baseUrl">http://158.110.227.116:8000/</string>
+    <string name="baseUrl">http://192.168.1.100:8000/</string>
     <string name="old_session">Sessione scaduta. Accedi per continuare</string>
     <string name="title_activity_credentials_recovery">CredentialsRecovery</string>
+    <string name="title_activity_round_details">Game details</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

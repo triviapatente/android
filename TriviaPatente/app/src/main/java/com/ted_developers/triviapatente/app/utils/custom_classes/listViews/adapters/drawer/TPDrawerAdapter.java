@@ -53,7 +53,7 @@ public class TPDrawerAdapter extends ArrayAdapter<DrawerOption> {
                     ((TextView) v.findViewById(R.id.name)).setText(user.name + " " + user.surname);
                     v.findViewById(R.id.name).setVisibility(View.VISIBLE);
                 }
-                ((TextView) v.findViewById(R.id.username)).setText("@" + user.username);
+                ((TextView) v.findViewById(R.id.username)).setText(user.username);
                 /*TPUtils.picasso
                         .load(TPUtils.getUserImageFromID(getContext(), user.id))
                         .placeholder(R.drawable.image_no_profile_picture)

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="modal_view_round_details_user_picture">60dp</dimen>
+    <dimen name="modal_view_round_details_user_picture">30dp</dimen>
     <dimen name="modal_view_round_details_margin">30dp</dimen>
     <dimen name="modal_view_round_details_score_margin">15dp</dimen>
+    <dimen name="modal_view_round_details_separator_topbottom_margin">10dp</dimen>
     <dimen name="modal_view_round_details_score_label_height">40dp</dimen>
-    <dimen name="modal_view_round_details_height">175dp</dimen>
+    <dimen name="modal_view_round_details_height">250dp</dimen>
     <dimen name="modal_view_round_details_width">320dp</dimen>
     <!-- game ended -->
     <dimen name="modal_view_round_details_height_game_ended">250dp</dimen>

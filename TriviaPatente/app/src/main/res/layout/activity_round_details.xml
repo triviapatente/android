@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/activityContainer"
-    tools:context=".app.views.game_page.round_details.RoundDetailsActivity"
-    android:background="@color/mainColor">
+    tools:context="com.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity">
 
     <include
         layout="@layout/toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/toolbar"/>
-
     <include
-        android:id="@+id/waitPage"
-        layout="@layout/content_game_main_page"
+        android:id="@+id/roundDetailsPage"
+        layout="@layout/content_round_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"/>
 
-    <include layout="@layout/layout_blurred_blue"/>
 </RelativeLayout>

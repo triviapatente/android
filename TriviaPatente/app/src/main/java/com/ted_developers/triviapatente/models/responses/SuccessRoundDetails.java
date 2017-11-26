@@ -7,6 +7,7 @@ import com.ted_developers.triviapatente.models.game.Game;
 import com.ted_developers.triviapatente.models.game.Partecipation;
 import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.game.Quiz;
+import com.ted_developers.triviapatente.models.game.Round;
 
 import org.parceler.Parcel;
 
@@ -21,6 +22,7 @@ public class SuccessRoundDetails extends Success {
     @SerializedName("categories") public List<Category> categories;
     @SerializedName("game") public Game game;
     @SerializedName("quizzes") public List<Quiz> quizzes;
+    @SerializedName("rounds") public List<Round> rounds;
     @SerializedName("users") public List<User> users;
     @SerializedName("partecipations") public List<Partecipation> partecipations;
     @SerializedName("score_increment") public Integer scoreIncrement;

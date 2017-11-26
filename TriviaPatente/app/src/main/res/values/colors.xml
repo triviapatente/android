@@ -12,6 +12,8 @@
     <color name="blurredBlue">#602D81E0</color>
     <color name="mainColorLight">#7000b0ff</color>
     <color name="whiteLight">#70ffffff</color>
+    <color name="disabledWhiteLight">#33ffffff</color>
+    <color name="enabledWhiteLight">#99ffffff</color>
     <color name="backgroundFiltered">#70000000</color>
     <color name="errorColor">#CD2D33</color>
     <color name="alertBackground">#FFF2B3</color>

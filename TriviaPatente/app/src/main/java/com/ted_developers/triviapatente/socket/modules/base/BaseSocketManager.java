@@ -125,6 +125,7 @@ public class BaseSocketManager {
     }
 
     public <T extends Success> void listen(String path, final Class<T> outputClass, final SocketCallback<T> cb) {
+        mSocket.off(path);
         mSocket.on(path, new Emitter.Listener() {
             @Override
             public void call(Object... args) {

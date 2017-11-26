@@ -3,9 +3,8 @@
     android:layout_width="@dimen/modal_view_round_details_width"
     android:layout_height="@dimen/modal_view_round_details_height"
     android:layout_centerInParent="true"
-    android:orientation="vertical"
-    android:background="@drawable/rounded_big_white_box"
-    android:id="@+id/modal_logout">
+    android:background="@drawable/rounded_big_transparent_box"
+    android:id="@+id/score_view">
 
     <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/roundDetailsUser"
@@ -25,14 +24,16 @@
             android:id="@+id/roundDetailsUserScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/mainColor"
-            android:textSize="@dimen/TPTextSizeLarge"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/TPTextSizeSmall"
             android:layout_gravity="center"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/mainColor"
+            android:background="@android:color/white"
+            android:layout_marginTop="@dimen/modal_view_round_details_separator_topbottom_margin"
+            android:layout_marginBottom="@dimen/modal_view_round_details_separator_topbottom_margin"
             android:layout_marginLeft="@dimen/modal_view_round_details_score_margin"
             android:layout_marginRight="@dimen/modal_view_round_details_score_margin"/>
 
@@ -40,8 +41,8 @@
             android:id="@+id/roundDetailsOpponentScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/mainColor"
-            android:textSize="@dimen/TPTextSizeLarge"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/TPTextSizeSmall"
             android:layout_gravity="center"/>
     </LinearLayout>
 

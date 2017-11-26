@@ -50,7 +50,6 @@ public class TPUtils {
                 fontAssetName);
         replaceFont(staticTypefaceFieldName, regular);
     }
-
     private static void replaceFont(String staticTypefaceFieldName,
                                       final Typeface newTypeface) {
         try {

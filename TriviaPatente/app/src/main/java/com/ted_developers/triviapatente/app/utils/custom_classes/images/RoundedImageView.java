@@ -8,8 +8,11 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -32,6 +35,22 @@ public class RoundedImageView extends ImageView {
         super(context, attrs, defStyle);
     }
 
+    private Integer borderColor;
+    private Integer borderWidth;
+    private Paint fillPaint = new Paint();
+    private Paint borderPaint = new Paint();
+
+    private final Integer DEFAULT_BORDER_WIDTH = 5;
+
+
+    public void setBorder(Integer color, Integer width) {
+        this.borderColor = color;
+        this.borderWidth = width;
+    }
+    public void setBorder(Integer color) {
+        setBorder(color, DEFAULT_BORDER_WIDTH);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -46,12 +65,22 @@ public class RoundedImageView extends ImageView {
         }
         //Bitmap b = ((BitmapDrawable) drawable).getBitmap();
         Bitmap b = TPUtils.drawableToBitmap(drawable);
+        if(b == null) return;
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
-
-        int w = getWidth(), h = getHeight();
+        int w = getWidth();
 
         Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
-        canvas.drawBitmap(roundBitmap, 0, 0, null);
+
+        fillPaint.setStyle(Paint.Style.FILL);
+
+        canvas.drawBitmap(roundBitmap, 0, 0, fillPaint);
+        if(borderColor != null) {
+            borderPaint.setStyle(Paint.Style.STROKE);
+            borderPaint.setStrokeWidth(borderWidth);
+            borderPaint.setColor(borderColor);
+            float radius = w / 2;
+            canvas.drawCircle(radius, radius, radius - borderWidth / 2, borderPaint);
+        }
 
     }
 
