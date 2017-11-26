@@ -62,6 +62,7 @@ public class FragmentGameOptions extends Fragment {
         Intent intent = new Intent(getContext(), RoundDetailsActivity.class);
         intent.putExtra(getString(R.string.extra_long_game), activity.gameID);
         intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(activity.opponent));
+        intent.putExtra(getString(R.string.extra_string_from_game_options), true);
         startActivity(intent);
     }
 

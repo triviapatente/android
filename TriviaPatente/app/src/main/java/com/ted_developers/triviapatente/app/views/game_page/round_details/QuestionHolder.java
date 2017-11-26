@@ -100,7 +100,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
             incorrectGUI(quizTrueView);
             incorrectGUI(quizFalseView);
         }
-        processAnswers(quiz.answers);
+        processAnswers(quiz.answers, quiz);
         setExpanded(false);
     }
     public void correctGUI(TextView view) {
@@ -111,11 +111,12 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         view.setBackgroundResource(R.drawable.details_circle_incorrect_background);
         view.setTextColor(Color.WHITE);
     }
-    public void processAnswers(List<Question> answers) {
+    public void processAnswers(List<Question> answers, Quiz quiz) {
         List<User> trueUsers = new ArrayList<>();
         List<User> falseUsers = new ArrayList<>();
         for(Question q : answers) {
-            if(q.answer) {
+            Boolean answer = q.answer != null ? q.answer : q.correct ? quiz.answer : !quiz.answer;
+            if(answer) {
                 if(q.user_id == currentUser.id) {
                     trueUsers.add(0, currentUser);
                 } else {

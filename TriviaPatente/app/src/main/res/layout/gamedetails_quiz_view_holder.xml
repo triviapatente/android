@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/details_quiz_name_margin"
+        android:gravity="center_vertical"
         android:layout_toEndOf="@+id/quizImageView"
         android:layout_toRightOf="@+id/quizImageView"
         android:layout_toLeftOf="@+id/answerLayout"

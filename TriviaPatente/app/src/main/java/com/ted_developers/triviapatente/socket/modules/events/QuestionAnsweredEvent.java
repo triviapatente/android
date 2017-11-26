@@ -12,9 +12,9 @@ import org.parceler.Parcel;
 @Parcel
 public class QuestionAnsweredEvent extends Success {
     @SerializedName("quiz_id")
-    Integer quiz_id;
+    public Integer quiz_id;
     @SerializedName("answer")
-    Question answer;
+    public Question answer;
 
     public QuestionAnsweredEvent() {}
 }

@@ -1,9 +1,11 @@
 package com.ted_developers.triviapatente.app.views.game_page.round_details;
 
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnItemTouchListener;
 import android.util.Log;
@@ -24,7 +26,12 @@ import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.game.Quiz;
 import com.ted_developers.triviapatente.models.game.Round;
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
+import com.ted_developers.triviapatente.socket.modules.events.GameEndedEvent;
+import com.ted_developers.triviapatente.socket.modules.events.GameLeftEvent;
+import com.ted_developers.triviapatente.socket.modules.events.QuestionAnsweredEvent;
+import com.ted_developers.triviapatente.socket.modules.events.RoundStartedEvent;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
 import java.util.ArrayList;
@@ -45,6 +52,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     private FragmentGameDetailsScore detailsScore;
 
     private SuccessRoundDetails response;
+    private Boolean fromGameOptions;
 
     private Map<String, List<Quiz>> answerMap = new HashMap<>();
 
@@ -64,8 +72,20 @@ public class RoundDetailsActivity extends TPGameActivity {
                 } else {
                     gameHeader.endedGameHeader();
                 }
-                if(needsScroll)
-                    answerList.scrollToPosition(section * NUMBER_OF_ROUNDS);
+                if(needsScroll) {
+                    RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getApplicationContext()) {
+                        @Override protected int getVerticalSnapPreference() {
+                            return LinearSmoothScroller.SNAP_TO_START;
+                        }
+
+                        @Override
+                        public PointF computeScrollVectorForPosition(int targetPosition) {
+                            return new PointF(0, answerList.getHeight() / 4 * targetPosition);
+                        }
+                    };
+                    smoothScroller.setTargetPosition(section * NUMBER_OF_ROUNDS);
+                    answerLayout.startSmoothScroll(smoothScroller);
+                }
             }
         }
     };
@@ -224,9 +244,11 @@ public class RoundDetailsActivity extends TPGameActivity {
         answerList.addOnScrollListener(scrollListener);
         gameEndedHolder = new GameEndedHolder(gameEndedView, this);
         gameEndedHolder.setUser(opponent, 2);
-        detailsScore.getView().setVisibility(View.GONE);
+        fromGameOptions = getIntent().getBooleanExtra(getString(R.string.extra_string_from_game_options), false);
         this.load();
+        this.joinAndListen();
     }
+
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -234,6 +256,7 @@ public class RoundDetailsActivity extends TPGameActivity {
         // init fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         detailsScore = (FragmentGameDetailsScore) fragmentManager.findFragmentById(R.id.gameScore);
+        detailsScore.getView().setVisibility(View.GONE);
     }
 
     @Override
@@ -257,9 +280,82 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        if(fromGameOptions)
+            this.finish();
+        else super.onBackPressed();
     }
     private GameSocketManager gameSocketManager = new GameSocketManager();
+
+    public void joinAndListen() {
+        gameSocketManager.join(gameID, new SocketCallback<Success>() {
+            @Override
+            public void response(Success response) {
+                listen();
+            }
+        });
+    }
+    public void listen() {
+        gameSocketManager.listenRoundStarted(new SocketCallback<RoundStartedEvent>() {
+            @Override
+            public void response(final RoundStartedEvent event) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        response.categories.add(event.category);
+                        detailsScore.add(event.answers);
+                        response.answers.addAll(event.answers);
+                        answerMap = computeMap();
+                        sectionAdapter.notifyDataSetChanged();
+                        questionAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        gameSocketManager.listenUserAnswered(new SocketCallback<QuestionAnsweredEvent>() {
+            @Override
+            public void response(final QuestionAnsweredEvent event) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        detailsScore.add(event.answer);
+                        response.answers.add(event.answer);
+                        answerMap = computeMap();
+                        questionAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        gameSocketManager.listenGameEnded(new SocketCallback<GameEndedEvent>() {
+            @Override
+            public void response(final GameEndedEvent event) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        response.game.ended = true;
+                        response.game.winner_id = event.winnerId;
+                        response.partecipations = event.partecipations;
+                        questionAdapter.notifyDataSetChanged();
+                        sectionAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        gameSocketManager.listenGameLeft(new SocketCallback<GameLeftEvent>() {
+            @Override
+            public void response(final GameLeftEvent event) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        response.game.ended = true;
+                        response.game.winner_id = event.winnerId;
+                        response.partecipations = event.partecipations;
+                        questionAdapter.notifyDataSetChanged();
+                        sectionAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+    }
     public void load() {
         gameSocketManager.round_details(gameID, new SocketCallback<SuccessRoundDetails>() {
             @Override

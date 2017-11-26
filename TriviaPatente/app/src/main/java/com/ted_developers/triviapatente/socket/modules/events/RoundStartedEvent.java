@@ -12,7 +12,7 @@ import org.parceler.Parcel;
 @Parcel
 public class RoundStartedEvent extends SuccessRoundDetails {
     @SerializedName("category")
-    Category category;
+    public Category category;
 
     public RoundStartedEvent() {}
 }

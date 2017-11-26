@@ -56,9 +56,11 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         loserImage.setBorder(mainColor);
     }
     private Boolean isWinning(SuccessRoundDetails response) {
+        if(getScoreIncrement(response) == 0) return false;
         return SharedTPPreferences.currentUser().id == getWinner(response).id;
     }
     private String titleFor(SuccessRoundDetails response) {
+        if(getScoreIncrement(response) == 0) return "Pareggio!";
         return isWinning(response) ? "Hai vinto!" : "Hai perso!";
     }
 
@@ -67,6 +69,10 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     }
 
     private Partecipation getPartecipation(SuccessRoundDetails response, Boolean needsWinner) {
+        if(response.game.winner_id == null) {
+            if(needsWinner) return response.partecipations.get(0);
+            else return response.partecipations.get(1);
+        }
         for(Partecipation partecipation : response.partecipations) {
             if(needsWinner && partecipation.user_id.equals(response.game.winner_id) ||
                     !needsWinner && !partecipation.user_id.equals(response.game.winner_id)) return partecipation;

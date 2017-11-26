@@ -14,10 +14,10 @@ import java.util.List;
 @Parcel
 public class GameEndedEvent extends Success {
     @SerializedName("winner_id")
-    Integer winnerId;
+    public Long winnerId;
 
     @SerializedName("partecipations")
-    List<Partecipation> partecipations;
+    public List<Partecipation> partecipations;
 
     public GameEndedEvent() {}
 }
