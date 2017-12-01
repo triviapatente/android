@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.utils.baseActivityClasses;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -114,6 +116,12 @@ public class TPActivity extends AppCompatActivity {
             }
             initLogoutDialog();
         }
+        if(activityContainer != null) activityContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TPUtils.hideKeyboard(TPActivity.this);
+            }
+        });
 
         setToolbarTitle(getToolbarTitle());
 

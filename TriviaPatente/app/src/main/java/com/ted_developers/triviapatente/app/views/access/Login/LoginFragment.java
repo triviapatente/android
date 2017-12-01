@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.access.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,12 @@ public class LoginFragment extends Fragment {
         operationFailed = TPUtils.translateEmoticons(operationFailed);
         return v;
     }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // set hide keyboard on click on view
+        setHideOnClick();
+    }
 
     private void initLoginButtonLayoutParams() {
         loginButtonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, fieldHeight);
@@ -101,7 +108,7 @@ public class LoginFragment extends Fragment {
     // do login
     @OnClick(R.id.login_button)
     public void login() {
-        ((FirstAccessActivity) getActivity()).hideKeyboard();
+        TPUtils.hideKeyboard(getActivity());
         LoginPresenter.login(this);
     }
 
@@ -109,6 +116,15 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void setHideOnClick() {
+        getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TPUtils.hideKeyboard(getActivity());
+            }
+        });
     }
 
     // show forgor username or password button

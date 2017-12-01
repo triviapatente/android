@@ -69,16 +69,6 @@ public class FirstAccessActivity extends TPActivity {
         mViewPager.setCurrentItem(0);
     }
 
-    // hide keyboard
-    public void hideKeyboard() {
-        // Check if no view has focus:
-        View view = getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
     // check input methods
 
     // is or not a valid email

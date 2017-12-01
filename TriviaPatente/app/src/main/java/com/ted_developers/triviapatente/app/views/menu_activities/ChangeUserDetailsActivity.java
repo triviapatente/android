@@ -59,7 +59,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // Overall
     @BindView(R.id.confirmButton) LoadingButton confirmButton;
-    String msg;
     @BindString(R.string.activity_change_user_details_error) String error;
     @BindString(R.string.activity_change_user_details_name_modified) String msg_name_modified;
     @BindString(R.string.activity_change_user_details_surname_modified) String msg_surname_modified;
@@ -83,15 +82,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_user_details);
 
-        // hide keyboard on touch outside
-        activityContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideKeyboard();
-                return false;
-            }
-        });
-
         // get user data
         user = SharedTPPreferences.currentUser();
 
@@ -106,16 +96,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
         // init labeled inputs
         initLabeledInputs();
-    }
-
-    // hide keyboard
-    private void hideKeyboard() {
-        // Check if no view has focus:
-        View view = getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     // init labeled inputs
@@ -197,7 +177,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 public void onResponse(Call<User> call, Response<User> response) {
                     user.name = nameInput.toString();
                     SharedTPPreferences.saveUser(user);
-                    msg = msg_name_modified;
                     surnameUpdate();
                 }
                 @Override
@@ -230,11 +209,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 public void mOnResponse(Call<User> call, Response<User> response) {
                     user.surname = surnameInput.toString();
                     SharedTPPreferences.saveUser(user);
-                    if(msg == null || msg.equals("")) {
-                        msg = msg_surname_modified;
-                    } else {
-                        msg = msg_name_surname_modified;
-                    }
                     imageUpdate();
                 }
                 @Override
@@ -279,8 +253,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     private void update(boolean imageUpdated) {
         confirmButton.stopLoading();
-        if(msg != null && !"".equals(msg)) Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-        if(imageUpdated) Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         // Back to previous page
         onBackPressed();
     }

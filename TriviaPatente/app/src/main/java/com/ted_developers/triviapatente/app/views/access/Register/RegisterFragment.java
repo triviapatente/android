@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.access.Register;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -102,6 +103,22 @@ public class RegisterFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // set hide keyboard on click on view
+        setHideOnClick();
+    }
+
+    public void setHideOnClick() {
+        getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TPUtils.hideKeyboard(getActivity());
+            }
+        });
+    }
+
     // set hints and passwords (can't do this from xml)
     private void initLabeledInputs() {
         usernameField.setHint(usernameHint);
@@ -115,7 +132,7 @@ public class RegisterFragment extends Fragment {
     // do registration
     @OnClick(R.id.register_button)
     public void register() {
-        ((FirstAccessActivity) getActivity()).hideKeyboard();
+        TPUtils.hideKeyboard(getActivity());
         RegisterPresenter.register(this);
     }
 
