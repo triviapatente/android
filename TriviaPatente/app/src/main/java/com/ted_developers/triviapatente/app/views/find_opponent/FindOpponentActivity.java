@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
@@ -42,6 +43,7 @@ import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -118,7 +120,7 @@ public class FindOpponentActivity extends RankActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                     FindOpponentActivity.this.doSearch(searchBar.getText().toString());
-                    hideKeyboard();
+                    TPUtils.hideKeyboard(FindOpponentActivity.this);
                 }
                 return false;
             }
@@ -137,7 +139,7 @@ public class FindOpponentActivity extends RankActivity {
                 }
             }
         });
-        hideKeyboard();
+        TPUtils.hideKeyboard(this);
     }
 
     @Override
@@ -152,9 +154,12 @@ public class FindOpponentActivity extends RankActivity {
                     public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                         if(response.code() == 200) {
                             if(response.body().users.size() == 0) {
+                                setPlayersListItems(new ArrayList<User>());
+                                playersList.setVisibility(View.GONE);
                                 noUsersAlert.setVisibility(View.VISIBLE);
                             } else {
                                 setPlayersListItems(response.body().users);
+                                playersList.setVisibility(View.VISIBLE);
                                 noUsersAlert.setVisibility(View.GONE);
                             }
                         }
@@ -279,7 +284,7 @@ public class FindOpponentActivity extends RankActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        hideKeyboard();
+        TPUtils.hideKeyboard(this);
         return super.dispatchTouchEvent(ev);
     }
 

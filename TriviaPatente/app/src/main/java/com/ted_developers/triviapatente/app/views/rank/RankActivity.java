@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.TPListAdapter;
@@ -31,6 +33,7 @@ import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.responses.RankPosition;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindColor;
@@ -186,7 +189,7 @@ public class RankActivity extends TPActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                     RankActivity.this.doSearch(searchBar.getText().toString());
-                    hideKeyboard();
+                    TPUtils.hideKeyboard(RankActivity.this);
                 }
                 return false;
             }
@@ -205,7 +208,7 @@ public class RankActivity extends TPActivity {
                 }
             }
         });
-        hideKeyboard();
+        TPUtils.hideKeyboard(this);
     }
 
     // TODO unificando qua e in find opponent si può togliere l'override di la (per @donadev)
@@ -220,9 +223,12 @@ public class RankActivity extends TPActivity {
                     public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                         if(response.code() == 200) {
                             if(response.body().users.size() == 0) {
+                                setPlayersListItems(new ArrayList<User>());
+                                playersList.setVisibility(View.GONE);
                                 noUsersAlert.setVisibility(View.VISIBLE);
                             } else {
                                 setPlayersListItems(response.body().users);
+                                playersList.setVisibility(View.VISIBLE);
                                 noUsersAlert.setVisibility(View.GONE);
                             }
                         }
@@ -241,16 +247,6 @@ public class RankActivity extends TPActivity {
             // todo search on friends
         }
     }
-
-    protected void hideKeyboard() {
-        // Check if no view has focus:
-        View view = getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
     @Optional
     @OnClick(R.id.rank_scroll)
     public void rankScrollClick() {
@@ -264,6 +260,12 @@ public class RankActivity extends TPActivity {
             absolute_first = false; // it may not be the absolute first
         }
         scrollToTop = !scrollToTop;
+    }
+    // touch handler
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        TPUtils.hideKeyboard(this);
+        return super.dispatchTouchEvent(ev);
     }
 
     @OnClick(R.id.x_button)
