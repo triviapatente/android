@@ -311,19 +311,9 @@ public class TPActivity extends AppCompatActivity {
         }) {
             @Override
             public void onNegativeButtonClick() {
-                authSocketManager.logout(new SocketCallback<Success>() {
-                    @Override
-                    public void response(Success response) {
-                        if(response.success) {
-                            SharedTPPreferences.deleteAll();
-                            backToFirstAccess();
-                        } else {
-                            Toast.makeText(TPActivity.this, getResources().getString(R.string.menu_logot_unable_to_logout),
-                                    Toast.LENGTH_LONG).show();
-                            onPositiveButtonClick();
-                        }
-                    }
-                });
+                BaseSocketManager.disconnect();
+                SharedTPPreferences.deleteAll();
+                backToFirstAccess();
             }
 
             @Override
