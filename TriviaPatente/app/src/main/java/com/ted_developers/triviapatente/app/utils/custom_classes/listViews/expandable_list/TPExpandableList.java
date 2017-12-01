@@ -1,5 +1,7 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -41,6 +43,7 @@ public class TPExpandableList<T> extends Fragment {
     // expandable list utils
     public int maximizedHeight, minimizedHeight, oldMinimizedHeight, duration = 300, elementHeight = 1, add_remove_time = 350, moveTime = 200;
     ResizeAnimation maximize, minimize, forcedMinimize;
+    ValueAnimator headerColorAnimator;
     @BindDimen(R.dimen.tp_toolbar_height) int toolBarHeight;
     public boolean maximized = false;
     private boolean firstTime = true;
@@ -49,6 +52,8 @@ public class TPExpandableList<T> extends Fragment {
     private TPExpandableListOnSwipeListener headerSwipeListener;
     // separator color
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
+    @BindColor(R.color.mainColorGradTop) @ColorInt int gradientTopColor;
+    @BindColor(R.color.mainColorDark2) @ColorInt int gradientBottomColor;
     // header titles
     String alternativeTitle, defaultTitle;
 
@@ -161,6 +166,17 @@ public class TPExpandableList<T> extends Fragment {
         minimize.setDuration(duration);
         forcedMinimize = new ResizeAnimation(getView(), getView().getWidth(), oldMinimizedHeight, getView().getWidth(), minimizedHeight);
         forcedMinimize.setStartOffset(add_remove_time);
+
+        headerColorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), gradientBottomColor, gradientTopColor);
+        headerColorAnimator.setDuration(duration); // milliseconds
+        headerColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                listHeader.setBackgroundColor((int) animator.getAnimatedValue());
+            }
+
+        });
     }
 
     private void updateLayoutParams() {
@@ -172,12 +188,14 @@ public class TPExpandableList<T> extends Fragment {
     public void updateMinimized() {
         if(!maximized) {
             getView().startAnimation(forcedMinimize);
+            headerColorAnimator.reverse();
         }
     }
 
     public void setMinimizedHeightMode() {
         if(maximized) {
             getView().startAnimation(minimize);
+            headerColorAnimator.reverse();
             listLayoutManager.scrollToPositionWithOffset(0, 0);
             listLayoutManager.setScrollEnabled(false);
             maximized = false;
@@ -188,6 +206,7 @@ public class TPExpandableList<T> extends Fragment {
         if(!maximized) {
             adapter.notifyItemChanged(adapter.getItemCount() - 1); // update footer to eventually fill the screen
             getView().startAnimation(maximize);
+            headerColorAnimator.start();
             listLayoutManager.setScrollEnabled(true);
             maximized = true;
         }

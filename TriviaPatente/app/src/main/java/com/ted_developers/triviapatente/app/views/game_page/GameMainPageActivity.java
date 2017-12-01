@@ -259,7 +259,7 @@ public class GameMainPageActivity extends TPGameActivity {
                 .placeholder(R.drawable.image_no_profile_picture)
                 .error(R.drawable.image_no_profile_picture)
                 .into(profilePicture);*/
-        TPUtils.injectUserImage(this, opponent, profilePicture);
+        TPUtils.injectUserImage(this, opponent, profilePicture, false);
     }
 
     private void join_room() {

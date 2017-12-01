@@ -123,7 +123,7 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         TPUtils.injectUserImage(context, isWinning(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage);
         TPUtils.injectUserImage(context, isWinning(response) ? opponent : SharedTPPreferences.currentUser(), loserImage);
         if (isWinning(response)) playButton.setReplayNow();
-        else playButton.setNewGame();
+        else playButton.setNewGame(true);
         playButton.setVisibility(View.VISIBLE);
         incitationView.setVisibility(View.GONE);
         playButton.goToGame(null, opponent);

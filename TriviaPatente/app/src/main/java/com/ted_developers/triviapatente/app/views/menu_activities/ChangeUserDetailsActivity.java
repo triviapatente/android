@@ -121,8 +121,8 @@ public class ChangeUserDetailsActivity extends TPActivity {
     // init labeled inputs
     private void initLabeledInputs() {
         emailLabel.setText(user.email);
-        nameInput.setHint((user.name != null && !user.name.equals(""))? user.name : nameHint);
-        surnameInput.setHint((user.surname != null && !user.name.equals(""))? user.surname : surnameHint);
+        nameInput.setText(user.name);
+        surnameInput.setText(user.surname);
     }
 
     /*

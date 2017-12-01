@@ -27,7 +27,7 @@ public class User extends CommonPK {
     public User() {}
 
     public String initialLetters() {
-        if(name != null && surname != null) return String.valueOf(name.charAt(0) + surname.charAt(0)).toUpperCase();
+        if(name != null && surname != null) return (String.valueOf(name.charAt(0)) + String.valueOf(surname.charAt(0))).toUpperCase();
         return username.substring(0, 2).toUpperCase();
     }
 

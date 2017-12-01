@@ -5,6 +5,10 @@
     android:orientation="vertical"
     android:background="@color/mainColor"
     tools:context=".app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            android:layout_height="@dimen/separator_size"/>
         <RelativeLayout
             android:id="@+id/listHeader"
             android:layout_width="match_parent"

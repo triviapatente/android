@@ -60,7 +60,7 @@ public class RecentGameHolder extends TPHolder<Game> {
             setSummary();
         } else {
             if(!element.my_turn) {
-                setDetails();
+                setWait();
             } else {
                 setPlayNow();
             }
@@ -96,8 +96,8 @@ public class RecentGameHolder extends TPHolder<Game> {
         trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_red));
     }
 
-    private void setDetails() {
-        playButton.setDetails();
+    private void setWait() {
+        playButton.setWait();
         statusText.setText(context.getString(R.string.details_status));
         trafficLights.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_traffic_lights_yellow));
     }

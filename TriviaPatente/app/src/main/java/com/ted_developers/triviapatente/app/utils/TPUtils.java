@@ -15,9 +15,11 @@ import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.TPImageView.TPGradientDrawable;
+import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Question;
 
@@ -78,7 +80,7 @@ public class TPUtils {
     }
 
     public static void blurContainerIntoImageView(Context context, ViewGroup container, ImageView imageView) {
-        Blurry.with(context).sampling(3).radius(13).capture(container).into(imageView);
+        Blurry.with(context).sampling(5).radius(15).capture(container).into(imageView);
     }
 
 
@@ -102,8 +104,10 @@ public class TPUtils {
                 .downloader(new OkHttp3Downloader(client))
                 .build();
     }
-
-    public static void injectUserImage(final Context context, User user, final ImageView profilePicture) {
+    public static void injectUserImage(Context context, User user, RoundedImageView profilePicture) {
+        injectUserImage(context, user, profilePicture, true);
+    }
+    public static void injectUserImage(final Context context, User user, final RoundedImageView profilePicture, final Boolean whiteBorder) {
         Drawable gradientDrawable = new TPGradientDrawable(context);
         TextDrawable textDrawable = TextDrawable.builder()
                                                 .beginConfig()
@@ -116,7 +120,17 @@ public class TPUtils {
         TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, user.id))
                 .placeholder(placeholder)
-                .into(profilePicture);
+                .into(profilePicture, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        if(whiteBorder) profilePicture.setBorder(Color.WHITE);
+                    }
+                });
     }
 
     public static String getUserImageFromID(Context context, long ID) {

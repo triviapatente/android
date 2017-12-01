@@ -133,7 +133,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         for(int n = 0; n < quizTrueImages.length; n++) {
             quizTrueImages[n].setBorder(Color.WHITE, 2);
             if(n < trueUsers.size()) {
-                TPUtils.injectUserImage(context, trueUsers.get(n), quizTrueImages[n]);
+                TPUtils.injectUserImage(context, trueUsers.get(n), quizTrueImages[n], false);
             } else {
                 quizTrueImages[n].setImageBitmap(null);
             }
@@ -141,7 +141,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         for(int n = 0; n < quizFalseImages.length; n++) {
             quizFalseImages[n].setBorder(Color.WHITE, 2);
             if(n < falseUsers.size()) {
-                TPUtils.injectUserImage(context, falseUsers.get(n), quizFalseImages[n]);
+                TPUtils.injectUserImage(context, falseUsers.get(n), quizFalseImages[n], false);
             } else {
                 quizFalseImages[n].setImageBitmap(null);
             }

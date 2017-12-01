@@ -62,6 +62,11 @@ public class ContactsActivity extends TPActivity {
         // hide keyboard not provided... in android the common way is to click the appropriate button.
     }
 
+    @OnClick(R.id.motivations_header)
+    public void openScopeSpinner() {
+        scopeSpinner.performClick();
+    }
+
     @OnClick(R.id.terms_and_conditions)
     public void termsAndConditionsClick() {
         Toast.makeText(this, terms_and_conditions_easteregg, Toast.LENGTH_SHORT).show();

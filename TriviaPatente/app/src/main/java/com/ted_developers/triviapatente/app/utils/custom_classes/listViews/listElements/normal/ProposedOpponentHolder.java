@@ -66,10 +66,10 @@ public class ProposedOpponentHolder extends TPHolder<User> {
             }
         });*/
         // set appropriate button
-        if(element.last_game_won != null && element.last_game_won) {
+        if(element.last_game_won == null || element.last_game_won) {
             playButton.setPlayNow();
         } else {
-            playButton.setNewGame();
+            playButton.setNewGame(false);
         }
         // send invite on click
         playButton.sendInvite(element);

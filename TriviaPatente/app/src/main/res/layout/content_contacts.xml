@@ -25,6 +25,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/TPTextSizeSmall"
+                android:id="@+id/motivations_header"
+                android:clickable="true"
                 android:textColor="@android:color/white"
                 android:text="@string/activity_contacts_motivation"/>
 

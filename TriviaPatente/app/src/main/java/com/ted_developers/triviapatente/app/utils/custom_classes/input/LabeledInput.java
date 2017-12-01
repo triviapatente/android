@@ -88,6 +88,10 @@ public class LabeledInput extends LinearLayout {
     public Editable getText() {
         return input.getText();
     }
+    // set text programmatically
+    public void setText(String text) {
+        input.setText(text);
+    }
 
     // get edittext text
     public String toString() {

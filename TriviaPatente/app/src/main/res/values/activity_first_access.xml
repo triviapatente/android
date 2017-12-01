@@ -49,8 +49,9 @@
     <string name="is_old_session">old_session</string>
 
     <!-- terms and conditions -->
-    <string name="terms_and_conditions_registration1">Iscrivendoti accetti&#160;</string>
-    <string name="terms_and_conditions_registration2">Termini e Condizioni</string>
+    <string name="terms_and_conditions_registration1">Cliccando su “Registrati” accetti&#160;</string>
+    <string name="terms_and_conditions_registration2">Termini e Condizioni&#160;</string>
+    <string name="terms_and_conditions_registration3">sull’utilizzo dell’applicazione</string>
     <dimen name="terms_and_conditions_margin_v_registration">65dp</dimen>
     <dimen name="terms_and_conditions_margin_h_registration">25dp</dimen>
     <string name="terms_and_conditions_easteregg">Non farci causa 0x1F602</string>

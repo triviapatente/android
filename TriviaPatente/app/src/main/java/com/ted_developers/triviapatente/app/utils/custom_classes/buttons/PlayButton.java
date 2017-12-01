@@ -49,25 +49,35 @@ public class PlayButton extends Button implements View.OnClickListener {
     // the button is a play now one
     public void setPlayNow() {
         setUIData(R.drawable.button_green_on_white, R.color.green_on_white, R.string.play_now_button_text);
+        setClickable(true);
     }
     // the button is a play now one
     public void setReplayNow() {
         setUIData(R.drawable.button_green_on_white, R.color.green_on_white, R.string.replay_now_button_text);
+        setClickable(true);
     }
 
     // the button is a new game one
-    public void setNewGame() {
-        setUIData(R.drawable.button_red_on_white, R.color.red_on_white, R.string.new_game_button_text);
+    //colorFilled determines whether the button has white (colorFilled = false) or coloured background
+    public void setNewGame(Boolean colorFilled) {
+        if(colorFilled) {
+            setUIData(R.drawable.button_red, android.R.color.white, R.string.new_game_button_text);
+        } else {
+            setUIData(R.drawable.button_red_on_white, R.color.red_on_white, R.string.new_game_button_text);
+        }
+        setClickable(true);
     }
 
     // the button is a summary one
     public void setSummary() {
         setUIData(R.drawable.button_red_on_white, R.color.red_on_white, R.string.summary_button_text);
+        setClickable(true);
     }
 
     // the button is a details one
-    public void setDetails() {
-        setUIData(R.drawable.button_yellow_on_white, R.color.yellow_on_white, R.string.details_button_text);
+    public void setWait() {
+        setUIData(R.drawable.button_yellow_on_white, R.color.yellow_on_white, R.string.wait_button_text);
+        setClickable(false);
     }
 
     private void setUIData(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {

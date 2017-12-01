@@ -62,8 +62,8 @@ public class FragmentGameDetailsScore extends Fragment {
         this.updateScore();
     }
     private void updateGUI() {
-        TPUtils.injectUserImage(getContext(), currentUser, userImageView);
-        TPUtils.injectUserImage(getContext(), opponent, opponentImageView);
+        TPUtils.injectUserImage(getContext(), currentUser, userImageView, false);
+        TPUtils.injectUserImage(getContext(), opponent, opponentImageView, false);
         this.updateScore();
     }
     private void updateScore() {

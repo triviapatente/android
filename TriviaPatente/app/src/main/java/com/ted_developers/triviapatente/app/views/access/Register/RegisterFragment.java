@@ -49,7 +49,9 @@ public class RegisterFragment extends Fragment {
     @BindString(R.string.username_already_exist) String already_registered_username;
     @BindString(R.string.email_already_exist) String already_registered_email;
     @BindString(R.string.terms_and_conditions_registration1) String terms_and_conditions_registration;
-    @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions;
+    @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions_registration2;
+    @BindString(R.string.terms_and_conditions_registration3) String terms_and_conditions_registration3;
+
     @BindString(R.string.terms_and_conditions_easteregg) String terms_and_conditions_easteregg;
     // colors
     @BindColor(R.color.greenTermsAndConditions) int green;
@@ -85,12 +87,12 @@ public class RegisterFragment extends Fragment {
         // hide alert
         alertMessageView.hideAlert();
         // change color to terms and conditions
-        String str = terms_and_conditions_registration + terms_and_conditions;
+        String str = terms_and_conditions_registration + terms_and_conditions_registration2 + terms_and_conditions_registration3;
         Spannable spannable = new SpannableString(str);
         spannable.setSpan(
                 new ForegroundColorSpan(green),
                 terms_and_conditions_registration.length(),
-                str.length(),
+                (terms_and_conditions_registration + terms_and_conditions_registration2).length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         );
         termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
