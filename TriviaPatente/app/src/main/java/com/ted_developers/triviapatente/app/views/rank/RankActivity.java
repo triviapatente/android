@@ -4,13 +4,11 @@ import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.OnSwipeTouchListener;
@@ -29,11 +26,8 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapt
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPTellAFriendFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.PlayerRankHolder;
-import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.ProposedOpponentHolder;
-import com.ted_developers.triviapatente.app.views.find_opponent.FindOpponentActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
-import com.ted_developers.triviapatente.models.responses.Matches;
 import com.ted_developers.triviapatente.models.responses.RankPosition;
 import com.ted_developers.triviapatente.models.responses.SuccessUsers;
 
@@ -220,22 +214,22 @@ public class RankActivity extends TPActivity {
             if(username.equals("")) loadPlayers();
             else {
                 loadingView.setVisibility(View.VISIBLE);
-                Call<Matches> call = RetrofitManager.getHTTPRankEndpoint().getSearchResult(username);
-                call.enqueue(new TPCallback<Matches>() {
+                Call<SuccessUsers> call = RetrofitManager.getHTTPRankEndpoint().getSearchResult(username);
+                call.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
-                    public void mOnResponse(Call<Matches> call, Response<Matches> response) {
+                    public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                         if(response.code() == 200) {
-                            if(response.body().matches.size() == 0) {
+                            if(response.body().users.size() == 0) {
                                 noUsersAlert.setVisibility(View.VISIBLE);
                             } else {
-                                setPlayersListItems(response.body().matches);
+                                setPlayersListItems(response.body().users);
                                 noUsersAlert.setVisibility(View.GONE);
                             }
                         }
                     }
 
                     @Override
-                    public void mOnFailure(Call<Matches> call, Throwable t) {}
+                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {}
 
                     @Override
                     public void then() {
