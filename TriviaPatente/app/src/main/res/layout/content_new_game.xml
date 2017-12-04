@@ -23,14 +23,14 @@
         android:id="@+id/findOpponent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/new_game_button_height"
-        android:layout_marginTop="@dimen/new_game_option_panel_title_margin"
+        android:layout_marginTop="@dimen/main_button_margin"
         android:background="@drawable/button_green_big"
         android:text="@string/find_your_opponent"/>
 
     <Button
         android:id="@+id/findRandomOpponent"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/new_game_option_panel_margin"
+        android:layout_marginTop="@dimen/main_button_margin"
         android:layout_height="@dimen/new_game_button_height"
         android:background="@drawable/button_orange_big"
         android:text="@string/find_your_random_opponent"/>
@@ -38,7 +38,7 @@
     <RelativeLayout
         android:id="@+id/tournamentDisabled"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/new_game_option_panel_margin"
+        android:layout_marginTop="@dimen/main_button_margin"
         android:layout_height="@dimen/new_game_button_height">
         <Button
             android:id="@+id/enterTournament"
