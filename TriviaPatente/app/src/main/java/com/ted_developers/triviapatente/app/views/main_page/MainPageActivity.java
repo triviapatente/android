@@ -52,6 +52,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class MainPageActivity extends TPActivity implements View.OnClickListener{
+
+    public static boolean launched = true; // it is the first time this activity has been resumed
+
     @BindString(R.string.main_page_title) String pageTitle;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
@@ -219,13 +222,14 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                     // show popup if desired and last shown was yesterday
                     if(currentUser.showPopup && currentUser.lastPopupShowedDateMillis != null &&
                             System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
-                        showHeartPopup(true);
+                        if(launched) showHeartPopup(true);
                         currentUser.lastPopupShowedDateMillis = System.currentTimeMillis();
                         SharedTPPreferences.saveUser(currentUser);
                     } else if(currentUser.lastPopupShowedDateMillis == null) {
                         currentUser.lastPopupShowedDateMillis = 0l;
                         SharedTPPreferences.saveUser(currentUser);
                     }
+                    launched = false; // it is not the first time this activity has been resumed
                 }
             }
         });

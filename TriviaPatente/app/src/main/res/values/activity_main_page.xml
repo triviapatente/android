@@ -6,7 +6,7 @@
     <string name="button_rank">Classifica</string>
     <string name="button_stats">Statistiche</string>
     <string name="button_shop">Negozio</string>
-    <dimen name="main_page_button_height">60dp</dimen>
+    <dimen name="main_page_button_height">50dp</dimen>
     <!-- main page hints -->
     <string name="global">Globale: </string>
     <string name="friends">Amici: </string>
@@ -21,8 +21,8 @@
 
     <!-- dialog -->
     <dimen name="modal_hearts_infinite_image_size">70dp</dimen>
-    <string name="modal_hearts_infinite_text">Godere di vite infinite è un privilegio dei fedelissimi!
-        \nPerchè non permettere anche ai tuoi amici di accedere a questo beneficio? 0x1F609</string>
+    <string name="modal_hearts_infinite_text">Un anno nuovo sta cominciando, per questo abbiamo pensato di regalare a chi si iscrive in questo periodo un’esperienza di gioco senza limitazioni!
+        \n Fallo sapere ai tuoi amici 0x1F609</string>
     <string name="modal_hearts_infinite_text_not_show">Non mostrare più</string>
     <dimen name="modal_hearts_infinite_margin">25dp</dimen>
     <dimen name="modal_hearts_infinite_margin_little">10dp</dimen>

@@ -42,6 +42,7 @@ public class TPHeartDialog extends Dialog implements View.OnClickListener {
         ((TextView) findViewById(R.id.modal_message)).setText(TPUtils.translateEmoticons(getContext().getString(R.string.modal_hearts_infinite_text)));
         findViewById(R.id.negativeButton).setOnClickListener(this);
         findViewById(R.id.positiveButton).setOnClickListener(this);
+        findViewById(R.id.positiveButton).setEnabled(true);
         if(!automaticPopup) {
             findViewById(R.id.notShowingAgainContainer).setVisibility(View.GONE);
         }
@@ -51,7 +52,7 @@ public class TPHeartDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.negativeButton: closeAndSave(); break;
-            case R.id.positiveButton: inviteFriends(); closeAndSave(); break;
+            case R.id.positiveButton: v.setEnabled(false); inviteFriends(); closeAndSave(); break;
         }
     }
 
@@ -65,6 +66,7 @@ public class TPHeartDialog extends Dialog implements View.OnClickListener {
     }
 
     private void inviteFriends() {
+
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, getContext().getString(R.string.invite_friends_string));
