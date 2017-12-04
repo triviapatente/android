@@ -6,7 +6,7 @@
     <string name="button_register">Registrati</string>
     <string name="welcoming_message">Ciao!\n\nIniziamo?</string>
     <string name="or">oppure</string>
-    <string name="already_registered">Hai un account? <u>Accedi</u>!</string>
+    <string name="already_registered">Hai un account?&#160;<u>Accedi!</u></string>
     <string name="hint_username">Username</string>
     <string name="hint_username_or_email">Username o email</string>
     <string name="hint_password">Password</string>
