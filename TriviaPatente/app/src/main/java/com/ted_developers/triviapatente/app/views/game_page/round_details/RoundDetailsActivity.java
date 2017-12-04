@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.RoundDetailsSectionCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
@@ -41,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -49,6 +52,12 @@ public class RoundDetailsActivity extends TPGameActivity {
     @BindView(R.id.sectionList) RecyclerView sectionList;
     @BindView(R.id.answerList) RecyclerView answerList;
     @BindView(R.id.gameEndedView) View gameEndedView;
+    @BindView(R.id.loserEmojii) TextView loserEmojiiView;
+    @BindView(R.id.winnerEmojii) TextView winnerEmojiiView;
+
+    @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
+    @BindString(R.string.activity_round_details_emojii_loser) String loserEmojii;
+
     private FragmentGameDetailsScore detailsScore;
 
     private SuccessRoundDetails response;
@@ -128,7 +137,7 @@ public class RoundDetailsActivity extends TPGameActivity {
         @Override
         public void onBindViewHolder(RoundHolder holder, int position) {
             List<String> keys = getKeys();
-            String item = keys.size() == position ? "🏆" : keys.get(position);
+            String item = keys.size() == position ? winnerEmojii : keys.get(position);
             holder.bind(item, sectionListener);
         }
 
@@ -233,10 +242,19 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     private GameEndedHolder gameEndedHolder;
 
+    private void updateEmojiAndSet() {
+        winnerEmojii = TPUtils.translateEmoticons(winnerEmojii);
+        loserEmojii = TPUtils.translateEmoticons(loserEmojii);
+        winnerEmojiiView.setText(winnerEmojii);
+        loserEmojiiView.setText(loserEmojii);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round_details);
+        // emojii update
+        updateEmojiAndSet();
         sectionList.setLayoutManager(sectionLayout);
         sectionList.setAdapter(sectionAdapter);
         answerList.setLayoutManager(answerLayout);

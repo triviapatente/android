@@ -67,8 +67,7 @@
                 android:layout_alignBottom="@id/winnerImage"
                 android:layout_alignLeft="@id/winnerImage"
                 android:layout_alignStart="@id/winnerImage"
-                android:textColor="@android:color/white"
-                android:text="🏆"/>
+                android:textColor="@android:color/white"/>
             <TextView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -79,8 +78,7 @@
                 android:textColor="@android:color/white"
                 android:layout_alignBottom="@id/loserImage"
                 android:layout_alignLeft="@id/loserImage"
-                android:layout_alignStart="@id/loserImage"
-                android:text="😡"/>
+                android:layout_alignStart="@id/loserImage"/>
         </RelativeLayout>
 
         <RelativeLayout

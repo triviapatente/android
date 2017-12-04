@@ -13,7 +13,7 @@ public class ShopItem extends CommonPK {
     @SerializedName("price")
     public String price;
     @SerializedName("emoji")
-    public String emoji;
+    public String emojii;
     @SerializedName("name")
     public String name;
 

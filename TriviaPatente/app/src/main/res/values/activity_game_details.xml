@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_round_details">Game details</string>
+    <string name="activity_round_details_emojii_winner">0x1F3C6</string>
+    <string name="activity_round_details_emojii_loser">0x1F621</string>
+</resources>

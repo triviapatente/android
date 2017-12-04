@@ -54,6 +54,7 @@ public class RankActivity extends TPActivity {
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
     @BindView(R.id.no_users) TextView noUsersAlert;
+    @BindString(R.string.no_user_found) String noUsersAlertString;
     List<User> users;
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
     @Nullable @BindView(R.id.rank_scroll) ImageButton rankScroll;
@@ -73,6 +74,9 @@ public class RankActivity extends TPActivity {
     }
 
     protected void init() {
+        // update unicode strings
+        noUsersAlertString = TPUtils.translateEmoticons(noUsersAlertString);
+        noUsersAlert.setText(noUsersAlertString);
         // start loading
         loadingView.setVisibility(View.VISIBLE);
         initSearchBar();

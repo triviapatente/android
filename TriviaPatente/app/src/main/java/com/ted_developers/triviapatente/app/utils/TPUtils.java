@@ -96,6 +96,7 @@ public class TPUtils {
 
 
     // picasso utils
+    // TODO can be built as singleton instance instead: Picasso.setSingletonInstance(picasso); this way can be called as Picasso.load(...)
     public static Picasso picasso;
     public static void initPicasso(final Context context) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -114,6 +115,10 @@ public class TPUtils {
         picasso = new Picasso.Builder(context)
                 .downloader(new OkHttp3Downloader(client))
                 .build();
+
+        // Debug purposes
+        picasso.setIndicatorsEnabled(true);
+        picasso.setLoggingEnabled(true);
     }
     public static void injectUserImage(Context context, User user, RoundedImageView profilePicture) {
         injectUserImage(context, user, profilePicture, true);
