@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/mainColorDark"/>
+            <solid android:color="@color/blueDark"/>
         </shape>
     </item>
     <item
@@ -10,5 +10,5 @@
         android:right="@dimen/send_button_padding"
         android:top="@dimen/send_button_padding"
         android:bottom="@dimen/send_button_padding"
-        android:drawable="@drawable/send_button_image"/>
+        android:drawable="@drawable/button_send_image"/>
 </layer-list>

@@ -36,6 +36,7 @@
                 android:textSize="@dimen/TPTextSizeSmall"
                 android:id="@+id/motivations_header"
                 android:clickable="true"
+                android:focusable="true"
                 android:textColor="@android:color/white"
                 android:text="@string/activity_contacts_motivation"/>
 
@@ -54,7 +55,7 @@
             android:layout_height="1dp"
             android:background="@android:color/white"
             android:layout_marginBottom="@dimen/activity_contacts_separator_margin_vertical"/>
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -72,7 +73,7 @@
                 android:gravity="end|center_vertical"
                 android:textSize="@dimen/TPTextSizeVerySmall"
                 android:textColor="@android:color/white"/>
-        </LinearLayout>
+        </LinearLayout>-->
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textContainer"
@@ -87,6 +88,8 @@
                 android:layout_height="wrap_content"
                 android:lines="@integer/activity_contacts_message_lines"
                 android:textColor="@android:color/white"
+                android:hint="@string/activity_contacts_message_title"
+                android:background="@android:color/transparent"
                 android:textSize="@dimen/TPTextSizeMedium"
                 android:maxLength="@integer/activity_contacts_message_max_length"
                 android:gravity="start|bottom"/>
@@ -107,7 +110,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/activity_contacts_margin_horizontal"
         android:layout_marginRight="@dimen/activity_contacts_margin_horizontal"
-        android:background="@drawable/send_button"/>
+        android:background="@drawable/button_send"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

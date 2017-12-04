@@ -22,7 +22,7 @@
 
     <string-array name="motivations_array">
         <item>Suggerimento</item>
-        <item>Segnalazione errore</item>
+        <item>Errore</item>
         <item>Altro</item>
     </string-array>
 
