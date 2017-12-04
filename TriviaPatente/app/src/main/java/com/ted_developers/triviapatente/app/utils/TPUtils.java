@@ -13,6 +13,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -85,12 +86,17 @@ public class TPUtils {
         Blurry.with(context).sampling(5).radius(15).capture(container).into(imageView);
     }
     // hide keyboard
-    public static void hideKeyboard(Activity activity) {
+    @Deprecated
+    public static void hideKeyboard(Activity activity) { hideKeyboard(activity, null); }
+    public static void hideKeyboard(Activity activity, View viewGetFocus) {
         // Check if no view has focus:
         View view = activity.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if(viewGetFocus != null) {
+                viewGetFocus.requestFocus();
+            }
         }
     }
 

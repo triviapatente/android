@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.login_button) LoadingButton loginButton;
     @BindView(R.id.alertMessage) MessageBox alertMessageView;
     @BindView(R.id.forgot_button) TextView loginFailedButton;
+    @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     // useful strings
     @BindString(R.string.hint_password) String passwordHint;
     @BindString(R.string.hint_username_or_email) String usernameHint;
@@ -108,7 +110,7 @@ public class LoginFragment extends Fragment {
     // do login
     @OnClick(R.id.login_button)
     public void login() {
-        TPUtils.hideKeyboard(getActivity());
+        TPUtils.hideKeyboard(getActivity(), dummyLayout);
         LoginPresenter.login(this);
     }
 
@@ -122,7 +124,7 @@ public class LoginFragment extends Fragment {
         getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TPUtils.hideKeyboard(getActivity());
+                TPUtils.hideKeyboard(getActivity(), dummyLayout);
             }
         });
     }

@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.register_button) LoadingButton registerButton;
     @BindView(R.id.alertMessage) MessageBox alertMessageView;
     @BindView(R.id.terms_and_conditions) TextView termsandconditionsLink;
+    @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     // useful strings
     @BindString(R.string.hint_password) String passwordHint;
     @BindString(R.string.hint_username) String usernameHint;
@@ -114,7 +116,7 @@ public class RegisterFragment extends Fragment {
         getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TPUtils.hideKeyboard(getActivity());
+                TPUtils.hideKeyboard(getActivity(), dummyLayout);
             }
         });
     }
@@ -132,7 +134,7 @@ public class RegisterFragment extends Fragment {
     // do registration
     @OnClick(R.id.register_button)
     public void register() {
-        TPUtils.hideKeyboard(getActivity());
+        TPUtils.hideKeyboard(getActivity(), dummyLayout);
         RegisterPresenter.register(this);
     }
 

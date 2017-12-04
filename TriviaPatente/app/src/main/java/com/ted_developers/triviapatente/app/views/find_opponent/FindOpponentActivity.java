@@ -62,6 +62,7 @@ public class FindOpponentActivity extends RankActivity {
     // all or friends
     @BindView(R.id.all_or_friends) LinearLayout allOrFriendsBlock;
     @BindView(R.id.all_button) Button allButton;
+    @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     @BindView(R.id.friends_button) Button friendsButton;
     @BindDrawable(R.drawable.button_all_not_selected) Drawable allButtonNotSelected;
     @BindDrawable(R.drawable.button_all_selected) Drawable allButtonSelected;
@@ -120,7 +121,7 @@ public class FindOpponentActivity extends RankActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                     FindOpponentActivity.this.doSearch(searchBar.getText().toString());
-                    TPUtils.hideKeyboard(FindOpponentActivity.this);
+                    TPUtils.hideKeyboard(FindOpponentActivity.this, dummyLayout);
                 }
                 return false;
             }
@@ -139,7 +140,7 @@ public class FindOpponentActivity extends RankActivity {
                 }
             }
         });
-        TPUtils.hideKeyboard(this);
+        TPUtils.hideKeyboard(this, dummyLayout);
     }
 
     @Override
@@ -284,7 +285,7 @@ public class FindOpponentActivity extends RankActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        TPUtils.hideKeyboard(this);
+        TPUtils.hideKeyboard(this, dummyLayout);
         return super.dispatchTouchEvent(ev);
     }
 

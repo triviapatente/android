@@ -103,6 +103,7 @@ public class FirstAccessActivity extends TPActivity {
             return true;
         }
     }
+
     public boolean checkUsernameLength(LabeledInput input) {
         if(input.toString().length() < minUsernameLength) {
             input.showLabel(not_valid_username_error, Color.WHITE);

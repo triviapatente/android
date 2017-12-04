@@ -12,6 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
+        <!-- to avoid edittext getting focus at activity start -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/dummy_layout"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
         <!-- alert box -->
         <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
             android:id="@+id/alertMessage"

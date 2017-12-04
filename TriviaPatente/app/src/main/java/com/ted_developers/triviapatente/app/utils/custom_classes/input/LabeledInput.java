@@ -1,11 +1,14 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.input;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import com.ted_developers.triviapatente.R;
 public class LabeledInput extends LinearLayout {
     private TextView label;
     private EditText input;
+    private String hint;
 
     public LabeledInput(Context context) {
         super(context);
@@ -44,6 +48,13 @@ public class LabeledInput extends LinearLayout {
         label = (TextView) inflater.inflate(R.layout.errorlabel_template, null);
         this.addView(label);
         this.addView(input);
+        input.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hint == null) hint = input.getHint().toString();
+                input.setHint(input.hasFocus()? "" : hint);
+            }
+        });
         hideLabel();
     }
 

@@ -21,6 +21,8 @@ public class LoginPresenter {
         // eventually hide alert and forgot button
         lf.alertMessageView.hideAlert();
         lf.hideForgotButton();
+        // trim strings where needed
+        user.setText(user.toString().trim());
         // check input
         boolean valid = a.checkWithoutBlankSpacesField(user) && a.checkNotEmptyField(user);
         valid = a.checkNotEmptyField(password) && valid;

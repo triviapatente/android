@@ -12,10 +12,12 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,6 +51,7 @@ public class RankActivity extends TPActivity {
 
     @BindString(R.string.activity_rank_title) String title;
     @BindView(R.id.search_bar) EditText searchBar;
+    @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     protected boolean all = true;
     @BindView(R.id.loadingView) RelativeLayout loadingView;
     @BindView(R.id.playerList) RecyclerView playersList;
@@ -193,7 +196,7 @@ public class RankActivity extends TPActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                     RankActivity.this.doSearch(searchBar.getText().toString());
-                    TPUtils.hideKeyboard(RankActivity.this);
+                    TPUtils.hideKeyboard(RankActivity.this, dummyLayout);
                 }
                 return false;
             }
@@ -212,7 +215,7 @@ public class RankActivity extends TPActivity {
                 }
             }
         });
-        TPUtils.hideKeyboard(this);
+        TPUtils.hideKeyboard(this, dummyLayout);
     }
 
     // TODO unificando qua e in find opponent si può togliere l'override di la (per @donadev)
@@ -268,7 +271,7 @@ public class RankActivity extends TPActivity {
     // touch handler
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        TPUtils.hideKeyboard(this);
+        TPUtils.hideKeyboard(this, dummyLayout);
         return super.dispatchTouchEvent(ev);
     }
 
