@@ -25,6 +25,9 @@ public class RegisterPresenter {
         final LabeledInput username = rf.usernameField, email = rf.emailField,
                 password = rf.passwordField, repeatPassword = rf.repeatPasswordField;
         final ManageLoading loadingManager = rf.registerButton;
+        // trim strings where needed
+        username.setText(username.toString().trim());
+        email.setText(email.toString().trim());
         // hide alert
         rf.alertMessageView.hideAlert();
         // because of java short circuit condition evaluation
