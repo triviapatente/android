@@ -20,6 +20,8 @@
             android:id="@+id/optionName"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textSize="@dimen/TPTextSizeMedium"
             android:textColor="@android:color/white"/>
     </LinearLayout>

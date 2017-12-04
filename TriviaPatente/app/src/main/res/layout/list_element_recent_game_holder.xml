@@ -30,15 +30,17 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/TPTextSizeMedium"
-            android:lines="1"
-            android:ellipsize="end"/>
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/TPTextSizeMedium"/>
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/TPTextSizeSmall"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/vpi__bright_foreground_disabled_holo_light"/>
 
     </LinearLayout>

@@ -22,5 +22,7 @@
         android:layout_marginEnd="@dimen/list_item_margin"
         android:textColor="@color/mainColor"
         android:textSize="@dimen/TPTextSizeLarge"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:gravity="center"/>
 </LinearLayout>

@@ -17,6 +17,8 @@
         android:layout_width="match_parent"
         android:textSize="@dimen/TPTextSizeLarge"
         android:textColor="@android:color/white"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:gravity="center_horizontal"
         android:visibility="gone"/>
     <TextView
@@ -24,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="@dimen/TPTextSizeSmall"
         android:textColor="@android:color/white"/>
 </LinearLayout>

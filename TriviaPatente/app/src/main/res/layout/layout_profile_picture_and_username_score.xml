@@ -26,6 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@android:color/black"
             android:textSize="@dimen/TPTextSizeMedium"/>
         <TextView
@@ -33,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/mainColor"
             android:textSize="@dimen/TPTextSizeSmall"/>
 

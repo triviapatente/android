@@ -27,8 +27,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/text_size_very_small_padding"
             android:textSize="@dimen/TPTextSizeSmall"
+            android:singleLine="true"
             android:ellipsize="end"
-            android:lines="1"
             android:gravity="center_vertical"
             android:textColor="@android:color/white"
             android:visibility="gone"/>
@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
+            android:singleLine="true"
             android:gravity="center"
             android:textSize="@dimen/TPTextSizeLarge"
             android:paddingBottom="@dimen/text_size_very_small_padding"/>
@@ -66,6 +67,8 @@
         android:layout_height="match_parent"
         android:textSize="@dimen/TPTextSizeLarge"
         android:textColor="@android:color/white"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:gravity="center"
         android:layout_centerInParent="true"/>
 
