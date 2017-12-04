@@ -38,7 +38,7 @@ public class TPHeartDialog extends Dialog implements View.OnClickListener {
         setContentView(R.layout.modal_heart_infinite);
         setCanceledOnTouchOutside(false);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        getWindow().setDimAmount(0.f);
+        getWindow().setDimAmount(0.2f);
         ((TextView) findViewById(R.id.modal_message)).setText(TPUtils.translateEmoticons(getContext().getString(R.string.modal_hearts_infinite_text)));
         findViewById(R.id.negativeButton).setOnClickListener(this);
         findViewById(R.id.positiveButton).setOnClickListener(this);

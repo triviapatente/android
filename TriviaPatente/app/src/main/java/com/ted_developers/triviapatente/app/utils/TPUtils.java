@@ -117,8 +117,8 @@ public class TPUtils {
                 .build();
 
         // Debug purposes
-        picasso.setIndicatorsEnabled(true);
-        picasso.setLoggingEnabled(true);
+        // picasso.setIndicatorsEnabled(true);
+        // picasso.setLoggingEnabled(true);
     }
     public static void injectUserImage(Context context, User user, RoundedImageView profilePicture) {
         injectUserImage(context, user, profilePicture, true);
