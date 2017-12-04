@@ -134,7 +134,6 @@ public class RegisterFragment extends Fragment {
     // do registration
     @OnClick(R.id.register_button)
     public void register() {
-        TPUtils.hideKeyboard(getActivity(), dummyLayout);
         RegisterPresenter.register(this);
     }
 

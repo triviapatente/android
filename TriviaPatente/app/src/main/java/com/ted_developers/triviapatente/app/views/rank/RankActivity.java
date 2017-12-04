@@ -215,7 +215,6 @@ public class RankActivity extends TPActivity {
                 }
             }
         });
-        TPUtils.hideKeyboard(this, dummyLayout);
     }
 
     // TODO unificando qua e in find opponent si può togliere l'override di la (per @donadev)
@@ -267,12 +266,6 @@ public class RankActivity extends TPActivity {
             absolute_first = false; // it may not be the absolute first
         }
         scrollToTop = !scrollToTop;
-    }
-    // touch handler
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev){
-        TPUtils.hideKeyboard(this, dummyLayout);
-        return super.dispatchTouchEvent(ev);
     }
 
     @OnClick(R.id.x_button)

@@ -140,7 +140,6 @@ public class FindOpponentActivity extends RankActivity {
                 }
             }
         });
-        TPUtils.hideKeyboard(this, dummyLayout);
     }
 
     @Override
@@ -280,13 +279,6 @@ public class FindOpponentActivity extends RankActivity {
             blurImageView.setVisibility(View.VISIBLE);
             facebookDialog.show();
         }
-    }
-
-    // touch handler
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev){
-        TPUtils.hideKeyboard(this, dummyLayout);
-        return super.dispatchTouchEvent(ev);
     }
 
     // random opponent

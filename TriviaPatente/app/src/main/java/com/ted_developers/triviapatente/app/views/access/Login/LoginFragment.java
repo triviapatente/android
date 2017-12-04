@@ -110,7 +110,6 @@ public class LoginFragment extends Fragment {
     // do login
     @OnClick(R.id.login_button)
     public void login() {
-        TPUtils.hideKeyboard(getActivity(), dummyLayout);
         LoginPresenter.login(this);
     }
 

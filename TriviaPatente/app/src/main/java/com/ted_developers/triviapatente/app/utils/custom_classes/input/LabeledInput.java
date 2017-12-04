@@ -51,8 +51,8 @@ public class LabeledInput extends LinearLayout {
         input.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hint == null) hint = input.getHint().toString();
-                input.setHint(input.hasFocus()? "" : hint);
+                if(hint == null && input.getHint() != null) hint = input.getHint().toString();
+                if(hint != null) input.setHint(input.hasFocus()? "" : hint);
             }
         });
         hideLabel();

@@ -13,12 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,6 +59,8 @@ import butterknife.Optional;
  * Created by Antonio on 08/12/16.
  */
 public class TPActivity extends AppCompatActivity {
+    // hide keyboard utils
+    protected @Nullable @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     public User currentUser;
     // used for toolbar configuration utils
     protected @Nullable @BindView(R.id.toolbar) Toolbar toolbar;
@@ -90,6 +94,14 @@ public class TPActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
         currentUser = SharedTPPreferences.currentUser();
     }
+
+    // touch handler
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        TPUtils.hideKeyboard(this, dummyLayout);
+        return super.dispatchTouchEvent(ev);
+    }
+
 
     @SuppressWarnings("ResourceType")
     private void initUI() {

@@ -59,7 +59,6 @@ public class ContactsActivity extends TPActivity {
         termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
 
         terms_and_conditions_easteregg = TPUtils.translateEmoticons(terms_and_conditions_easteregg);
-        // hide keyboard not provided... in android the common way is to click the appropriate button.
     }
 
     @OnClick(R.id.motivations_header)
