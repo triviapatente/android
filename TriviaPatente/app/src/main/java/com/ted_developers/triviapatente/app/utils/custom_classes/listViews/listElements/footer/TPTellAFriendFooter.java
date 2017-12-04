@@ -12,9 +12,12 @@ import com.ted_developers.triviapatente.app.views.AlphaView;
 public class TPTellAFriendFooter extends TPFooter {
     public TPTellAFriendFooter(final View itemView) {
         super(itemView);
+        // TODO TEST, but i don't think is really needed
+        itemView.findViewById(R.id.tellAFriendButton).setEnabled(true);
         itemView.findViewById(R.id.tellAFriendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                itemView.findViewById(R.id.tellAFriendButton).setEnabled(false);
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, itemView.getContext().getString(R.string.invite_friends_string));
