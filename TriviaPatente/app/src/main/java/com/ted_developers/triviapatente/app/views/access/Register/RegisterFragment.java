@@ -18,6 +18,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 
@@ -129,13 +130,31 @@ public class RegisterFragment extends Fragment {
         passwordField.setPassword(true);
         repeatPasswordField.setHint(repeatPasswordHint);
         repeatPasswordField.setPassword(true);
+
+        // remove auto correction
+        usernameField.setAutoCheck(false);
+        passwordField.setAutoCheck(false);
+        repeatPasswordField.setAutoCheck(false);
+        emailField.setAutoCheck(false);
+
+        // set auto trim
+        usernameField.autotrim_active = true;
+        emailField.autotrim_active = true;
+
+        // set errors to be aware of
+        usernameField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.BLANK, LabeledInputError.USERNAME_LENGTH);
+        emailField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.EMAIL);
+        passwordField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.PASSWORD_LENGTH);
+        repeatPasswordField.setErrorsToCheck(passwordField, LabeledInputError.PASSWORD_EQUALS);
     }
 
+    private boolean isFirstAttempt = true;
     // do registration
     @OnClick(R.id.register_button)
     public void register() {
         TPUtils.hideKeyboard(getActivity(), dummyLayout);
-        RegisterPresenter.register(this);
+        RegisterPresenter.register(this, isFirstAttempt);
+        isFirstAttempt = false;
     }
 
     @Override

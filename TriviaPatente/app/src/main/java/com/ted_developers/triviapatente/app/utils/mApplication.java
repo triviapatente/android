@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.EventAction;
@@ -30,6 +31,7 @@ public class mApplication extends Application {
         TPUtils.initPicasso(this);
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
+        LabeledInputError.initAll(this);
     }
 
     public static mApplication getInstance() {

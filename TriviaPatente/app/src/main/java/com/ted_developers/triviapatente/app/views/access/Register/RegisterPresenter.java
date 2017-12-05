@@ -19,39 +19,36 @@ import retrofit2.Response;
  * Created by Antonio on 23/10/16.
  */
 public class RegisterPresenter {
+
+    private static String username_key = "username", email_key = "email", password_key = "key", message_key = "message";
+
     // get from parameters to provide scalability
-    public static void register(final RegisterFragment rf) {
+    public static void register(final RegisterFragment rf, boolean isFirstAttempt) {
         final FirstAccessActivity a = (FirstAccessActivity) rf.getActivity();
         final LabeledInput username = rf.usernameField, email = rf.emailField,
                 password = rf.passwordField, repeatPassword = rf.repeatPasswordField;
         final ManageLoading loadingManager = rf.registerButton;
-        // trim strings where needed
-        username.setText(username.toString().trim());
-        email.setText(email.toString().trim());
+        // after
         // hide alert
         rf.alertMessageView.hideAlert();
-        // because of java short circuit condition evaluation
-        // check username
-        boolean valid = a.checkWithoutBlankSpacesField(username) && a.checkNotEmptyField(username);
-        valid = a.checkUsernameLength(username) && valid;
-        // check email
-        valid = a.isValidEmail(email) && valid;
-        // check passwords
-        if(!a.checkNotEmptyField(password)) {
-            valid = false;
-            // because i don't need to valid repeat password but i still need to hide the label
-            repeatPassword.hideLabel();
-        } else {
-            // if password is a valid field
-            valid = a.checkNotEmptyField(repeatPassword) && a.checkEquals(repeatPassword, password) && valid;
+        // force check and enable autocheck
+        if(isFirstAttempt) {
+            // force check
+            username.check();
+            email.check();
+            password.check();
+            repeatPassword.check();
+
+            // set autocheck
+            username.setAutoCheck(true);
+            email.setAutoCheck(true);
+            password.setAutoCheck(true);
+            repeatPassword.setAutoCheck(true);
         }
-        valid = a.checkPasswordLength(password) && valid;
-        if (valid) {
+        if (username.isValid() && email.isValid() && password.isValid() && repeatPassword.isValid()) {
             // if no error raised
             // get values
-            String username_value = username.toString(),
-                    email_value = email.toString(),
-                    password_value = password.toString();
+            final String username_value = username.toString(), email_value = email.toString(), password_value = password.toString();
             // start loading
             loadingManager.startLoading();
             // register request
@@ -69,13 +66,12 @@ public class RegisterPresenter {
                         FirstAccessActivity.openMainPage(a, response.body());
                     } else if (response.code() == 403) {
                         // unauthorized
-                        String message = "";
                         try {
-                            message = new JSONObject(response.errorBody().string()).getString("message");
-                            if (message.contains("username")) {
+                            String message = new JSONObject(response.errorBody().string()).getString(message_key);
+                            if (message.contains(username_key)) {
                                 username.showLabel(rf.already_registered_username);
                             }
-                            if (message.contains("email")) {
+                            if (message.contains(email_key)) {
                                 email.showLabel(rf.already_registered_email);
                             }
                         } catch (JSONException | IOException e) {rf.alertMessageView.showAlert(rf.operationFailed);}

@@ -1,9 +1,12 @@
 package com.ted_developers.triviapatente.app.utils.custom_classes.input;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
@@ -15,10 +18,14 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Antonio on 25/10/16.
  */
 public class LabeledInput extends LinearLayout {
+    // TODO add custom attribute from xml management and make as library on github
     private TextView label;
     private EditText input;
     private String hint;
@@ -90,7 +97,7 @@ public class LabeledInput extends LinearLayout {
     }
 
     // show label of labeled input with given text shown, label and border of choosen color
-    public void showLabel(String text, int labelColor) {
+    public void showLabel(String text, @ColorInt int labelColor) {
         label.setTextColor(labelColor);
         showLabel(text);
     }
@@ -108,4 +115,94 @@ public class LabeledInput extends LinearLayout {
     public String toString() {
         return input.getText().toString();
     }
+
+    // auto - correction manager
+
+    private LabeledInput toWatch = null;
+    private boolean isValid = true;
+
+    // to force check
+    public boolean autotrim_active = false; // auto trim
+
+    public void check() { check(Color.WHITE); }
+    public void check(@ColorInt int labelColor) {
+        hideLabel();
+        isValid = false;
+        for(LabeledInputError e : errorsToCheck) {
+            if (autotrim_active && input.getText() != null) input.setText(input.getText().toString().trim());
+            if (!e.isValid(input)) {
+                showLabel(e.toString(), labelColor);
+                return;
+            }
+        }
+        isValid = true;
+    }
+
+    // text watcher
+    private boolean watcherActive = false;
+    TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            check();
+        }
+    };
+
+    // queue of possible errors
+    private List<LabeledInputError> errorsToCheck = new ArrayList<>();
+
+    public void setAutoCheck(boolean active) {
+        if(toWatch != null) {
+            this.toWatch = toWatch;
+        }
+        if(active && !watcherActive) {
+            watcherActive = true;
+            input.addTextChangedListener(watcher);
+        } else if(watcherActive) {
+            watcherActive = false;
+            input.removeTextChangedListener(watcher);
+        }
+    }
+
+    public boolean isValid() { return  isValid; }
+
+    public boolean hasAutoCheck() {
+        return watcherActive;
+    }
+
+    // public void setErrorsToCheck(LabeledInputError ... errors) { setErrorsToCheck(errors); }
+    public void setErrorsToCheck(LabeledInput toWatch, LabeledInputError ... errors) {
+        for(LabeledInputError e: errors) {
+            if(toWatch != null) {
+                e.setOtherInput(toWatch.input);
+                toWatch.input.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        check();
+                    }
+                }); // make sure on update to check also this
+            }
+            errorsToCheck.add(e);
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -147,7 +148,9 @@ public class RankActivity extends TPActivity {
             }
 
             @Override
-            public void mOnFailure(Call<RankPosition> call, Throwable t) {}
+            public void mOnFailure(Call<RankPosition> call, Throwable t) {
+                Log.e("Failure", "failure on rank request");
+            }
 
             @Override
             public void then() {}
@@ -177,7 +180,9 @@ public class RankActivity extends TPActivity {
             }
 
             @Override
-            public void mOnFailure(Call<RankPosition> call, Throwable t) {}
+            public void mOnFailure(Call<RankPosition> call, Throwable t) {
+                Log.e("Failure", "failure on load players request");
+            }
 
             @Override
             public void then() {}
@@ -241,7 +246,9 @@ public class RankActivity extends TPActivity {
                     }
 
                     @Override
-                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {}
+                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                        Log.e("Failure", "failure on search request");
+                    }
 
                     @Override
                     public void then() {

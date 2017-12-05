@@ -71,13 +71,11 @@
         <!-- Name & Surname -->
         <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/inputName"
-            android:hint="@string/activity_change_user_details_name_hint"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_change_user_details_field_height"
             android:layout_marginBottom="@dimen/activity_change_user_details_field_vertical_margin"/>
         <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/inputSurname"
-            android:hint="@string/activity_change_user_details_surname_hint"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_change_user_details_field_height"
             android:layout_marginBottom="@dimen/activity_change_user_details_margin"/>
