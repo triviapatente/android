@@ -68,20 +68,7 @@ public class RecentGameHolder extends TPHolder<Game> {
         if(element.opponent_name != null && element.opponent_surname != null) {
             setUsernameText(element.opponent_name + " " + element.opponent_surname);
         } else { setUsernameText(element.opponent_username); }
-        /*TPUtils.picasso
-                .load(TPUtils.getUserImageFromID(context, element.opponent_id))
-                .placeholder(R.drawable.image_no_profile_picture)
-                .error(R.drawable.image_no_profile_picture)
-                .into(profilePicture);*/
         TPUtils.injectUserImage(context, opponent, profilePicture);
-        // set on click on profile picture
-        /*profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AlphaView.class);
-                context.startActivity(intent);
-            }
-        });*/
     }
 
     private void setPlayNow() {

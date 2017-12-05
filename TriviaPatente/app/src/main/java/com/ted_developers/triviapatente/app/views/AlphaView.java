@@ -7,6 +7,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 
+// TODO remove
 @Deprecated
 public class AlphaView extends TPActivity {
 

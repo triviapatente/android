@@ -14,19 +14,24 @@ import retrofit2.Response;
  * Created by Antonio on 23/10/16.
  */
 public class LoginPresenter {
-    public static void login(final LoginFragment lf) {
+    public static void login(final LoginFragment lf, boolean isFirstAttempt) {
         final FirstAccessActivity a = (FirstAccessActivity) lf.getActivity();
         final LabeledInput user = lf.usernameField, password = lf.passwordField;
         final ManageLoading loadingManager = (ManageLoading) lf.loginButton;
         // eventually hide alert and forgot button
         lf.alertMessageView.hideAlert();
         lf.hideForgotButton();
-        // trim strings where needed
-        user.setText(user.toString().trim());
-        // check input
-        boolean valid = a.checkWithoutBlankSpacesField(user) && a.checkNotEmptyField(user);
-        valid = a.checkNotEmptyField(password) && valid;
-        if(valid) {
+        // force check and enable autocheck
+        if(isFirstAttempt) {
+            // force check
+            user.check();
+            password.check();
+
+            // set autocheck
+            user.setAutoCheck(true);
+            password.setAutoCheck(true);
+        }
+        if (user.isValid() && password.isValid()) {
             // if no error raised
             // start loading
             loadingManager.startLoading();

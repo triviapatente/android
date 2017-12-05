@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.access.Login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -93,7 +94,9 @@ public class CredentialsRecovery extends TPActivity {
                 }
             }
             @Override
-            public void mOnFailure(Call<Success> call, Throwable t) {}
+            public void mOnFailure(Call<Success> call, Throwable t) {
+                Log.e("Failure", "failure on recovery password request");
+            }
             @Override
             public void then() {
                 recoveryButton.stopLoading();

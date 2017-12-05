@@ -19,6 +19,7 @@ import com.ted_developers.triviapatente.R;
 /**
  * Created by Antonio on 06/01/17.
  */
+// TODO remove
 @Deprecated
 public class MessageInput extends RelativeLayout implements View.OnClickListener {
     Button sendButton;

@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.game_page;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
@@ -231,7 +232,9 @@ public class GameMainPageActivity extends TPGameActivity {
             }
 
             @Override
-            public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {}
+            public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {
+                Log.e("Failure", "failure on create game request");
+            }
 
             @Override
             public void then() {

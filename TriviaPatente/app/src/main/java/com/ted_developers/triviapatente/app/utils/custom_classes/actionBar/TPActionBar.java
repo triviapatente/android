@@ -35,6 +35,7 @@ import com.ted_developers.triviapatente.app.views.AlphaView;
 /**
  * Created by Antonio on 31/10/16.
  */
+// TODO remove
 @Deprecated
 public class TPActionBar extends RelativeLayout {
     // back button

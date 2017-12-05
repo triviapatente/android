@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by Antonio on 28/11/16.
  */
+// TODO CODE CLEAN UP AND LIBRARY ON GITHUB
 public class TPListAdapter<T> extends RecyclerView.Adapter {
     protected Context context;
     public List<T> items;

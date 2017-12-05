@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.R;
 /**
  * Created by Antonio on 30/10/16.
  */
+// TODO remove
 public class MessageBox extends LinearLayout {
     private ImageView image;
     private TextView message;

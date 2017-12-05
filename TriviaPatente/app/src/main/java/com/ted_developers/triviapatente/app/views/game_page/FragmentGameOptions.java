@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class FragmentGameOptions extends Fragment {
         return view;
     }
 
+    // TODO remove
     /*@OnClick(R.id.gameChatButton)
     public void gameChatButtonClick() {
         Intent intent = new Intent(activity, AlphaView.class);
@@ -93,7 +95,9 @@ public class FragmentGameOptions extends Fragment {
                                 }
 
                                 @Override
-                                public void mOnFailure(Call<Success> call, Throwable t) {}
+                                public void mOnFailure(Call<Success> call, Throwable t) {
+                                    Log.e("Failure", "failure on leave game request");
+                                }
 
                                 @Override
                                 public void then() {}
@@ -109,7 +113,9 @@ public class FragmentGameOptions extends Fragment {
             }
 
             @Override
-            public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {}
+            public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {
+                Log.e("Failure", "failure on leave game request");
+            }
 
             @Override
             public void then() {}

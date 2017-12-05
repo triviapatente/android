@@ -16,6 +16,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 
@@ -105,13 +106,26 @@ public class LoginFragment extends Fragment {
         usernameField.setHint(usernameHint);
         passwordField.setHint(passwordHint);
         passwordField.setPassword(true);
+
+        // remove auto correction
+        usernameField.setAutoCheck(false);
+        passwordField.setAutoCheck(false);
+
+        // set auto trim
+        usernameField.autotrim_active = true;
+
+        // set errors to be aware of
+        usernameField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.BLANK);
+        passwordField.setErrorsToCheck(null, LabeledInputError.EMPTY);
     }
 
     // do login
+    private boolean isFirstAttempt = true;
     @OnClick(R.id.login_button)
     public void login() {
         TPUtils.hideKeyboard(getActivity(), dummyLayout);
-        LoginPresenter.login(this);
+        LoginPresenter.login(this, isFirstAttempt);
+        isFirstAttempt = false;
     }
 
     @Override

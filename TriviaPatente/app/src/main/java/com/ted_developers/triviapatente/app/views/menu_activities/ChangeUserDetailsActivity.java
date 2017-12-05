@@ -24,6 +24,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCal
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 
@@ -40,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChangeUserDetailsActivity extends TPActivity {
-
+    // TODO labeled input are probably not needed here
     // User data
     User user;
     @BindString(R.string.activity_change_user_details_title) String title;
@@ -86,12 +87,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
         user = SharedTPPreferences.currentUser();
 
         // load current image
-        /*TPUtils.picasso
-                .load(TPUtils.getUserImageFromID(this, user.id))
-                .placeholder(R.drawable.image_no_profile_picture)
-                .error(R.drawable.image_no_profile_picture)
-                .into(bigProfilePicture);
-        */
         TPUtils.injectUserImage(this, user, bigProfilePicture);
 
         // init labeled inputs
@@ -100,14 +95,15 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // init labeled inputs
     private void initLabeledInputs() {
+        // init name surname
         emailLabel.setText(user.email);
-        nameInput.setText(user.name);
-        surnameInput.setText(user.surname);
+        nameInput.setHint(nameHint);
+        surnameInput.setHint(surnameHint);
+        if(user.name != null && !"".equals(user.name)) nameInput.setText(user.name);
+        if(user.surname != null && !"".equals(user.surname)) surnameInput.setText(user.surname);
     }
 
-    /*
-        Take picture CAMERA
-     */
+    // Take picture CAMERA
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @OnClick(R.id.takeFromCameraButton)
     public void onCamera() {
@@ -117,9 +113,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
         }
     }
 
-    /*
-        Take picture STORAGE
-     */
+    // Take picture STORAGE
     static final int REQUEST_LOAD_IMAGE = 2;
     @OnClick(R.id.takeFromStorageButton)
     public void onStorage() {
@@ -236,10 +230,14 @@ public class ChangeUserDetailsActivity extends TPActivity {
             Call<User> call = RetrofitManager.getHTTPAuthEndpoint().changeImage(imageField);
             call.enqueue(new TPCallback<User>() {
                 @Override
-                public void mOnResponse(Call<User> call, Response<User> response) {}
+                public void mOnResponse(Call<User> call, Response<User> response) {
+                    // TODO save image
+                }
 
                 @Override
-                public void mOnFailure(Call<User> call, Throwable t) {}
+                public void mOnFailure(Call<User> call, Throwable t) {
+                    Log.e("Failure", "failure on image update request");
+                }
 
                 @Override
                 public void then() {

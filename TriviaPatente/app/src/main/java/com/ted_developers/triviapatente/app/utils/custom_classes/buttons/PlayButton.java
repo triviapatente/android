@@ -20,6 +20,7 @@ import com.ted_developers.triviapatente.models.auth.User;
  * Created by Antonio on 12/11/16.
  */
 public class PlayButton extends Button implements View.OnClickListener {
+    // TODO get custom attributes from xml to set state
     // on click
     Long gameID;
     User opponent;

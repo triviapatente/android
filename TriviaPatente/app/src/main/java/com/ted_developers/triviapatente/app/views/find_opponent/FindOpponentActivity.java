@@ -81,6 +81,7 @@ public class FindOpponentActivity extends RankActivity {
     @BindView(R.id.blurImageView) ImageView blurImageView;
     List<User> suggestedUsers;
     // friends not shown
+    // TODO no more needed
     List<User> fakeUsers = Arrays.asList(
             new User(-1l, "TriviaPatente", null, true, 8000),
             new User(-1l, "UnGioco", null, true, 7689),
@@ -166,7 +167,9 @@ public class FindOpponentActivity extends RankActivity {
                     }
 
                     @Override
-                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {}
+                    public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                        Log.e("Failure", "failure on search request");
+                    }
 
                     @Override
                     public void then() {
@@ -227,7 +230,9 @@ public class FindOpponentActivity extends RankActivity {
             }
 
             @Override
-            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {}
+            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                Log.e("Failure", "failure on load players request");
+            }
 
             @Override
             public void then() {}

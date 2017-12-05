@@ -55,14 +55,6 @@ public class FirstAccessActivity extends TPActivity {
         // View pager
         mAdapter = new FirstAccessAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
-        // provide auto hide of soft keyboard
-        /*mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideKeyboard();
-                return false;
-            }
-        });*/
         // ViewPager Indicator
         mIndicator.setViewPager(mViewPager);
         // Start from register page

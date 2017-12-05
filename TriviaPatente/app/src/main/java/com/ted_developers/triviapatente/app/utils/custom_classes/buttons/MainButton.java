@@ -133,7 +133,9 @@ public class MainButton extends RelativeLayout {
                     return myText;
                 }
             });
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setButtonText(String buttonText) {

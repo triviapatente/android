@@ -11,6 +11,7 @@ import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 
+// TODO remove
 @Deprecated
 public class ChatActivity extends TPActivity {
 
