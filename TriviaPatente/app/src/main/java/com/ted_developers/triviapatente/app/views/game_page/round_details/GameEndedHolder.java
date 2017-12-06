@@ -18,6 +18,7 @@ import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Partecipation;
 import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,13 +28,18 @@ import butterknife.ButterKnife;
 
 public class GameEndedHolder extends RecyclerView.ViewHolder {
 
-    public @BindView(R.id.titleView) TextView titleView;
-    public @BindView(R.id.scoreIncrementView) TextView scoreIncrementView;
-    public @BindView(R.id.scoreIncrementArrow) ImageView scoreIncrementArrow;
-    public @BindView(R.id.winnerImage) RoundedImageView winnerImage;
-    public @BindView(R.id.loserImage) RoundedImageView loserImage;
-    public @BindView(R.id.playButton) PlayButton playButton;
-    public @BindView(R.id.incitationView) TextView incitationView;
+    @BindView(R.id.titleView) TextView titleView;
+    @BindView(R.id.scoreIncrementView) TextView scoreIncrementView;
+    @BindView(R.id.scoreIncrementArrow) ImageView scoreIncrementArrow;
+    @BindView(R.id.winnerImage) RoundedImageView winnerImage;
+    @BindView(R.id.loserImage) RoundedImageView loserImage;
+    @BindView(R.id.loserEmojii) TextView loserEmojiiView;
+    @BindView(R.id.winnerEmojii) TextView winnerEmojiiView;
+
+    @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
+    @BindString(R.string.activity_round_details_emojii_loser) String loserEmojii;
+    @BindView(R.id.playButton) PlayButton playButton;
+    @BindView(R.id.incitationView) TextView incitationView;
 
 
     public static GameEndedHolder newHolder(Context ctx, int cellHeight) {
@@ -44,11 +50,20 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     }
     private Context context;
 
+
+    private void updateEmojiAndSet() {
+        winnerEmojii = TPUtils.translateEmoticons(winnerEmojii);
+        loserEmojii = TPUtils.translateEmoticons(loserEmojii);
+        winnerEmojiiView.setText(winnerEmojii);
+        loserEmojiiView.setText(loserEmojii);
+    }
+
     public GameEndedHolder(View itemView, Context ctx) {
         super(itemView);
         context = ctx;
         ButterKnife.bind(this, itemView);
         this.initView();
+        this.updateEmojiAndSet();
     }
     private void initView() {
         int mainColor = ContextCompat.getColor(context, R.color.mainColor);

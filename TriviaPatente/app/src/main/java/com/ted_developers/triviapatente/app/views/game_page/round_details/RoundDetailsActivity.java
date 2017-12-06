@@ -51,12 +51,7 @@ import retrofit2.Response;
 public class RoundDetailsActivity extends TPGameActivity {
     @BindView(R.id.sectionList) RecyclerView sectionList;
     @BindView(R.id.answerList) RecyclerView answerList;
-    @BindView(R.id.gameEndedView) View gameEndedView;
-    @BindView(R.id.loserEmojii) TextView loserEmojiiView;
-    @BindView(R.id.winnerEmojii) TextView winnerEmojiiView;
-
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
-    @BindString(R.string.activity_round_details_emojii_loser) String loserEmojii;
 
     private FragmentGameDetailsScore detailsScore;
 
@@ -68,7 +63,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     private LinearLayoutManager answerLayout = new LinearLayoutManager(this);
     private LinearLayoutManager sectionLayout = new LinearLayoutManager(this);
 
-    private final int NUMBER_OF_ROUNDS = 4;
+    private final int NUMBER_OF_QUESTION_PER_ROUND = 4;
 
     private RoundDetailsSectionCallback sectionListener = new RoundDetailsSectionCallback() {
         @Override
@@ -92,7 +87,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                             return new PointF(0, answerList.getHeight() / 4 * targetPosition);
                         }
                     };
-                    smoothScroller.setTargetPosition(section * NUMBER_OF_ROUNDS);
+                    smoothScroller.setTargetPosition(section * NUMBER_OF_QUESTION_PER_ROUND);
                     answerLayout.startSmoothScroll(smoothScroller);
                 }
             }
@@ -104,7 +99,7 @@ public class RoundDetailsActivity extends TPGameActivity {
             super.onScrolled(recyclerView, dx, dy);
             if(dy == 0) return;
             int position = answerLayout.findFirstCompletelyVisibleItemPosition();
-            int roundPosition = position / NUMBER_OF_ROUNDS;
+            int roundPosition = position / NUMBER_OF_QUESTION_PER_ROUND;
             RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
             holder.select(false);
         }
@@ -244,9 +239,6 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     private void updateEmojiAndSet() {
         winnerEmojii = TPUtils.translateEmoticons(winnerEmojii);
-        loserEmojii = TPUtils.translateEmoticons(loserEmojii);
-        winnerEmojiiView.setText(winnerEmojii);
-        loserEmojiiView.setText(loserEmojii);
     }
 
     @Override
@@ -260,8 +252,6 @@ public class RoundDetailsActivity extends TPGameActivity {
         answerList.setLayoutManager(answerLayout);
         answerList.setAdapter(questionAdapter);
         answerList.addOnScrollListener(scrollListener);
-        gameEndedHolder = new GameEndedHolder(gameEndedView, this);
-        gameEndedHolder.setUser(opponent, 2);
         fromGameOptions = getIntent().getBooleanExtra(getString(R.string.extra_string_from_game_options), false);
         this.load();
         this.joinAndListen();
@@ -389,7 +379,6 @@ public class RoundDetailsActivity extends TPGameActivity {
                             sectionList.setVisibility(View.VISIBLE);
                             detailsScore.getView().setVisibility(View.VISIBLE);
                             answerList.setVisibility(View.VISIBLE);
-                            gameEndedView.setVisibility(View.GONE);
                             sectionAdapter.notifyDataSetChanged();
                             questionAdapter.notifyDataSetChanged();
                             sectionListener.onSelected(0    ,true);

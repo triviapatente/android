@@ -20,8 +20,6 @@
         android:layout_above="@+id/gameScore"
         android:layout_below="@+id/gameHeader">
 
-        <include layout="@layout/game_ended_view" android:id="@+id/gameEndedView" android:layout_width="match_parent" android:layout_height="match_parent"/>
-
         <android.support.v7.widget.RecyclerView
             android:visibility="gone"
             android:id="@+id/sectionList"
