@@ -1,21 +1,20 @@
 package com.ted_developers.triviapatente.app.views.rank;
 
 import android.content.Context;
+import android.graphics.PointF;
+import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -67,7 +66,7 @@ public class RankActivity extends TPActivity {
     @BindString(R.string.direction_down) String down;
     @BindString(R.string.direction_up) String up;
 
-    private boolean absolute_first = false, absolute_last = false, loadable = true;
+    private boolean absolute_last = false, loadable = true;
     private LinearLayoutManager mLayoutManager;
 
     @Override
@@ -89,6 +88,8 @@ public class RankActivity extends TPActivity {
     }
 
     protected void setPlayersListItems(List<User> userList) {
+        // SETTING AGAIN THE ADAPTER MAKES SURE THAT ALL CALCULATION ARE PERFORMED FROM TOP!
+        // IF YOU CHANGE THIS, FIX ALSO THE SCROLL TO POSITION IN LOAD PLAYERS!
         playersList.setAdapter(
                 new TPListAdapter<>(
                         this,
@@ -100,7 +101,6 @@ public class RankActivity extends TPActivity {
                         playerListItemHeight,
                         playersList)
         );
-        addPagination();
     }
 
     private void addPagination() {
@@ -110,73 +110,76 @@ public class RankActivity extends TPActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if(loadable) {
-                    if(mLayoutManager.findFirstVisibleItemPosition() == 0 && !absolute_first) {
+                    if(dy < 0 && mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position != 1) {
                         loadable = false;
                         // scroll down on first item which is not the absolute first
                         // once per instance this is not true, the first time the first may be the absolute first
-                        addPlayers(users.get(0).position, down, true);
-                    } else if(mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && !absolute_last) {
+                        loadPlayers(users.get(0).internalPosition, down, LoadAndScrollTo.no_scroll);
+                    } else if(dy > 0 && mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && !absolute_last) {
                         loadable = false;
                         // scroll up on last item which is not the absolute last
                         // once per instance this is not true, the first time the last may be the absolute last
-                        addPlayers(users.get(users.size() - 1).position, up, false);
+                        loadPlayers(users.get(users.size() - 1).internalPosition, up, LoadAndScrollTo.no_scroll);
                     }
                 }
             }
         });
     }
 
-    private void addPlayers(Integer thresold, String direction, final boolean first) {
-        // TODO maybe it can be integrated with loadPlayers.. don't know.. should think about
-        loadingView.setVisibility(View.VISIBLE);
-        Call<RankPosition> call = RetrofitManager.getHTTPRankEndpoint().getUsers(thresold, direction);
-        call.enqueue(new TPCallback<RankPosition>() {
-            @Override
-            public void mOnResponse(Call<RankPosition> call, Response<RankPosition> response) {
-                if(response.code() == 200 && response.body().rank != null) {
-                    users.addAll(first ? 0 : users.size() - 1, response.body().rank);
-                    setPlayersListItems(users);
-                    if(response.body().rank.size() == 0) {
-                        // no users and first user is first.. absolute first
-                        if(first) absolute_first = true;
-                        else absolute_last = true;
-                    }
-                }
-                // stop loading
-                loadingView.setVisibility(View.GONE);
-                loadable = true;
-            }
-
-            @Override
-            public void mOnFailure(Call<RankPosition> call, Throwable t) {
-                Log.e("Failure", "failure on rank request");
-            }
-
-            @Override
-            public void then() {}
-        });
+    enum LoadAndScrollTo {
+        top,
+        bottom,
+        userPosition,
+        no_scroll
     }
 
-    protected void loadPlayers() { loadPlayers(null, null, null); }
-    protected void loadPlayers(Integer thresold, String direction, final Integer selectedPosition) {
+    protected void loadPlayers() { loadPlayers(null, null, LoadAndScrollTo.userPosition); }
+    protected void loadPlayers(Integer thresold, String direction, final LoadAndScrollTo position) {
         loadingView.setVisibility(View.VISIBLE);
         Call<RankPosition> call = RetrofitManager.getHTTPRankEndpoint().getUsers(thresold, direction);
         call.enqueue(new TPCallback<RankPosition>() {
             @Override
             public void mOnResponse(Call<RankPosition> call, Response<RankPosition> response) {
                 if(response.code() == 200 && response.body().rank != null) {
-                    users = response.body().rank;
-                    setPlayersListItems(users);
-                    if(selectedPosition == null) {
-                        // center on my position
-                        int numberOfItemsInHalfList = (int) (playersList.getHeight() / ( 2 * playerListItemHeight)), position = users.indexOf(currentUser);
-                        playersList.scrollToPosition((numberOfItemsInHalfList >= position) ? 0 : users.indexOf(currentUser) - numberOfItemsInHalfList);
-                    } else playersList.scrollToPosition(selectedPosition);
+                    List<User> newUsers = response.body().rank;
+                    if(newUsers.size() == 0) { absolute_last = true; } // must be the bottom pagination
+                    else if(users == null) { users = newUsers; } // all the users are loaded now
+                    else {
+                        // decide where to put the new users
+                        if(newUsers.get(0).internalPosition >= users.get(users.size() - 1).internalPosition) {
+                            users.addAll(users.size(), newUsers); // append trailing users
+                        } else {
+                            users.addAll(0, newUsers); // append leading users
+                        }
+                    }
+                    if(newUsers.size() > 0) {
+                        setPlayersListItems(users);
+                        int scrollToPosition = 0, offset = playersList.getHeight() / playerListItemHeight;
+                        switch (position) {
+                            case top: scrollToPosition = 0; break;
+                            case bottom: scrollToPosition = users.size() - 1; break;
+                            case userPosition:
+                                int position = users.indexOf(currentUser);
+                                scrollToPosition = (offset >= position) ? 0 : position - offset / 4;
+                                break;
+                            case no_scroll:
+                                if(users.get(0) == newUsers.get(0)) {
+                                    // new users has been insert at the beginning
+                                    scrollToPosition = newUsers.size() + 1; // to avoid scroll effect
+                                } else {
+                                    // new users has been insert at the end
+                                    scrollToPosition = users.size() - newUsers.size() - offset - 1; // to avoid scroll effect
+                                }
+                        }
+                        playersList.scrollToPosition(scrollToPosition);
+                    }
                 }
                 // show other items
                 playersList.setVisibility(View.VISIBLE);
                 // stop loading
                 loadingView.setVisibility(View.GONE);
+                // allow to load more again
+                loadable = true;
             }
 
             @Override
@@ -193,6 +196,7 @@ public class RankActivity extends TPActivity {
         playersList.setLayoutManager(new LinearLayoutManager(this));
         playersList.setOnTouchListener(new OnSwipeTouchListener(this));
         playersList.addItemDecoration(new DividerItemDecoration(mainColor, playersList.getWidth()));
+        addPagination();
     }
 
     protected void initSearchBar() {
@@ -222,7 +226,7 @@ public class RankActivity extends TPActivity {
         });
     }
 
-    // TODO unificando qua e in find opponent si può togliere l'override di la (per @donadev)
+    // TODO unificando qua e in find opponent la chiamata al backend si può togliere l'override di la (per @donadev)
     protected void doSearch(String username) {
         if(all) {
             if(username.equals("")) loadPlayers();
@@ -260,17 +264,19 @@ public class RankActivity extends TPActivity {
             // todo search on friends
         }
     }
+
     @Optional
     @OnClick(R.id.rank_scroll)
     public void rankScrollClick() {
+        // clean user list
+        users = null;
+        // load new list
         if(scrollToTop) {
             rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_down_button));
-            loadPlayers(1, up, 0);
-            absolute_first = true; // is the absolute first
+            loadPlayers(0, up, LoadAndScrollTo.top);
         } else {
             rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_up_button));
             loadPlayers();
-            absolute_first = false; // it may not be the absolute first
         }
         scrollToTop = !scrollToTop;
     }

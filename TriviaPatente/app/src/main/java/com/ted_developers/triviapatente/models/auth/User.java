@@ -23,6 +23,7 @@ public class User extends CommonPK {
     @SerializedName("showPopup") public Boolean showPopup = true;
     @SerializedName("lastPopupShowedDate") public Long lastPopupShowedDateMillis = null; // null if is the first time the app has been opened
     @SerializedName("position") public Integer position;
+    @SerializedName("internalPosition") public Integer internalPosition;
 
     public User() {}
 
