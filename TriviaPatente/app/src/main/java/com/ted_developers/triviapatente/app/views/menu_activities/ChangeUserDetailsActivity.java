@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.menu_activities;
 
+import android.content.ContentProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,8 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
@@ -28,7 +32,12 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledIn
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -64,6 +73,8 @@ public class ChangeUserDetailsActivity extends TPActivity {
     @BindString(R.string.activity_change_user_details_name_modified) String msg_name_modified;
     @BindString(R.string.activity_change_user_details_surname_modified) String msg_surname_modified;
     @BindString(R.string.activity_change_user_details_name_and_surname_modified) String msg_name_surname_modified;
+    @BindString(R.string.activity_change_user_details_picture_upload_error) String pictureUploadError;
+    @BindString(R.string.activity_change_user_details_picture_chooser_title) String pictureChooserTitle;
 
     @Override
     protected String getToolbarTitle(){ return title; }
@@ -102,23 +113,39 @@ public class ChangeUserDetailsActivity extends TPActivity {
         if(user.name != null && !"".equals(user.name)) nameInput.setText(user.name);
         if(user.surname != null && !"".equals(user.surname)) surnameInput.setText(user.surname);
     }
-
+    private File createCameraPhotoFile() throws IOException {
+        String timeStamp = SimpleDateFormat.getDateTimeInstance().format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
     // Take picture CAMERA
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @OnClick(R.id.takeFromCameraButton)
     public void onCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        try {
+            File photoFile = createCameraPhotoFile();
+            imageURI = Uri.fromFile(photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     // Take picture STORAGE
     static final int REQUEST_LOAD_IMAGE = 2;
     @OnClick(R.id.takeFromStorageButton)
     public void onStorage() {
-        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, REQUEST_LOAD_IMAGE);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent chooser = Intent.createChooser(intent, pictureChooserTitle);
+        startActivityForResult(chooser, REQUEST_LOAD_IMAGE);
     }
 
 
@@ -127,19 +154,23 @@ public class ChangeUserDetailsActivity extends TPActivity {
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
-                case REQUEST_LOAD_IMAGE: {
+                    imageBitmap = getBitmap(imageURI);
+                    break;
+                case REQUEST_LOAD_IMAGE:
                     imageURI = data.getData();
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = getContentResolver().query(imageURI,filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-                    imageBitmap = BitmapFactory.decodeFile(picturePath);
-                    bigProfilePicture.setImageDrawable(new BitmapDrawable(getResources(), imageBitmap));
-                } break;
+                    imageBitmap = getBitmap(imageURI);
             }
+            if(imageBitmap != null)
+                bigProfilePicture.setImageBitmap(imageBitmap);
         }
+    }
+    private Bitmap getBitmap(Uri uri) {
+        try {
+            return MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Confirm
@@ -192,6 +223,9 @@ public class ChangeUserDetailsActivity extends TPActivity {
         surnameInput.showLabel(invalidInput);
         confirmButton.stopLoading();
     }
+    private void imageError() {
+        Toast.makeText(this, pictureUploadError, Toast.LENGTH_LONG).show();
+    }
 
     // Surname update
     private void surnameUpdate() {
@@ -218,30 +252,40 @@ public class ChangeUserDetailsActivity extends TPActivity {
             imageUpdate();
         }
     }
+    private byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
 
     // Image update
     private void imageUpdate() {
         // Update image
-        if(imageURI != null) {
-            File imageFile = new File(imageURI.getPath());
-            //RequestBody imageField = RequestBody.create(MediaType.parse("image/*"), imageFile);
-            RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(imageURI)), imageFile);
-            MultipartBody.Part imageField = MultipartBody.Part.createFormData("image", imageFile.getName(), requestFile);
+        if(imageBitmap != null) {
+            RequestBody requestFile = RequestBody.create(MediaType.parse("application/image"), getBytes(imageBitmap));
+            MultipartBody.Part imageField = MultipartBody.Part.createFormData("image", "image.jpg", requestFile);
             Call<User> call = RetrofitManager.getHTTPAuthEndpoint().changeImage(imageField);
             call.enqueue(new TPCallback<User>() {
                 @Override
                 public void mOnResponse(Call<User> call, Response<User> response) {
-                    // TODO save image
+                    if(response.isSuccessful()) {
+                        String profileImageURL = TPUtils.getUserImageFromID(ChangeUserDetailsActivity.this, currentUser.id);
+                        TPUtils.picasso.invalidate(profileImageURL);
+                        update(true);
+                    } else {
+                        mOnFailure(call, null);
+                    }
                 }
 
                 @Override
                 public void mOnFailure(Call<User> call, Throwable t) {
-                    Log.e("Failure", "failure on image update request");
+                    imageError();
+                    TPUtils.injectUserImage(getApplicationContext(), user, bigProfilePicture);
+                    confirmButton.stopLoading();
                 }
 
                 @Override
                 public void then() {
-                    update(true);
                 }
             });
         } else {

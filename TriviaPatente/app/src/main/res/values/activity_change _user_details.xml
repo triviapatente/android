@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_change_user_details_title">Account</string>
+    <string name="activity_change_user_details_picture_upload_error">Errore nel caricamento della nuova immagine profilo, riprova!</string>
+    <string name="activity_change_user_details_picture_chooser_title">Seleziona il file</string>
     <!-- Picture -->
     <dimen name="activity_change_user_details_picture_size">157dp</dimen>
     <dimen name="activity_change_user_details_picture_button_size">50dp</dimen>
