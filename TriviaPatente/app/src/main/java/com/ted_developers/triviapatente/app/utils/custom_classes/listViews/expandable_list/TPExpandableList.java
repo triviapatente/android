@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expa
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
@@ -121,9 +122,8 @@ public class TPExpandableList<T> extends Fragment {
                 }
                 calculateMinimizedHeight(counter);
                 calculateAnimations();
-                if(needUpdateLayoutParams) {
-                    updateLayoutParams();
-                } else if(!maximized){
+                if(!maximized){
+                    if(needUpdateLayoutParams) updateLayoutParams();
                     updateMinimized();
                 } else if(counter == 0) {
                     setMinimizedHeightMode();
@@ -192,10 +192,19 @@ public class TPExpandableList<T> extends Fragment {
         }
     }
 
+    public void updateColor(Boolean minimize) {
+        int background = ((ColorDrawable)listHeader.getBackground()).getColor();
+        if(minimize && background == gradientTopColor) {
+            headerColorAnimator.reverse();
+        } else if(!minimize && background == gradientBottomColor) {
+            headerColorAnimator.start();
+        }
+    }
+
     public void setMinimizedHeightMode() {
         if(maximized) {
             getView().startAnimation(minimize);
-            headerColorAnimator.reverse();
+            updateColor(true);
             listLayoutManager.scrollToPositionWithOffset(0, 0);
             listLayoutManager.setScrollEnabled(false);
             maximized = false;
@@ -206,7 +215,7 @@ public class TPExpandableList<T> extends Fragment {
         if(!maximized) {
             adapter.notifyItemChanged(adapter.getItemCount() - 1); // update footer to eventually fill the screen
             getView().startAnimation(maximize);
-            headerColorAnimator.start();
+            updateColor(false);
             listLayoutManager.setScrollEnabled(true);
             maximized = true;
         }
