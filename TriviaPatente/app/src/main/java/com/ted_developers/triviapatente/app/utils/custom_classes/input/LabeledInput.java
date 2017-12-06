@@ -155,21 +155,37 @@ public class LabeledInput extends LinearLayout {
         public void afterTextChanged(Editable s) {
             check();
         }
+    },
+                otherWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            check();
+        }
     };
 
     // queue of possible errors
     private List<LabeledInputError> errorsToCheck = new ArrayList<>();
 
     public void setAutoCheck(boolean active) {
-        if(toWatch != null) {
-            this.toWatch = toWatch;
-        }
         if(active && !watcherActive) {
             watcherActive = true;
             input.addTextChangedListener(watcher);
+            if(toWatch != null)
+                toWatch.input.addTextChangedListener(otherWatcher); // make sure on update to check also this
         } else if(watcherActive) {
             watcherActive = false;
             input.removeTextChangedListener(watcher);
+            if(toWatch != null) toWatch.input.addTextChangedListener(otherWatcher);
         }
     }
 
@@ -182,24 +198,9 @@ public class LabeledInput extends LinearLayout {
     // public void setErrorsToCheck(LabeledInputError ... errors) { setErrorsToCheck(errors); }
     public void setErrorsToCheck(LabeledInput toWatch, LabeledInputError ... errors) {
         for(LabeledInputError e: errors) {
-            if(toWatch != null) {
+            if(toWatch != null && e == LabeledInputError.PASSWORD_EQUALS) {
                 e.setOtherInput(toWatch.input);
-                toWatch.input.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        check();
-                    }
-                }); // make sure on update to check also this
+                this.toWatch = toWatch;
             }
             errorsToCheck.add(e);
         }
