@@ -138,7 +138,7 @@ public class TPUtils {
                                                 .endConfig()
                                                 .buildRound(user.initialLetters(), Color.TRANSPARENT);
         Drawable placeholder = new LayerDrawable(new Drawable[] {gradientDrawable, textDrawable});
-        profilePicture.setBorder(Color.WHITE);
+        if(whiteBorder) profilePicture.setBorder(Color.WHITE);
         // set image
         TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, user.id))
