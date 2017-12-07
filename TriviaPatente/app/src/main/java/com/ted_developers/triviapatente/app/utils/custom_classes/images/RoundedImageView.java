@@ -67,9 +67,9 @@ public class RoundedImageView extends ImageView {
         Bitmap b = TPUtils.drawableToBitmap(drawable);
         if(b == null) return;
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
-        int w = getWidth();
+        int dim = Math.min(getWidth(), getHeight());
 
-        Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
+        Bitmap roundBitmap = getCroppedBitmap(bitmap, dim);
 
         fillPaint.setStyle(Paint.Style.FILL);
 
@@ -78,8 +78,8 @@ public class RoundedImageView extends ImageView {
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(borderWidth);
             borderPaint.setColor(borderColor);
-            float radius = w / 2;
-            canvas.drawCircle(radius, radius, radius - borderWidth / 2, borderPaint);
+            float radius = dim / 2;
+            canvas.drawCircle(radius, radius, radius - (borderWidth / 2) + 1, borderPaint);
         }
 
     }

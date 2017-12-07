@@ -138,21 +138,12 @@ public class TPUtils {
                                                 .endConfig()
                                                 .buildRound(user.initialLetters(), Color.TRANSPARENT);
         Drawable placeholder = new LayerDrawable(new Drawable[] {gradientDrawable, textDrawable});
+        profilePicture.setBorder(Color.WHITE);
         // set image
         TPUtils.picasso
                 .load(TPUtils.getUserImageFromID(context, user.id))
                 .placeholder(placeholder)
-                .into(profilePicture, new Callback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onError() {
-                        if(whiteBorder) profilePicture.setBorder(Color.WHITE);
-                    }
-                });
+                .into(profilePicture);
     }
 
     public static String getUserImageFromID(Context context, long ID) {
