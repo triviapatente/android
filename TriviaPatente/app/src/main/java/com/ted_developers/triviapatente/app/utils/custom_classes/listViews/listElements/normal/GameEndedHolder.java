@@ -141,6 +141,6 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         else playButton.setNewGame(true);
         playButton.setVisibility(View.VISIBLE);
         incitationView.setVisibility(View.GONE);
-        playButton.goToGame(null, opponent);
+        playButton.sendInvite(opponent);
     }
 }
