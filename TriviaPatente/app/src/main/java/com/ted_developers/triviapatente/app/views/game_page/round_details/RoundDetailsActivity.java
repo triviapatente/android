@@ -116,7 +116,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     }
     private Round roundFor(Quiz quiz) {
         for(Round r : response.rounds) {
-            if(r.id == quiz.round_id) {
+            if(r.id.equals(quiz.round_id)) {
                 return r;
             }
         }
@@ -124,7 +124,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     }
     private Round roundFor(int number) {
         for(Round r : response.rounds) {
-            if(r.number == number) {
+            if(r.number.equals(number)) {
                 return r;
             }
         }
@@ -133,7 +133,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     private Category categoryFor(Round round) {
         if(round == null) return null;
         for(Category c : response.categories) {
-            if(c.id == round.cat_id) {
+            if(c.id.equals(round.cat_id)) {
                 return c;
             }
         }

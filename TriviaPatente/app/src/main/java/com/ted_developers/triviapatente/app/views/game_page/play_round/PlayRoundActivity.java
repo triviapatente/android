@@ -55,7 +55,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     Intent intent = new Intent(PlayRoundActivity.this, GameMainPageActivity.class);
                     intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
                     intent.putExtra(getString(R.string.extra_long_game), gameID);
-                    intent.putExtra(getString(R.string.extra_boolean_join_room), false);
                     startActivity(intent);
                     finish();
                 }
