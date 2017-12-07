@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.game_page.play_round;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -21,6 +21,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.ResizeAnimation;
 import com.ted_developers.triviapatente.app.utils.custom_classes.animation.TranslateAnimation;
+import com.ted_developers.triviapatente.app.views.game_page.play_round.PlayRoundActivity;
 import com.ted_developers.triviapatente.models.game.Quiz;
 
 /**

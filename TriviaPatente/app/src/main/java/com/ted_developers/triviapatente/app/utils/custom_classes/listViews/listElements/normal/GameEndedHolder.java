@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.game_page.round_details;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

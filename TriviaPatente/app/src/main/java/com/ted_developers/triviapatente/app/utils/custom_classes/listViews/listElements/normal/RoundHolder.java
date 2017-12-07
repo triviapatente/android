@@ -1,4 +1,4 @@
-package com.ted_developers.triviapatente.app.views.game_page.round_details;
+package com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.RoundDetailsSectionCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleItemCallback;
 
 import butterknife.BindColor;
 import butterknife.BindView;

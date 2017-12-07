@@ -7,23 +7,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnItemTouchListener;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.RoundDetailsSectionCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleItemCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
-import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
-import com.ted_developers.triviapatente.models.auth.User;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.GameEndedHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.QuestionHolder;
+import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RoundHolder;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.game.Quiz;
@@ -43,15 +37,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class RoundDetailsActivity extends TPGameActivity {
     @BindView(R.id.sectionList) RecyclerView sectionList;
     @BindView(R.id.answerList) RecyclerView answerList;
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
+    @BindString(R.string.title_activity_round_details) String activityTitle;
+    @BindString(R.string.extra_string_from_game_options) String extraKeyFromGame;
+    @BindInt(R.integer.number_of_questions_per_round) int NUMBER_OF_QUESTIONS_PER_ROUND;
 
     private FragmentGameDetailsScore detailsScore;
 
@@ -60,10 +56,6 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     private Map<String, List<Quiz>> answerMap = new HashMap<>();
 
-    private LinearLayoutManager answerLayout = new LinearLayoutManager(this);
-    private LinearLayoutManager sectionLayout = new LinearLayoutManager(this);
-
-    private final int NUMBER_OF_QUESTION_PER_ROUND = 4;
 
     private RoundDetailsSectionCallback sectionListener = new RoundDetailsSectionCallback() {
         @Override
@@ -87,103 +79,32 @@ public class RoundDetailsActivity extends TPGameActivity {
                             return new PointF(0, answerList.getHeight() / 4 * targetPosition);
                         }
                     };
-                    smoothScroller.setTargetPosition(section * NUMBER_OF_QUESTION_PER_ROUND);
+                    smoothScroller.setTargetPosition(section * NUMBER_OF_QUESTIONS_PER_ROUND);
                     answerLayout.startSmoothScroll(smoothScroller);
                 }
             }
         }
     };
+
+    private LinearLayoutManager answerLayout = new LinearLayoutManager(this);
+    private RoundDetailsQuestionAdapter answerAdapter = new RoundDetailsQuestionAdapter(this);
+    private LinearLayoutManager sectionLayout = new LinearLayoutManager(this);
+    private RoundDetailsSectionAdapter sectionAdapter = new RoundDetailsSectionAdapter(this, sectionListener);
+
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             if(dy == 0) return;
             int position = answerLayout.findFirstCompletelyVisibleItemPosition();
-            int roundPosition = position / NUMBER_OF_QUESTION_PER_ROUND;
+            int roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
             RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
             holder.select(false);
         }
     };
 
-    private RecyclerView.Adapter<RoundHolder> sectionAdapter = new RecyclerView.Adapter<RoundHolder>() {
-        @Override
-        public RoundHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return RoundHolder.newHolder(RoundDetailsActivity.this, sectionAdapter);
-        }
 
-        public List<String> getKeys() {
-            List<String> output = new ArrayList<>(answerMap.keySet());
-            Collections.sort(output, new Comparator<String>() {
-                @Override
-                public int compare(String lhs, String rhs) {
-                    Long left = Long.parseLong(lhs),
-                            right = Long.parseLong(rhs);
-                    if(left > right) {
-                        return 1;
-                    } else if(right > left) {
-                        return -1;
-                    }
-                    return 0;
-                }
-            });
-            return output;
-        }
 
-        @Override
-        public void onBindViewHolder(RoundHolder holder, int position) {
-            List<String> keys = getKeys();
-            String item = keys.size() == position ? winnerEmojii : keys.get(position);
-            holder.bind(item, sectionListener);
-        }
-
-        @Override
-        public int getItemCount() {
-            int increment = 0;
-            if(response != null && response.game != null && response.game.ended) {
-                increment += 1;
-            }
-            return getKeys().size() + increment;
-        }
-    };
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> questionAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private final int TYPE_QUESTION = 1;
-        private final int TYPE_GAME_ENDED = 2;
-        @Override
-        public int getItemViewType(int position) {
-            if(position == response.quizzes.size()) return TYPE_GAME_ENDED;
-            return TYPE_QUESTION;
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if(viewType == TYPE_QUESTION)
-                return QuestionHolder.newHolder(RoundDetailsActivity.this, answerList.getHeight() / 4);
-            else
-                return GameEndedHolder.newHolder(RoundDetailsActivity.this, answerList.getHeight());
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            if(holder instanceof QuestionHolder) {
-                Quiz quiz = response.quizzes.get(position);
-                ((QuestionHolder)holder).bind(quiz, opponent);
-            } else if(holder instanceof GameEndedHolder) {
-                ((GameEndedHolder)holder).bind(response, opponent);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            if(response != null && response.quizzes != null) {
-                int increment = 0;
-                if(response.game != null && response.game.ended) {
-                    increment += 1;
-                }
-                return response.quizzes.size() + increment;
-            }
-            return 0;
-        }
-    };
     private List<Question> getAnswersFor(Quiz quiz) {
         List<Question> output = new ArrayList<>();
         for(Question answer : response.answers) {
@@ -235,10 +156,9 @@ public class RoundDetailsActivity extends TPGameActivity {
         return map;
     }
 
-    private GameEndedHolder gameEndedHolder;
-
     private void updateEmojiAndSet() {
         winnerEmojii = TPUtils.translateEmoticons(winnerEmojii);
+        sectionAdapter.setWinnerEmojii(winnerEmojii);
     }
 
     @Override
@@ -250,9 +170,10 @@ public class RoundDetailsActivity extends TPGameActivity {
         sectionList.setLayoutManager(sectionLayout);
         sectionList.setAdapter(sectionAdapter);
         answerList.setLayoutManager(answerLayout);
-        answerList.setAdapter(questionAdapter);
+        answerAdapter.setAnswerList(answerList);
+        answerList.setAdapter(answerAdapter);
         answerList.addOnScrollListener(scrollListener);
-        fromGameOptions = getIntent().getBooleanExtra(getString(R.string.extra_string_from_game_options), false);
+        fromGameOptions = getIntent().getBooleanExtra(extraKeyFromGame, false);
         this.load();
         this.joinAndListen();
     }
@@ -270,7 +191,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     @Override
     protected String getToolbarTitle() {
         if(opponent != null) return opponent.username;
-        return getString(R.string.title_activity_round_details);
+        return activityTitle;
     }
 
     @Override
@@ -313,8 +234,8 @@ public class RoundDetailsActivity extends TPGameActivity {
                         detailsScore.add(event.answers);
                         response.answers.addAll(event.answers);
                         answerMap = computeMap();
-                        sectionAdapter.notifyDataSetChanged();
-                        questionAdapter.notifyDataSetChanged();
+                        sectionAdapter.notifyDataSetChanged(response, answerMap);
+                        answerAdapter.notifyDataSetChanged(response, opponent);
                     }
                 });
             }
@@ -328,7 +249,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         detailsScore.add(event.answer);
                         response.answers.add(event.answer);
                         answerMap = computeMap();
-                        questionAdapter.notifyDataSetChanged();
+                        answerAdapter.notifyDataSetChanged(response, opponent);
                     }
                 });
             }
@@ -342,8 +263,8 @@ public class RoundDetailsActivity extends TPGameActivity {
                         response.game.ended = true;
                         response.game.winner_id = event.winnerId;
                         response.partecipations = event.partecipations;
-                        questionAdapter.notifyDataSetChanged();
-                        sectionAdapter.notifyDataSetChanged();
+                        answerAdapter.notifyDataSetChanged(response, opponent);
+                        sectionAdapter.notifyDataSetChanged(response, answerMap);
                     }
                 });
             }
@@ -357,8 +278,8 @@ public class RoundDetailsActivity extends TPGameActivity {
                         response.game.ended = true;
                         response.game.winner_id = event.winnerId;
                         response.partecipations = event.partecipations;
-                        questionAdapter.notifyDataSetChanged();
-                        sectionAdapter.notifyDataSetChanged();
+                        answerAdapter.notifyDataSetChanged(response, opponent);
+                        sectionAdapter.notifyDataSetChanged(response, answerMap);
                     }
                 });
             }
@@ -379,8 +300,8 @@ public class RoundDetailsActivity extends TPGameActivity {
                             sectionList.setVisibility(View.VISIBLE);
                             detailsScore.getView().setVisibility(View.VISIBLE);
                             answerList.setVisibility(View.VISIBLE);
-                            sectionAdapter.notifyDataSetChanged();
-                            questionAdapter.notifyDataSetChanged();
+                            sectionAdapter.notifyDataSetChanged(response, answerMap);
+                            answerAdapter.notifyDataSetChanged(response, opponent);
                             sectionListener.onSelected(0    ,true);
                         }
                     });
