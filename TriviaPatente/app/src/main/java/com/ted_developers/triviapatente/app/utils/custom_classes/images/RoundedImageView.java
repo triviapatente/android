@@ -40,7 +40,7 @@ public class RoundedImageView extends ImageView {
     private Paint fillPaint = new Paint();
     private Paint borderPaint = new Paint();
 
-    private final Integer DEFAULT_BORDER_WIDTH = 5;
+    private final Integer DEFAULT_BORDER_WIDTH = 3;
 
 
     public void setBorder(Integer color, Integer width) {
