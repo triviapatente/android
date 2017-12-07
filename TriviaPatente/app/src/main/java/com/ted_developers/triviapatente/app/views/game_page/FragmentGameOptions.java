@@ -60,11 +60,14 @@ public class FragmentGameOptions extends Fragment {
 
     @OnClick(R.id.gameDetailsButton)
     public void gameDetailsButtonClick() {
+        gotoRoundDetails(false);
+    }
+    public void gotoRoundDetails(Boolean mainOnBackPressed) {
         //showing modal
         Intent intent = new Intent(getContext(), RoundDetailsActivity.class);
         intent.putExtra(getString(R.string.extra_long_game), activity.gameID);
         intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(activity.opponent));
-        intent.putExtra(getString(R.string.extra_string_from_game_options), true);
+        intent.putExtra(getString(R.string.extra_string_from_game_options), !mainOnBackPressed);
         startActivity(intent);
     }
 
@@ -90,7 +93,7 @@ public class FragmentGameOptions extends Fragment {
                                 @Override
                                 public void mOnResponse(Call<Success> call, Response<Success> response) {
                                     if(response.body().success) {
-                                        gameDetailsButtonClick();
+                                        gotoRoundDetails(true);
                                     }
                                 }
 

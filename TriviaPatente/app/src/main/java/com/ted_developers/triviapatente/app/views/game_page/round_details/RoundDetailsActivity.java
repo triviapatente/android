@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -56,7 +57,15 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     private Map<String, List<Quiz>> answerMap = new HashMap<>();
 
+    private int getScrollPositionFor(Integer section) {
+        if(section == answerMap.keySet().size()) return section * NUMBER_OF_QUESTIONS_PER_ROUND;
 
+        int firstOfRound = section * NUMBER_OF_QUESTIONS_PER_ROUND;
+        int lastOfRound = (section + 1) * (NUMBER_OF_QUESTIONS_PER_ROUND) - 1;
+        int visiblePosition = answerLayout.findFirstCompletelyVisibleItemPosition();
+        if(firstOfRound <= visiblePosition) return firstOfRound;
+        else return lastOfRound;
+    }
     private RoundDetailsSectionCallback sectionListener = new RoundDetailsSectionCallback() {
         @Override
         public void onSelected(int section, Boolean needsScroll) {
@@ -69,6 +78,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                     gameHeader.endedGameHeader();
                 }
                 if(needsScroll) {
+                    int target = getScrollPositionFor(section);
                     RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getApplicationContext()) {
                         @Override protected int getVerticalSnapPreference() {
                             return LinearSmoothScroller.SNAP_TO_START;
@@ -76,10 +86,10 @@ public class RoundDetailsActivity extends TPGameActivity {
 
                         @Override
                         public PointF computeScrollVectorForPosition(int targetPosition) {
-                            return new PointF(0, answerList.getHeight() / 4 * targetPosition);
+                            return new PointF(0, 0);
                         }
                     };
-                    smoothScroller.setTargetPosition(section * NUMBER_OF_QUESTIONS_PER_ROUND);
+                    smoothScroller.setTargetPosition(target);
                     answerLayout.startSmoothScroll(smoothScroller);
                 }
             }
@@ -97,9 +107,11 @@ public class RoundDetailsActivity extends TPGameActivity {
             super.onScrolled(recyclerView, dx, dy);
             if(dy == 0) return;
             int position = answerLayout.findFirstCompletelyVisibleItemPosition();
-            int roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
-            RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
-            holder.select(false);
+            if(position != -1) {
+                int roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
+                RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
+                if (holder != null) holder.select(false);
+            }
         }
     };
 
