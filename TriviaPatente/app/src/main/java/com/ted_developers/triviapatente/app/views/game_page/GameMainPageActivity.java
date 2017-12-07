@@ -141,6 +141,8 @@ public class GameMainPageActivity extends TPGameActivity {
     @Override
     protected int getHeartCounterVisibility() { return View.GONE; }
 
+    private Boolean needsNewGame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,14 +150,11 @@ public class GameMainPageActivity extends TPGameActivity {
         //init
         startLoading();
         Intent intent = getIntent();
-        if(intent.getBooleanExtra(getString(R.string.extra_boolean_game), false)) { createGame(); }
+        needsNewGame = intent.getBooleanExtra(getString(R.string.extra_boolean_game), false);
+        if(needsNewGame) { createGame(); }
         else {
             setOpponentData();
-            if(intent.getBooleanExtra(getString(R.string.extra_boolean_join_room), true)) { join_room(); }
-            else {
-                init_round();
-                init_listening();
-            }
+            join_room();
         }
     }
     public void processResponse(SuccessInitRound response) {
@@ -190,7 +189,8 @@ public class GameMainPageActivity extends TPGameActivity {
     @Override
     public void onResume() {
         super.onResume();
-        this.join_room();
+        if(!needsNewGame)
+            this.join_room();
     }
 
     @Override
@@ -228,6 +228,8 @@ public class GameMainPageActivity extends TPGameActivity {
                     gameID = game.id;
                     opponent = response.body().user;
                     ReceivedData.addGame(game);
+                    setOpponentData();
+                    join_room();
                 }
             }
 
@@ -238,8 +240,6 @@ public class GameMainPageActivity extends TPGameActivity {
 
             @Override
             public void then() {
-                setOpponentData();
-                join_room();
             }
         });
     }
