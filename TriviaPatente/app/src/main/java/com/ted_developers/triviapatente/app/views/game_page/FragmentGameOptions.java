@@ -90,7 +90,7 @@ public class FragmentGameOptions extends Fragment {
                                 @Override
                                 public void mOnResponse(Call<Success> call, Response<Success> response) {
                                     if(response.body().success) {
-                                        activity.onBackPressed();
+                                        gameDetailsButtonClick();
                                     }
                                 }
 
