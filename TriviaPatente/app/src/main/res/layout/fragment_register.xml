@@ -136,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="@dimen/TPTextSizeSmall"
+        android:textSize="@dimen/TPTextSizeVerySmall"
         android:textColor="@android:color/white"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/terms_and_conditions_margin_v_registration"

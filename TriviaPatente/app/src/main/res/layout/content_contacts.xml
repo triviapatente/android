@@ -124,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/developers_margin"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/TPTextSizeSmall"
+            android:textSize="@dimen/TPTextSizeVerySmall"
             android:gravity="center_horizontal"/>
 
         <View

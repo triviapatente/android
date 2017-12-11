@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPPolicyAndTermsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
@@ -55,8 +57,8 @@ public class RegisterFragment extends Fragment {
     @BindString(R.string.terms_and_conditions_registration1) String terms_and_conditions_registration;
     @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions_registration2;
     @BindString(R.string.terms_and_conditions_registration3) String terms_and_conditions_registration3;
+    @BindString(R.string.terms_and_conditions_registration4) String terms_and_conditions_registration4;
 
-    @BindString(R.string.terms_and_conditions_easteregg) String terms_and_conditions_easteregg;
     // colors
     @BindColor(R.color.greenTermsAndConditions) int green;
 
@@ -91,19 +93,29 @@ public class RegisterFragment extends Fragment {
         // hide alert
         alertMessageView.hideAlert();
         // change color to terms and conditions
-        String str = terms_and_conditions_registration + terms_and_conditions_registration2 + terms_and_conditions_registration3;
-        Spannable spannable = new SpannableString(str);
-        spannable.setSpan(
-                new ForegroundColorSpan(green),
-                terms_and_conditions_registration.length(),
-                (terms_and_conditions_registration + terms_and_conditions_registration2).length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-        termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
-        terms_and_conditions_easteregg = TPUtils.translateEmoticons(terms_and_conditions_easteregg);
+        setTermsAndPolicyText();
         // translate emoticon
         operationFailed = TPUtils.translateEmoticons(operationFailed);
         return v;
+    }
+
+    private Spannable markTermsText(int lower, int upper, Spannable spannable) {
+        spannable.setSpan(new ForegroundColorSpan(green),
+                lower,
+                upper,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
+
+    private void setTermsAndPolicyText() {
+        String str = terms_and_conditions_registration + terms_and_conditions_registration2 + terms_and_conditions_registration3 + terms_and_conditions_registration4;
+        Spannable spannable = new SpannableString(str);
+        String lower = terms_and_conditions_registration;
+        String upper = terms_and_conditions_registration + terms_and_conditions_registration2;
+        spannable = markTermsText(lower.length(), upper.length(), spannable);
+        lower = upper + terms_and_conditions_registration3;
+        spannable = markTermsText(lower.length(), str.length(), spannable);
+        termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
     }
 
     @Override
@@ -170,8 +182,7 @@ public class RegisterFragment extends Fragment {
 
     @OnClick(R.id.terms_and_conditions)
     public void seeTermsConditions() {
-        Toast.makeText(getContext(), terms_and_conditions_easteregg, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "Belli sti termini", Toast.LENGTH_SHORT).show();
-        // TODO open terms
+        TPPolicyAndTermsDialog dialog = new TPPolicyAndTermsDialog(getContext());
+        dialog.show();
     }
 }

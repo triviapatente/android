@@ -9,8 +9,10 @@
     <dimen name="activity_contacts_separator_bottom_margin_horizontal">80dp</dimen>
     <dimen name="activity_contacts_separator_margin_vertical">20dp</dimen>
 
-    <string name="activity_contacts_terms_and_conditions1">Utilizzando questa applicazione accetti&#160;</string>
-    <string name="activity_contacts_terms_and_conditions2">Termini e Condizioni</string>
+    <string name="activity_contacts_terms_and_conditions1">Utilizzando questa applicazione ne accetti&#160;</string>
+    <string name="activity_contacts_terms_and_conditions2">Termini e Condizioni&#160;</string>
+    <string name="activity_contacts_terms_and_conditions3">e la relativa&#160;</string>
+    <string name="activity_contacts_terms_and_conditions4">Privacy Policy&#160;</string>
     <string name="activity_contacts_motivation">Motivazione</string>
     <string name="activity_contacts_message_title">Messaggio</string>
     <dimen name="activity_contacts_motivation_margin_top">40dp</dimen>

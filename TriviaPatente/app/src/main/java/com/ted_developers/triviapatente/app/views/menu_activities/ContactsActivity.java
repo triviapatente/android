@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.menu_activities;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPPolicyAndTermsDialog;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.Success;
 
@@ -30,13 +32,14 @@ public class ContactsActivity extends TPActivity {
     @BindString(R.string.activity_contacts_title) String title;
     @BindString(R.string.activity_contacts_terms_and_conditions1) String terms_and_conditions1;
     @BindString(R.string.activity_contacts_terms_and_conditions2) String terms_and_conditions2;
+    @BindString(R.string.activity_contacts_terms_and_conditions3) String terms_and_conditions3;
+    @BindString(R.string.activity_contacts_terms_and_conditions4) String terms_and_conditions4;
     @BindColor(R.color.greenTermsAndConditions) int green;
     @BindView(R.id.terms_and_conditions) TextView termsandconditionsLink;
 
     @BindView(R.id.messageInput) EditText messageEditText;
     @BindString(R.string.activity_contacts_messageSentString) String messageSentString;
     @BindString(R.string.activity_contacts_messageNotSentString) String messageNotSentString;
-    @BindString(R.string.terms_and_conditions_easteregg) String terms_and_conditions_easteregg;
 
     @BindView(R.id.motivations_spinner) Spinner scopeSpinner;
     @BindArray(R.array.scope_array) String[] scopeArray;
@@ -48,17 +51,25 @@ public class ContactsActivity extends TPActivity {
 
         messageNotSentString = TPUtils.translateEmoticons(messageNotSentString);
 
-        String str = terms_and_conditions1 + terms_and_conditions2;
-        Spannable spannable = new SpannableString(str);
-        spannable.setSpan(
-                new ForegroundColorSpan(green),
-                terms_and_conditions1.length(),
-                str.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-        termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
+        setTermsAndPolicyText();
+    }
+    private Spannable markTermsText(int lower, int upper, Spannable spannable) {
+        spannable.setSpan(new ForegroundColorSpan(green),
+                lower,
+                upper,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
 
-        terms_and_conditions_easteregg = TPUtils.translateEmoticons(terms_and_conditions_easteregg);
+    private void setTermsAndPolicyText() {
+        String str = terms_and_conditions1 + terms_and_conditions2 + terms_and_conditions3 + terms_and_conditions4;
+        Spannable spannable = new SpannableString(str);
+        String lower = terms_and_conditions1;
+        String upper = terms_and_conditions1 + terms_and_conditions2;
+        spannable = markTermsText(lower.length(), upper.length(), spannable);
+        lower = upper + terms_and_conditions3;
+        spannable = markTermsText(lower.length(), str.length(), spannable);
+        termsandconditionsLink.setText(spannable, TextView.BufferType.SPANNABLE);
     }
 
     @OnClick(R.id.motivations_header)
@@ -68,9 +79,8 @@ public class ContactsActivity extends TPActivity {
 
     @OnClick(R.id.terms_and_conditions)
     public void termsAndConditionsClick() {
-        Toast.makeText(this, terms_and_conditions_easteregg, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Sciuar", Toast.LENGTH_SHORT).show();
-        // TODO see terms
+        TPPolicyAndTermsDialog dialog = new TPPolicyAndTermsDialog(this);
+        dialog.show();
     }
 
     @OnClick(R.id.sendButton)

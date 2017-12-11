@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/modalWidth"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/modal_rounded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/negativeButton"
+            android:layout_marginTop="@dimen/connectToFacebookExitButtonMargin"
+            android:layout_width="@dimen/connectToFacebookExitButtonSize"
+            android:layout_height="@dimen/connectToFacebookExitButtonSize"
+            android:layout_marginRight="@dimen/connectToFacebookExitButtonMargin"
+            android:layout_marginEnd="@dimen/connectToFacebookExitButtonMargin"
+            android:background="@drawable/button_x"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/modal_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/modal_privacy_terms_title"
+        android:layout_marginTop="@dimen/modal_privacy_infinite_margin_little"
+        android:layout_marginStart="@dimen/modal_privacy_infinite_margin"
+        android:layout_marginLeft="@dimen/modal_privacy_infinite_margin"
+        android:layout_marginEnd="@dimen/modal_privacy_infinite_margin"
+        android:layout_marginRight="@dimen/modal_privacy_infinite_margin"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="@dimen/modal_privacy_infinite_margin_little"
+        android:textStyle="bold"
+        android:textSize="@dimen/TPTextSizeMedium"/>
+
+    <TextView
+        android:id="@+id/modal_message"
+        android:text="@string/modal_privacy_terms_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/modal_privacy_infinite_margin_little"
+        android:layout_marginStart="@dimen/modal_privacy_infinite_margin"
+        android:layout_marginLeft="@dimen/modal_privacy_infinite_margin"
+        android:layout_marginEnd="@dimen/modal_privacy_infinite_margin"
+        android:layout_marginRight="@dimen/modal_privacy_infinite_margin"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="@dimen/modal_privacy_infinite_margin"
+        android:textSize="@dimen/TPTextSizeVerySmall"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+    <Button
+        android:id="@+id/policyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_privacy_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_privacy_terms_privacyPolicy_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
+        android:id="@+id/termsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_privacy_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_privacy_terms_terms_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_privacy_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_privacy_terms_back_title"/>
+</LinearLayout>
