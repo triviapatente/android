@@ -16,6 +16,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayBut
 import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView;
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Partecipation;
+import com.ted_developers.triviapatente.models.game.Question;
 import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 
 import butterknife.BindString;
@@ -70,12 +71,29 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         winnerImage.setBorder(mainColor);
         loserImage.setBorder(mainColor);
     }
+    private int getScore(SuccessRoundDetails response, Boolean mine) {
+        int score = 0;
+        User current = SharedTPPreferences.currentUser();
+        for(Question answer : response.answers) {
+            Boolean mineAnswer = answer.user_id.equals(current.id);
+            if(answer.correct && (mine && mineAnswer || !mine && !mineAnswer)) {
+                score += 1;
+            }
+        }
+        return score;
+    }
     private Boolean isWinning(SuccessRoundDetails response) {
-        if(getScoreIncrement(response) == 0) return false;
-        return SharedTPPreferences.currentUser().id == getWinner(response).id;
+        int myScore = getScore(response, true);
+        int opponentScore = getScore(response, false);
+        return myScore > opponentScore;
+    }
+    private Boolean isDraw(SuccessRoundDetails response) {
+        int myScore = getScore(response, true);
+        int opponentScore = getScore(response, false);
+        return myScore == opponentScore;
     }
     private String titleFor(SuccessRoundDetails response) {
-        if(getScoreIncrement(response) == 0) return "Pareggio!";
+        if(isDraw(response)) return "Hai pareggiato!";
         return isWinning(response) ? "Hai vinto!" : "Hai perso!";
     }
 
@@ -83,32 +101,9 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         return increment >= 0 ? R.drawable.up_score_arrow : R.drawable.down_score_arrow;
     }
 
-    private Partecipation getPartecipation(SuccessRoundDetails response, Boolean needsWinner) {
-        if(response.game.winner_id == null) {
-            if(needsWinner) return response.partecipations.get(0);
-            else return response.partecipations.get(1);
-        }
-        for(Partecipation partecipation : response.partecipations) {
-            if(needsWinner && partecipation.user_id.equals(response.game.winner_id) ||
-                    !needsWinner && !partecipation.user_id.equals(response.game.winner_id)) return partecipation;
-        }
-        return null;
-    }
-
-    private User getUser(SuccessRoundDetails response, Boolean needsWinner) {
-        Partecipation partecipation = getPartecipation(response, needsWinner);
-        if(partecipation == null) return null;
-        for(User user : response.users) {
-            if(partecipation.user_id == user.id) return user;
-        }
-        return null;
-    }
-    private User getWinner(SuccessRoundDetails response) {
-        return getUser(response, true);
-    }
     private Integer getScoreIncrement(SuccessRoundDetails response) {
         for(Partecipation partecipation : response.partecipations) {
-            if(partecipation.user_id == SharedTPPreferences.currentUser().id) return partecipation.score_increment;
+            if(partecipation.user_id.equals(SharedTPPreferences.currentUser().id)) return partecipation.score_increment;
         }
         return null;
     }
@@ -116,16 +111,6 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     private String formatIncrement(Integer increment) {
         if(increment > 0) return "+" + increment;
         return "" + increment;
-    }
-
-    public void setUser(User opponent, Integer scoreIncrement) {
-        scoreIncrementView.setText(formatIncrement(scoreIncrement));
-        scoreIncrementArrow.setImageResource(arrowResourceFor(scoreIncrement));
-        TPUtils.injectUserImage(context, SharedTPPreferences.currentUser(), winnerImage);
-        TPUtils.injectUserImage(context, opponent, loserImage);
-
-        incitationView.setText("Forza " + SharedTPPreferences.currentUser().username + "!");
-
     }
 
     public void bind(SuccessRoundDetails response, User opponent) {
