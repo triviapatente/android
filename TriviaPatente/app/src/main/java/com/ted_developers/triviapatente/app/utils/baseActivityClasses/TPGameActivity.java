@@ -72,7 +72,11 @@ public class TPGameActivity extends TPActivity {
             @Override
             public void response(GameLeftEvent response) {
                 Intent i = new Intent(TPGameActivity.this, RoundDetailsActivity.class);
-                i.putExtra(getString(R.string.extra_string_opponent_has_left), true);
+                if(response.annulled) {
+                    i.putExtra(getString(R.string.extra_string_opponent_annulled), true);
+                } else {
+                    i.putExtra(getString(R.string.extra_string_opponent_has_left), true);
+                }
                 i.putExtra(getString(R.string.extra_long_game), gameID);
                 i.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(opponent));
                 startActivity(i);

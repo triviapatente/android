@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.game_page.round_details;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -48,10 +49,17 @@ public class RoundDetailsActivity extends TPGameActivity {
     @BindView(R.id.answerList) RecyclerView answerList;
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
     @BindString(R.string.activity_round_details_user_has_left) String opponentHasLeftMessage;
+    @BindString(R.string.activity_round_details_user_annulled) String opponentAnnulledMessage;
     @BindString(R.string.title_activity_round_details) String activityTitle;
     @BindString(R.string.extra_string_from_game_options) String extraKeyFromGame;
     @BindString(R.string.extra_string_opponent_has_left) String extraKeyOpponentHasLeft;
+    @BindString(R.string.extra_string_opponent_annulled) String extraKeyOpponentAnnulled;
+
     @BindInt(R.integer.number_of_questions_per_round) int NUMBER_OF_QUESTIONS_PER_ROUND;
+
+    @BindString(R.string.socket_event_game_ended) String gameEndedEvent;
+    @BindString(R.string.socket_event_user_left_game) String userLeftGameEvent;
+    @BindString(R.string.socket_event_user_answered) String userAnsweredGameEvent;
 
     private FragmentGameDetailsScore detailsScore;
 
@@ -62,8 +70,12 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     private void decideToShowUserLeftMessage() {
         Boolean opponentHasLeft = getIntent().getBooleanExtra(extraKeyOpponentHasLeft, false);
+        Boolean opponentAnnulled = getIntent().getBooleanExtra(extraKeyOpponentAnnulled, false);
+
         if(opponentHasLeft) {
             Toast.makeText(this, opponentHasLeftMessage, Toast.LENGTH_LONG).show();
+        } else if(opponentAnnulled) {
+            Toast.makeText(this, opponentAnnulledMessage, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -246,31 +258,25 @@ public class RoundDetailsActivity extends TPGameActivity {
             }
         });
     }
+    private void unlisten() {
+        gameSocketManager.stopListen(userAnsweredGameEvent, userLeftGameEvent, gameEndedEvent);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        this.unlisten();
+    }
+
     public void listen() {
-        gameSocketManager.listenRoundStarted(new SocketCallback<RoundStartedEvent>() {
-            @Override
-            public void response(final RoundStartedEvent event) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        response.categories.add(event.category);
-                        detailsScore.add(event.answers);
-                        response.answers.addAll(event.answers);
-                        answerMap = computeMap();
-                        sectionAdapter.notifyDataSetChanged(response, answerMap);
-                        answerAdapter.notifyDataSetChanged(response, opponent);
-                    }
-                });
-            }
-        });
         gameSocketManager.listenUserAnswered(new SocketCallback<QuestionAnsweredEvent>() {
             @Override
             public void response(final QuestionAnsweredEvent event) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        detailsScore.add(event.answer);
                         response.answers.add(event.answer);
+                        detailsScore.set(RoundDetailsActivity.this, response.answers);
                         answerMap = computeMap();
                         answerAdapter.notifyDataSetChanged(response, opponent);
                     }
@@ -319,7 +325,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         @Override
                         public void run() {
                             setToolbarTitle(getToolbarTitle());
-                            detailsScore.set(opponent, response.answers);
+                            detailsScore.set(RoundDetailsActivity.this, opponent, response.answers);
                             sectionList.setVisibility(View.VISIBLE);
                             detailsScore.getView().setVisibility(View.VISIBLE);
                             answerList.setVisibility(View.VISIBLE);

@@ -6,7 +6,9 @@
     <string name="socket_event_category_chosen">category_chosen</string>
     <string name="socket_event_user_joined">user_joined</string>
     <string name="socket_event_user_left">user_left</string>
+    <string name="socket_event_game_ended">game_ended</string>
     <string name="socket_event_user_left_game">user_left_game</string>
+    <string name="socket_event_user_answered">user_answered</string>
     <string name="socket_event_recent_game">recent_game</string>
     <!-- Socket responses -->
     <string name="socket_response_waiting_category">category</string>

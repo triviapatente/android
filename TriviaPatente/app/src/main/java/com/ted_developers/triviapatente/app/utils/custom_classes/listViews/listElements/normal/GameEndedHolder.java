@@ -17,6 +17,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedI
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Partecipation;
 import com.ted_developers.triviapatente.models.game.Question;
+import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 
 import butterknife.BindString;
@@ -83,18 +84,24 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         return score;
     }
     private Boolean isWinning(SuccessRoundDetails response) {
+        if(isAnnulled(response)) return false;
         if(response.game.winner_id.equals(SharedTPPreferences.currentUser().id)) return true;
         int myScore = getScore(response, true);
         int opponentScore = getScore(response, false);
         return myScore > opponentScore;
     }
+    private Boolean isAnnulled(SuccessRoundDetails response) {
+        return response.game.ended && !response.game.started;
+    }
     private Boolean isDraw(SuccessRoundDetails response) {
+        if(isAnnulled(response)) return false;
         if(response.game.winner_id != null) return false;
         int myScore = getScore(response, true);
         int opponentScore = getScore(response, false);
         return myScore == opponentScore;
     }
     private String titleFor(SuccessRoundDetails response) {
+        if(isAnnulled(response)) return "Partita annullata.";
         if(isDraw(response)) return "Hai pareggiato!";
         return isWinning(response) ? "Hai vinto!" : "Hai perso!";
     }
@@ -124,7 +131,7 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         scoreIncrementArrow.setVisibility(View.VISIBLE);
         TPUtils.injectUserImage(context, isWinning(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage);
         TPUtils.injectUserImage(context, isWinning(response) ? opponent : SharedTPPreferences.currentUser(), loserImage);
-        if (isWinning(response)) playButton.setReplayNow();
+        if (isWinning(response) || isAnnulled(response)) playButton.setReplayNow();
         else playButton.setNewGame(true);
         playButton.setVisibility(View.VISIBLE);
         incitationView.setVisibility(View.GONE);

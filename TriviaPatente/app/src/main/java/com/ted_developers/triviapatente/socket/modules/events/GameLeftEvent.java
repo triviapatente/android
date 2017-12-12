@@ -13,7 +13,9 @@ import org.parceler.Parcel;
 public class GameLeftEvent extends GameEndedEvent {
 
     @SerializedName("user")
-    User user;
+    public User user;
+    @SerializedName("annulled")
+    public Boolean annulled;
 
     public GameLeftEvent() {}
 }
