@@ -42,6 +42,7 @@ public class GameMainPageActivity extends TPGameActivity {
     // wait page
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
+    private FragmentGameOptions gameOptions;
     // status
     @BindView(R.id.status) TextView gameStatus;
     @BindString(R.string.wait_page_offline_status) String offlineStatus;
@@ -81,6 +82,7 @@ public class GameMainPageActivity extends TPGameActivity {
                     public void run() {
                         currentRound = response.round;
                         currentCategory = response.category;
+                        gameOptions.setRound(currentRound);
                         GameMainPageActivity.this.processResponse(response);
                     }
                 });
@@ -147,6 +149,7 @@ public class GameMainPageActivity extends TPGameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main_page);
+        gameOptions = (FragmentGameOptions) getSupportFragmentManager().findFragmentById(R.id.gameOptions);
         //init
         startLoading();
         Intent intent = getIntent();

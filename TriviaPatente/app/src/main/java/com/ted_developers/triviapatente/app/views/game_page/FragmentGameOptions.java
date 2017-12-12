@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.ted_developers.triviapatente.R;
@@ -21,10 +22,12 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeave
 import com.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
+import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
 import com.ted_developers.triviapatente.models.responses.SuccessRoundDetails;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -33,12 +36,25 @@ import retrofit2.Response;
 public class FragmentGameOptions extends Fragment {
     TPGameActivity activity;
 
+    @BindView(R.id.gameDetailsButton) Button gameDetailsButton;
+
     public FragmentGameOptions() {}
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.activity = (TPGameActivity) context;
+    }
+
+    private Boolean isFirstRound() {
+        return activity.currentRound != null && activity.currentRound.number == 1;
+    }
+    private int getGameDetailsButtonVisibility() {
+        return isFirstRound() ? View.GONE : View.VISIBLE;
+    }
+    public void setRound(Round round) {
+        activity.currentRound = round;
+        gameDetailsButton.setVisibility(getGameDetailsButtonVisibility());
     }
 
     @Override

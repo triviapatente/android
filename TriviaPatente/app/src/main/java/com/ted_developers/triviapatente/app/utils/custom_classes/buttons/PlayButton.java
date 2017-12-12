@@ -78,7 +78,7 @@ public class PlayButton extends Button implements View.OnClickListener {
     // the button is a details one
     public void setWait() {
         setUIData(R.drawable.button_yellow_on_white, R.color.yellow_on_white, R.string.wait_button_text);
-        setClickable(false);
+        setClickable(true);
     }
 
     private void setUIData(@DrawableRes int drawableRes, @ColorRes int colorRes, @StringRes int stringRes) {
