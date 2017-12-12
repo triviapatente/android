@@ -83,11 +83,13 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         return score;
     }
     private Boolean isWinning(SuccessRoundDetails response) {
+        if(response.game.winner_id.equals(SharedTPPreferences.currentUser().id)) return true;
         int myScore = getScore(response, true);
         int opponentScore = getScore(response, false);
         return myScore > opponentScore;
     }
     private Boolean isDraw(SuccessRoundDetails response) {
+        if(response.game.winner_id != null) return false;
         int myScore = getScore(response, true);
         int opponentScore = getScore(response, false);
         return myScore == opponentScore;
