@@ -9,12 +9,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader;
+import com.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
@@ -23,6 +26,7 @@ import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Round;
 import com.ted_developers.triviapatente.models.responses.Success;
 import com.ted_developers.triviapatente.models.responses.SuccessDecrement;
+import com.ted_developers.triviapatente.socket.modules.events.GameLeftEvent;
 
 import butterknife.OnClick;
 import butterknife.Optional;
@@ -49,6 +53,46 @@ public class TPGameActivity extends TPActivity {
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         gameID = intent.getLongExtra(this.getString(R.string.extra_long_game), (currentRound == null)? -1 : currentRound.game_id);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        joinAndListenUserLeft();
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        unlistenUserLeft();
+    }
+
+    private void listenUserLeft() {
+        gameSocketManager.listenGameLeft(new SocketCallback<GameLeftEvent>() {
+            @Override
+            public void response(GameLeftEvent response) {
+                Intent i = new Intent(TPGameActivity.this, RoundDetailsActivity.class);
+                i.putExtra(getString(R.string.extra_string_opponent_has_left), true);
+                i.putExtra(getString(R.string.extra_long_game), gameID);
+                i.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(opponent));
+                startActivity(i);
+            }
+        });
+    }
+    protected void joinAndListenUserLeft() {
+        if(this instanceof RoundDetailsActivity) return;
+        gameSocketManager.join(gameID, new SocketCallback<Success>() {
+            @Override
+            public void response(Success response) {
+                listenUserLeft();
+            }
+        });
+
+    }
+
+    private void unlistenUserLeft() {
+        if(this instanceof RoundDetailsActivity) return;
+        gameSocketManager.stopListen(getString(R.string.socket_event_user_left));
     }
 
     @Override

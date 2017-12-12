@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
@@ -46,8 +47,10 @@ public class RoundDetailsActivity extends TPGameActivity {
     @BindView(R.id.sectionList) RecyclerView sectionList;
     @BindView(R.id.answerList) RecyclerView answerList;
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
+    @BindString(R.string.activity_round_details_user_has_left) String opponentHasLeftMessage;
     @BindString(R.string.title_activity_round_details) String activityTitle;
     @BindString(R.string.extra_string_from_game_options) String extraKeyFromGame;
+    @BindString(R.string.extra_string_opponent_has_left) String extraKeyOpponentHasLeft;
     @BindInt(R.integer.number_of_questions_per_round) int NUMBER_OF_QUESTIONS_PER_ROUND;
 
     private FragmentGameDetailsScore detailsScore;
@@ -56,6 +59,13 @@ public class RoundDetailsActivity extends TPGameActivity {
     private Boolean fromGameOptions;
 
     private Map<String, List<Quiz>> answerMap = new HashMap<>();
+
+    private void decideToShowUserLeftMessage() {
+        Boolean opponentHasLeft = getIntent().getBooleanExtra(extraKeyOpponentHasLeft, false);
+        if(opponentHasLeft) {
+            Toast.makeText(this, opponentHasLeftMessage, Toast.LENGTH_LONG).show();
+        }
+    }
 
     private int getScrollPositionFor(Integer section) {
         if(section == answerMap.keySet().size()) return section * NUMBER_OF_QUESTIONS_PER_ROUND;
@@ -186,6 +196,7 @@ public class RoundDetailsActivity extends TPGameActivity {
         answerList.setAdapter(answerAdapter);
         answerList.addOnScrollListener(scrollListener);
         fromGameOptions = getIntent().getBooleanExtra(extraKeyFromGame, false);
+        this.decideToShowUserLeftMessage();
         this.load();
         this.joinAndListen();
     }

@@ -7,6 +7,8 @@
     <!-- data between activities -->
     <string name="extra_string_opponent">opponent</string>
     <string name="extra_string_from_game_options">from_game_options</string>
+    <string name="extra_string_opponent_has_left">opponent_has_left</string>
+
     <string name="extra_boolean_game">new_game</string>
     <string name="extra_long_game">game_id</string>
     <string name="extra_string_round">round</string>

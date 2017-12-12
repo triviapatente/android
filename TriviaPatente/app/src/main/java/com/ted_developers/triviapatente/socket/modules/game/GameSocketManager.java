@@ -89,6 +89,6 @@ public class GameSocketManager extends BaseSocketManager {
     }
     //listen_game_left
     public void listenGameLeft(SocketCallback<GameLeftEvent> cb) {
-        super.listen("game_left", GameLeftEvent.class, cb);
+        super.listen("user_left_game", GameLeftEvent.class, cb);
     }
 }
