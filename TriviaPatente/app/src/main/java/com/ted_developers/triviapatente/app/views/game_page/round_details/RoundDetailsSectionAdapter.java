@@ -40,6 +40,7 @@ class RoundDetailsSectionAdapter extends RecyclerView.Adapter<RoundHolder> {
     public void notifyDataSetChanged(SuccessRoundDetails response, Map<String, List<Quiz>> answerMap) {
         this.answerMap = answerMap;
         this.response = response;
+        this.notifyDataSetChanged();
     }
 
     public RoundDetailsSectionAdapter(Context context, RoundDetailsSectionCallback listener) {

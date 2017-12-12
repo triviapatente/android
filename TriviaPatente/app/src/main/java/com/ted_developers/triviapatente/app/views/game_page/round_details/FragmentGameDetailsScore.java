@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.game_page.round_details;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -39,7 +40,6 @@ public class FragmentGameDetailsScore extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,40 +49,36 @@ public class FragmentGameDetailsScore extends Fragment {
         return v;
     }
 
-    public void set(User opponent, List<Question> answers) {
+    public void set(Context ctx, User opponent, List<Question> answers) {
         this.opponent = opponent;
         this.answers = answers;
-        this.updateGUI();
+        this.updateGUI(ctx);
     }
-    public void add(Question answer) {
-        this.answers.add(answer);
-        this.updateScore();
+    public void set(Context ctx, List<Question> answers) {
+        this.answers = answers;
+        this.updateScore(ctx);
     }
-    public void add(List<Question> answers) {
-        this.answers.addAll(answers);
-        this.updateScore();
+    private void updateGUI(Context ctx) {
+        TPUtils.injectUserImage(ctx, currentUser, userImageView, false);
+        TPUtils.injectUserImage(ctx, opponent, opponentImageView, false);
+        this.updateScore(ctx);
     }
-    private void updateGUI() {
-        TPUtils.injectUserImage(getContext(), currentUser, userImageView, false);
-        TPUtils.injectUserImage(getContext(), opponent, opponentImageView, false);
-        this.updateScore();
-    }
-    private void updateScore() {
+    private void updateScore(Context ctx) {
         int myScore = this.scoreFor(currentUser);
         int opponentScore = this.scoreFor(opponent);
         userScoreView.setText("" + myScore);
-        userImageView.setBorder(colorFor(myScore, opponentScore));
+        userImageView.setBorder(colorFor(ctx, myScore, opponentScore));
         opponentScoreView.setText("" + opponentScore);
-        opponentImageView.setBorder(colorFor(opponentScore, myScore));
+        opponentImageView.setBorder(colorFor(ctx, opponentScore, myScore));
 
     }
-    private int colorFor(int score, int opponentScore) {
+    private int colorFor(Context ctx, int score, int opponentScore) {
         if(score > opponentScore) {
-            return ContextCompat.getColor(getActivity(), R.color.green_on_white);
+            return ContextCompat.getColor(ctx, R.color.green_on_white);
         } else if (score == opponentScore) {
-            return ContextCompat.getColor(getActivity(), R.color.whiteLight);
+            return ContextCompat.getColor(ctx, R.color.whiteLight);
         } else {
-            return ContextCompat.getColor(getActivity(), R.color.red_on_white);
+            return ContextCompat.getColor(ctx, R.color.red_on_white);
         }
     }
     private int scoreFor(User user) {

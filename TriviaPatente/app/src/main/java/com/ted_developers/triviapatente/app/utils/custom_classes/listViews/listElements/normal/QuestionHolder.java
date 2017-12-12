@@ -103,24 +103,30 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         view.setBackgroundResource(R.drawable.details_circle_incorrect_background);
         view.setTextColor(Color.WHITE);
     }
-    public void processAnswers(List<Question> answers, Quiz quiz) {
-        List<User> trueUsers = new ArrayList<>();
-        List<User> falseUsers = new ArrayList<>();
-        for(Question q : answers) {
-            Boolean answer = q.answer != null ? q.answer : q.correct ? quiz.answer : !quiz.answer;
-            if(answer) {
-                if(q.user_id == currentUser.id) {
-                    trueUsers.add(0, currentUser);
-                } else {
-                    trueUsers.add(opponent);
-                }
+    private List<User> trueUsers = new ArrayList<>();
+    private List<User> falseUsers = new ArrayList<>();
+    private void answered(Quiz quiz, Question a) {
+        if(quiz.answer == null) return;
+        Boolean answer = a.correct ? quiz.answer : !quiz.answer;
+        if(answer) {
+            if(a.user_id.equals(currentUser.id)) {
+                trueUsers.add(0, currentUser);
             } else {
-                if(q.user_id == currentUser.id) {
-                    falseUsers.add(0, currentUser);
-                } else {
-                    falseUsers.add(opponent);
-                }
+                trueUsers.add(opponent);
             }
+        } else {
+            if(a.user_id.equals(currentUser.id)) {
+                falseUsers.add(0, currentUser);
+            } else {
+                falseUsers.add(opponent);
+            }
+        }
+    }
+    public void processAnswers(List<Question> answers, Quiz quiz) {
+        trueUsers = new ArrayList<>();
+        falseUsers = new ArrayList<>();
+        for(Question q : answers) {
+            answered(quiz, q);
         }
         for(int n = 0; n < quizTrueImages.length; n++) {
             quizTrueImages[n].setBorder(Color.WHITE, 2);

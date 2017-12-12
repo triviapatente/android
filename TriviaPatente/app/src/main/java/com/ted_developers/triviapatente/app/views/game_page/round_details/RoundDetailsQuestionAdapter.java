@@ -33,6 +33,7 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
     public void notifyDataSetChanged(SuccessRoundDetails response, User opponent) {
         this.response = response;
         this.opponent = opponent;
+        this.notifyDataSetChanged();
     }
 
     @Override
