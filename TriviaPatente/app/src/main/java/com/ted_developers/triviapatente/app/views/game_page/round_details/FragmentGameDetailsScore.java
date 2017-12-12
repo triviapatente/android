@@ -16,6 +16,7 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedI
 import com.ted_developers.triviapatente.models.auth.User;
 import com.ted_developers.triviapatente.models.game.Question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,7 +31,7 @@ public class FragmentGameDetailsScore extends Fragment {
     @BindView(R.id.roundDetailsUserScore) public TextView userScoreView;
     @BindView(R.id.roundDetailsOpponentScore) public TextView opponentScoreView;
 
-    private List<Question> answers;
+    private List<Question> answers = new ArrayList<>();
     private User opponent;
     private User currentUser = SharedTPPreferences.currentUser();
 
@@ -77,11 +78,11 @@ public class FragmentGameDetailsScore extends Fragment {
     }
     private int colorFor(int score, int opponentScore) {
         if(score > opponentScore) {
-            return ContextCompat.getColor(getContext(), R.color.green_on_white);
+            return ContextCompat.getColor(getActivity(), R.color.green_on_white);
         } else if (score == opponentScore) {
-            return ContextCompat.getColor(getContext(), R.color.whiteLight);
+            return ContextCompat.getColor(getActivity(), R.color.whiteLight);
         } else {
-            return ContextCompat.getColor(getContext(), R.color.red_on_white);
+            return ContextCompat.getColor(getActivity(), R.color.red_on_white);
         }
     }
     private int scoreFor(User user) {
