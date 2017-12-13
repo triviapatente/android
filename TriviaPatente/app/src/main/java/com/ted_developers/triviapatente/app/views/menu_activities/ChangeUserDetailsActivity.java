@@ -231,7 +231,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
         surnameInput.showLabel(invalidInput);
         confirmButton.stopLoading();
     }
-    
+
     // Surname update
     private void surnameUpdate() {
         if(!surnameInput.toString().equals("")) {

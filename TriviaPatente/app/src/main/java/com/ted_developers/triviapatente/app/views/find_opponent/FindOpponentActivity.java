@@ -114,7 +114,7 @@ public class FindOpponentActivity extends RankActivity {
             searchRandomOpponent();
         } else {
             // init
-            init();
+            init(false);
         }
     }
 

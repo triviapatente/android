@@ -71,17 +71,17 @@ public class RankActivity extends TPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
-        init();
+        init(true);
     }
 
-    protected void init() {
+    protected void init(boolean paginationRequired) {
         // update unicode strings
         noUsersAlertString = TPUtils.translateEmoticons(noUsersAlertString);
         noUsersAlert.setText(noUsersAlertString);
         // start loading
         loadingView.setVisibility(View.VISIBLE);
         initSearchBar();
-        initPlayerList();
+        initPlayerList(paginationRequired);
         loadPlayers();
     }
 
@@ -201,11 +201,11 @@ public class RankActivity extends TPActivity {
         });
     }
 
-    protected void initPlayerList() {
+    protected void initPlayerList(boolean paginationRequired) {
         playersList.setLayoutManager(new LinearLayoutManager(this));
         playersList.setOnTouchListener(new OnSwipeTouchListener(this));
         playersList.addItemDecoration(new DividerItemDecoration(mainColor, playersList.getWidth()));
-        addPagination();
+        if(paginationRequired) addPagination();
     }
 
     protected void initSearchBar() {
