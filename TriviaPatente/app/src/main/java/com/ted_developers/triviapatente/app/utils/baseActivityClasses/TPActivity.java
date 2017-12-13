@@ -63,6 +63,9 @@ import butterknife.Optional;
  * Created by Antonio on 08/12/16.
  */
 public class TPActivity extends AppCompatActivity {
+    // http connection error
+    public @BindString(R.string.httpConnectionError) String httpConnectionError;
+    public @BindString(R.string.httpConnectionErrorRetryButton) String httpConnectionErrorRetryButton;
     // hide keyboard utils
     protected @Nullable @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     public User currentUser;
@@ -367,8 +370,8 @@ public class TPActivity extends AppCompatActivity {
         }) {
             @Override
             public void onNegativeButtonClick() {
-                BaseSocketManager.disconnect();
                 SharedTPPreferences.deleteAll();
+                BaseSocketManager.disconnect();
                 backToFirstAccess();
             }
 

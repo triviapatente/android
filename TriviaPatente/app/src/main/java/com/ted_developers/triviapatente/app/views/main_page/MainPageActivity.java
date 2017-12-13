@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.main_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -216,6 +217,14 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
             @Override
             public void mOnFailure(Call<SuccessGames> call, Throwable t) {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                loadRecentGames(syncButton);
+                            }
+                        })
+                        .show();
             }
 
             @Override

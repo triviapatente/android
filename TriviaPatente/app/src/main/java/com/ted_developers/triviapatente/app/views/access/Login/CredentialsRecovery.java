@@ -2,6 +2,7 @@ package com.ted_developers.triviapatente.app.views.access.Login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.Success;
 
@@ -95,7 +97,14 @@ public class CredentialsRecovery extends TPActivity {
             }
             @Override
             public void mOnFailure(Call<Success> call, Throwable t) {
-                Log.e("Failure", "failure on recovery password request");
+                Snackbar.make(findViewById(android.R.id.content), CredentialsRecovery.this.httpConnectionError, Snackbar.LENGTH_SHORT)
+                        .setAction(CredentialsRecovery.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                recoveryUsernamePassword();
+                            }
+                        })
+                        .show();
             }
             @Override
             public void then() {

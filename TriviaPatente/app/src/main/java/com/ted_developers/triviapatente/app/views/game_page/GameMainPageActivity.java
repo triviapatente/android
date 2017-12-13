@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.game_page;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
@@ -238,7 +240,14 @@ public class GameMainPageActivity extends TPGameActivity {
 
             @Override
             public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {
-                Log.e("Failure", "failure on create game request");
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                createGame();
+                            }
+                        })
+                        .show();
             }
 
             @Override

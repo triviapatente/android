@@ -5,4 +5,6 @@
     <string name="terms_path">ws/terms</string>
     <string name="store_path">/ws/store_page/android</string>
     <string name="old_session">Sessione scaduta. Accedi per continuare</string>
+    <string name="httpConnectionError">Errore di connessione..</string>
+    <string name="httpConnectionErrorRetryButton">Riprova</string>
 </resources>

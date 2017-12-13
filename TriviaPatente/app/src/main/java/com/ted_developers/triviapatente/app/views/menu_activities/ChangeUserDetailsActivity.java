@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -206,7 +207,14 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    nameError();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    nameUpdate();
+                                }
+                            })
+                            .show();
                 }
             });
         } else {
@@ -223,10 +231,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
         surnameInput.showLabel(invalidInput);
         confirmButton.stopLoading();
     }
-    private void imageError() {
-        Toast.makeText(this, pictureUploadError, Toast.LENGTH_LONG).show();
-    }
-
+    
     // Surname update
     private void surnameUpdate() {
         if(!surnameInput.toString().equals("")) {
@@ -241,7 +246,14 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
                 @Override
                 public void mOnFailure(Call<User> call, Throwable t) {
-                    surnameError();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    surnameUpdate();
+                                }
+                            })
+                            .show();
                 }
                 @Override
                 public void then() {
@@ -279,9 +291,16 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
                 @Override
                 public void mOnFailure(Call<User> call, Throwable t) {
-                    imageError();
                     TPUtils.injectUserImage(getApplicationContext(), user, bigProfilePicture);
                     confirmButton.stopLoading();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    imageUpdate();
+                                }
+                            })
+                            .show();
                 }
 
                 @Override

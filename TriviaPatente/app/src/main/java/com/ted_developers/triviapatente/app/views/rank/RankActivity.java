@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.rank;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -131,7 +132,7 @@ public class RankActivity extends TPActivity {
     }
 
     protected void loadPlayers() { loadPlayers(null, null, LoadAndScrollTo.userPosition); }
-    protected void loadPlayers(Integer thresold, String direction, final LoadAndScrollTo position) {
+    protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position) {
         loadingView.setVisibility(View.VISIBLE);
         Call<RankPosition> call = RetrofitManager.getHTTPRankEndpoint().getUsers(thresold, direction);
         call.enqueue(new TPCallback<RankPosition>() {
@@ -185,7 +186,14 @@ public class RankActivity extends TPActivity {
 
             @Override
             public void mOnFailure(Call<RankPosition> call, Throwable t) {
-                Log.e("Failure", "failure on load players request");
+                Snackbar.make(findViewById(android.R.id.content), RankActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
+                        .setAction(RankActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                loadPlayers(thresold, direction, position);
+                            }
+                        })
+                        .show();
             }
 
             @Override
@@ -228,7 +236,7 @@ public class RankActivity extends TPActivity {
     }
 
     // TODO unificando qua e in find opponent la chiamata al backend si può togliere l'override di la (per @donadev)
-    protected void doSearch(String username) {
+    protected void doSearch(final String username) {
         if(all) {
             if(username.equals("")) loadPlayers();
             else {
@@ -252,7 +260,14 @@ public class RankActivity extends TPActivity {
 
                     @Override
                     public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                        Log.e("Failure", "failure on search request");
+                        Snackbar.make(findViewById(android.R.id.content), RankActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
+                                .setAction(RankActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        doSearch(username);
+                                    }
+                                })
+                                .show();
                     }
 
                     @Override

@@ -17,6 +17,7 @@ import com.ted_developers.triviapatente.http.modules.purchases.HTTPPurchasesEndp
 import com.ted_developers.triviapatente.http.modules.rank.HTTPRankEndpoint;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -51,7 +52,7 @@ public class RetrofitManager {
                 return chain.proceed(request);
             }
         });
-        OkHttpClient client = httpClient.build();
+        OkHttpClient client = httpClient.readTimeout(1, TimeUnit.SECONDS).connectTimeout(1, TimeUnit.SECONDS).build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.baseUrl))
                 .addConverterFactory(factory)

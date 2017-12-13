@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.menu_activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -89,7 +90,7 @@ public class ChangePasswordActivity extends TPActivity {
         if(validData) updatePassword(oldPasswordInput.getText().toString(), newPasswordInput.getText().toString());
     }
 
-    private void updatePassword(String oldPassword, String newPassword) {
+    private void updatePassword(final String oldPassword, final String newPassword) {
         confirmButton.startLoading();
         Call<SuccessUserToken> call = RetrofitManager.getHTTPAuthEndpoint().changePassword(oldPassword, newPassword);
         call.enqueue(new TPCallback<SuccessUserToken>() {
@@ -104,7 +105,14 @@ public class ChangePasswordActivity extends TPActivity {
             }
             @Override
             public void mOnFailure(Call<SuccessUserToken> call, Throwable t) {
-                Log.e("error", "Errore nel cambio di password");
+                Snackbar.make(findViewById(android.R.id.content), ChangePasswordActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
+                        .setAction(ChangePasswordActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                updatePassword(oldPassword, newPassword);
+                            }
+                        })
+                        .show();
             }
             @Override
             public void then() {

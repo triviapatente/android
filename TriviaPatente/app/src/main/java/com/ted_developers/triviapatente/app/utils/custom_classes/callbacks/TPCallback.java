@@ -37,4 +37,7 @@ public abstract class TPCallback<T> implements Callback<T> {
     public abstract void mOnFailure(Call<T> call, Throwable t);
     // things to do finally
     public abstract void then();
+
+
+    // TODO centralize on failure management with a recall method
 }

@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.menu_activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,6 +17,7 @@ import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPPolicyAndTermsDialog;
+import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.Success;
 
@@ -101,7 +103,14 @@ public class ContactsActivity extends TPActivity {
 
                 @Override
                 public void mOnFailure(Call<Success> call, Throwable t) {
-                    Toast.makeText(ContactsActivity.this, messageNotSentString, Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(android.R.id.content), ContactsActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
+                            .setAction(ContactsActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    sendButtonClick();
+                                }
+                            })
+                            .show();
                 }
 
                 @Override

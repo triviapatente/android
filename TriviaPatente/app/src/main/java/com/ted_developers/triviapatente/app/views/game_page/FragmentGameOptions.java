@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +16,14 @@ import android.widget.Button;
 import com.google.gson.Gson;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import com.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity;
+import com.ted_developers.triviapatente.app.views.menu_activities.ContactsActivity;
+import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.modules.game.HTTPGameEndpoint;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.game.Round;
@@ -92,6 +96,10 @@ public class FragmentGameOptions extends Fragment {
         TPUtils.blurContainerIntoImageView(activity, activity.activityContainer, activity.blurredBackgroundView);
         activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
         //showing modal
+        showGameLeaveModal();
+    }
+
+    private void showGameLeaveModal() {
         final HTTPGameEndpoint httpGameEndpoint = RetrofitManager.getHTTPGameEndpoint();
         httpGameEndpoint.getLeaveDecrement(activity.gameID).enqueue(new TPCallback<SuccessDecrement>() {
             @Override
@@ -115,7 +123,14 @@ public class FragmentGameOptions extends Fragment {
 
                                 @Override
                                 public void mOnFailure(Call<Success> call, Throwable t) {
-                                    Log.e("Failure", "failure on leave game request");
+                                    Snackbar.make(findViewById(android.R.id.content), ((TPActivity) getActivity()).httpConnectionError, Snackbar.LENGTH_SHORT)
+                                            .setAction(((TPActivity) getActivity()).httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    onNegativeButtonClick();
+                                                }
+                                            })
+                                            .show();
                                 }
 
                                 @Override
@@ -133,7 +148,14 @@ public class FragmentGameOptions extends Fragment {
 
             @Override
             public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {
-                Log.e("Failure", "failure on leave game request");
+                Snackbar.make(getActivity().findViewById(android.R.id.content), ((TPActivity) getActivity()).httpConnectionError, Snackbar.LENGTH_SHORT)
+                        .setAction(((TPActivity) getActivity()).httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showGameLeaveModal();
+                            }
+                        })
+                        .show();
             }
 
             @Override
