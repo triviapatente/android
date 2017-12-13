@@ -55,9 +55,9 @@ public class RegisterFragment extends Fragment {
     @BindString(R.string.username_already_exist) String already_registered_username;
     @BindString(R.string.email_already_exist) String already_registered_email;
     @BindString(R.string.terms_and_conditions_registration1) String terms_and_conditions_registration;
-    @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions_registration2;
-    @BindString(R.string.terms_and_conditions_registration3) String terms_and_conditions_registration3;
-    @BindString(R.string.terms_and_conditions_registration4) String terms_and_conditions_registration4;
+    @BindString(R.string.terms_and_conditions) String terms_and_conditions_registration2;
+    @BindString(R.string.terms_and_conditions_registration2) String terms_and_conditions_registration3;
+    @BindString(R.string.privacy_policy) String terms_and_conditions_registration4;
 
     // colors
     @BindColor(R.color.greenTermsAndConditions) int green;

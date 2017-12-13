@@ -14,6 +14,8 @@ import java.util.List;
 @Parcel
 public class Hints extends Success {
     @SerializedName("global_rank_position") public Integer global_rank_position;
-    @SerializedName("friends_rank_position") public Integer friends_rank_position;
-    @SerializedName("stats") public List<Category> stats;
+    // @SerializedName("friends_rank_position") public Integer friends_rank_position;
+    // @SerializedName("stats") public List<Category> stats;
+    @SerializedName("privacy_policy_last_update") public String privacy_policy_last_update;
+    @SerializedName("terms_and_conditions_last_update") public String terms_and_conditions_last_update;
 }

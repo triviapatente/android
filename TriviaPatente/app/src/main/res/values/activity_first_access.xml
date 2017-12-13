@@ -50,9 +50,9 @@
 
     <!-- terms and conditions -->
     <string name="terms_and_conditions_registration1">Cliccando su “Registrati” accetti&#160;</string>
-    <string name="terms_and_conditions_registration2">Termini e Condizioni&#160;</string>
-    <string name="terms_and_conditions_registration3">sull’utilizzo dell’applicazione, e la relativa&#160;</string>
-    <string name="terms_and_conditions_registration4">Privacy Policy</string>
+    <string name="terms_and_conditions">Termini e Condizioni&#160;</string>
+    <string name="terms_and_conditions_registration2">sull’utilizzo dell’applicazione, e la relativa&#160;</string>
+    <string name="privacy_policy">Privacy Policy</string>
     <dimen name="terms_and_conditions_margin_v_registration">65dp</dimen>
     <dimen name="terms_and_conditions_margin_h_registration">25dp</dimen>
 
@@ -61,6 +61,10 @@
     <string name="modal_privacy_terms_back_title">Annulla</string>
     <string name="modal_privacy_terms_title">Cosa vuoi consultare?</string>
     <string name="modal_privacy_terms_message">Non farci causa 0x1F602</string>
+    
+    <string name="modal_new_terms_or_privacy_accept_button">Va bene!</string>
+    <string name="modal_new_terms_message">Abbiamo aggiornato i&#160;</string>
+    <string name="modal_new_policy_message">Abbiamo aggiornato la&#160;</string>
 
     <dimen name="modal_privacy_infinite_margin_little">10dp</dimen>
     <dimen name="modal_privacy_infinite_margin">25dp</dimen>

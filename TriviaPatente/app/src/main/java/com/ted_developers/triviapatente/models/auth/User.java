@@ -27,6 +27,8 @@ public class User extends CommonPK {
     @SerializedName("position") public Integer position;
     @SerializedName("internalPosition") public Integer internalPosition;
     @SerializedName("lastAppVersionCode") public Integer lastAppVersionCode;
+    @SerializedName("privacyPolicyLastUpdate") public String privacyPolicyLastUpdate;
+    @SerializedName("termsAndConditionsLastUpdate") public String termsAndConditionsLastUpdate;
 
     public User() {}
 
