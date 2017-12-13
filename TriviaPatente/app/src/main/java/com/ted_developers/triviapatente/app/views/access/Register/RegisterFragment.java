@@ -149,10 +149,6 @@ public class RegisterFragment extends Fragment {
         repeatPasswordField.setAutoCheck(false);
         emailField.setAutoCheck(false);
 
-        // set auto trim
-        usernameField.autotrim_active = true;
-        emailField.autotrim_active = true;
-
         // set errors to be aware of
         usernameField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.BLANK, LabeledInputError.USERNAME_LENGTH);
         emailField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.EMAIL);

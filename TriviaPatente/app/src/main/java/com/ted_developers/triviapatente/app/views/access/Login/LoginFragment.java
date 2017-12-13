@@ -155,9 +155,6 @@ public class LoginFragment extends Fragment {
         usernameField.setAutoCheck(false);
         passwordField.setAutoCheck(false);
 
-        // set auto trim
-        usernameField.autotrim_active = true;
-
         // set errors to be aware of
         usernameField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.BLANK);
         passwordField.setErrorsToCheck(null, LabeledInputError.EMPTY);

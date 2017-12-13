@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.main_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -307,7 +308,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        logout();
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) mDrawerLayout.closeDrawers();
+        else logout();
     }
 
     @Override

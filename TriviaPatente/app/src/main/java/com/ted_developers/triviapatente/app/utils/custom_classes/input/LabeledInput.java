@@ -122,14 +122,11 @@ public class LabeledInput extends LinearLayout {
     private boolean isValid = true;
 
     // to force check
-    public boolean autotrim_active = false; // auto trim
-
     public void check() { check(Color.WHITE); }
     public void check(@ColorInt int labelColor) {
         hideLabel();
         isValid = false;
         for(LabeledInputError e : errorsToCheck) {
-            if (autotrim_active && input.getText() != null) input.setText(input.getText().toString().trim());
             if (!e.isValid(input)) {
                 showLabel(e.toString(), labelColor);
                 return;

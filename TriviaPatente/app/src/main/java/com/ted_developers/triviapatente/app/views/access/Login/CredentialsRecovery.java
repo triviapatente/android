@@ -16,6 +16,7 @@ import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.Success;
@@ -44,15 +45,6 @@ public class CredentialsRecovery extends TPActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credentials_recovery);
 
-        // provide auto hide of soft keyboard
-        activityContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideKeyboard();
-                return false;
-            }
-        });
-
         // translate emoticons
         explanatory.setText(TPUtils.translateEmoticons(explanatoryStr));
         mail_sent = TPUtils.translateEmoticons(mail_sent);
@@ -70,47 +62,45 @@ public class CredentialsRecovery extends TPActivity {
     @Override
     protected int getBackButtonVisibility() { return View.VISIBLE; }
 
-    // hide keyboard
-    public void hideKeyboard() {
-        // Check if no view has focus:
-        View view = getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
     // recovery password or username button
     @OnClick(R.id.forgot_username_password_recovery_button)
     public void recoveryUsernamePassword(){
-        recoveryButton.startLoading();
-        Call<Success> call = RetrofitManager.getHTTPAuthEndpoint().requestNewPassword(usernameField.getText().toString());
-        call.enqueue(new TPCallback<Success>() {
-            @Override
-            public void mOnResponse(Call<Success> call, Response<Success> response) {
-                if(response.code() == 404) {
-                    Toast.makeText(CredentialsRecovery.this, no_user_matching, Toast.LENGTH_SHORT).show();
-                } else if(response.code() == 200 && response.body().success) {
-                    Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
-                    finish();
+        if(!usernameField.hasAutoCheck()) {
+            usernameField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.BLANK);
+            usernameField.setAutoCheck(true);
+            usernameField.check();
+        }
+        usernameField.setText(usernameField.getText().toString().trim());
+        if(usernameField.isValid()) {
+            recoveryButton.startLoading();
+            Call<Success> call = RetrofitManager.getHTTPAuthEndpoint().requestNewPassword(usernameField.getText().toString());
+            call.enqueue(new TPCallback<Success>() {
+                @Override
+                public void mOnResponse(Call<Success> call, Response<Success> response) {
+                    if(response.code() == 404) {
+                        Toast.makeText(CredentialsRecovery.this, no_user_matching, Toast.LENGTH_SHORT).show();
+                    } else if(response.code() == 200 && response.body().success) {
+                        Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
-            }
-            @Override
-            public void mOnFailure(Call<Success> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                recoveryUsernamePassword();
-                            }
-                        })
-                        .show();
-            }
-            @Override
-            public void then() {
-                recoveryButton.stopLoading();
-            }
-        });
+                @Override
+                public void mOnFailure(Call<Success> call, Throwable t) {
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    recoveryUsernamePassword();
+                                }
+                            })
+                            .show();
+                }
+                @Override
+                public void then() {
+                    recoveryButton.stopLoading();
+                }
+            });
+        }
     }
 
 }
