@@ -171,8 +171,8 @@ public class FindOpponentActivity extends RankActivity {
 
                     @Override
                     public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                        Snackbar.make(findViewById(android.R.id.content), FindOpponentActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                                .setAction(FindOpponentActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                        Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         doSearch(username);
@@ -233,16 +233,12 @@ public class FindOpponentActivity extends RankActivity {
                     suggestedUsers = response.body().users;
                     setPlayersListItems(suggestedUsers);
                 }
-                // show other items
-                playersList.setVisibility(View.VISIBLE);
-                // stop loading
-                loadingView.setVisibility(View.GONE);
             }
 
             @Override
             public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), FindOpponentActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                        .setAction(FindOpponentActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 loadPlayers();
@@ -252,7 +248,12 @@ public class FindOpponentActivity extends RankActivity {
             }
 
             @Override
-            public void then() {}
+            public void then() {
+                // show other items
+                playersList.setVisibility(View.VISIBLE);
+                // stop loading
+                loadingView.setVisibility(View.GONE);
+            }
         });
     }
 

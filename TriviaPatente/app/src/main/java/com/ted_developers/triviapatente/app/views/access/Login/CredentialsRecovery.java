@@ -97,8 +97,8 @@ public class CredentialsRecovery extends TPActivity {
             }
             @Override
             public void mOnFailure(Call<Success> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), CredentialsRecovery.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                        .setAction(CredentialsRecovery.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 recoveryUsernamePassword();

@@ -176,18 +176,12 @@ public class RankActivity extends TPActivity {
                         playersList.scrollToPosition(scrollToPosition);
                     }
                 }
-                // show other items
-                playersList.setVisibility(View.VISIBLE);
-                // stop loading
-                loadingView.setVisibility(View.GONE);
-                // allow to load more again
-                loadable = true;
             }
 
             @Override
             public void mOnFailure(Call<RankPosition> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), RankActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                        .setAction(RankActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 loadPlayers(thresold, direction, position);
@@ -197,7 +191,14 @@ public class RankActivity extends TPActivity {
             }
 
             @Override
-            public void then() {}
+            public void then() {
+                // show other items
+                playersList.setVisibility(View.VISIBLE);
+                // stop loading
+                loadingView.setVisibility(View.GONE);
+                // allow to load more again
+                loadable = true;
+            }
         });
     }
 
@@ -260,8 +261,8 @@ public class RankActivity extends TPActivity {
 
                     @Override
                     public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                        Snackbar.make(findViewById(android.R.id.content), RankActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                                .setAction(RankActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                        Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         doSearch(username);

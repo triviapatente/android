@@ -240,7 +240,7 @@ public class GameMainPageActivity extends TPGameActivity {
 
             @Override
             public void mOnFailure(Call<SuccessGameUser> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
                         .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

@@ -97,14 +97,17 @@ public class ContactsActivity extends TPActivity {
             call.enqueue(new TPCallback<Success>() {
                 @Override
                 public void mOnResponse(Call<Success> call, Response<Success> response) {
-                    if(response.body().success) Toast.makeText(ContactsActivity.this, messageSentString, Toast.LENGTH_SHORT).show();
+                    if(response.body().success) {
+                        Toast.makeText(ContactsActivity.this, messageSentString, Toast.LENGTH_SHORT).show();
+                        messageEditText.setText("");
+                    }
                     else Toast.makeText(ContactsActivity.this, messageNotSentString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void mOnFailure(Call<Success> call, Throwable t) {
-                    Snackbar.make(findViewById(android.R.id.content), ContactsActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                            .setAction(ContactsActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     sendButtonClick();
@@ -114,9 +117,7 @@ public class ContactsActivity extends TPActivity {
                 }
 
                 @Override
-                public void then() {
-                    ContactsActivity.this.finish();
-                }
+                public void then() {}
             });
         }
     }

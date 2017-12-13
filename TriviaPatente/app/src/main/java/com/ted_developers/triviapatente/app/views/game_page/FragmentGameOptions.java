@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ted_developers.triviapatente.R;
@@ -118,19 +119,18 @@ public class FragmentGameOptions extends Fragment {
                                 public void mOnResponse(Call<Success> call, Response<Success> response) {
                                     if(response.body().success) {
                                         gotoRoundDetails(true);
+                                    } else {
+                                        mOnFailure(null, null);
                                     }
                                 }
 
                                 @Override
                                 public void mOnFailure(Call<Success> call, Throwable t) {
-                                    Snackbar.make(findViewById(android.R.id.content), ((TPActivity) getActivity()).httpConnectionError, Snackbar.LENGTH_SHORT)
-                                            .setAction(((TPActivity) getActivity()).httpConnectionErrorRetryButton, new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    onNegativeButtonClick();
-                                                }
-                                            })
-                                            .show();
+                                    Toast.makeText(
+                                            getContext(),
+                                            ((TPActivity) getActivity()).httpConnectionError + " " + ((TPActivity) getActivity()).httpConnectionErrorRetryButton,
+                                            Toast.LENGTH_SHORT
+                                    ).show();
                                 }
 
                                 @Override
@@ -148,14 +148,16 @@ public class FragmentGameOptions extends Fragment {
 
             @Override
             public void mOnFailure(Call<SuccessDecrement> call, Throwable t) {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), ((TPActivity) getActivity()).httpConnectionError, Snackbar.LENGTH_SHORT)
+                Snackbar.make(getActivity().findViewById(android.R.id.content), ((TPActivity) getActivity()).httpConnectionError, Snackbar.LENGTH_INDEFINITE)
                         .setAction(((TPActivity) getActivity()).httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
                                 showGameLeaveModal();
                             }
                         })
                         .show();
+                activity.blurredBackgroundContainer.setVisibility(View.GONE);
             }
 
             @Override

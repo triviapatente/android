@@ -207,10 +207,12 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                    confirmButton.stopLoading();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
                             .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    confirmButton.startLoading();
                                     nameUpdate();
                                 }
                             })
@@ -246,10 +248,12 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
                 @Override
                 public void mOnFailure(Call<User> call, Throwable t) {
-                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                    confirmButton.stopLoading();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
                             .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    confirmButton.startLoading();
                                     surnameUpdate();
                                 }
                             })
@@ -283,7 +287,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
                     if(response.isSuccessful()) {
                         String profileImageURL = TPUtils.getUserImageFromID(ChangeUserDetailsActivity.this, currentUser.id);
                         TPUtils.picasso.invalidate(profileImageURL);
-                        update(true);
+                        update();
                     } else {
                         mOnFailure(call, null);
                     }
@@ -293,10 +297,11 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 public void mOnFailure(Call<User> call, Throwable t) {
                     TPUtils.injectUserImage(getApplicationContext(), user, bigProfilePicture);
                     confirmButton.stopLoading();
-                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
                             .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    confirmButton.startLoading();
                                     imageUpdate();
                                 }
                             })
@@ -308,11 +313,11 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
             });
         } else {
-            update(false);
+            update();
         }
     }
 
-    private void update(boolean imageUpdated) {
+    private void update() {
         confirmButton.stopLoading();
         // Back to previous page
         onBackPressed();

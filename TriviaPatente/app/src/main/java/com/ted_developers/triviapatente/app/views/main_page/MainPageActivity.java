@@ -217,7 +217,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
             @Override
             public void mOnFailure(Call<SuccessGames> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_SHORT)
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
                         .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

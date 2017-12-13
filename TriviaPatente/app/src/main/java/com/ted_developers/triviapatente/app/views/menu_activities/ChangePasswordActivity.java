@@ -105,8 +105,8 @@ public class ChangePasswordActivity extends TPActivity {
             }
             @Override
             public void mOnFailure(Call<SuccessUserToken> call, Throwable t) {
-                Snackbar.make(findViewById(android.R.id.content), ChangePasswordActivity.this.httpConnectionError, Snackbar.LENGTH_SHORT)
-                        .setAction(ChangePasswordActivity.this.httpConnectionErrorRetryButton, new View.OnClickListener() {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 updatePassword(oldPassword, newPassword);
