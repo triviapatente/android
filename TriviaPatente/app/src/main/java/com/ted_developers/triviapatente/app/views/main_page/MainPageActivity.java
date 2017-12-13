@@ -1,5 +1,6 @@
 package com.ted_developers.triviapatente.app.views.main_page;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import butterknife.BindDimen;
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -82,7 +84,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
     @BindView(R.id.retryConnectionButton) ImageButton retryConnectionButton;
-    // recent game event
 
     private boolean onCreate = true;
 
@@ -220,15 +221,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                     syncButton.setVisibility(View.VISIBLE);
                 } else {
                     // show popup if desired and last shown was yesterday
-                    if(currentUser.showPopup && currentUser.lastPopupShowedDateMillis != null &&
-                            System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
-                        if(launched) showHeartPopup(true);
-                        currentUser.lastPopupShowedDateMillis = System.currentTimeMillis();
-                        SharedTPPreferences.saveUser(currentUser);
-                    } else if(currentUser.lastPopupShowedDateMillis == null) {
-                        currentUser.lastPopupShowedDateMillis = 0l;
-                        SharedTPPreferences.saveUser(currentUser);
-                    }
+                    if(launched) showAutomaticPopup();
                     launched = false; // it is not the first time this activity has been resumed
                 }
             }

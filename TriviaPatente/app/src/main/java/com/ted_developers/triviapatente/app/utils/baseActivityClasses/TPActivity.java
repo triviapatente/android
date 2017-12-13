@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.utils.baseActivityClasses;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.LayoutRes;
@@ -32,6 +33,7 @@ import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPHeartDialog;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPRateDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.DrawerOption;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.TPDrawerAdapter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.adapters.drawer.drawer_options_type;
@@ -49,6 +51,7 @@ import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,6 +90,9 @@ public class TPActivity extends AppCompatActivity {
     //public List<String> pathListened = new ArrayList<>();
     protected boolean visible;
     public GameSocketManager gameSocketManager = new GameSocketManager();
+    // popovers
+    @BindInt(R.integer.days_delay_life_popover) int lifePopoverDelay;
+    @BindInt(R.integer.days_delay_rate_popover) int ratePopoverDelay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +231,43 @@ public class TPActivity extends AppCompatActivity {
 
     protected void showHeartPopup(boolean automatic) {
         new TPHeartDialog(this, automatic).show();
+    }
+
+    protected void showRatePopup(boolean automatic) {
+        new TPRateDialog(this, automatic).show();
+    }
+
+    protected void showAutomaticPopup() {
+        long todayMillis = System.currentTimeMillis(), days = 24 * 60 * 60 * 1000;
+        boolean hasBeenUpdated = false;
+        int currentVersion;
+        try {
+            currentVersion = this.getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            if(currentUser.lastAppVersionCode == null) {
+                hasBeenUpdated = true;
+                currentUser.lastAppVersionCode = currentVersion;
+            } else {
+                hasBeenUpdated = currentVersion != currentUser.lastAppVersionCode;
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) { e.printStackTrace(); }
+        // First of all, check rate popup
+        if((currentUser.showRatePopup || hasBeenUpdated) && currentUser.lastRatePopupShowedDateMillis != null && todayMillis - currentUser.lastRatePopupShowedDateMillis > ratePopoverDelay * days) {
+            // show rate popup
+            showRatePopup(true);
+            currentUser.lastRatePopupShowedDateMillis = todayMillis;
+        } else if(currentUser.showLifePopup && currentUser.lastLifePopupShowedDateMillis != null && todayMillis - currentUser.lastLifePopupShowedDateMillis > lifePopoverDelay * days) { // try show life popup
+            // show life popup
+            showHeartPopup(true);
+            currentUser.lastLifePopupShowedDateMillis = todayMillis;
+        }
+        else {
+            // Check if popups have never been shown
+            if(currentUser.lastLifePopupShowedDateMillis == null) currentUser.lastLifePopupShowedDateMillis = todayMillis;
+            if(currentUser.lastRatePopupShowedDateMillis == null) currentUser.lastRatePopupShowedDateMillis = todayMillis;
+        }
+        // Save new data
+        SharedTPPreferences.saveUser(currentUser);
     }
 
     protected void listen(String path, final Class outputClass, final SocketCallback cb) {

@@ -1,13 +1,10 @@
 package com.ted_developers.triviapatente.app.views.rank;
 
-import android.content.Context;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -160,7 +157,11 @@ public class RankActivity extends TPActivity {
                             case bottom: scrollToPosition = users.size() - 1; break;
                             case userPosition:
                                 int position = users.indexOf(currentUser);
-                                scrollToPosition = (offset >= position) ? 0 : position - offset / 4;
+                                if (position == users.size() - 1) absolute_last = true; // if my user is last, set absolute last
+                                /*if (users.size() - position <= offset / 4)
+                                    scrollToPosition = users.size() - offset; // if i can't be well centered, try to fill the entire screen
+                                else*/
+                                    scrollToPosition = (offset >= position) ? 0 : position - offset / 4;
                                 break;
                             case no_scroll:
                                 if(users.get(0) == newUsers.get(0)) {
@@ -268,8 +269,8 @@ public class RankActivity extends TPActivity {
     @Optional
     @OnClick(R.id.rank_scroll)
     public void rankScrollClick() {
-        // clean user list
-        users = null;
+        users = null; // clean user list
+        absolute_last = false; // clean settings
         // load new list
         if(scrollToTop) {
             rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_down_button));
