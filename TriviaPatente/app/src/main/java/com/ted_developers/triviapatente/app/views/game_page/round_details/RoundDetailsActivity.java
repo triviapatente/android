@@ -96,11 +96,12 @@ public class RoundDetailsActivity extends TPGameActivity {
         if(section == answerMap.keySet().size()) return section * NUMBER_OF_QUESTIONS_PER_ROUND;
 
         int firstOfRound = section * NUMBER_OF_QUESTIONS_PER_ROUND;
-        int lastOfRound = (section + 1) * (NUMBER_OF_QUESTIONS_PER_ROUND) - 1;
+        int lastOfRound = (section + 1) * NUMBER_OF_QUESTIONS_PER_ROUND - 1;
         int visiblePosition = answerLayout.findFirstCompletelyVisibleItemPosition();
         if(firstOfRound <= visiblePosition) return firstOfRound;
         else return lastOfRound;
     }
+
     private RoundDetailsSectionCallback sectionListener = new RoundDetailsSectionCallback() {
         @Override
         public void onSelected(int section, Boolean needsScroll) {
@@ -345,8 +346,13 @@ public class RoundDetailsActivity extends TPGameActivity {
                             answerList.setVisibility(View.VISIBLE);
                             sectionAdapter.notifyDataSetChanged(response, answerMap);
                             answerAdapter.notifyDataSetChanged(response, opponent);
-                            sectionListener.onSelected(0    ,true);
-
+                            sectionList.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    sectionList.getLayoutManager()
+                                            .getChildAt(answerMap.size() - (response.game.ended ? 0 : 1)).callOnClick();
+                                }
+                            });
                             // display ads
                             if(System.currentTimeMillis() - response.game.getUpdatedAtMillis() < 2*60*1000 && response.game.ended) {
                                 displayInterstitial();

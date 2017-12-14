@@ -151,6 +151,11 @@ public class GameMainPageActivity extends TPGameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main_page);
+        // translate strings
+        offlineStatus = TPUtils.translateEmoticons(offlineStatus);
+        waitingCategoryStatus = TPUtils.translateEmoticons(waitingCategoryStatus);
+        playingStatus = TPUtils.translateEmoticons(playingStatus);
+
         gameOptions = (FragmentGameOptions) getSupportFragmentManager().findFragmentById(R.id.gameOptions);
         //init
         startLoading();
