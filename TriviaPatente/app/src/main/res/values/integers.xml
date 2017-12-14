@@ -4,4 +4,6 @@
     <integer name="min_username_length">3</integer>
     <integer name="min_password_length">7</integer>
     <integer name="number_of_questions_per_round">4</integer>
+    <integer name="days_delay_life_popover">13</integer>
+    <integer name="days_delay_rate_popover">17</integer>
 </resources>

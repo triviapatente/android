@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.menu_activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,6 +17,7 @@ import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPPolicyAndTermsDialog;
+import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.responses.Success;
 
@@ -95,19 +97,27 @@ public class ContactsActivity extends TPActivity {
             call.enqueue(new TPCallback<Success>() {
                 @Override
                 public void mOnResponse(Call<Success> call, Response<Success> response) {
-                    if(response.body().success) Toast.makeText(ContactsActivity.this, messageSentString, Toast.LENGTH_SHORT).show();
+                    if(response.body().success) {
+                        Toast.makeText(ContactsActivity.this, messageSentString, Toast.LENGTH_SHORT).show();
+                        messageEditText.setText("");
+                    }
                     else Toast.makeText(ContactsActivity.this, messageNotSentString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void mOnFailure(Call<Success> call, Throwable t) {
-                    Toast.makeText(ContactsActivity.this, messageNotSentString, Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    sendButtonClick();
+                                }
+                            })
+                            .show();
                 }
 
                 @Override
-                public void then() {
-                    ContactsActivity.this.finish();
-                }
+                public void then() {}
             });
         }
     }

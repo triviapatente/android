@@ -1,6 +1,7 @@
 package com.ted_developers.triviapatente.app.views.menu_activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
+import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -60,36 +62,24 @@ public class ChangePasswordActivity extends TPActivity {
 
     @OnClick(R.id.confirmButton)
     public void confirmButtonClick() {
-        // hide all labels
-        oldPasswordInput.hideLabel();
-        newPasswordInput.hideLabel();
-        repeatPasswordInput.hideLabel();
-        boolean validData = true;
-        if("".equals(oldPasswordInput.getText().toString())) {
-            oldPasswordInput.showLabel(field_required);
-            validData = false;
+        if(!oldPasswordInput.hasAutoCheck()) {
+            oldPasswordInput.setErrorsToCheck(null, LabeledInputError.EMPTY);
+            newPasswordInput.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.PASSWORD_LENGTH);
+            repeatPasswordInput.setErrorsToCheck(newPasswordInput, LabeledInputError.EMPTY, LabeledInputError.PASSWORD_EQUALS);
+
+            oldPasswordInput.setAutoCheck(true);
+            newPasswordInput.setAutoCheck(true);
+            repeatPasswordInput.setAutoCheck(true);
+
+            oldPasswordInput.check();
+            newPasswordInput.check();
+            repeatPasswordInput.check();
         }
-        if("".equals(newPasswordInput.getText().toString())) {
-            newPasswordInput.showLabel(field_required);
-            validData = false;
-        } else if(newPasswordInput.getText().length() < minPasswordLength) {
-            newPasswordInput.showLabel(not_valid_password_error);
-            validData = false;
-        } else if(oldPasswordInput.getText().toString().equals(newPasswordInput.getText().toString())) {
-            newPasswordInput.showLabel(same_pwd);
-            validData = false;
-        }
-        if("".equals(repeatPasswordInput.getText().toString())) {
-            repeatPasswordInput.showLabel(field_required);
-            validData = false;
-        } else if(!repeatPasswordInput.getText().toString().equals(newPasswordInput.getText().toString())) {
-            repeatPasswordInput.showLabel(not_matching_pwd);
-            validData = false;
-        }
-        if(validData) updatePassword(oldPasswordInput.getText().toString(), newPasswordInput.getText().toString());
+        if(oldPasswordInput.isValid() && newPasswordInput.isValid() && repeatPasswordInput.isValid())
+            updatePassword(oldPasswordInput.getText().toString(), newPasswordInput.getText().toString());
     }
 
-    private void updatePassword(String oldPassword, String newPassword) {
+    private void updatePassword(final String oldPassword, final String newPassword) {
         confirmButton.startLoading();
         Call<SuccessUserToken> call = RetrofitManager.getHTTPAuthEndpoint().changePassword(oldPassword, newPassword);
         call.enqueue(new TPCallback<SuccessUserToken>() {
@@ -104,7 +94,14 @@ public class ChangePasswordActivity extends TPActivity {
             }
             @Override
             public void mOnFailure(Call<SuccessUserToken> call, Throwable t) {
-                Log.e("error", "Errore nel cambio di password");
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                updatePassword(oldPassword, newPassword);
+                            }
+                        })
+                        .show();
             }
             @Override
             public void then() {

@@ -58,8 +58,8 @@ public class TPHeartDialog extends Dialog implements View.OnClickListener {
 
     private void closeAndSave() {
         User user = SharedTPPreferences.currentUser();
-        if(user.showPopup && ((CheckBox) findViewById(R.id.notShowingAgainCheckbox)).isChecked()) {
-            user.showPopup = false;
+        if(user.showLifePopup && ((CheckBox) findViewById(R.id.notShowingAgainCheckbox)).isChecked()) {
+            user.showLifePopup = false;
         }
         SharedTPPreferences.saveUser(user);
         dismiss();

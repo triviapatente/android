@@ -31,6 +31,7 @@ public class LoginPresenter {
             user.setAutoCheck(true);
             password.setAutoCheck(true);
         }
+        user.setText(user.getText().toString().trim());
         if (user.isValid() && password.isValid()) {
             // if no error raised
             // start loading

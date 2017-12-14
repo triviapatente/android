@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -206,7 +207,16 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    nameError();
+                    confirmButton.stopLoading();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmButton.startLoading();
+                                    nameUpdate();
+                                }
+                            })
+                            .show();
                 }
             });
         } else {
@@ -223,9 +233,6 @@ public class ChangeUserDetailsActivity extends TPActivity {
         surnameInput.showLabel(invalidInput);
         confirmButton.stopLoading();
     }
-    private void imageError() {
-        Toast.makeText(this, pictureUploadError, Toast.LENGTH_LONG).show();
-    }
 
     // Surname update
     private void surnameUpdate() {
@@ -241,7 +248,16 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
                 @Override
                 public void mOnFailure(Call<User> call, Throwable t) {
-                    surnameError();
+                    confirmButton.stopLoading();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmButton.startLoading();
+                                    surnameUpdate();
+                                }
+                            })
+                            .show();
                 }
                 @Override
                 public void then() {
@@ -271,7 +287,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
                     if(response.isSuccessful()) {
                         String profileImageURL = TPUtils.getUserImageFromID(ChangeUserDetailsActivity.this, currentUser.id);
                         TPUtils.picasso.invalidate(profileImageURL);
-                        update(true);
+                        update();
                     } else {
                         mOnFailure(call, null);
                     }
@@ -279,9 +295,17 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
                 @Override
                 public void mOnFailure(Call<User> call, Throwable t) {
-                    imageError();
                     TPUtils.injectUserImage(getApplicationContext(), user, bigProfilePicture);
                     confirmButton.stopLoading();
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmButton.startLoading();
+                                    imageUpdate();
+                                }
+                            })
+                            .show();
                 }
 
                 @Override
@@ -289,11 +313,11 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
             });
         } else {
-            update(false);
+            update();
         }
     }
 
-    private void update(boolean imageUpdated) {
+    private void update() {
         confirmButton.stopLoading();
         // Back to previous page
         onBackPressed();

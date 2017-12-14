@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/modalWidth"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/modal_rounded">
+
+    <ImageView
+        android:layout_width="@dimen/modal_hearts_infinite_image_size"
+        android:layout_height="@dimen/modal_hearts_infinite_image_size"
+        android:layout_marginTop="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginBottom="@dimen/modal_hearts_infinite_margin"
+        android:background="@drawable/image_terms_policy"/>
+
+    <TextView
+        android:id="@+id/modal_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginLeft="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginEnd="@dimen/modal_hearts_infinite_margin"
+        android:layout_marginRight="@dimen/modal_hearts_infinite_margin"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="@dimen/modal_hearts_infinite_margin"
+        android:textSize="@dimen/TPTextSizeSmall"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
+        android:id="@+id/positiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_hearts_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_new_terms_or_privacy_accept_button"/>
+</LinearLayout>

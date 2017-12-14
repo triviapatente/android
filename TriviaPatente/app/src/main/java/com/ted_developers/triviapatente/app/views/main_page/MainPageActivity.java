@@ -2,37 +2,30 @@ package com.ted_developers.triviapatente.app.views.main_page;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
-import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.TPCallback;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPNewTermsPolicyDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPEmoticonFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.RecentGameHolder;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
-import com.ted_developers.triviapatente.app.views.AlphaView;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import com.ted_developers.triviapatente.app.views.find_opponent.NewGameActivity;
 import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.EventAction;
 import com.ted_developers.triviapatente.models.auth.Hints;
 import com.ted_developers.triviapatente.models.game.Category;
 import com.ted_developers.triviapatente.models.game.Game;
@@ -40,10 +33,9 @@ import com.ted_developers.triviapatente.models.responses.ActionRecentGame;
 import com.ted_developers.triviapatente.models.responses.SuccessGames;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -82,7 +74,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @BindView(R.id.serverDownAlert) MessageBox serverDownAlert;
     @BindString(R.string.server_down_message) String serverDownMessage;
     @BindView(R.id.retryConnectionButton) ImageButton retryConnectionButton;
-    // recent game event
 
     private boolean onCreate = true;
 
@@ -125,9 +116,25 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                                     @Override
                                     public void run() {
                                         // init items
-                                        ReceivedData.statsHints = response.stats;
-                                        ReceivedData.friends_rank_position = response.friends_rank_position;
+                                        // ReceivedData.statsHints = response.stats;
+                                        // ReceivedData.friends_rank_position = response.friends_rank_position;
                                         ReceivedData.global_rank_position = response.global_rank_position;
+
+                                        // new terms or policy?
+                                        boolean newTerms = false, newPolicy = false;
+                                        if(currentUser.privacyPolicyLastUpdate == null) currentUser.privacyPolicyLastUpdate = response.privacy_policy_last_update;
+                                        else newPolicy = !currentUser.privacyPolicyLastUpdate.equals(response.privacy_policy_last_update);
+                                        if(currentUser.termsAndConditionsLastUpdate == null) currentUser.termsAndConditionsLastUpdate = response.terms_and_conditions_last_update;
+                                        else newTerms = !currentUser.termsAndConditionsLastUpdate.equals(response.terms_and_conditions_last_update);
+                                        if(newTerms || newPolicy)
+                                            new TPNewTermsPolicyDialog(
+                                                    MainPageActivity.this,
+                                                    newTerms,
+                                                    newPolicy,
+                                                    response.terms_and_conditions_last_update,
+                                                    response.privacy_policy_last_update
+                                            ).show();
+
                                         initOptionButtons();
                                         // load recent games
                                         loadRecentGames(syncButton);
@@ -211,6 +218,14 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
             @Override
             public void mOnFailure(Call<SuccessGames> call, Throwable t) {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                loadRecentGames(syncButton);
+                            }
+                        })
+                        .show();
             }
 
             @Override
@@ -220,15 +235,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                     syncButton.setVisibility(View.VISIBLE);
                 } else {
                     // show popup if desired and last shown was yesterday
-                    if(currentUser.showPopup && currentUser.lastPopupShowedDateMillis != null &&
-                            System.currentTimeMillis() - currentUser.lastPopupShowedDateMillis > 24 * 60 * 60 * 1000) {
-                        if(launched) showHeartPopup(true);
-                        currentUser.lastPopupShowedDateMillis = System.currentTimeMillis();
-                        SharedTPPreferences.saveUser(currentUser);
-                    } else if(currentUser.lastPopupShowedDateMillis == null) {
-                        currentUser.lastPopupShowedDateMillis = 0l;
-                        SharedTPPreferences.saveUser(currentUser);
-                    }
+                    if(launched) showAutomaticPopup();
                     launched = false; // it is not the first time this activity has been resumed
                 }
             }
@@ -301,7 +308,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        logout();
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) mDrawerLayout.closeDrawers();
+        else logout();
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.ted_developers.triviapatente.app.views.rank;
 
-import android.content.Context;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -73,17 +71,17 @@ public class RankActivity extends TPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
-        init();
+        init(true);
     }
 
-    protected void init() {
+    protected void init(boolean paginationRequired) {
         // update unicode strings
         noUsersAlertString = TPUtils.translateEmoticons(noUsersAlertString);
         noUsersAlert.setText(noUsersAlertString);
         // start loading
         loadingView.setVisibility(View.VISIBLE);
         initSearchBar();
-        initPlayerList();
+        initPlayerList(paginationRequired);
         loadPlayers();
     }
 
@@ -134,7 +132,7 @@ public class RankActivity extends TPActivity {
     }
 
     protected void loadPlayers() { loadPlayers(null, null, LoadAndScrollTo.userPosition); }
-    protected void loadPlayers(Integer thresold, String direction, final LoadAndScrollTo position) {
+    protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position) {
         loadingView.setVisibility(View.VISIBLE);
         Call<RankPosition> call = RetrofitManager.getHTTPRankEndpoint().getUsers(thresold, direction);
         call.enqueue(new TPCallback<RankPosition>() {
@@ -160,7 +158,11 @@ public class RankActivity extends TPActivity {
                             case bottom: scrollToPosition = users.size() - 1; break;
                             case userPosition:
                                 int position = users.indexOf(currentUser);
-                                scrollToPosition = (offset >= position) ? 0 : position - offset / 4;
+                                if (position == users.size() - 1) absolute_last = true; // if my user is last, set absolute last
+                                /*if (users.size() - position <= offset / 4)
+                                    scrollToPosition = users.size() - offset; // if i can't be well centered, try to fill the entire screen
+                                else*/
+                                    scrollToPosition = (offset >= position) ? 0 : position - offset / 4;
                                 break;
                             case no_scroll:
                                 if(users.get(0) == newUsers.get(0)) {
@@ -174,6 +176,22 @@ public class RankActivity extends TPActivity {
                         playersList.scrollToPosition(scrollToPosition);
                     }
                 }
+            }
+
+            @Override
+            public void mOnFailure(Call<RankPosition> call, Throwable t) {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                loadPlayers(thresold, direction, position);
+                            }
+                        })
+                        .show();
+            }
+
+            @Override
+            public void then() {
                 // show other items
                 playersList.setVisibility(View.VISIBLE);
                 // stop loading
@@ -181,22 +199,14 @@ public class RankActivity extends TPActivity {
                 // allow to load more again
                 loadable = true;
             }
-
-            @Override
-            public void mOnFailure(Call<RankPosition> call, Throwable t) {
-                Log.e("Failure", "failure on load players request");
-            }
-
-            @Override
-            public void then() {}
         });
     }
 
-    protected void initPlayerList() {
+    protected void initPlayerList(boolean paginationRequired) {
         playersList.setLayoutManager(new LinearLayoutManager(this));
         playersList.setOnTouchListener(new OnSwipeTouchListener(this));
         playersList.addItemDecoration(new DividerItemDecoration(mainColor, playersList.getWidth()));
-        addPagination();
+        if(paginationRequired) addPagination();
     }
 
     protected void initSearchBar() {
@@ -227,7 +237,7 @@ public class RankActivity extends TPActivity {
     }
 
     // TODO unificando qua e in find opponent la chiamata al backend si può togliere l'override di la (per @donadev)
-    protected void doSearch(String username) {
+    protected void doSearch(final String username) {
         if(all) {
             if(username.equals("")) loadPlayers();
             else {
@@ -251,7 +261,14 @@ public class RankActivity extends TPActivity {
 
                     @Override
                     public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                        Log.e("Failure", "failure on search request");
+                        Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        doSearch(username);
+                                    }
+                                })
+                                .show();
                     }
 
                     @Override
@@ -268,8 +285,8 @@ public class RankActivity extends TPActivity {
     @Optional
     @OnClick(R.id.rank_scroll)
     public void rankScrollClick() {
-        // clean user list
-        users = null;
+        users = null; // clean user list
+        absolute_last = false; // clean settings
         // load new list
         if(scrollToTop) {
             rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_down_button));

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -37,7 +38,9 @@ import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listE
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.footer.TPTellAFriendFooter;
 import com.ted_developers.triviapatente.app.utils.custom_classes.listViews.listElements.normal.ProposedOpponentHolder;
 import com.ted_developers.triviapatente.app.views.AlphaView;
+import com.ted_developers.triviapatente.app.views.access.Login.CredentialsRecovery;
 import com.ted_developers.triviapatente.app.views.game_page.GameMainPageActivity;
+import com.ted_developers.triviapatente.app.views.menu_activities.ContactsActivity;
 import com.ted_developers.triviapatente.app.views.rank.RankActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
 import com.ted_developers.triviapatente.models.auth.User;
@@ -111,7 +114,7 @@ public class FindOpponentActivity extends RankActivity {
             searchRandomOpponent();
         } else {
             // init
-            init();
+            init(false);
         }
     }
 
@@ -144,7 +147,7 @@ public class FindOpponentActivity extends RankActivity {
     }
 
     @Override
-    protected void doSearch(String username) {
+    protected void doSearch(final String username) {
         if(all) {
             if(username.equals("")) loadPlayers();
             else {
@@ -168,7 +171,14 @@ public class FindOpponentActivity extends RankActivity {
 
                     @Override
                     public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                        Log.e("Failure", "failure on search request");
+                        Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        doSearch(username);
+                                    }
+                                })
+                                .show();
                     }
 
                     @Override
@@ -223,19 +233,27 @@ public class FindOpponentActivity extends RankActivity {
                     suggestedUsers = response.body().users;
                     setPlayersListItems(suggestedUsers);
                 }
+            }
+
+            @Override
+            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                loadPlayers();
+                            }
+                        })
+                        .show();
+            }
+
+            @Override
+            public void then() {
                 // show other items
                 playersList.setVisibility(View.VISIBLE);
                 // stop loading
                 loadingView.setVisibility(View.GONE);
             }
-
-            @Override
-            public void mOnFailure(Call<SuccessUsers> call, Throwable t) {
-                Log.e("Failure", "failure on load players request");
-            }
-
-            @Override
-            public void then() {}
         });
     }
 

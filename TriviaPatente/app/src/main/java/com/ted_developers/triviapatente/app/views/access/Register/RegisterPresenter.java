@@ -45,6 +45,8 @@ public class RegisterPresenter {
             password.setAutoCheck(true);
             repeatPassword.setAutoCheck(true);
         }
+        username.setText(username.getText().toString().trim());
+        email.setText(email.getText().toString().trim());
         if (username.isValid() && email.isValid() && password.isValid() && repeatPassword.isValid()) {
             // if no error raised
             // get values

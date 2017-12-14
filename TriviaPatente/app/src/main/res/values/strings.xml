@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
-    <string name="baseUrl">http://158.110.226.139:8000/</string>
+    <string name="baseUrl">http://158.110.229.250:8000/</string>
     <string name="privacy_policy_path">ws/privacyPolicy</string>
     <string name="terms_path">ws/terms</string>
+    <string name="store_path">/ws/store_page/android</string>
     <string name="old_session">Sessione scaduta. Accedi per continuare</string>
+    <string name="httpConnectionError">Errore di connessione..</string>
+    <string name="httpConnectionErrorRetryButton">Riprova</string>
 </resources>

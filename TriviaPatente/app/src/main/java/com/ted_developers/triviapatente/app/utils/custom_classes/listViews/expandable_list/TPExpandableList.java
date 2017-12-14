@@ -147,9 +147,10 @@ public class TPExpandableList<T> extends Fragment {
 
     private void calculateFinalSizes() {
         maxNumberOfShownItems = (getView().getMeasuredHeight() - titleHeight) / elementHeight;
-        if(maxNumberOfShownItems > 3) {
+        // Uncomment this to set a maximum number of items
+        /*if(maxNumberOfShownItems > 3) {
             maxNumberOfShownItems = 3;
-        }
+        }*/
         maximizedHeight = getResources().getDisplayMetrics().heightPixels;
     }
 

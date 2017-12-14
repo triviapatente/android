@@ -20,10 +20,15 @@ public class User extends CommonPK {
     @SerializedName("image") public String image;
     @SerializedName("score") public Integer score;
     @SerializedName("last_game_won") public Boolean last_game_won;
-    @SerializedName("showPopup") public Boolean showPopup = true;
-    @SerializedName("lastPopupShowedDate") public Long lastPopupShowedDateMillis = null; // null if is the first time the app has been opened
+    @SerializedName("showLifePopup") public Boolean showLifePopup = true;
+    @SerializedName("lastLifePopupShowedDate") public Long lastLifePopupShowedDateMillis = null; // null if is the first time the app has been opened
+    @SerializedName("showRatePopup") public Boolean showRatePopup = true;
+    @SerializedName("lastRatePopupShowedDate") public Long lastRatePopupShowedDateMillis = null; // null if is the first time the app has been opened
     @SerializedName("position") public Integer position;
     @SerializedName("internalPosition") public Integer internalPosition;
+    @SerializedName("lastAppVersionCode") public Integer lastAppVersionCode;
+    @SerializedName("privacyPolicyLastUpdate") public String privacyPolicyLastUpdate;
+    @SerializedName("termsAndConditionsLastUpdate") public String termsAndConditionsLastUpdate;
 
     public User() {}
 

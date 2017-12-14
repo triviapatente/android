@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +18,16 @@ import android.widget.TextView;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPPolicyAndTermsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 
+import org.w3c.dom.Text;
+
+import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -49,6 +57,14 @@ public class LoginFragment extends Fragment {
     @BindDimen(R.dimen.element_margin) int marginBottom;
     @BindDimen(R.dimen.field_height) int fieldHeight;
     @BindDimen(R.dimen.field_margin) int fieldMargin;
+    // terms and conditions
+    @BindString(R.string.activity_contacts_terms_and_conditions1) String terms_and_conditions1;
+    @BindString(R.string.activity_contacts_terms_and_conditions2) String terms_and_conditions2;
+    @BindString(R.string.activity_contacts_terms_and_conditions3) String terms_and_conditions3;
+    @BindString(R.string.activity_contacts_terms_and_conditions4) String terms_and_conditions4;
+    @BindColor(R.color.greenTermsAndConditions) int green;
+    @BindView(R.id.terms_and_conditions) TextView termsAndPolicylink;
+
     // Layout padding for login button
     RelativeLayout.LayoutParams loginButtonParams;
 
@@ -87,13 +103,41 @@ public class LoginFragment extends Fragment {
         hideForgotButton();
         // translate emoticon
         operationFailed = TPUtils.translateEmoticons(operationFailed);
+        // terms and conditions
+        setTermsAndPolicyText();
         return v;
     }
+
+    @OnClick(R.id.terms_and_conditions)
+    public void termsAndConditionsClick() {
+        TPPolicyAndTermsDialog dialog = new TPPolicyAndTermsDialog(getContext());
+        dialog.show();
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // set hide keyboard on click on view
         setHideOnClick();
+    }
+
+    private Spannable markTermsText(int lower, int upper, Spannable spannable) {
+        spannable.setSpan(new ForegroundColorSpan(green),
+                lower,
+                upper,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
+
+    private void setTermsAndPolicyText() {
+        String str = terms_and_conditions1 + terms_and_conditions2 + terms_and_conditions3 + terms_and_conditions4;
+        Spannable spannable = new SpannableString(str);
+        String lower = terms_and_conditions1;
+        String upper = terms_and_conditions1 + terms_and_conditions2;
+        spannable = markTermsText(lower.length(), upper.length(), spannable);
+        lower = upper + terms_and_conditions3;
+        spannable = markTermsText(lower.length(), str.length(), spannable);
+        termsAndPolicylink.setText(spannable, TextView.BufferType.SPANNABLE);
     }
 
     private void initLoginButtonLayoutParams() {
@@ -110,9 +154,6 @@ public class LoginFragment extends Fragment {
         // remove auto correction
         usernameField.setAutoCheck(false);
         passwordField.setAutoCheck(false);
-
-        // set auto trim
-        usernameField.autotrim_active = true;
 
         // set errors to be aware of
         usernameField.setErrorsToCheck(null, LabeledInputError.EMPTY, LabeledInputError.BLANK);

@@ -28,7 +28,7 @@ public enum LabeledInputError {
     BLANK(new ErrorChecker() {
         @Override
         public boolean isValid(EditText input) {
-            return !input.getText().toString().contains(" ");
+            return !input.getText().toString().trim().contains(" ");
         }
     }),
     USERNAME_LENGTH(new ErrorChecker() {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="modal_rate_amazing_experience">0x1F60D</string>
+    <string name="modal_rate_bad_experience">0x1F605</string>
+    <string name="modal_rate_confirm_amazing">Certo! 0x1F60D</string>
+    <string name="modal_rate_confirm_bad">Certo! 0x1F4AA</string>
+    <string name="modal_rate_message">Come ti trovi con\nTriviaPatente?</string>
+    <string name="modal_rate_message_amazing">Ti va di comunicarlo ai dubbiosi?</string>
+    <string name="modal_rate_message_bad">Ti va aiutarci a correggere la rotta?</string>
+</resources>
