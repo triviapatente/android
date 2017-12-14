@@ -43,4 +43,6 @@ dependencies {
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     // TESTS
     testCompile 'junit:junit:4.12'
+    // ADS
+    compile 'com.google.android.gms:play-services-ads:11.6.2'
 }

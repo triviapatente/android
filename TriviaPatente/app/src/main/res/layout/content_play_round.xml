@@ -36,6 +36,7 @@
             android:layout_height="@dimen/play_round_button_panel_button_size"
             android:id="@+id/secondQuizButton"
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
+            android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
             android:textColor="@android:color/white"
             android:background="@drawable/button_play_round_no_answer"
             android:padding="0dp"
@@ -47,6 +48,7 @@
             android:layout_height="@dimen/play_round_button_panel_button_size"
             android:id="@+id/thirdQuizButton"
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
+            android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
             android:textColor="@android:color/white"
             android:background="@drawable/button_play_round_no_answer"
             android:padding="0dp"
@@ -58,6 +60,7 @@
             android:layout_height="@dimen/play_round_button_panel_button_size"
             android:id="@+id/fourthQuizButton"
             android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
+            android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
             android:textColor="@android:color/white"
             android:background="@drawable/button_play_round_no_answer"
             android:padding="0dp"
@@ -66,19 +69,31 @@
 
     </LinearLayout>
 
-    <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameOptions"
-        android:id="@+id/gameOptions"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/play_round_content_margin"/>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/quizzes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/quizPanel"
         android:layout_above="@id/gameOptions"/>
+
+    <fragment
+        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameOptions"
+        android:id="@+id/gameOptions"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/adView"
+        android:layout_marginBottom="@dimen/play_round_content_margin"/>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_banner">
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

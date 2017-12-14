@@ -1,9 +1,20 @@
 <resources>
     <string name="app_name">Trivia Patente</string>
-    <string name="baseUrl">http://158.110.229.250:8000/</string>
+
+    <!-- ADS -->
+    <string name="admob_appid">ca-app-pub-6517751265585915~1509769900</string>
+    <string name="admob_banner">ca-app-pub-3940256099942544/5224354917</string>
+    <!-- <string name="admob_banner">ca-app-pub-6517751265585915/4743148347</string> --> <!-- PRODUCTION -->
+    <string name="admob_interstitial">ca-app-pub-3940256099942544/1033173712</string>
+    <!-- <string name="admob_interstitial">ca-app-pub-6517751265585915/1342248948</string> --> <!-- PRODUCTION -->
+
+    <!-- NETWORKING -->
+    <string name="baseUrl">http://158.110.231.200:8000/</string>
     <string name="privacy_policy_path">ws/privacyPolicy</string>
     <string name="terms_path">ws/terms</string>
     <string name="store_path">/ws/store_page/android</string>
+
+    <!-- CONNECTION ERROR -->
     <string name="old_session">Sessione scaduta. Accedi per continuare</string>
     <string name="httpConnectionError">Errore di connessione..</string>
     <string name="httpConnectionErrorRetryButton">Riprova</string>

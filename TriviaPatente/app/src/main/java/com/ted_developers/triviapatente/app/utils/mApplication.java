@@ -2,15 +2,12 @@ package com.ted_developers.triviapatente.app.utils;
 
 import android.app.Application;
 import android.content.Intent;
-import android.util.Log;
 
+import com.google.android.gms.ads.MobileAds;
 import com.ted_developers.triviapatente.R;
-import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInputError;
 import com.ted_developers.triviapatente.app.views.access.FirstAccessActivity;
 import com.ted_developers.triviapatente.http.utils.RetrofitManager;
-import com.ted_developers.triviapatente.models.EventAction;
-import com.ted_developers.triviapatente.models.responses.ActionRecentGame;
 import com.ted_developers.triviapatente.socket.modules.base.BaseSocketManager;
 
 /**
@@ -22,6 +19,8 @@ public class mApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // ads
+        MobileAds.initialize(this, getString(R.string.admob_appid));
         // app
         app = this;
         // fonts

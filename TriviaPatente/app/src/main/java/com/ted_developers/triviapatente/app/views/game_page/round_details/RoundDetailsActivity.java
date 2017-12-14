@@ -3,6 +3,7 @@ package com.ted_developers.triviapatente.app.views.game_page.round_details;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
@@ -33,18 +37,27 @@ import com.ted_developers.triviapatente.socket.modules.events.QuestionAnsweredEv
 import com.ted_developers.triviapatente.socket.modules.events.RoundStartedEvent;
 import com.ted_developers.triviapatente.socket.modules.game.GameSocketManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 
 public class RoundDetailsActivity extends TPGameActivity {
+    // ads
+    private InterstitialAd mInterstitialAd;
+    @BindString(R.string.admob_interstitial) String adMobInterstitialID;
+
     @BindView(R.id.sectionList) RecyclerView sectionList;
     @BindView(R.id.answerList) RecyclerView answerList;
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
@@ -199,6 +212,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round_details);
+
         // emojii update
         updateEmojiAndSet();
         sectionList.setLayoutManager(sectionLayout);
@@ -332,10 +346,40 @@ public class RoundDetailsActivity extends TPGameActivity {
                             sectionAdapter.notifyDataSetChanged(response, answerMap);
                             answerAdapter.notifyDataSetChanged(response, opponent);
                             sectionListener.onSelected(0    ,true);
+
+                            // display ads
+                            if(System.currentTimeMillis() - response.game.getUpdatedAtMillis() < 2*60*1000 && response.game.ended) {
+                                displayInterstitial();
+                            }
                         }
                     });
                 }
             }
         });
+    }
+
+    private void displayInterstitial() {
+        if(mInterstitialAd == null) {
+            // create interstitial
+            mInterstitialAd = new InterstitialAd(RoundDetailsActivity.this);
+            mInterstitialAd.setAdUnitId(adMobInterstitialID);
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mInterstitialAd.show();
+                                }
+                            });
+                        }
+                    }, 1000);
+                }
+            });
+        }
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 }

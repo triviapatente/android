@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SocketCallback;
@@ -23,6 +26,9 @@ import butterknife.BindView;
 import butterknife.BindViews;
 
 public class PlayRoundActivity extends TPGameActivity implements View.OnClickListener {
+    // ads
+    @BindView(R.id.adView) AdView mAdView;
+
     // quizzes
     @BindView(R.id.quizzes) ViewPager quizzesViewPager;
     @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
@@ -77,6 +83,10 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_round);
         init();
+
+        // load ads
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void init() {
