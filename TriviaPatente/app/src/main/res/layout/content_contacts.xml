@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/TPTextSizeSmall"
+                android:textSize="@dimen/TPTextSizeVerySmall"
                 android:id="@+id/motivations_header"
                 android:clickable="true"
                 android:focusable="true"
@@ -47,7 +47,6 @@
                 android:gravity="center_vertical|end"
                 android:textAlignment="gravity"
                 android:popupBackground="@drawable/background_gradient"
-                android:backgroundTint="@android:color/white"
                 android:entries="@array/motivations_array"/>
         </LinearLayout>
         <View
@@ -55,25 +54,6 @@
             android:layout_height="1dp"
             android:background="@android:color/white"
             android:layout_marginBottom="@dimen/activity_contacts_separator_margin_vertical"/>
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/TPTextSizeSmall"
-                android:textColor="@android:color/white"
-                android:text="@string/activity_contacts_message_title"/>
-
-            <TextView
-                android:id="@+id/charactersCounter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end|center_vertical"
-                android:textSize="@dimen/TPTextSizeVerySmall"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>-->
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textContainer"
@@ -142,8 +122,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/developers_margin"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/TPTextSizeSmall"
+            android:textSize="@dimen/TPTextSizeVerySmall"
             android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:ellipsize="marquee"
             android:text="@string/developers"/>
     </LinearLayout>
 
