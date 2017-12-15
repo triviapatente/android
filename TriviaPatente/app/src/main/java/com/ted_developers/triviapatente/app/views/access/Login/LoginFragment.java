@@ -176,7 +176,7 @@ public class LoginFragment extends Fragment {
     }
 
     public void setHideOnClick() {
-        getView().setOnClickListener(new View.OnClickListener() {
+        getActivity().findViewById(android.R.id.content).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TPUtils.hideKeyboard(getActivity(), dummyLayout);

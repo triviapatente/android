@@ -1,81 +1,99 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".app.views.access.Register.RegisterFragment"
     android:background="@drawable/background_gradient">
 
+    <!-- to avoid edittext getting focus at activity start -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/dummy_layout"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:gravity="center"
+        android:layout_above="@+id/terms_and_conditions"
+        android:layout_below="@+id/dummy_layout">
 
-        <!-- to avoid edittext getting focus at activity start -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/dummy_layout"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:layout_width="0px"
-            android:layout_height="0px"/>
-
-        <!-- alert box -->
-        <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
-            android:id="@+id/alertMessage"
+        <!-- inputs in scroll view -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/alert_height"
-            android:background="@drawable/rounded_alertbox"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"/>
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <!-- username input -->
-        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
-            android:id="@+id/username_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/terms_and_conditions_margin_v_registration">
 
-        <!-- email input -->
-        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
-            android:id="@+id/email_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"/>
+                <!-- alert box -->
+                <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
+                    android:id="@+id/alertMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/alert_height"
+                    android:background="@drawable/rounded_alertbox"
+                    android:layout_marginTop="@dimen/terms_and_conditions_margin_v_registration"
+                    android:layout_marginBottom="@dimen/field_margin"
+                    android:layout_marginLeft="@dimen/field_margin"
+                    android:layout_marginStart="@dimen/field_margin"
+                    android:layout_marginRight="@dimen/field_margin"
+                    android:layout_marginEnd="@dimen/field_margin"/>
 
-        <!-- password input -->
-        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
-            android:id="@+id/password_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"/>
+                <!-- username input -->
+                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                    android:id="@+id/username_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/element_margin"
+                    android:layout_marginLeft="@dimen/field_margin"
+                    android:layout_marginStart="@dimen/field_margin"
+                    android:layout_marginRight="@dimen/field_margin"
+                    android:layout_marginEnd="@dimen/field_margin"/>
 
-        <!-- repeat password input -->
-        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
-            android:id="@+id/repeat_password_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/element_margin"
-            android:layout_marginLeft="@dimen/field_margin"
-            android:layout_marginStart="@dimen/field_margin"
-            android:layout_marginRight="@dimen/field_margin"
-            android:layout_marginEnd="@dimen/field_margin"/>
+                <!-- email input -->
+                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                    android:id="@+id/email_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/element_margin"
+                    android:layout_marginLeft="@dimen/field_margin"
+                    android:layout_marginStart="@dimen/field_margin"
+                    android:layout_marginRight="@dimen/field_margin"
+                    android:layout_marginEnd="@dimen/field_margin"/>
+
+                <!-- password input -->
+                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                    android:id="@+id/password_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/element_margin"
+                    android:layout_marginLeft="@dimen/field_margin"
+                    android:layout_marginStart="@dimen/field_margin"
+                    android:layout_marginRight="@dimen/field_margin"
+                    android:layout_marginEnd="@dimen/field_margin"/>
+
+                <!-- repeat password input -->
+                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                    android:id="@+id/repeat_password_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/element_margin"
+                    android:layout_marginLeft="@dimen/field_margin"
+                    android:layout_marginStart="@dimen/field_margin"
+                    android:layout_marginRight="@dimen/field_margin"
+                    android:layout_marginEnd="@dimen/field_margin"/>
+            </LinearLayout>
+        </ScrollView>
 
         <!-- layout required to loading button -->
         <RelativeLayout
@@ -116,21 +134,10 @@
             android:paddingStart="@dimen/or_padding"
             android:paddingEnd="@dimen/or_padding"
             android:paddingBottom="@dimen/or_bottom_padding"
-            android:clickable="true"/>
-
-       <!-- &lt;!&ndash; or separator &ndash;&gt;
-        <include layout="@layout/layout_or"/>
-
-        &lt;!&ndash; facebook login button &ndash;&gt;
-        <ImageButton
-            android:layout_width="@dimen/image_button_size"
-            android:layout_height="@dimen/image_button_size"
-            android:id="@+id/facebook_button"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/fb_logo"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center_horizontal" />-->
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
+
     <TextView
         android:id="@+id/terms_and_conditions"
         android:layout_width="match_parent"
@@ -138,9 +145,11 @@
         android:gravity="center"
         android:textSize="@dimen/TPTextSizeVerySmall"
         android:textColor="@android:color/white"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/field_margin"
         android:layout_marginBottom="@dimen/terms_and_conditions_margin_v_registration"
         android:layout_marginRight="@dimen/terms_and_conditions_margin_h_registration"
         android:layout_marginLeft="@dimen/terms_and_conditions_margin_h_registration"
-        android:clickable="true"/>
-</FrameLayout>
+        android:clickable="true"
+        android:focusable="true"/>
+</RelativeLayout>

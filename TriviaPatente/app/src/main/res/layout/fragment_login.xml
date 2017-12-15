@@ -1,16 +1,22 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".app.views.access.Login.LoginFragment"
-    android:background="@drawable/background_gradient"
-    android:weightSum="1">
+    android:background="@drawable/background_gradient">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/terms_and_conditions">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <!-- to avoid edittext getting focus at activity start -->
         <LinearLayout
@@ -61,7 +67,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="@dimen/element_margin"
             android:layout_marginLeft="@dimen/field_margin"
             android:layout_marginStart="@dimen/field_margin"
             android:layout_marginRight="@dimen/field_margin"
@@ -90,8 +95,8 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/negative_element_margin"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:focusable="true"/>
 
         <!--&lt;!&ndash; or separator &ndash;&gt;
         <include layout="@layout/layout_or"/>
@@ -105,6 +110,11 @@
             android:src="@mipmap/fb_logo"
             android:background="@android:color/transparent"
             android:layout_gravity="center_horizontal" />-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
     </LinearLayout>
     <TextView
         android:id="@+id/terms_and_conditions"
@@ -113,9 +123,10 @@
         android:gravity="center"
         android:textSize="@dimen/TPTextSizeVerySmall"
         android:textColor="@android:color/white"
-        android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/terms_and_conditions_margin_v_registration"
         android:layout_marginRight="@dimen/terms_and_conditions_margin_h_registration"
         android:layout_marginLeft="@dimen/terms_and_conditions_margin_h_registration"
-        android:clickable="true"/>
-</FrameLayout>
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:focusable="true"/>
+</RelativeLayout>
