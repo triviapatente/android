@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.ReceivedData;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.SimpleCallback;
@@ -81,6 +82,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        serverDownMessage = TPUtils.translateEmoticons(serverDownMessage);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         recentGames.setSyncButtonOnClickListner(this);
         baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
@@ -308,8 +310,10 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) mDrawerLayout.closeDrawers();
-        else logout();
+        if(loadingView.getVisibility() == View.GONE) {
+            if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) mDrawerLayout.closeDrawers();
+            else logout();
+        }
     }
 
     @Override
