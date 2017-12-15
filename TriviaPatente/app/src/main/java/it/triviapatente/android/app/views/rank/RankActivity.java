@@ -93,8 +93,8 @@ public class RankActivity extends TPActivity {
                         userList,
                         R.layout.list_element_player_rank_holder,
                         PlayerRankHolder.class,
-                        R.layout.list_element_tell_a_friend_footer,
-                        TPTellAFriendFooter.class,
+                        0, //R.layout.list_element_tell_a_friend_footer,
+                        null, //TPTellAFriendFooter.class,
                         playerListItemHeight,
                         playersList)
         );
@@ -157,7 +157,7 @@ public class RankActivity extends TPActivity {
                             case bottom: scrollToPosition = users.size() - 1; break;
                             case userPosition:
                                 int position = users.indexOf(currentUser);
-                                if (position == users.size() - 1) absolute_last = true; // if my user is last, set absolute last
+                                // if (position == users.size() - 1) absolute_last = true; // if my user is last, set absolute last
                                 /*if (users.size() - position <= offset / 4)
                                     scrollToPosition = users.size() - offset; // if i can't be well centered, try to fill the entire screen
                                 else*/

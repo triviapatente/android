@@ -10,7 +10,7 @@
     <string name="firebase_message_game_key">game</string>
     <string name="firebase_message_opponent_key">opponent</string>
     <!-- NETWORKING -->
-    <string name="baseUrl">http://192.168.1.100:8000/</string>
+    <string name="baseUrl">http://triviapatente.it:8000/</string>
     <string name="privacy_policy_path">ws/privacyPolicy</string>
     <string name="terms_path">ws/terms</string>
     <string name="store_path">/ws/store_page/android</string>
