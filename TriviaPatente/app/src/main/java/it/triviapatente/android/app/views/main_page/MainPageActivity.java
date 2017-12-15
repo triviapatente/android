@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 
 import it.triviapatente.android.R;

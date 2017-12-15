@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
@@ -221,7 +223,13 @@ public class GameMainPageActivity extends TPGameActivity {
                 break;
         }
     }
-
+    private void createGameEvent(Game game) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, ""+game.id);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "game_created");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "game");
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.JOIN_GROUP, bundle);
+    }
     private void createGame() {
         Call<SuccessGameUser> call;
         if(opponent != null) {
@@ -237,6 +245,7 @@ public class GameMainPageActivity extends TPGameActivity {
                     gameID = game.id;
                     opponent = response.body().user;
                     ReceivedData.addGame(game);
+                    createGameEvent(game);
                     setOpponentData();
                     join_room();
                 }
@@ -282,6 +291,7 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void join_room() {
+        Log.i("join", "joining_room " + gameID);
         gameSocketManager.join(gameID, roomName, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
