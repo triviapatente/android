@@ -3,6 +3,8 @@ package com.ted_developers.triviapatente.app.views.game_page.round_details;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.custom_classes.callbacks.RoundDetailsSectionCallback;
@@ -64,7 +66,7 @@ class RoundDetailsSectionAdapter extends RecyclerView.Adapter<RoundHolder> {
         return output;
     }
 
-        @Override
+    @Override
     public RoundHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return RoundHolder.newHolder(context, this);
     }

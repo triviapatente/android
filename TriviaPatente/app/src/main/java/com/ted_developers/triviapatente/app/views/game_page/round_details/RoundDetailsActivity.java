@@ -138,16 +138,25 @@ public class RoundDetailsActivity extends TPGameActivity {
     private RoundDetailsSectionAdapter sectionAdapter = new RoundDetailsSectionAdapter(this, sectionListener);
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+        private int roundPosition;
+
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             if(dy == 0) return;
-            int position = answerLayout.findFirstCompletelyVisibleItemPosition();
+            answerAdapter.up = dy < 0;
+            int position = (dy < 0)? answerLayout.findFirstVisibleItemPosition() + 1 : answerLayout.findLastVisibleItemPosition() - 1;
             if(position != -1) {
-                int roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
+                roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
                 RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
                 if (holder != null) holder.select(false);
             }
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            if(newState == RecyclerView.SCROLL_STATE_IDLE)
+                sectionListener.onSelected(roundPosition, true);
         }
     };
 
@@ -349,8 +358,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                             sectionList.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    sectionList.getLayoutManager()
-                                            .getChildAt(answerMap.size() - (response.game.ended ? 0 : 1)).callOnClick();
+                                    sectionList.findViewHolderForAdapterPosition(answerMap.size() - (response.game.ended ? 0 : 1)).itemView.callOnClick();
                                 }
                             });
                             // display ads
