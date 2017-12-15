@@ -71,6 +71,7 @@ public class TPGameActivity extends TPActivity {
     }
     protected void joinAndListenUserLeft() {
         if(this instanceof RoundDetailsActivity) return;
+        if(gameID != -1)
         gameSocketManager.join(gameID, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
