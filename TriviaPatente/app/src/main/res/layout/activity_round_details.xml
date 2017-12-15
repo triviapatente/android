@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity">
+    tools:context="com.triviapatente.android.it.ted_developers.triviapatente.app.views.game_page.round_details.RoundDetailsActivity">
 
     <include
         layout="@layout/toolbar"

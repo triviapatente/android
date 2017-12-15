@@ -7,7 +7,7 @@
     android:layout_marginLeft="@dimen/list_item_margin"
     android:layout_marginStart="@dimen/list_item_margin">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+    <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/profilePicture"
         android:layout_width="@dimen/list_item_profile_picture_size"
         android:layout_height="@dimen/list_item_profile_picture_size" />

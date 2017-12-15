@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_centerHorizontal="true">
-                <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+                <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                     android:id="@+id/bigProfilePicture"
                     android:layout_width="@dimen/activity_change_user_details_picture_size"
                     android:layout_height="@dimen/activity_change_user_details_picture_size"
@@ -69,12 +69,12 @@
             android:layout_marginBottom="@dimen/activity_change_user_details_margin"/>
 
         <!-- Name & Surname -->
-        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+        <it.triviapatente.android.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/inputName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_change_user_details_field_height"
             android:layout_marginBottom="@dimen/activity_change_user_details_field_vertical_margin"/>
-        <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+        <it.triviapatente.android.app.utils.custom_classes.input.LabeledInput
             android:id="@+id/inputSurname"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_change_user_details_field_height"
@@ -83,7 +83,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_change_user_details_field_height">
-            <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton
+            <it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/activity_change_user_details_confirm_button_text"

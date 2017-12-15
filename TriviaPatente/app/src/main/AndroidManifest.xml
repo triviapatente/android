@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ted_developers.triviapatente">
+    package="com.triviapatente.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -11,7 +11,7 @@
         android:required="true" />
 
     <application
-        android:name=".app.utils.mApplication"
+        android:name="it.triviapatente.android.app.utils.mApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -20,43 +20,43 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".app.views.access.FirstAccessActivity"
+            android:name="it.triviapatente.android.app.views.access.FirstAccessActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".app.views.main_page.MainPageActivity" />
-        <activity android:name=".app.views.SplashScreenActivity">
+        <activity android:name="it.triviapatente.android.app.views.main_page.MainPageActivity" />
+        <activity android:name="it.triviapatente.android.app.views.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.views.find_opponent.NewGameActivity" />
+        <activity android:name="it.triviapatente.android.app.views.find_opponent.NewGameActivity" />
         <activity
-            android:name=".app.views.find_opponent.FindOpponentActivity"
+            android:name="it.triviapatente.android.app.views.find_opponent.FindOpponentActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".app.views.game_page.GameMainPageActivity" />
-        <activity android:name=".app.views.game_page.ChooseCategoryActivity" />
-        <activity android:name=".app.views.AlphaView" />
-        <activity android:name=".app.views.game_page.play_round.PlayRoundActivity" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.GameMainPageActivity" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.ChooseCategoryActivity" />
+        <activity android:name="it.triviapatente.android.app.views.AlphaView" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity" />
         <activity
-            android:name=".app.views.game_page.ChatActivity"
+            android:name="it.triviapatente.android.app.views.game_page.ChatActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".app.views.menu_activities.ChangeUserDetailsActivity"
+            android:name="it.triviapatente.android.app.views.menu_activities.ChangeUserDetailsActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".app.views.access.Login.CredentialsRecovery" />
-        <activity android:name=".app.views.menu_activities.ContactsActivity" />
-        <activity android:name=".app.views.menu_activities.ChangePasswordActivity" />
+        <activity android:name="it.triviapatente.android.app.views.access.Login.CredentialsRecovery" />
+        <activity android:name="it.triviapatente.android.app.views.menu_activities.ContactsActivity" />
+        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangePasswordActivity" />
         <activity
-            android:name=".app.views.rank.RankActivity"
+            android:name="it.triviapatente.android.app.views.rank.RankActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".app.views.game_page.round_details.RoundDetailsActivity"
+            android:name="it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity"
             android:label="@string/title_activity_round_details"
-            android:parentActivityName=".app.utils.baseActivityClasses.TPGameActivity">
+            android:parentActivityName="it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity" />
+                android:value="com.triviapatente.android.it.ted_developers.triviapatente.app.utils.baseActivityClasses.TPGameActivity" />
         </activity>
     </application>
 

@@ -16,7 +16,7 @@
         android:textColor="@color/mainColor"
         android:layout_margin="@dimen/modal_view_leave_game_inner_margin"/>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.ScoreIncrementView
+    <it.triviapatente.android.app.utils.custom_classes.dialogs.ScoreIncrementView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scoreIncView"

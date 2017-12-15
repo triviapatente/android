@@ -6,7 +6,7 @@
     android:background="@drawable/background_gradient">
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader"
+        android:name="it.triviapatente.android.app.views.game_page.FragmentGameHeader"
         android:id="@+id/gameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
         android:layout_above="@id/gameOptions"/>
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameOptions"
+        android:name="it.triviapatente.android.app.views.game_page.FragmentGameOptions"
         android:id="@+id/gameOptions"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

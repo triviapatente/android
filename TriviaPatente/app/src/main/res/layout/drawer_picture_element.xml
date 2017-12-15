@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:gravity="center_vertical"
     android:padding="@dimen/drawer_inner_margin">
-    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+    <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/bigProfilePicture"
         android:layout_width="@dimen/drawerBigPictureSize"
         android:layout_height="@dimen/drawerBigPictureSize"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activityContainer"
-    tools:context=".app.views.game_page.round_details.RoundDetailsActivity"
+    tools:context="it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity"
     android:background="@color/mainColor">
 
     <include

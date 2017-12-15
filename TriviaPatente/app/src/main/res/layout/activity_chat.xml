@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    tools:context="com.ted_developers.triviapatente.app.views.game_page.ChatActivity"
+    tools:context="com.triviapatente.android.it.ted_developers.triviapatente.app.views.game_page.ChatActivity"
     android:background="@color/mainColor">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.actionBar.TPActionBar
+    <it.triviapatente.android.app.utils.custom_classes.actionBar.TPActionBar
     android:id="@+id/action_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/tp_toolbar_height"

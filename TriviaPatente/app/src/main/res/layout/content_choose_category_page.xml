@@ -8,7 +8,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader"
+        android:name="it.triviapatente.android.app.views.game_page.FragmentGameHeader"
         android:id="@+id/gameHeader"/>
 
     <android.support.v7.widget.RecyclerView

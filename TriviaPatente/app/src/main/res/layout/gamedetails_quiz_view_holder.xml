@@ -61,14 +61,14 @@
             android:layout_height="wrap_content">
 
 
-            <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/quizSecondTrueUser"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_margin="10dp"
                 android:layout_alignLeft="@+id/quizFirstTrueUser"
                 android:layout_alignStart="@+id/quizFirstTrueUser" />
-            <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/quizFirstTrueUser"
                 android:layout_width="20dp"
                 android:layout_margin="10dp"
@@ -78,14 +78,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/quizSecondFalseUser"
                 android:layout_width="20dp"
                 android:layout_margin="10dp"
                 android:layout_alignLeft="@+id/quizFirstFalseUser"
                 android:layout_alignStart="@+id/quizFirstFalseUser"
                 android:layout_height="20dp" />
-            <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/quizFirstFalseUser"
                 android:layout_width="20dp"
                 android:layout_margin="10dp"

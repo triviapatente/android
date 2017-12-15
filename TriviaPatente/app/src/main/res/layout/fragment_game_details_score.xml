@@ -6,7 +6,7 @@
     android:background="@drawable/rounded_big_transparent_box"
     android:id="@+id/score_view">
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+    <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/roundDetailsUser"
         android:layout_width="@dimen/modal_view_round_details_user_picture"
         android:layout_height="@dimen/modal_view_round_details_user_picture"
@@ -46,7 +46,7 @@
             android:layout_gravity="center"/>
     </LinearLayout>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+    <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/roundDetailsOpponent"
         android:layout_width="@dimen/modal_view_round_details_user_picture"
         android:layout_height="@dimen/modal_view_round_details_user_picture"

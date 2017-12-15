@@ -10,12 +10,12 @@
     android:layout_marginTop="@dimen/tp_toolbar_margin">
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader"
+        android:name="it.triviapatente.android.app.views.game_page.FragmentGameHeader"
         android:id="@+id/gameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+    <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
         android:id="@+id/bigProfilePicture"
         android:layout_width="@dimen/big_profile_picture_size"
         android:layout_height="@dimen/big_profile_picture_size"
@@ -37,7 +37,7 @@
         android:layout_below="@+id/bigProfilePicture"
         android:layout_marginTop="@dimen/wait_page_margin"/>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.animation.circleLoading.Circle
+    <it.triviapatente.android.app.utils.custom_classes.animation.circleLoading.Circle
         android:id="@+id/loadingCircle"
         android:layout_width="@dimen/big_profile_picture_size"
         android:layout_height="@dimen/big_profile_picture_size"
@@ -49,7 +49,7 @@
         android:layout_alignLeft="@+id/bigProfilePicture"/>
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameOptions"
+        android:name="it.triviapatente.android.app.views.game_page.FragmentGameOptions"
         android:id="@+id/gameOptions"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

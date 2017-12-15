@@ -15,7 +15,7 @@
             android:id="@+id/activityContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity">
+            tools:context="com.triviapatente.android.it.ted_developers.triviapatente.app.views.main_page.MainPageActivity">
 
             <include
                 layout="@layout/toolbar"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
+                <it.triviapatente.android.app.utils.custom_classes.output.MessageBox
                     android:id="@+id/serverDownAlert"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/alert_height"

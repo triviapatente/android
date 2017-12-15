@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/messageInput"/>
 
-    <com.ted_developers.triviapatente.app.utils.custom_classes.input.MessageInput
+    <it.triviapatente.android.app.utils.custom_classes.input.MessageInput
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

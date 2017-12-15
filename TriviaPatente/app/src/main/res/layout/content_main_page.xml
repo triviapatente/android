@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ted_developers.triviapatente.app.views.main_page.MainPageActivity"
+    tools:context="com.triviapatente.android.it.ted_developers.triviapatente.app.views.main_page.MainPageActivity"
     tools:showIn="@layout/activity_main_page">
 
     <View
@@ -26,7 +26,7 @@
         android:orientation="vertical"
         android:layout_below="@id/action_bar">
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
+        <it.triviapatente.android.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_page_button_height"
             android:id="@+id/new_game"
@@ -35,7 +35,7 @@
             custom:main_button_name="@string/button_new_game"
             custom:main_button_image="@drawable/image_main_button_car"/>
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
+        <it.triviapatente.android.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_page_button_height"
             android:id="@+id/rank"
@@ -45,7 +45,7 @@
             custom:main_button_image="@drawable/image_main_button_trophy"
             custom:main_button_hint_rotation_speed="7500"/>
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
+        <it.triviapatente.android.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_page_button_height"
             android:id="@+id/stats"
@@ -55,7 +55,7 @@
             custom:main_button_disabled="true"
             custom:main_button_image="@drawable/image_main_button_chart_line"/>
 
-        <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.MainButton
+        <it.triviapatente.android.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_page_button_height"
             android:id="@+id/shop"
@@ -72,6 +72,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/option_panel"
         android:layout_alignParentBottom="true"
-        android:name="com.ted_developers.triviapatente.app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
+        android:name="it.triviapatente.android.app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
     </fragment>
 </RelativeLayout>

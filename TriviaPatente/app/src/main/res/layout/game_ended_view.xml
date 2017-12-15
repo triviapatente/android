@@ -47,11 +47,11 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/winnerImage"
                 android:layout_width="80dp"
                 android:layout_height="80dp" />
-            <com.ted_developers.triviapatente.app.utils.custom_classes.images.RoundedImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/loserImage"
                 android:layout_toRightOf="@id/winnerImage"
                 android:layout_toEndOf="@id/winnerImage"
@@ -97,7 +97,7 @@
                 android:layout_centerInParent="true"
                 android:layout_height="wrap_content" />
 
-            <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.PlayButton
+            <it.triviapatente.android.app.utils.custom_classes.buttons.PlayButton
                 android:id="@+id/playButton"
                 android:visibility="gone"
                 android:layout_width="200dp"

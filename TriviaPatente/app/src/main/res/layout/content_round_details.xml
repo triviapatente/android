@@ -9,7 +9,7 @@
     android:layout_marginTop="@dimen/tp_toolbar_margin">
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.FragmentGameHeader"
+        android:name="it.triviapatente.android.app.views.game_page.FragmentGameHeader"
         android:id="@+id/gameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -43,7 +43,7 @@
 
 
     <fragment
-        android:name="com.ted_developers.triviapatente.app.views.game_page.round_details.FragmentGameDetailsScore"
+        android:name="it.triviapatente.android.app.views.game_page.round_details.FragmentGameDetailsScore"
         android:id="@+id/gameScore"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"

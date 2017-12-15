@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/mainColor"
-    tools:context=".app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
+    tools:context="it.triviapatente.android.app.utils.custom_classes.listViews.expandable_list.TPExpandableList">
         <View
             android:layout_width="match_parent"
             android:background="@android:color/white"

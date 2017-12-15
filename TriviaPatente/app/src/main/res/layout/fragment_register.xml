@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.views.access.Register.RegisterFragment"
+    tools:context="it.triviapatente.android.app.views.access.Register.RegisterFragment"
     android:background="@drawable/background_gradient"
     android:id="@+id/container">
 
@@ -38,7 +38,7 @@
                 android:paddingTop="@dimen/terms_and_conditions_margin_v_registration">
 
                 <!-- alert box -->
-                <com.ted_developers.triviapatente.app.utils.custom_classes.output.MessageBox
+                <it.triviapatente.android.app.utils.custom_classes.output.MessageBox
                     android:id="@+id/alertMessage"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/alert_height"
@@ -51,7 +51,7 @@
                     android:layout_marginEnd="@dimen/field_margin"/>
 
                 <!-- username input -->
-                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                <it.triviapatente.android.app.utils.custom_classes.input.LabeledInput
                     android:id="@+id/username_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                     android:layout_marginEnd="@dimen/field_margin"/>
 
                 <!-- email input -->
-                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                <it.triviapatente.android.app.utils.custom_classes.input.LabeledInput
                     android:id="@+id/email_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:layout_marginEnd="@dimen/field_margin"/>
 
                 <!-- password input -->
-                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                <it.triviapatente.android.app.utils.custom_classes.input.LabeledInput
                     android:id="@+id/password_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     android:layout_marginEnd="@dimen/field_margin"/>
 
                 <!-- repeat password input -->
-                <com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput
+                <it.triviapatente.android.app.utils.custom_classes.input.LabeledInput
                     android:id="@+id/repeat_password_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:layout_marginBottom="@dimen/element_margin">
 
             <!-- register loading button -->
-            <com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton
+            <it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/field_height"
                 android:text="@string/button_register"
