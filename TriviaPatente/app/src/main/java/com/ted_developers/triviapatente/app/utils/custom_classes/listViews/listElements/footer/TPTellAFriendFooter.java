@@ -17,7 +17,7 @@ public class TPTellAFriendFooter extends TPFooter {
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, itemView.getContext().getString(R.string.invite_friends_string));
+                sendIntent.putExtra(Intent.EXTRA_TEXT, itemView.getContext().getString(R.string.invite_friends_string) + " " + itemView.getContext().getString(R.string.download_link));
                 sendIntent.setType("text/plain");
                 itemView.getContext().startActivity(sendIntent);
             }

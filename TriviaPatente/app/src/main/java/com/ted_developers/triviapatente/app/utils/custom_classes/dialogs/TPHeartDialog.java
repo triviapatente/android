@@ -69,7 +69,7 @@ public class TPHeartDialog extends Dialog implements View.OnClickListener {
 
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, getContext().getString(R.string.invite_friends_string));
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getContext().getString(R.string.invite_friends_string) + " " + getContext().getString(R.string.download_link));
         sendIntent.setType("text/plain");
         getContext().startActivity(sendIntent);
     }
