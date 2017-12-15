@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 /**
  * Created by Antonio on 06/01/17.

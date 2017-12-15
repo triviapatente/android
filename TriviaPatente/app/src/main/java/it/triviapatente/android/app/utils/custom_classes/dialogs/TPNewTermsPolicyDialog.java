@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.models.auth.User;
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Round;

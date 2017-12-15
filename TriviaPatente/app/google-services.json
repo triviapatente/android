@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "696225523578",
+    "firebase_url": "https://triviapatente-4bc4e.firebaseio.com",
+    "project_id": "triviapatente-4bc4e",
+    "storage_bucket": "triviapatente-4bc4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696225523578:android:da34a53811a05541",
+        "android_client_info": {
+          "package_name": "it.triviapatente.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696225523578-pe4mhp9q9fid60bfc5oop88t6inlp6u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP5QYLyjM7rF7DmZOQwC-c18v6XnU5kOU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@ import android.util.Pair;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;

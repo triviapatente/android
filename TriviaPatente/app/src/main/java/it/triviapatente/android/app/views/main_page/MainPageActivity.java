@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;

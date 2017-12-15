@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.RoundDetailsSectionCallback;

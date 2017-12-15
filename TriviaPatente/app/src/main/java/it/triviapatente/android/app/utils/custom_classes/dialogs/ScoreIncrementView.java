@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 /**
  * Created by Antonio on 04/01/17.

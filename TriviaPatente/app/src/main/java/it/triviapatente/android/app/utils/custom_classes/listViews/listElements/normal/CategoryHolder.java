@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.TPHolder;
 import it.triviapatente.android.app.views.AlphaView;

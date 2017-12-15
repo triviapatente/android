@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.google.android.gms.ads.MobileAds;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.input.LabeledInputError;
 import it.triviapatente.android.app.views.access.FirstAccessActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;

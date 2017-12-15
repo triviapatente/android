@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.TPImageView.TPGradientDrawable;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
 import it.triviapatente.android.models.auth.User;

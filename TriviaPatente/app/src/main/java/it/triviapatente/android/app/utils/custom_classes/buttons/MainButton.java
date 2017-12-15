@@ -22,7 +22,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

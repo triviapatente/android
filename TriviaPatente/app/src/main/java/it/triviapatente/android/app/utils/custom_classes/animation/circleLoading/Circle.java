@@ -11,7 +11,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 /**
  * Created by Antonio on 08/12/16.

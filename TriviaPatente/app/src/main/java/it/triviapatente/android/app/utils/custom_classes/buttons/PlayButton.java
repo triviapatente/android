@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;

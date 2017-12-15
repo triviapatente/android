@@ -6,7 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentManager;
 
 import com.google.gson.Gson;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.views.game_page.FragmentGameHeader;

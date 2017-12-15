@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.custom_classes.buttons.PlayButton;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;

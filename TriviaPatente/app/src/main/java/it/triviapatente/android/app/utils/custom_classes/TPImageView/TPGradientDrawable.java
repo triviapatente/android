@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 /**
  * Created by donadev on 23/11/17.

@@ -3,7 +3,7 @@ package it.triviapatente.android.app.views;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 

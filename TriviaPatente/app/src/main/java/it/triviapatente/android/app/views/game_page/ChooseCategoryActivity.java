@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.OnSwipeTouchListener;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
 import it.triviapatente.android.app.utils.custom_classes.listViews.adapters.TPEnterAnimListAdapter;

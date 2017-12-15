@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton;

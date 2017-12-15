@@ -3,7 +3,7 @@ package it.triviapatente.android.app.utils.custom_classes.listViews.listElements
 import android.view.View;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 
 /**

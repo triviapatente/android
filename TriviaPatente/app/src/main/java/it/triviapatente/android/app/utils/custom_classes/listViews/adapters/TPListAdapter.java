@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableRow;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.TPHolder;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.GameEndedHolder;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.QuestionHolder;
 import it.triviapatente.android.models.auth.User;

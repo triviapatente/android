@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;

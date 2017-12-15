@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
 
     defaultConfig {
-        applicationId "com.ted_developers.triviapatente"
+        applicationId "it.triviapatente.android"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -45,4 +45,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // ADS
     compile 'com.google.android.gms:play-services-ads:11.6.2'
+    //FIREBASE
+    compile 'com.google.firebase:firebase-core:11.6.2'
 }
+apply plugin: 'com.google.gms.google-services'

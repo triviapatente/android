@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 /**
  * Created by Antonio on 04/12/16.

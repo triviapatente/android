@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.animation.ResizeAnimation;
 import it.triviapatente.android.app.utils.custom_classes.listViews.adapters.TPExpandableListAdapter;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;

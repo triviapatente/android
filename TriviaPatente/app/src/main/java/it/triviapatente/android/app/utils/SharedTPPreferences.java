@@ -2,7 +2,7 @@ package it.triviapatente.android.app.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
 

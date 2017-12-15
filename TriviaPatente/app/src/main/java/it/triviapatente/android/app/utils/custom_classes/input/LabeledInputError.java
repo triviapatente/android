@@ -3,7 +3,7 @@ package it.triviapatente.android.app.utils.custom_classes.input;
 import android.content.Context;
 import android.widget.EditText;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 import java.util.Dictionary;
 import java.util.Hashtable;

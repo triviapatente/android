@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.triviapatente.android.R;
+import it.triviapatente.android.R;
 
 public class WelcomeFragment extends Fragment {
     public WelcomeFragment() {
