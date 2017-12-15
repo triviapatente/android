@@ -21,6 +21,7 @@ import it.triviapatente.android.app.views.main_page.MainPageActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Game;
+import it.triviapatente.android.socket.modules.base.BaseSocketManager;
 
 /**
  * Created by donadev on 15/12/17.
@@ -39,8 +40,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     private void sendNotification(Map<String, String> data, RemoteMessage.Notification fcmNotification) {
         String  gameData = data.get(getString(R.string.firebase_message_game_key)),
                 opponentData = data.get(getString(R.string.firebase_message_opponent_key));
-        Intent intent = new Intent(this, MainPageActivity.class);
         Game game = RetrofitManager.gson.fromJson(gameData, Game.class);
+        if(game.id.equals(BaseSocketManager.joinedRooms.get("game"))) return;
+        Intent intent = new Intent(this, MainPageActivity.class);
+
         intent.putExtra(getString(R.string.extra_firebase_game_param), gameData);
         intent.putExtra(getString(R.string.extra_firebase_opponent_param), opponentData);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

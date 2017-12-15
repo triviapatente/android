@@ -153,7 +153,7 @@ public class BaseSocketManager {
         return null;
     }
 
-    static Map<String, Long> joinedRooms = new HashMap<>();
+    public static Map<String, Long> joinedRooms = new HashMap<>();
 
     public void leave(final String type, final SocketCallback<Success> cb) {
         if(joinedRooms.containsKey(type)) {
