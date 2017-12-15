@@ -5,9 +5,9 @@
     <dimen name="drawer_divider_width">270dp</dimen>
     <dimen name="drawer_divider_height">1px</dimen>
     <dimen name="drawer_item_height">100dp</dimen>
-    <string name="drawer_closed"></string>
-    <string name="drawer_opened"></string>
-    <dimen name="drawer_option_image_dimen">20dp</dimen>
+    <string name="drawer_closed">drawer_closed</string>
+    <string name="drawer_opened">drawer_opened</string>
+    <dimen name="drawer_option_image_dimen">25dp</dimen>
     <dimen name="drawer_option_inner_margin">20dp</dimen>
     <dimen name="drawer_inner_margin">30dp</dimen>
     <string name="drawerProfileOption">Profilo</string>

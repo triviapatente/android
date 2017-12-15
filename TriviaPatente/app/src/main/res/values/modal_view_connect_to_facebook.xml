@@ -12,5 +12,5 @@
     <dimen name="connectToFacebookExitButtonMargin">10dp</dimen>
 
     <dimen name="modalTopMargin">30dp</dimen>
-    <dimen name="modalWidth">325dp</dimen>
+    <dimen name="modalWidth">300dp</dimen>
 </resources>
