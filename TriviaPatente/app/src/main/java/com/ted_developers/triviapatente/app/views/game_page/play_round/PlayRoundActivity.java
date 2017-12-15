@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.ted_developers.triviapatente.R;
@@ -87,6 +88,17 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         // load ads
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                mAdView.setVisibility(View.VISIBLE); // JUST TO MAKE SURE
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                mAdView.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void init() {

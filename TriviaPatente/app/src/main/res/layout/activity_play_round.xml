@@ -17,15 +17,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/banner"/>
-    
-    <View
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/banner_height"
-        android:background="@color/red"
+        android:layout_above="@+id/adView"/>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"/>
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_banner">
+    </com.google.android.gms.ads.AdView>
 
     <include layout="@layout/layout_blurred_blue"/>
 </RelativeLayout>
