@@ -37,6 +37,7 @@ public class BaseSocketManager {
     }
 
     private static String TOKEN_KEY;
+    private static String DEVICE_ID_KEY;
 
     public static void init(Context context) {
         try {
@@ -46,6 +47,7 @@ public class BaseSocketManager {
             e.printStackTrace();
         }
         TOKEN_KEY = context.getString(R.string.shared_token_key);
+        DEVICE_ID_KEY = context.getString(R.string.device_id_key);
     }
 
     public static void connect(final SimpleCallback onConnectCallback, final SimpleCallback onTimeoutCallback) {
@@ -109,6 +111,7 @@ public class BaseSocketManager {
         try {
             output.put("body", params);
             output.put(TOKEN_KEY, SharedTPPreferences.getToken());
+            output.put(DEVICE_ID_KEY, SharedTPPreferences.deviceId());
         } catch(JSONException e) {
             Log.e("JSONException", e.getLocalizedMessage());
         }

@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.TPUtils;
@@ -24,9 +26,12 @@ import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.
 import it.triviapatente.android.app.utils.custom_classes.output.MessageBox;
 import it.triviapatente.android.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
 import it.triviapatente.android.app.views.find_opponent.NewGameActivity;
+import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.app.views.rank.RankActivity;
+import it.triviapatente.android.firebase.FirebaseInstanceIDService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.Hints;
+import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Game;
 import it.triviapatente.android.models.responses.ActionRecentGame;
@@ -79,6 +84,18 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     private boolean onCreate = true;
 
+    private User pushUser;
+    private Game pushGame;
+    private void getPushValues() {
+
+        String pushUserData = getIntent().getStringExtra(getString(R.string.extra_firebase_opponent_param));
+        String pushGameData = getIntent().getStringExtra(getString(R.string.extra_firebase_game_param));
+        if (pushUserData != null)
+            pushUser = RetrofitManager.gson.fromJson(pushUserData, User.class);
+        if (pushGameData != null)
+            pushGame = RetrofitManager.gson.fromJson(pushGameData, Game.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +103,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         serverDownMessage = TPUtils.translateEmoticons(serverDownMessage);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         recentGames.setSyncButtonOnClickListner(this);
+        getPushValues();
         baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
             @Override
             public void response(ActionRecentGame response) {
@@ -96,6 +114,14 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         });
     }
 
+    private void pushRedirect() {
+        Intent i = new Intent(this, GameMainPageActivity.class);
+        i.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(pushUser));
+        i.putExtra(this.getString(R.string.extra_long_game), pushGame.id);
+
+        startActivity(i);
+    }
+
     @Override
     protected String getToolbarTitle(){
         return pageTitle;
@@ -103,6 +129,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     private void init() { init(null); }
     private void init(final View syncButton) {
+        FirebaseInstanceIDService.sendRegistration();
         // connect to socket
         if(!BaseSocketManager.isConnected()) {
             // start loading
@@ -122,25 +149,32 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                                         // ReceivedData.statsHints = response.stats;
                                         // ReceivedData.friends_rank_position = response.friends_rank_position;
                                         ReceivedData.global_rank_position = response.global_rank_position;
-
-                                        // new terms or policy?
-                                        boolean newTerms = false, newPolicy = false;
-                                        if(currentUser.privacyPolicyLastUpdate == null) currentUser.privacyPolicyLastUpdate = response.privacy_policy_last_update;
-                                        else newPolicy = !currentUser.privacyPolicyLastUpdate.equals(response.privacy_policy_last_update);
-                                        if(currentUser.termsAndConditionsLastUpdate == null) currentUser.termsAndConditionsLastUpdate = response.terms_and_conditions_last_update;
-                                        else newTerms = !currentUser.termsAndConditionsLastUpdate.equals(response.terms_and_conditions_last_update);
-                                        if(newTerms || newPolicy)
-                                            new TPNewTermsPolicyDialog(
-                                                    MainPageActivity.this,
-                                                    newTerms,
-                                                    newPolicy,
-                                                    response.terms_and_conditions_last_update,
-                                                    response.privacy_policy_last_update
-                                            ).show();
-
+                                        if (pushGame != null && pushUser != null) {
+                                            pushRedirect();
+                                        } else {
+                                            // new terms or policy?
+                                            boolean newTerms = false, newPolicy = false;
+                                            if (currentUser.privacyPolicyLastUpdate == null)
+                                                currentUser.privacyPolicyLastUpdate = response.privacy_policy_last_update;
+                                            else
+                                                newPolicy = !currentUser.privacyPolicyLastUpdate.equals(response.privacy_policy_last_update);
+                                            if (currentUser.termsAndConditionsLastUpdate == null)
+                                                currentUser.termsAndConditionsLastUpdate = response.terms_and_conditions_last_update;
+                                            else
+                                                newTerms = !currentUser.termsAndConditionsLastUpdate.equals(response.terms_and_conditions_last_update);
+                                            if (newTerms || newPolicy)
+                                                new TPNewTermsPolicyDialog(
+                                                        MainPageActivity.this,
+                                                        newTerms,
+                                                        newPolicy,
+                                                        response.terms_and_conditions_last_update,
+                                                        response.privacy_policy_last_update
+                                                ).show();
+                                        }
                                         initOptionButtons();
                                         // load recent games
                                         loadRecentGames(syncButton);
+
                                     }
                                 });
                             } else { backToFirstAccess(); }
@@ -159,7 +193,12 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                     });
                 }
             });
-        } else loadRecentGames(syncButton);
+        } else {
+            if (pushGame != null && pushUser != null) {
+                pushRedirect();
+            }
+            loadRecentGames(syncButton);
+        }
     }
 
     private void initOptionButtons() {

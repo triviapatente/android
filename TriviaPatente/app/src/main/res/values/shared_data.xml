@@ -3,6 +3,7 @@
     <!-- shared preferences -->
     <string name="shared_preferences">TriviaPatente</string>
     <string name="shared_token_key">tp-session-token</string>
+    <string name="device_id_key">tp-device-id</string>
     <string name="shared_user">current-user</string>
     <!-- data between activities -->
     <string name="extra_string_opponent">opponent</string>

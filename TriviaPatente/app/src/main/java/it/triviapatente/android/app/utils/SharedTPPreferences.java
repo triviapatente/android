@@ -2,6 +2,10 @@ package it.triviapatente.android.app.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+
+import java.util.UUID;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
@@ -14,6 +18,21 @@ public class SharedTPPreferences {
     public static String shared_TP, shared_token_key, shared_user;
     public static android.content.SharedPreferences sharedPref;
     public static SharedPreferences.Editor editor;
+
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+    public synchronized static String deviceId() {
+        if (uniqueID == null) {
+
+            uniqueID = sharedPref.getString(PREF_UNIQUE_ID, null);
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.commit();
+            }
+        }
+        return uniqueID;
+    }
 
     public static void init(Context context) {
         // init shared string

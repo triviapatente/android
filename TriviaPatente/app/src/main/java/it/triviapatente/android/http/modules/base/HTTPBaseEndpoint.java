@@ -14,4 +14,7 @@ public interface HTTPBaseEndpoint {
     @FormUrlEncoded
     @POST("ws/contact")
     Call<Success> contact(@Field("message") String message, @Field("scope") String scope);
+    @FormUrlEncoded
+    @POST("ws/registerForPush")
+    Call<Success> registerToPush(@Field("os") String os, @Field("token") String token, @Field("deviceId") String deviceId);
 }
