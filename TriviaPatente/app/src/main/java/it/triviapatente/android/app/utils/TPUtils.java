@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.TPImageView.TPGradientDrawable;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
+import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Question;
 
@@ -104,6 +105,7 @@ public class TPUtils {
     public static Picasso picasso;
     public static void initPicasso(final Context context) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.sslSocketFactory(RetrofitManager.getSSLContext().getSocketFactory(), RetrofitManager.trustAll);
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

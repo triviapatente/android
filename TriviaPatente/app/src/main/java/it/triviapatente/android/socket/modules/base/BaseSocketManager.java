@@ -19,8 +19,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by Antonio on 31/10/16.
@@ -39,11 +51,18 @@ public class BaseSocketManager {
     private static String TOKEN_KEY;
     private static String DEVICE_ID_KEY;
 
+    private static IO.Options getIO() throws KeyManagementException, NoSuchAlgorithmException {
+        IO.Options opts = new IO.Options();
+        opts.secure = true;
+        opts.sslContext = RetrofitManager.getSSLContext();
+        return opts;
+    }
     public static void init(Context context) {
         try {
-            mSocket = IO.socket(context.getString(R.string.baseUrl));
+            HttpsURLConnection.setDefaultHostnameVerifier(RetrofitManager.hostnameVerifier);
+            mSocket = IO.socket(context.getString(R.string.baseUrl), getIO());
             mSocket.io().timeout(timeout);
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         TOKEN_KEY = context.getString(R.string.shared_token_key);

@@ -15,7 +15,16 @@ import it.triviapatente.android.http.modules.purchases.HTTPPurchasesEndpoint;
 import it.triviapatente.android.http.modules.rank.HTTPRankEndpoint;
 
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -31,6 +40,52 @@ public class RetrofitManager {
     public static Gson gson = null;
     private static Retrofit retrofit = null;
     public static Context context = null;
+
+    public static final HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    };
+    public static final X509TrustManager trustAll = new X509TrustManager() {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+    };
+    public static final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+            return new java.security.cert.X509Certificate[] {};
+        }
+
+        public void checkClientTrusted(X509Certificate[] chain,
+                                       String authType) throws CertificateException {
+        }
+
+        public void checkServerTrusted(X509Certificate[] chain,
+                                       String authType) throws CertificateException {
+        }
+    } };
+    public static SSLContext getSSLContext() {
+        try {
+            SSLContext mySSLContext = SSLContext.getInstance("SSL");
+            mySSLContext.init(null, RetrofitManager.trustAllCerts, new SecureRandom());
+            return mySSLContext;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     // method called only one time on mApplication on create
     public static void init(Context c) {
         context = c;
@@ -38,6 +93,8 @@ public class RetrofitManager {
         GsonConverterFactory factory = GsonConverterFactory.create(gson);
         // interceptor which adds token in header
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.hostnameVerifier(hostnameVerifier);
+        httpClient.sslSocketFactory(getSSLContext().getSocketFactory(), trustAll);
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
