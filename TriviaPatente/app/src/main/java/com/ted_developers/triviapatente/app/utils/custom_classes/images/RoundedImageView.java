@@ -37,8 +37,8 @@ public class RoundedImageView extends ImageView {
 
     private Integer borderColor;
     private Integer borderWidth;
-    private Paint fillPaint = new Paint();
-    private Paint borderPaint = new Paint();
+    private Paint fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private final Integer DEFAULT_BORDER_WIDTH = 3;
 
@@ -79,7 +79,7 @@ public class RoundedImageView extends ImageView {
             borderPaint.setStrokeWidth(borderWidth);
             borderPaint.setColor(borderColor);
             float radius = dim / 2;
-            canvas.drawCircle(radius, radius, radius - (borderWidth / 2) + 1, borderPaint);
+            canvas.drawCircle(radius, radius, radius - (borderWidth / 2), borderPaint);
         }
 
     }
