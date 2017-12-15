@@ -49,7 +49,7 @@ public class RetrofitManager {
                 return chain.proceed(request);
             }
         });
-        OkHttpClient client = httpClient.readTimeout(1, TimeUnit.SECONDS).connectTimeout(1, TimeUnit.SECONDS).build();
+        OkHttpClient client = httpClient.readTimeout(3, TimeUnit.SECONDS).connectTimeout(5, TimeUnit.SECONDS).build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.baseUrl))
                 .addConverterFactory(factory)
