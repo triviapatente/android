@@ -127,13 +127,14 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         private int roundPosition;
+        static final int scrollTollerance = 10;
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            if(dy == 0) return;
+            if(dy < scrollTollerance && dy > -scrollTollerance ) return;
             answerAdapter.up = dy < 0;
-            int position = (dy < 0)? answerLayout.findFirstVisibleItemPosition() + 1 : answerLayout.findLastVisibleItemPosition() - 1;
+            int position = (dy < 0)? answerLayout.findFirstVisibleItemPosition() : answerLayout.findLastVisibleItemPosition();
             if(position != -1) {
                 roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
                 RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
@@ -350,7 +351,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                                 }
                             });
                             // display ads
-                            if(System.currentTimeMillis() - response.game.getUpdatedAtMillis() < 2*60*1000 && response.game.ended) {
+                            if(System.currentTimeMillis() - response.game.getUpdatedAtMillis() < 60*1000 && response.game.ended) {
                                 displayInterstitial();
                             }
                         }
