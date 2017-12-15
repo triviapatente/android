@@ -157,7 +157,7 @@ public class TPActivity extends AppCompatActivity {
         List<DrawerOption> options = new ArrayList<DrawerOption>();
         options.add(new DrawerOption(R.layout.drawer_list_item, drawer_options_type.image));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_profile, drawer_options_type.profile, profileOptionString));
-        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_car, drawer_options_type.new_game, drawerNewGameOptionString));
+        options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_main_button_car, drawer_options_type.new_game, drawerNewGameOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_contacts, drawer_options_type.contacts, contactsOptionString));
         options.add(new DrawerOption(R.layout.drawer_list_item, R.drawable.image_logout, drawer_options_type.logout, logoutOptionString));
         // Set the adapter for the list view
