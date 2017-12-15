@@ -67,7 +67,7 @@ public class TPActivity extends AppCompatActivity {
     public @BindString(R.string.httpConnectionError) String httpConnectionError;
     public @BindString(R.string.httpConnectionErrorRetryButton) String httpConnectionErrorRetryButton;
     // hide keyboard utils
-    protected @Nullable @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
+    public  @Nullable @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     public User currentUser;
     // used for toolbar configuration utils
     protected @Nullable @BindView(R.id.toolbar) Toolbar toolbar;

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.TPUtils;
+import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.dialogs.TPPolicyAndTermsDialog;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.utils.custom_classes.buttons.LoadingButton;
@@ -121,17 +122,9 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // set hide keyboard on click on view
-        setHideOnClick();
-    }
 
-    public void setHideOnClick() {
-        getActivity().findViewById(android.R.id.content).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TPUtils.hideKeyboard(getActivity(), dummyLayout);
-            }
-        });
+        // set current dummy layout
+        ((TPActivity) getActivity()).dummyLayout = dummyLayout;
     }
 
     // set hints and passwords (can't do this from xml)

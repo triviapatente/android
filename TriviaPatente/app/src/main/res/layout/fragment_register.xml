@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".app.views.access.Register.RegisterFragment"
-    android:background="@drawable/background_gradient">
+    android:background="@drawable/background_gradient"
+    android:id="@+id/container">
 
     <!-- to avoid edittext getting focus at activity start -->
     <LinearLayout
@@ -21,7 +22,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_above="@+id/terms_and_conditions"
-        android:layout_below="@+id/dummy_layout">
+        android:layout_below="@id/dummy_layout">
 
         <!-- inputs in scroll view -->
         <ScrollView

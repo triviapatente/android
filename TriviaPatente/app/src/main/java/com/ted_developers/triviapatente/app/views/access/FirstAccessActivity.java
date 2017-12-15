@@ -1,18 +1,15 @@
 package com.ted_developers.triviapatente.app.views.access;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.ted_developers.triviapatente.R;
 import com.ted_developers.triviapatente.app.utils.SharedTPPreferences;
+import com.ted_developers.triviapatente.app.utils.TPUtils;
 import com.ted_developers.triviapatente.app.utils.baseActivityClasses.TPActivity;
 import com.ted_developers.triviapatente.app.utils.custom_classes.input.LabeledInput;
 import com.ted_developers.triviapatente.app.views.main_page.MainPageActivity;
@@ -25,7 +22,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 
 public class FirstAccessActivity extends TPActivity {
-
     @BindView(R.id.pager) public ViewPager mViewPager;
     @BindView(R.id.pagerIndicator) CirclePageIndicator mIndicator;
     // error messages
@@ -61,72 +57,6 @@ public class FirstAccessActivity extends TPActivity {
         mViewPager.setCurrentItem(0);
     }
 
-    // check input methods
-
-    // is or not a valid email
-    public boolean isValidEmail(LabeledInput input) {
-        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(input.toString()).matches()) {
-            input.showLabel(not_valid_email_error, Color.WHITE);
-            return false;
-        } else {
-            input.hideLabel();
-            return true;
-        }
-    }
-
-    // is empty or not
-    public boolean checkNotEmptyField(LabeledInput input) {
-        if(input.toString().replace(" ", "").equals("")) {
-            input.showLabel(field_required_error, Color.WHITE);
-            return false;
-        } else {
-            input.hideLabel();
-            return true;
-        }
-    }
-
-    // is without blank spaces
-    public boolean checkWithoutBlankSpacesField(LabeledInput input) {
-        if(input.toString().contains(" ")) {
-            input.showLabel(blank_not_allowed_error, Color.WHITE);
-            return false;
-        } else {
-            input.hideLabel();
-            return true;
-        }
-    }
-
-    public boolean checkUsernameLength(LabeledInput input) {
-        if(input.toString().length() < minUsernameLength) {
-            input.showLabel(not_valid_username_error, Color.WHITE);
-            return false;
-        } else {
-            input.hideLabel();
-            return true;
-        }
-    }
-
-    public boolean checkPasswordLength(LabeledInput input) {
-        if(input.toString().length() < minPasswordLength) {
-            input.showLabel(not_valid_password_error, Color.WHITE);
-            return false;
-        } else {
-            input.hideLabel();
-            return true;
-        }
-    }
-
-    // first input equals to the second
-    public boolean checkEquals(LabeledInput input1, LabeledInput input2) {
-        if(!input1.toString().equals(input2.toString())) {
-            input1.showLabel(not_matching_pwd_error, Color.WHITE);
-            return false;
-        } else {
-            input1.hideLabel();
-            return true;
-        }
-    }
-
     // go to main page and save data
     public static void openMainPage(FirstAccessActivity a, SuccessUserToken data) {
         // save data
@@ -148,5 +78,12 @@ public class FirstAccessActivity extends TPActivity {
         super.onResume();
 
         AuthSocketManager.disconnect();
+    }
+
+    // touch handler
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        TPUtils.hideKeyboard(this, dummyLayout);
+        return super.dispatchTouchEvent(ev);
     }
 }
