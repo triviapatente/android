@@ -305,6 +305,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         response.game.ended = true;
                         response.game.winner_id = event.winnerId;
                         response.partecipations = event.partecipations;
+                        detailsScore.setResponse(response, RoundDetailsActivity.this);
                         answerAdapter.notifyDataSetChanged(response, opponent);
                         sectionAdapter.notifyDataSetChanged(response, answerMap);
                     }
@@ -320,6 +321,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         response.game.ended = true;
                         response.game.winner_id = event.winnerId;
                         response.partecipations = event.partecipations;
+                        detailsScore.setResponse(response, RoundDetailsActivity.this);
                         answerAdapter.notifyDataSetChanged(response, opponent);
                         sectionAdapter.notifyDataSetChanged(response, answerMap);
                     }
@@ -339,6 +341,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         public void run() {
                             setToolbarTitle(getToolbarTitle());
                             detailsScore.set(RoundDetailsActivity.this, opponent, response.answers);
+                            detailsScore.setResponse(response, RoundDetailsActivity.this);
                             sectionList.setVisibility(View.VISIBLE);
                             detailsScore.getView().setVisibility(View.VISIBLE);
                             answerList.setVisibility(View.VISIBLE);

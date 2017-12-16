@@ -22,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import it.triviapatente.android.models.responses.SuccessRoundDetails;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +36,14 @@ public class FragmentGameDetailsScore extends Fragment {
     private List<Question> answers = new ArrayList<>();
     private User opponent;
     private User currentUser = SharedTPPreferences.currentUser();
+    private SuccessRoundDetails response;
+
+    public void setResponse(SuccessRoundDetails response, Context context) {
+        this.response = response;
+
+        this.updateScore(context);
+
+    }
 
     public FragmentGameDetailsScore() {
         // Required empty public constructor
@@ -67,12 +76,16 @@ public class FragmentGameDetailsScore extends Fragment {
         int myScore = this.scoreFor(currentUser);
         int opponentScore = this.scoreFor(opponent);
         userScoreView.setText("" + myScore);
-        userImageView.setBorder(colorFor(ctx, myScore, opponentScore));
+        userImageView.setBorder(colorFor(ctx, myScore, opponentScore, currentUser));
         opponentScoreView.setText("" + opponentScore);
-        opponentImageView.setBorder(colorFor(ctx, opponentScore, myScore));
+        opponentImageView.setBorder(colorFor(ctx, opponentScore, myScore, opponent));
 
     }
-    private int colorFor(Context ctx, int score, int opponentScore) {
+    private int colorFor(Context ctx, int score,  int opponentScore, User user) {
+        if(response != null && response.game != null && response.game.winner_id != null) {
+            if(response.game.winner_id.equals(user.id)) return ContextCompat.getColor(ctx, R.color.green_on_white);
+            else return ContextCompat.getColor(ctx, R.color.red_on_white);
+        }
         if(score > opponentScore) {
             return ContextCompat.getColor(ctx, R.color.green_on_white);
         } else if (score == opponentScore) {
