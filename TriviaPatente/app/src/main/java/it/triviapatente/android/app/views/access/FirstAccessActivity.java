@@ -3,6 +3,7 @@ package it.triviapatente.android.app.views.access;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
@@ -11,6 +12,9 @@ import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.views.main_page.MainPageActivity;
+import it.triviapatente.android.http.modules.base.HTTPBaseEndpoint;
+import it.triviapatente.android.http.utils.RetrofitManager;
+import it.triviapatente.android.models.responses.Success;
 import it.triviapatente.android.models.responses.SuccessUserToken;
 import it.triviapatente.android.socket.modules.auth.AuthSocketManager;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -18,6 +22,9 @@ import com.viewpagerindicator.CirclePageIndicator;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FirstAccessActivity extends TPActivity {
     @BindView(R.id.pager) public ViewPager mViewPager;
@@ -36,6 +43,22 @@ public class FirstAccessActivity extends TPActivity {
     @BindInt(R.integer.min_password_length) public int minPasswordLength;
 
     private FirstAccessAdapter mAdapter;
+
+    private void unsubscribeToPush() {
+        HTTPBaseEndpoint endpoint = RetrofitManager.getHTTPBaseEndpoint();
+        Call<Success> call = endpoint.unregisterToPush("Android", SharedTPPreferences.deviceId());
+        call.enqueue(new Callback<Success>() {
+            @Override
+            public void onResponse(Call<Success> call, Response<Success> response) {
+                Log.i("Push", "User unsubscribed to push, success? " + response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Success> call, Throwable t) {
+                if(t != null) Log.i("Push", "User unsubscribed to push, failure " + t.getLocalizedMessage());
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +97,8 @@ public class FirstAccessActivity extends TPActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         AuthSocketManager.disconnect();
+        unsubscribeToPush();
     }
 
     // touch handler

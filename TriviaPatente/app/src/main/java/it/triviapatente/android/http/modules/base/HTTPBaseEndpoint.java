@@ -17,4 +17,7 @@ public interface HTTPBaseEndpoint {
     @FormUrlEncoded
     @POST("ws/registerForPush")
     Call<Success> registerToPush(@Field("os") String os, @Field("token") String token, @Field("deviceId") String deviceId);
+    @FormUrlEncoded
+    @POST("ws/unregisterForPush")
+    Call<Success> unregisterToPush(@Field("os") String os, @Field("deviceId") String deviceId);
 }
