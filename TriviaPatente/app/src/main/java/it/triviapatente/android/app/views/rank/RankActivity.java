@@ -87,17 +87,17 @@ public class RankActivity extends TPActivity {
     protected void setPlayersListItems(List<User> userList) {
         // SETTING AGAIN THE ADAPTER MAKES SURE THAT ALL CALCULATION ARE PERFORMED FROM TOP!
         // IF YOU CHANGE THIS, FIX ALSO THE SCROLL TO POSITION IN LOAD PLAYERS!
-        playersList.setAdapter(
-                new TPListAdapter<>(
-                        this,
-                        userList,
-                        R.layout.list_element_player_rank_holder,
-                        PlayerRankHolder.class,
-                        0, //R.layout.list_element_tell_a_friend_footer,
-                        null, //TPTellAFriendFooter.class,
-                        playerListItemHeight,
-                        playersList)
-        );
+        playersList.setAdapter(new TPListAdapter<>(
+                this,
+                userList,
+                R.layout.list_element_player_rank_holder,
+                PlayerRankHolder.class,
+                0, //R.layout.list_element_tell_a_friend_footer,
+                null, //TPTellAFriendFooter.class,
+                playerListItemHeight,
+                playersList
+        ));
+
     }
 
     private void addPagination() {
@@ -106,6 +106,7 @@ public class RankActivity extends TPActivity {
         playersList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                updateRankScrollVisibility();
                 if(loadable) {
                     if(dy < 0 && mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position != 1) {
                         loadable = false;
@@ -173,6 +174,7 @@ public class RankActivity extends TPActivity {
                                 }
                         }
                         playersList.scrollToPosition(scrollToPosition);
+                        updateRankScrollVisibility();
                     }
                 }
             }
@@ -287,14 +289,35 @@ public class RankActivity extends TPActivity {
         users = null; // clean user list
         absolute_last = false; // clean settings
         // load new list
-        if(scrollToTop) {
-            rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_down_button));
-            loadPlayers(0, up, LoadAndScrollTo.top);
-        } else {
-            rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_up_button));
-            loadPlayers();
+        updateRankScrollDirection(!scrollToTop);
+        if(scrollToTop) loadPlayers(0, up, LoadAndScrollTo.top);
+    }
+
+    protected void updateRankScrollDirection(boolean toTop) {
+        if(toTop) rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_up_button));
+        else rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_down_button));
+        scrollToTop = toTop;
+    }
+
+    protected void updateRankScrollVisibility() {
+        if(rankScroll == null) return;
+        if(users != null) {
+            int currentUserIndex = users.indexOf(currentUser);
+            boolean currentUserVisible = false, firstUserVisible = false;
+            if(currentUserIndex <= mLayoutManager.findLastCompletelyVisibleItemPosition()
+                    && currentUserIndex >= mLayoutManager.findFirstCompletelyVisibleItemPosition()) {
+                // current user is currently visible
+                currentUserVisible = true;
+            }
+            if(users.get(0).internalPosition == 1 && mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                firstUserVisible = true;
+            }
+            if(currentUserVisible && firstUserVisible) rankScroll.setVisibility(View.GONE); // no need to show button
+            else {
+                rankScroll.setVisibility(View.VISIBLE);
+                updateRankScrollDirection(currentUserVisible); // show button, giving priority to current user option
+            }
         }
-        scrollToTop = !scrollToTop;
     }
 
     @OnClick(R.id.x_button)
