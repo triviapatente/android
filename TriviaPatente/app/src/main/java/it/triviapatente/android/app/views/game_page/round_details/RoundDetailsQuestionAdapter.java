@@ -57,7 +57,7 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
     public boolean up = false;
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Animation animation = AnimationUtils.loadAnimation(context, up ? R.anim.down_from_top : R.anim.up_from_bottom);
+        //Animation animation = AnimationUtils.loadAnimation(context, up ? R.anim.down_from_top : R.anim.up_from_bottom);
 
         if(holder instanceof QuestionHolder) {
             Quiz quiz = response.quizzes.get(position);
@@ -66,7 +66,7 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
             ((GameEndedHolder)holder).bind(response, opponent);
         }
 
-        holder.itemView.startAnimation(animation);
+        //holder.itemView.startAnimation(animation);
     }
 
     @Override
@@ -84,6 +84,6 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.itemView.clearAnimation();
+        //holder.itemView.clearAnimation();
     }
 }
