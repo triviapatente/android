@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- status messages -->
-    <string name="wait_page_offline_status">Il tuo avversario è offline, ma adesso è il suo turno di segliere la categoria! \nRicordaglielo 0x1F4AA</string>
+    <string name="wait_page_offline_status">Il tuo avversario è offline, ma adesso è il suo turno di scegliere la categoria! \nRicordaglielo 0x1F4AA</string>
     <string name="wait_page_playing_status">Il tuo avversario sta giocando proprio ora! \nAttendi che finisca il turno e scelga la categoria del prossimo round 0x1F60D</string>
     <string name="wait_page_waitingCategory_status">Il tuo avversario sta scegliendo la categoria 0x263A</string>
     <string name="wait_page_offline_status_last_round">Il tuo avversario è offline, ma per completare la partita deve giocare il suo ultimo turno! \nRicordaglielo 0x1F4AA</string>
