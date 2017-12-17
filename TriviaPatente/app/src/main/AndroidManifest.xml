@@ -18,7 +18,8 @@
         android:launchMode="singleTask"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="adjustPan">
         <service
             android:name=".firebase.FirebaseInstanceIDService">
             <intent-filter>
@@ -43,25 +44,17 @@
             </intent-filter>
         </activity>
         <activity android:name="it.triviapatente.android.app.views.find_opponent.NewGameActivity" />
-        <activity
-            android:name="it.triviapatente.android.app.views.find_opponent.FindOpponentActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name="it.triviapatente.android.app.views.find_opponent.FindOpponentActivity"/>
         <activity android:name="it.triviapatente.android.app.views.game_page.GameMainPageActivity" />
         <activity android:name="it.triviapatente.android.app.views.game_page.ChooseCategoryActivity" />
         <activity android:name="it.triviapatente.android.app.views.AlphaView" />
         <activity android:name="it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity" />
-        <activity
-            android:name="it.triviapatente.android.app.views.game_page.ChatActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="it.triviapatente.android.app.views.menu_activities.ChangeUserDetailsActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name="it.triviapatente.android.app.views.access.Login.CredentialsRecovery" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.ChatActivity"/>
+        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangeUserDetailsActivity"/>
+        <activity android:name="it.triviapatente.android.app.views.access.login.CredentialsRecovery" />
         <activity android:name="it.triviapatente.android.app.views.menu_activities.ContactsActivity" />
         <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangePasswordActivity" />
-        <activity
-            android:name="it.triviapatente.android.app.views.rank.RankActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name="it.triviapatente.android.app.views.rank.RankActivity"/>
         <activity
             android:name="it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity"
             android:label="@string/title_activity_round_details"

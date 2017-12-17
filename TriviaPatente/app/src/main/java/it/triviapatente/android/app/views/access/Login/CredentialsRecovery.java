@@ -1,4 +1,4 @@
-package it.triviapatente.android.app.views.access.Login;
+package it.triviapatente.android.app.views.access.login;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;

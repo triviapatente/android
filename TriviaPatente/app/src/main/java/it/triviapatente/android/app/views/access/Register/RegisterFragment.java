@@ -1,4 +1,4 @@
-package it.triviapatente.android.app.views.access.Register;
+package it.triviapatente.android.app.views.access.register;
 
 
 import android.os.Bundle;

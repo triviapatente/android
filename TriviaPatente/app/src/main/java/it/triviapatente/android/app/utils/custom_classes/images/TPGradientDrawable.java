@@ -1,4 +1,4 @@
-package it.triviapatente.android.app.utils.custom_classes.TPImageView;
+package it.triviapatente.android.app.utils.custom_classes.images;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
