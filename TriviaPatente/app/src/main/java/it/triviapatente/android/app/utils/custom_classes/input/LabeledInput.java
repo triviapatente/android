@@ -64,6 +64,7 @@ public class LabeledInput extends LinearLayout {
     }
 
     // to set if the edittext is for password input
+    @Deprecated
     public void setPassword(boolean is) {
         if(!is) {
             input.setTransformationMethod(HideReturnsTransformationMethod.getInstance());

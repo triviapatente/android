@@ -11,6 +11,6 @@
     android:textSelectHandleRight="@color/mainColorDark"
     android:textColorHighlight="@color/mainColorLight"
     android:background="@drawable/edittext_rounded"
-    android:inputType="textNoSuggestions"
+    android:inputType="textNoSuggestions|textFilter"
     android:maxLength="@integer/maxInputStringSize"
     android:layout_gravity="center_horizontal" />
