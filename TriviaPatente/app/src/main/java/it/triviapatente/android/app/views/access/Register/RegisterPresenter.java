@@ -1,4 +1,4 @@
-package it.triviapatente.android.app.views.access.Register;
+package it.triviapatente.android.app.views.access.register;
 
 import it.triviapatente.android.app.utils.custom_classes.input.LabeledInput;
 import it.triviapatente.android.app.utils.custom_classes.loading.ManageLoading;

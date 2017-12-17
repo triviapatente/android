@@ -18,7 +18,7 @@ import java.util.List;
 public class TPEnterAnimListAdapter<T> extends TPListAdapter<T> {
     public TPEnterAnimListAdapter(Context context, List<T> list, @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass, @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass, int elementHeight, RecyclerView recyclerView) {
         super(context, list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, recyclerView);
-        decDuration = (duration - duration*25/100)/(list.size()-1);
+        decDuration = (int) (duration * 0.75 / ((list == null)? 4 : list.size() - 1));
         offsetDuration = decDuration / 4;
     }
 

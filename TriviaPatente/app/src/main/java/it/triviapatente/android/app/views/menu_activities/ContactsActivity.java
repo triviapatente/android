@@ -8,6 +8,8 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,10 @@ public class ContactsActivity extends TPActivity {
     @BindView(R.id.motivations_spinner) Spinner scopeSpinner;
     @BindArray(R.array.scope_array) String[] scopeArray;
 
+    @BindView(R.id.sendButton) ImageButton sendButton;
+
+    @BindView(R.id.loadingView) RelativeLayout loadingView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,8 @@ public class ContactsActivity extends TPActivity {
         messageNotSentString = TPUtils.translateEmoticons(messageNotSentString);
 
         setTermsAndPolicyText();
+
+        loadingView.setVisibility(View.GONE);
     }
     private Spannable markTermsText(int lower, int upper, Spannable spannable) {
         spannable.setSpan(new ForegroundColorSpan(green),
@@ -88,6 +96,8 @@ public class ContactsActivity extends TPActivity {
         if(messageEditText.getText().length() <= 0) {
             Toast.makeText(this, messageNotSentString, Toast.LENGTH_SHORT).show();
         } else {
+            sendButton.setEnabled(false);
+            loadingView.setVisibility(View.VISIBLE);
             Call<Success> call = RetrofitManager.getHTTPBaseEndpoint().contact(
                     messageEditText.getText().toString(),
                     scopeArray[scopeSpinner.getSelectedItemPosition()]
@@ -115,7 +125,10 @@ public class ContactsActivity extends TPActivity {
                 }
 
                 @Override
-                public void then() {}
+                public void then() {
+                    sendButton.setEnabled(true);
+                    loadingView.setVisibility(View.GONE);
+                }
             });
         }
     }

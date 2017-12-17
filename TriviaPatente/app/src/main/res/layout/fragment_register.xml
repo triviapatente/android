@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.triviapatente.android.app.views.access.Register.RegisterFragment"
+    tools:context="it.triviapatente.android.app.views.access.register.RegisterFragment"
     android:background="@drawable/background_gradient"
     android:id="@+id/container">
 

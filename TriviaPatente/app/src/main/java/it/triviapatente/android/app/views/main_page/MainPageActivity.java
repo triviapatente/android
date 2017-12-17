@@ -351,9 +351,9 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        if(loadingView.getVisibility() == View.GONE) {
+        if(loadingView.getVisibility() == View.GONE && mDrawerLayout != null) {
             if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) mDrawerLayout.closeDrawers();
-            else logout();
+            else mDrawerLayout.openDrawer(GravityCompat.START);
         }
     }
 

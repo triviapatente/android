@@ -19,7 +19,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import it.triviapatente.android.R;
-import it.triviapatente.android.app.utils.custom_classes.TPImageView.TPGradientDrawable;
+import it.triviapatente.android.app.utils.custom_classes.images.TPGradientDrawable;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
