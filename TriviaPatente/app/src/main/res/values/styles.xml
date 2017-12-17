@@ -12,7 +12,7 @@
         <!-- Colors -->
         <item name="colorPrimary">@color/mainColorGradTop</item>
         <item name="colorPrimaryDark">@color/mainColor</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/mainColor</item>
         <!-- Spinner -->
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
@@ -21,6 +21,9 @@
 
     <style name="TPActionBar" parent="@android:style/Widget.ActionBar">
         <item name="android:background">@color/mainColorGradTop</item>
+    </style>
+    <style name="ContactTextInputLayout" parent="@style/AppTheme">
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

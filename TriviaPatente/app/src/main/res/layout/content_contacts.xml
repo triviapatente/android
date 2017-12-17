@@ -60,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
+            android:theme="@style/ContactTextInputLayout"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/activity_contacts_message_max_length"
             app:counterTextAppearance="@style/CounterStyle">
