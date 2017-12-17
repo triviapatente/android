@@ -25,11 +25,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             myIntent = new Intent(this, MainPageActivity.class);
             if(getIntent() != null && getIntent().getExtras() != null) {
                 String userData = getIntent().getStringExtra(getString(R.string.firebase_message_opponent_key));
-                Log.i("sdf", userData);
-                myIntent.putExtra(getString(R.string.extra_firebase_opponent_param), userData);
                 String gameData = getIntent().getStringExtra(getString(R.string.firebase_message_game_key));
-                Log.i("sdf", gameData);
-                myIntent.putExtra(getString(R.string.extra_firebase_game_param), gameData);
+                if(userData != null && gameData != null) {
+                    myIntent.putExtra(getString(R.string.extra_firebase_opponent_param), userData);
+                    myIntent.putExtra(getString(R.string.extra_firebase_game_param), gameData);
+                }
             }
         } else {
             // open first access page
