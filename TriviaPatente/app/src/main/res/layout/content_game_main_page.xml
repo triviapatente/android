@@ -33,7 +33,7 @@
         android:textSize="@dimen/TPTextSizeSmall"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="@string/wait_page_waitingConnection_status"
+        android:text="@string/wait_page_waiting_connection"
         android:layout_below="@+id/bigProfilePicture"
         android:layout_marginTop="@dimen/wait_page_margin"/>
 

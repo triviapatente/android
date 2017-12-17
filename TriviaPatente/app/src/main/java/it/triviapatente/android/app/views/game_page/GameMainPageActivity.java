@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
+
+import butterknife.BindInt;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.TPUtils;
@@ -50,6 +52,8 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindString(R.string.wait_page_offline_status) String offlineStatus;
     @BindString(R.string.wait_page_playing_status) String playingStatus;
     @BindString(R.string.wait_page_waitingCategory_status) String waitingCategoryStatus;
+    @BindString(R.string.wait_page_offline_status_last_round) String offlineStatusLastRound;
+    @BindString(R.string.wait_page_playing_status_last_round) String playingStatusLastRound;
     // animation
     @BindView(R.id.loadingCircle)
     Circle loadingCircle;
@@ -73,6 +77,8 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindString(R.string.socket_event_user_left) String eventUserLeft;
     @BindString(R.string.socket_event_user_joined) String eventUserJoined;
     @BindString(R.string.socket_event_category_chosen) String eventCategoryChosen;
+
+    @BindInt(R.integer.number_of_rounds) int numberOfRounds;
 
     private Boolean isWaiting = false;
     // sockets callbacks
@@ -156,6 +162,8 @@ public class GameMainPageActivity extends TPGameActivity {
         offlineStatus = TPUtils.translateEmoticons(offlineStatus);
         waitingCategoryStatus = TPUtils.translateEmoticons(waitingCategoryStatus);
         playingStatus = TPUtils.translateEmoticons(playingStatus);
+        offlineStatusLastRound = TPUtils.translateEmoticons(offlineStatusLastRound);
+        playingStatusLastRound = TPUtils.translateEmoticons(playingStatusLastRound);
 
         gameOptions = (FragmentGameOptions) getSupportFragmentManager().findFragmentById(R.id.gameOptions);
         //init
@@ -278,15 +286,6 @@ public class GameMainPageActivity extends TPGameActivity {
 
     private void setOpponentData() {
         setToolbarTitle(opponent.toString());
-        /*
-        if(opponent != null) { actionBar.setTitle(opponent.toString()); }
-        actionBar.setProfilePicture(TPUtils.getUserImageFromID(this, opponent.id));
-        */
-        /*TPUtils.picasso
-                .load(TPUtils.getUserImageFromID(this, opponent.id))
-                .placeholder(R.drawable.image_no_profile_picture)
-                .error(R.drawable.image_no_profile_picture)
-                .into(profilePicture);*/
         TPUtils.injectUserImage(this, opponent, profilePicture, false);
     }
 
@@ -331,11 +330,11 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void waitingRound() {
-        updateWaitPage(playingStatus, greenColor, greenColorLight);
+        updateWaitPage((numberOfRounds == currentRound.number)? playingStatusLastRound : playingStatus, greenColor, greenColorLight);
     }
 
     private void offline() {
-        updateWaitPage(offlineStatus, whiteColor, mainColorLight);
+        updateWaitPage((numberOfRounds == currentRound.number)? offlineStatusLastRound : offlineStatus, whiteColor, mainColorLight);
     }
 
     private void chooseCategory() {
