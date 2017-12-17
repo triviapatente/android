@@ -12,7 +12,7 @@
         <!-- Colors -->
         <item name="colorPrimary">@color/mainColorGradTop</item>
         <item name="colorPrimaryDark">@color/mainColor</item>
-        <item name="colorAccent">@color/mainColor</item>
+        <item name="colorAccent">@android:color/white</item>
         <!-- Spinner -->
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
@@ -58,7 +58,7 @@
         <item name="android:divider">@android:color/white</item>
         <item name="android:dividerHeight">0.5dp</item>
     </style>
-    
+
     <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingRight">5dp</item>
