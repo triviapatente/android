@@ -62,6 +62,12 @@ public class BaseSocketManager {
             HttpsURLConnection.setDefaultHostnameVerifier(RetrofitManager.hostnameVerifier);
             mSocket = IO.socket(context.getString(R.string.baseUrl), getIO());
             mSocket.io().timeout(timeout);
+            mSocket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    joinedRooms = new HashMap<>();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
