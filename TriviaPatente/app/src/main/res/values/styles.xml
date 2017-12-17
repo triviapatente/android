@@ -58,7 +58,7 @@
         <item name="android:divider">@android:color/white</item>
         <item name="android:dividerHeight">0.5dp</item>
     </style>
-    
+
     <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingRight">5dp</item>

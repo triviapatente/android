@@ -3,12 +3,14 @@ package it.triviapatente.android.app.views.rank;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -17,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.OnSwipeTouchListener;
@@ -58,6 +61,7 @@ public class RankActivity extends TPActivity {
     List<User> users;
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
     @Nullable @BindView(R.id.rank_scroll) ImageButton rankScroll;
+    @Nullable @BindView(R.id.rank_scroll_container) ConstraintLayout rankScrollContainer;
     private boolean scrollToTop = true;
 
     @BindString(R.string.direction_down) String down;
@@ -106,7 +110,10 @@ public class RankActivity extends TPActivity {
         playersList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                updateRankScrollVisibility();
+                if(dy > 10 || dy < -10) updateRankScrollVisibility(
+                        mLayoutManager.findFirstCompletelyVisibleItemPosition(),
+                        mLayoutManager.findLastCompletelyVisibleItemPosition()
+                );
                 if(loadable) {
                     if(dy < 0 && mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position != 1) {
                         loadable = false;
@@ -154,7 +161,7 @@ public class RankActivity extends TPActivity {
                         setPlayersListItems(users);
                         int scrollToPosition = 0, offset = playersList.getHeight() / playerListItemHeight;
                         switch (position) {
-                            case top: scrollToPosition = 0; break;
+                            case top: scrollToPosition = 0;break;
                             case bottom: scrollToPosition = users.size() - 1; break;
                             case userPosition:
                                 int position = users.indexOf(currentUser);
@@ -174,7 +181,7 @@ public class RankActivity extends TPActivity {
                                 }
                         }
                         playersList.scrollToPosition(scrollToPosition);
-                        updateRankScrollVisibility();
+                        updateRankScrollVisibility(scrollToPosition, scrollToPosition + offset);
                     }
                 }
             }
@@ -289,32 +296,34 @@ public class RankActivity extends TPActivity {
         users = null; // clean user list
         absolute_last = false; // clean settings
         // load new list
-        updateRankScrollDirection(!scrollToTop);
         if(scrollToTop) loadPlayers(0, up, LoadAndScrollTo.top);
+        else loadPlayers();
+        updateRankScrollDirection(!scrollToTop);
     }
 
     protected void updateRankScrollDirection(boolean toTop) {
+        if(rankScroll == null) return;
         if(toTop) rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_up_button));
         else rankScroll.setBackground(ContextCompat.getDrawable(this, R.drawable.rank_scroll_down_button));
         scrollToTop = toTop;
     }
 
-    protected void updateRankScrollVisibility() {
-        if(rankScroll == null) return;
+    protected void updateRankScrollVisibility(int firstPosition, int lastPosition) {
+        if(rankScroll == null || rankScrollContainer == null) return;
         if(users != null) {
             int currentUserIndex = users.indexOf(currentUser);
             boolean currentUserVisible = false, firstUserVisible = false;
-            if(currentUserIndex <= mLayoutManager.findLastCompletelyVisibleItemPosition()
-                    && currentUserIndex >= mLayoutManager.findFirstCompletelyVisibleItemPosition()) {
+            if(currentUserIndex <= lastPosition
+                    && currentUserIndex >= firstPosition) {
                 // current user is currently visible
                 currentUserVisible = true;
             }
-            if(users.get(0).internalPosition == 1 && mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+            if(users.get(0).internalPosition == 1 && firstPosition == 0) {
                 firstUserVisible = true;
             }
-            if(currentUserVisible && firstUserVisible) rankScroll.setVisibility(View.GONE); // no need to show button
+            if(currentUserVisible && firstUserVisible) rankScrollContainer.setVisibility(View.GONE); // no need to show button
             else {
-                rankScroll.setVisibility(View.VISIBLE);
+                rankScrollContainer.setVisibility(View.VISIBLE);
                 updateRankScrollDirection(currentUserVisible); // show button, giving priority to current user option
             }
         }
