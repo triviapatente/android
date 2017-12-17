@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
@@ -71,11 +72,11 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void bind(Quiz quiz, User opponent) {
         this.opponent = opponent;
-        Picasso.with(context).cancelRequest(quizImageView);
+        TPUtils.picasso.cancelRequest(quizImageView);
         if(quiz.image_id != null) {
             setQuizImageWidth(quizDefaultImageDimen);
             String path = TPUtils.getQuizImageFromID(context, quiz.image_id);
-            Picasso.with(context).load(path).into(quizImageView);
+            TPUtils.picasso.load(path).placeholder(R.drawable.placeholder).into(quizImageView);
         } else {
             setQuizImageWidth(0);
         }
