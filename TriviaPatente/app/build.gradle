@@ -9,7 +9,7 @@ android {
         applicationId "it.triviapatente.android"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
+        versionCode 100
         versionName "1.0"
     }
     buildTypes {
