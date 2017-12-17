@@ -12,7 +12,7 @@
         <!-- Colors -->
         <item name="colorPrimary">@color/mainColorGradTop</item>
         <item name="colorPrimaryDark">@color/mainColor</item>
-        <item name="colorAccent">@color/mainColor</item>
+        <item name="colorAccent">@android:color/white</item>
         <!-- Spinner -->
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>

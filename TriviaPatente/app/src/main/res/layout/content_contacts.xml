@@ -59,6 +59,7 @@
             android:id="@+id/textContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@android:color/white"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/activity_contacts_message_max_length"
             app:counterTextAppearance="@style/CounterStyle">
@@ -69,6 +70,8 @@
                 android:lines="@integer/activity_contacts_message_lines"
                 android:textColor="@android:color/white"
                 android:hint="@string/activity_contacts_message_title"
+                android:textColorHint="@android:color/white"
+                android:textColorHighlight="@android:color/white"
                 android:background="@android:color/transparent"
                 android:textSize="@dimen/TPTextSizeMedium"
                 android:maxLength="@integer/activity_contacts_message_max_length"
