@@ -330,11 +330,11 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void waitingRound() {
-        updateWaitPage((numberOfRounds == currentRound.number)? playingStatusLastRound : playingStatus, greenColor, greenColorLight);
+        updateWaitPage((currentRound == null)? playingStatusLastRound : playingStatus, greenColor, greenColorLight);
     }
 
     private void offline() {
-        updateWaitPage((numberOfRounds == currentRound.number)? offlineStatusLastRound : offlineStatus, whiteColor, mainColorLight);
+        updateWaitPage((currentRound == null)? offlineStatusLastRound : offlineStatus, whiteColor, mainColorLight);
     }
 
     private void chooseCategory() {
@@ -359,5 +359,10 @@ public class GameMainPageActivity extends TPGameActivity {
         intent.putExtra(this.getString(R.string.extra_long_game), gameID);
         intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(opponent));
         startActivity(intent);
+    }
+
+    @Override
+    protected boolean needsSetHeader() {
+        return false;
     }
 }

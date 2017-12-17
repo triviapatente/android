@@ -92,8 +92,10 @@ public class TPGameActivity extends TPActivity {
         // init fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         gameHeader = (FragmentGameHeader) fragmentManager.findFragmentById(R.id.gameHeader);
-        gameHeader.setHeader(currentRound, currentCategory);
+        if(needsSetHeader()) gameHeader.setHeader(currentRound, currentCategory);
     }
+
+    protected boolean needsSetHeader() { return true; }
 
     @Override
     public void onBackPressed() {

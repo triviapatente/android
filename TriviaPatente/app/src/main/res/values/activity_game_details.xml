@@ -5,4 +5,7 @@
     <string name="activity_round_details_user_has_left">Il tuo avversario ha abbandonato la partita, hai vinto!</string>
     <string name="activity_round_details_user_annulled">Il tuo avversario ha deciso di annullare la partita!</string>
     <string name="activity_round_details_emojii_loser">0x1F621</string>
+
+    <string name="activity_wait_page_game_ended">Fine</string>
+    <string name="activity_wait_page_game_ended_subtitle">Partita terminata</string>
 </resources>

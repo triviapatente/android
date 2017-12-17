@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindInt;
+import butterknife.BindString;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.models.game.Category;
@@ -25,6 +26,9 @@ public class FragmentGameHeader extends Fragment {
 
     protected @BindInt(R.integer.number_of_rounds) int numberOfRounds;
 
+    protected @BindString(R.string.activity_wait_page_game_ended) String gameEndedTitle;
+    protected @BindString(R.string.activity_wait_page_game_ended_subtitle) String gameEndedSubtitle;
+
     public FragmentGameHeader() {}
 
     @Override
@@ -38,9 +42,10 @@ public class FragmentGameHeader extends Fragment {
     public void setHeader(Round round, Category category) {
         setHeader(round, category, true);
     }
+
     public void endedGameHeader() {
-        gameHeaderTitle.setText("Fine");
-        gameHeaderSubtitle.setText("Risultato partita");
+        gameHeaderTitle.setText(gameEndedTitle);
+        gameHeaderSubtitle.setText(gameEndedSubtitle);
         gameHeaderSubtitleImage.setVisibility(View.GONE);
     }
 
