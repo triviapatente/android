@@ -288,6 +288,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if(response.answers == null) response.answers = new ArrayList<>(); // can be null
                         response.answers.add(event.answer);
                         detailsScore.set(RoundDetailsActivity.this, response.answers);
                         answerMap = computeMap();

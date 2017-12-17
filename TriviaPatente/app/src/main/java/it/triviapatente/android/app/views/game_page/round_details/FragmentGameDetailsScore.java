@@ -75,9 +75,9 @@ public class FragmentGameDetailsScore extends Fragment {
     private void updateScore(Context ctx) {
         int myScore = this.scoreFor(currentUser);
         int opponentScore = this.scoreFor(opponent);
-        userScoreView.setText("" + myScore);
+        userScoreView.setText(String.valueOf(myScore));
         userImageView.setBorder(colorFor(ctx, myScore, opponentScore, currentUser));
-        opponentScoreView.setText("" + opponentScore);
+        opponentScoreView.setText(String.valueOf(opponentScore));
         opponentImageView.setBorder(colorFor(ctx, opponentScore, myScore, opponent));
 
     }

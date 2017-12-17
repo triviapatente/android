@@ -17,7 +17,7 @@ import it.triviapatente.android.app.utils.TPUtils;
 /**
  * Created by Antonio on 12/11/16.
  */
-public class RoundedImageView extends ImageView {
+public class RoundedImageView extends android.support.v7.widget.AppCompatImageView {
 
     public RoundedImageView(Context context) {
         super(context);
