@@ -6,4 +6,5 @@
     <integer name="number_of_questions_per_round">4</integer>
     <integer name="days_delay_life_popover">13</integer>
     <integer name="days_delay_rate_popover">17</integer>
+    <integer name="number_of_rounds">5</integer>
 </resources>

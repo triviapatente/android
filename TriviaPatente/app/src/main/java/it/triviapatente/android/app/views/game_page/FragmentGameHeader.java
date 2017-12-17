@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.BindInt;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.models.game.Category;
@@ -21,6 +22,8 @@ public class FragmentGameHeader extends Fragment {
     protected @BindView(R.id.gameHeaderTitle) TextView gameHeaderTitle;
     protected @BindView(R.id.gameHeaderSubtitle) TextView gameHeaderSubtitle;
     protected @BindView(R.id.subtitleImage) ImageView gameHeaderSubtitleImage;
+
+    protected @BindInt(R.integer.number_of_rounds) int numberOfRounds;
 
     public FragmentGameHeader() {}
 
@@ -42,7 +45,8 @@ public class FragmentGameHeader extends Fragment {
     }
 
     public void setHeader(Round round, Category category, boolean waiting) {
-        gameHeaderTitle.setText((round == null)? getString(R.string.game_header_waiting_title) : "Round " + round.number);
+        String gameHeaderString = "Round " + String.valueOf((round == null)? numberOfRounds : round.number);
+        gameHeaderTitle.setText(gameHeaderString);
         gameHeaderSubtitle.setText((category == null)? (waiting)? getString(R.string.game_header_waiting_subtitle) : getString(R.string.choose_category_game_header_subtitle) : category.hint);
         if(category == null) {
             gameHeaderSubtitleImage.setVisibility(View.GONE);
