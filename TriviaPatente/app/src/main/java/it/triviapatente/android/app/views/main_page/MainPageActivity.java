@@ -1,5 +1,7 @@
 package it.triviapatente.android.app.views.main_page;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -131,6 +133,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     private void init() { init(null); }
     private void init(final View syncButton) {
         FirebaseInstanceIDService.sendRegistration();
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancelAll();
         // connect to socket
         if(!BaseSocketManager.isConnected()) {
             // start loading
@@ -251,7 +255,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                 if(response.code() == 200 && response.body().success) {
                     if(response.body().recent_games != null) {
                         ReceivedData.recentGames = response.body().recent_games;
-                        ReceivedData.orderGames();
+                        //ReceivedData.orderGames();
                     }
                     updateRecentGames();
                     // stop loading

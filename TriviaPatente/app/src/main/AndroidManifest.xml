@@ -34,29 +34,45 @@
         </service>
         <activity
             android:name="it.triviapatente.android.app.views.access.FirstAccessActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name="it.triviapatente.android.app.views.main_page.MainPageActivity" />
-        <activity android:name="it.triviapatente.android.app.views.SplashScreenActivity">
+        <activity android:name="it.triviapatente.android.app.views.main_page.MainPageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="it.triviapatente.android.app.views.find_opponent.NewGameActivity" />
-        <activity android:name="it.triviapatente.android.app.views.find_opponent.FindOpponentActivity"/>
-        <activity android:name="it.triviapatente.android.app.views.game_page.GameMainPageActivity" />
-        <activity android:name="it.triviapatente.android.app.views.game_page.ChooseCategoryActivity" />
-        <activity android:name="it.triviapatente.android.app.views.AlphaView" />
-        <activity android:name="it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity" />
-        <activity android:name="it.triviapatente.android.app.views.game_page.ChatActivity"/>
-        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangeUserDetailsActivity"/>
-        <activity android:name="it.triviapatente.android.app.views.access.login.CredentialsRecovery" />
-        <activity android:name="it.triviapatente.android.app.views.menu_activities.ContactsActivity" />
-        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangePasswordActivity" />
-        <activity android:name="it.triviapatente.android.app.views.rank.RankActivity"/>
+        <activity android:name="it.triviapatente.android.app.views.find_opponent.NewGameActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.find_opponent.FindOpponentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="it.triviapatente.android.app.views.game_page.GameMainPageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.ChooseCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.AlphaView"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.game_page.ChatActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangeUserDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="it.triviapatente.android.app.views.access.login.CredentialsRecovery"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.menu_activities.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="it.triviapatente.android.app.views.rank.RankActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_round_details"
             android:parentActivityName="it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity">
             <meta-data
