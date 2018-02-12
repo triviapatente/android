@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -69,6 +70,7 @@ public class LabeledInput extends LinearLayout {
         if(!is) {
             input.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         } else {
+            input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
             input.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
