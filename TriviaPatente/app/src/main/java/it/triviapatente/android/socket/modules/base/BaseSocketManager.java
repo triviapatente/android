@@ -179,7 +179,17 @@ public class BaseSocketManager {
     }
 
     public static Map<String, Long> joinedRooms = new HashMap<>();
-
+    public void leave(final SocketCallback<Success> cb) {
+        leave("game", cb);
+    }
+    public void leave() {
+        leave(new SocketCallback<Success>() {
+            @Override
+            public void response(Success response) {
+                Log.i("Room", "Left? " + response.success);
+            }
+        });
+    }
     public void leave(final String type, final SocketCallback<Success> cb) {
         if(joinedRooms.containsKey(type)) {
             this.emit("leave_room", buildJSONObject(new Pair<String, Object>("type", type)), Success.class, new SocketCallback<Success>() {
