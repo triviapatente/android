@@ -314,7 +314,8 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // Check name & surname input
     private boolean checkNameSurname(String str) {
-        String expression = "^[a-zA-Z\\s]+";
+        //Nomi internazionali, accenti, apostrofi, trattini supportati
+        String expression = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$";
         return str.matches(expression);
     }
 }
