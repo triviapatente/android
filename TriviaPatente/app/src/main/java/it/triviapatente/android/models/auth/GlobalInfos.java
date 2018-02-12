@@ -10,7 +10,7 @@ import org.parceler.Parcel;
  * Created by Antonio on 31/10/16.
  */
 @Parcel
-public class Hints extends Success {
+public class GlobalInfos extends Success {
     @SerializedName("global_rank_position") public Integer global_rank_position;
     // @SerializedName("friends_rank_position") public Integer friends_rank_position;
     // @SerializedName("stats") public List<Category> stats;
