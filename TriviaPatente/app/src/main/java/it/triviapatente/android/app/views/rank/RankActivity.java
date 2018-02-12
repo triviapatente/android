@@ -138,8 +138,9 @@ public class RankActivity extends TPActivity {
         no_scroll
     }
 
-    protected void loadPlayers() { loadPlayers(null, null, LoadAndScrollTo.userPosition); }
+    protected void loadPlayers() {loadPlayers(null, null, LoadAndScrollTo.userPosition); }
     protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position) {
+        noUsersAlert.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
         Call<RankPosition> call = RetrofitManager.getHTTPRankEndpoint().getUsers(thresold, direction);
         call.enqueue(new TPCallback<RankPosition>() {
