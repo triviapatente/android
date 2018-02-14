@@ -9,6 +9,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,11 +107,8 @@ public class TPExpandableList<T> extends Fragment {
         listHeader.setVisibility(View.VISIBLE);
     }
 
-    public void setListCounter(int counter) {
-        setListCounter(counter, true);
-    }
     
-    public void setListCounter(final int counter, final boolean needUpdateLayoutParams) {
+    public void setListCounter(final int counter) {
         if(counter == 0) { setCounterZero(); } else { setCounterNonZero(counter); }
         this.getView().post(new Runnable() {
             @Override
@@ -122,7 +120,7 @@ public class TPExpandableList<T> extends Fragment {
                 calculateMinimizedHeight(counter);
                 calculateAnimations();
                 if(!maximized){
-                    if(needUpdateLayoutParams) updateLayoutParams();
+                    if(counter == 0) updateLayoutParams();
                     updateMinimized();
                 } else if(counter == 0) {
                     setMinimizedHeightMode();

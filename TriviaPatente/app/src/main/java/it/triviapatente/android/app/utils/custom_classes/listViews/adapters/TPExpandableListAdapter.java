@@ -51,10 +51,10 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
     }
 
     protected void doStuffAfterItemRemoved() {
-        expandableList.setListCounter(items.size(), false);
+        expandableList.setListCounter(items.size());
     }
 
     protected void doStuffAfterItemAdd() {
-        expandableList.setListCounter(items.size(), false);
+        expandableList.setListCounter(items.size());
     }
 }
