@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import com.google.gson.Gson;
 import it.triviapatente.android.R;
 
+import it.triviapatente.android.app.utils.Foreground;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.views.game_page.FragmentGameHeader;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
@@ -17,6 +19,7 @@ import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Round;
 import it.triviapatente.android.models.responses.Success;
+import it.triviapatente.android.socket.modules.base.BaseSocketManager;
 import it.triviapatente.android.socket.modules.events.GameLeftEvent;
 
 /**
@@ -30,9 +33,12 @@ public class TPGameActivity extends TPActivity {
     public Long gameID;
     // game header
     protected FragmentGameHeader gameHeader;
+    //determina se in questo momento sto lasciando l'activity per andare in un'altra di tp per mia intenzione, o la sto lasciando perchè l'app è andata in background per qualsiasi motivo
+    private Boolean redirecting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        redirecting = false;
         Intent intent = getIntent();
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_opponent)), User.class);
         currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_round)), Round.class);
@@ -48,8 +54,39 @@ public class TPGameActivity extends TPActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if(!redirecting) {
+            BaseSocketManager.disconnect();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseSocketManager.connect(new SimpleCallback() {
+            @Override
+            public void execute() {
+                joinAndListenUserLeft();
+            }
+        }, new SimpleCallback() {
+            @Override
+            public void execute() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onBackPressed();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
     public void startActivity(Intent intent) {
+        redirecting = true;
         super.startActivity(intent);
+        //prevent enter foreground if this activity is in background
         unlistenUserLeft();
     }
 
