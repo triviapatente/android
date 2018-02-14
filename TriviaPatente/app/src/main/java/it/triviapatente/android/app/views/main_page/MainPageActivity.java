@@ -104,6 +104,8 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         serverDownMessage = TPUtils.translateEmoticons(serverDownMessage);
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         recentGames.setSyncButtonOnClickListner(this);
+        recentGames.setTitles(recentGamesTitle, recentGamesAlternativeTitle);
+        updateRecentGames();
         getPushValues();
         baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {
             @Override
@@ -128,93 +130,81 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         return pageTitle;
     }
 
+
     private void init() { init(null); }
     private void init(final View syncButton) {
         FirebaseInstanceIDService.sendRegistration();
         // connect to socket
-        if(!BaseSocketManager.isConnected()) {
-            // start loading
+        if(!BaseSocketManager.isConnected())
             loadingView.setVisibility(View.VISIBLE);
-            BaseSocketManager.connect(new SimpleCallback() {
-                // on connect
-                @Override
-                public void execute() {
-                    authSocketManager.global_infos(new SocketCallback<GlobalInfos>() {
-                        @Override
-                        public void response(final GlobalInfos response) {
-                            if (response.success) {
-                                authSocketManager.leave(new SocketCallback<Success>() {
-                                    @Override
-                                    public void response(Success leaveResponse) {
-                                        handleGlobalInfos(syncButton, response);
-                                    }
-                                });
+        //if already connected, BaseSocketManager is configured to not repeat the connection request, and return immediately to sender
+        BaseSocketManager.connect(new SimpleCallback() {
+            // on connect
+            @Override
+            public void execute() {
+                authSocketManager.global_infos(new SocketCallback<GlobalInfos>() {
+                    @Override
+                    public void response(final GlobalInfos response) {
+                        if (response.success) {
+                            authSocketManager.leave(new SocketCallback<Success>() {
+                                @Override
+                                public void response(Success leaveResponse) {
+                                    handleGlobalInfosOnUIThread(syncButton, response);
+                                }
+                            });
 
-                            } else { backToFirstAccess(); }
-                        }
-                    });
-                }
-            }, new SimpleCallback() {
-                // on timeout
-                @Override
-                public void execute() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            errorConnectingToServer();
-                        }
-                    });
-                }
-            });
-        } else {
-            authSocketManager.leave();
-            if (pushGame != null && pushUser != null) {
-                pushRedirect();
+                        } else { backToFirstAccessOnUIThread(); }
+                    }
+                });
             }
-            loadRecentGames(syncButton);
-        }
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+        }, new SimpleCallback() {
+            // on timeout
+            @Override
+            public void execute() {
+                errorConnectingToServerOnUIThread();
+            }
+        });
 
-    private void handleGlobalInfos(final View syncButton, final GlobalInfos response) {
+    }
+    private void handleGlobalInfosOnUIThread(final View syncButton, final GlobalInfos response) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // init items
-                // ReceivedData.statsHints = response.stats;
-                // ReceivedData.friends_rank_position = response.friends_rank_position;
-                ReceivedData.global_rank_position = response.global_rank_position;
-                if (pushGame != null && pushUser != null) {
-                    pushRedirect();
-                } else {
-                    // new terms or policy?
-                    boolean newTerms = false, newPolicy = false;
-                    if (currentUser.privacyPolicyLastUpdate == null)
-                        currentUser.privacyPolicyLastUpdate = response.privacy_policy_last_update;
-                    else
-                        newPolicy = !currentUser.privacyPolicyLastUpdate.equals(response.privacy_policy_last_update);
-                    if (currentUser.termsAndConditionsLastUpdate == null)
-                        currentUser.termsAndConditionsLastUpdate = response.terms_and_conditions_last_update;
-                    else
-                        newTerms = !currentUser.termsAndConditionsLastUpdate.equals(response.terms_and_conditions_last_update);
-                    if (newTerms || newPolicy)
-                        new TPNewTermsPolicyDialog(
-                                MainPageActivity.this,
-                                newTerms,
-                                newPolicy,
-                                response.terms_and_conditions_last_update,
-                                response.privacy_policy_last_update
-                        ).show();
-                }
-                initOptionButtons();
-                // load recent games
-                loadRecentGames(syncButton);
-
+                handleGlobalInfos(syncButton, response);
             }
         });
+    }
+    private void handleGlobalInfos(final View syncButton, final GlobalInfos response) {
+        loadingView.setVisibility(View.GONE);
+        // init items
+        // ReceivedData.statsHints = response.stats;
+        // ReceivedData.friends_rank_position = response.friends_rank_position;
+        ReceivedData.global_rank_position = response.global_rank_position;
+        if (pushGame != null && pushUser != null) {
+            pushRedirect();
+        } else {
+            // new terms or policy?
+            boolean newTerms = false, newPolicy = false;
+            if (currentUser.privacyPolicyLastUpdate == null)
+                currentUser.privacyPolicyLastUpdate = response.privacy_policy_last_update;
+            else
+                newPolicy = !currentUser.privacyPolicyLastUpdate.equals(response.privacy_policy_last_update);
+            if (currentUser.termsAndConditionsLastUpdate == null)
+                currentUser.termsAndConditionsLastUpdate = response.terms_and_conditions_last_update;
+            else
+                newTerms = !currentUser.termsAndConditionsLastUpdate.equals(response.terms_and_conditions_last_update);
+            if (newTerms || newPolicy)
+                new TPNewTermsPolicyDialog(
+                        MainPageActivity.this,
+                        newTerms,
+                        newPolicy,
+                        response.terms_and_conditions_last_update,
+                        response.privacy_policy_last_update
+                ).show();
+        }
+        initOptionButtons();
+        // load recent games
+        loadRecentGames(syncButton);
     }
 
     private void initOptionButtons() {
@@ -257,7 +247,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
             syncButton.setVisibility(View.GONE);
             syncProgress.setVisibility(View.VISIBLE);
         }
-        recentGames.setTitles(recentGamesTitle, recentGamesAlternativeTitle);
         // request recent games
         Call<SuccessGames> call = RetrofitManager.getHTTPGameEndpoint().getRecentsGames();
         call.enqueue(new TPCallback<SuccessGames>() {
@@ -270,7 +259,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                     }
                     updateRecentGames();
                     // stop loading
-                    loadingView.setVisibility(View.GONE);
                 }
             }
 
@@ -307,7 +295,14 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                 recentGameHeight);
         recentGames.setListCounter(ReceivedData.recentGames.size());
     }
-
+    private void errorConnectingToServerOnUIThread() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                errorConnectingToServer();
+            }
+        });
+    }
     private void errorConnectingToServer() {
         if(toolbar != null) toolbar.setVisibility(View.GONE);
         serverDownAlert.showAlert(serverDownMessage);
@@ -355,7 +350,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        recentGames.setMinimizedHeightMode();
+        updateRecentGames();
 
         // check web socket connection
         init();

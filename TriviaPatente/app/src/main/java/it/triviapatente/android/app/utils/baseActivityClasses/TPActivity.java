@@ -322,6 +322,15 @@ public class TPActivity extends AppCompatActivity {
         return true;
     }
 
+    protected void backToFirstAccessOnUIThread() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                backToFirstAccess();
+            }
+        });
+
+    }
     protected void backToFirstAccess() {
         // open first access page
         Intent myIntent = new Intent(this, FirstAccessActivity.class);
