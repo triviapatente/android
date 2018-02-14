@@ -1,8 +1,11 @@
 package it.triviapatente.android.app.utils.baseActivityClasses;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
 import com.google.gson.Gson;
@@ -86,9 +89,33 @@ public class TPGameActivity extends TPActivity {
     public void startActivity(Intent intent) {
         redirecting = true;
         super.startActivity(intent);
-        //prevent enter foreground if this activity is in background
         unlistenUserLeft();
     }
+
+    @Override
+    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        redirecting = true;
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+        unlistenUserLeft();
+    }
+    @Override
+    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode) {
+        startActivityFromFragment(fragment, intent, requestCode, null);
+    }
+
+    @Override
+    public void startActivityFromFragment(android.support.v4.app.Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        redirecting = true;
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+        unlistenUserLeft();
+    }
+
+    @Override
+    public void startActivityFromFragment(android.support.v4.app.Fragment fragment, Intent intent, int requestCode) {
+        startActivityFromFragment(fragment, intent, requestCode, null);
+    }
+
+
 
     private void listenUserLeft() {
         gameSocketManager.listenGameLeft(new SocketCallback<GameLeftEvent>() {
