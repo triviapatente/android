@@ -36,18 +36,16 @@ public class TPGameActivity extends TPActivity {
     public Long gameID;
     // game header
     protected FragmentGameHeader gameHeader;
-    //determina se in questo momento sto lasciando l'activity per andare in un'altra di tp per mia intenzione, o la sto lasciando perchè l'app è andata in background per qualsiasi motivo
-    private Boolean redirecting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        redirecting = false;
         Intent intent = getIntent();
         opponent = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_opponent)), User.class);
         currentRound = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_round)), Round.class);
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         gameID = intent.getLongExtra(this.getString(R.string.extra_long_game), (currentRound == null)? -1 : currentRound.game_id);
         super.onCreate(savedInstanceState);
+        redirecting = false;
     }
 
     @Override
@@ -83,31 +81,6 @@ public class TPGameActivity extends TPActivity {
                 });
             }
         });
-    }
-
-    @Override
-    public void startActivity(Intent intent) {
-        redirecting = true;
-        super.startActivity(intent);
-        unlistenUserLeft();
-    }
-
-    @Override
-    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
-        redirecting = true;
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-        unlistenUserLeft();
-    }
-    @Override
-    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode) {
-        startActivityFromFragment(fragment, intent, requestCode, null);
-    }
-
-    @Override
-    public void startActivityFromFragment(android.support.v4.app.Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
-        redirecting = true;
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-        unlistenUserLeft();
     }
 
     @Override
@@ -148,6 +121,28 @@ public class TPGameActivity extends TPActivity {
     private void unlistenUserLeft() {
         if(this instanceof RoundDetailsActivity) return;
         gameSocketManager.stopListen(getString(R.string.socket_event_user_left));
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        unlistenUserLeft();
+    }
+
+    @Override
+    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+        unlistenUserLeft();
+    }
+    @Override
+    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode) {
+        startActivityFromFragment(fragment, intent, requestCode, null);
+    }
+
+    @Override
+    public void startActivityFromFragment(android.support.v4.app.Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+        unlistenUserLeft();
     }
 
     @Override

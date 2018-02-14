@@ -1,10 +1,12 @@
 package it.triviapatente.android.app.utils.baseActivityClasses;
 
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -92,10 +94,12 @@ public class TPActivity extends AppCompatActivity {
     @BindInt(R.integer.days_delay_life_popover) int lifePopoverDelay;
     @BindInt(R.integer.days_delay_rate_popover) int ratePopoverDelay;
 
+    protected Boolean redirecting = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+        if(redirecting) overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
         currentUser = SharedTPPreferences.currentUser();
     }
 
@@ -308,6 +312,28 @@ public class TPActivity extends AppCompatActivity {
         initUI();
     }
 
+
+    @Override
+    public void startActivity(Intent intent) {
+        redirecting = true;
+        super.startActivity(intent);
+    }
+
+    @Override
+    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        redirecting = true;
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+    }
+    @Override
+    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode) {
+        startActivityFromFragment(fragment, intent, requestCode, null);
+    }
+
+    @Override
+    public void startActivityFromFragment(android.support.v4.app.Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+        redirecting = true;
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+    }
     @Override
     public void onBackPressed() {
         finish();

@@ -358,13 +358,12 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         // update hints
         initOptionButtons();
     }
-
     @Override
     public void onBackPressed() {
-        if(loadingView.getVisibility() == View.GONE && mDrawerLayout != null) {
-            if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) mDrawerLayout.closeDrawers();
-            else mDrawerLayout.openDrawer(GravityCompat.START);
-        }
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
