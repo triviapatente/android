@@ -61,6 +61,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                                                 .setContentIntent(pendingIntent)
                                                 .build();
 
+        notification.defaults |= Notification.DEFAULT_ALL;
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
