@@ -131,8 +131,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     private void init() { init(null); }
     private void init(final View syncButton) {
         FirebaseInstanceIDService.sendRegistration();
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancelAll();
         // connect to socket
         if(!BaseSocketManager.isConnected()) {
             // start loading

@@ -37,6 +37,11 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             sendNotification(remoteMessage.getData(), remoteMessage.getNotification());
         }
     }
+    //ne cancella solo una, perchè è impossibile che ci sia più di una notifica per gameId
+    public static void clearNotifications(Context context, Long gameId) {
+        NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(gameId.intValue());
+    }
     private void sendNotification(Map<String, String> data, RemoteMessage.Notification fcmNotification) {
         String  gameData = data.get(getString(R.string.firebase_message_game_key)),
                 opponentData = data.get(getString(R.string.firebase_message_opponent_key));
@@ -65,7 +70,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+        //fa il replace di quelle di game diversi
         notificationManager.notify(game.id.intValue(), notification);
     }
 }

@@ -12,6 +12,7 @@ import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.utils.mApplication;
+import it.triviapatente.android.firebase.FirebaseMessagingService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.responses.Success;
 
@@ -40,6 +41,7 @@ import javax.net.ssl.X509TrustManager;
 public class BaseSocketManager {
     protected static Socket mSocket;
     public final static int timeout = 6000;
+    private static Context sharedContext;
     public static boolean isConnected() {
         return mSocket.connected();
     }
@@ -59,8 +61,9 @@ public class BaseSocketManager {
     }
     public static void init(Context context) {
         try {
+            sharedContext = context;
             HttpsURLConnection.setDefaultHostnameVerifier(RetrofitManager.hostnameVerifier);
-            mSocket = IO.socket(context.getString(R.string.baseUrl), getIO());
+            mSocket = IO.socket(sharedContext.getString(R.string.baseUrl), getIO());
             mSocket.io().timeout(timeout);
             mSocket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                 @Override
@@ -74,7 +77,6 @@ public class BaseSocketManager {
         TOKEN_KEY = context.getString(R.string.shared_token_key);
         DEVICE_ID_KEY = context.getString(R.string.device_id_key);
     }
-
     public static void connect(final SimpleCallback onConnectCallback, final SimpleCallback onTimeoutCallback) {
         if(mSocket.connected()) {
             onConnectCallback.execute();
@@ -205,9 +207,16 @@ public class BaseSocketManager {
         }
     }
     public void join(final Long id, final String type, final SocketCallback<Success> cb) {
+        final SocketCallback<Success> handler = new SocketCallback<Success>() {
+            @Override
+            public void response(Success response) {
+                FirebaseMessagingService.clearNotifications(sharedContext, id);
+                cb.response(response);
+            }
+        };
         if(this.isJoined(id, type)) {
             Success response = new Success(true, 200);
-            cb.response(response);
+            handler.response(response);
         } else {
             JSONObject params = buildJSONObject(new Pair<String, Object>("type", type), new Pair<String, Object>("id", id));
             this.emit("join_room", params, Success.class, new SocketCallback<Success>() {
@@ -216,7 +225,7 @@ public class BaseSocketManager {
                     if (response.success == true) {
                         joinedRooms.put(type, id);
                     }
-                    cb.response(response);
+                    handler.response(response);
                 }
             });
         }
