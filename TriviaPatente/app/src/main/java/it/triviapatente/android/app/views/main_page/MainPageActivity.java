@@ -83,7 +83,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @BindString(R.string.server_down_message) String serverDownMessage;
     @BindView(R.id.retryConnectionButton) ImageButton retryConnectionButton;
 
-    private boolean onCreate = true;
 
     private User pushUser;
     private Game pushGame;
@@ -287,13 +286,15 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
             }
         });
     }
-
     private void updateRecentGames() {
+        updateRecentGames(false);
+    }
+    private void updateRecentGames(Boolean needsLayoutParamsUpdate) {
         recentGames.setItems(ReceivedData.recentGames,
                 R.layout.list_element_recent_game_holder, RecentGameHolder.class,
                 R.layout.list_element_recent_game_footer, TPEmoticonFooter.class,
                 recentGameHeight);
-        recentGames.setListCounter(ReceivedData.recentGames.size());
+        recentGames.setListCounter(ReceivedData.recentGames.size(), needsLayoutParamsUpdate);
     }
     private void errorConnectingToServerOnUIThread() {
         runOnUiThread(new Runnable() {
@@ -350,7 +351,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        updateRecentGames();
+        updateRecentGames(true);
 
         // check web socket connection
         init();

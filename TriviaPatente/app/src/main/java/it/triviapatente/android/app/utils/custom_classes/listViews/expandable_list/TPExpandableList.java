@@ -107,8 +107,10 @@ public class TPExpandableList<T> extends Fragment {
         listHeader.setVisibility(View.VISIBLE);
     }
 
-    
     public void setListCounter(final int counter) {
+        setListCounter(counter, counter == 0);
+    }
+    public void setListCounter(final int counter, final boolean needsLayoutParamsUpdate) {
         if(counter == 0) { setCounterZero(); } else { setCounterNonZero(counter); }
         this.getView().post(new Runnable() {
             @Override
@@ -120,7 +122,7 @@ public class TPExpandableList<T> extends Fragment {
                 calculateMinimizedHeight(counter);
                 calculateAnimations();
                 if(!maximized){
-                    if(counter == 0) updateLayoutParams();
+                    if(needsLayoutParamsUpdate) updateLayoutParams();
                     updateMinimized();
                 } else if(counter == 0) {
                     setMinimizedHeightMode();
@@ -153,7 +155,7 @@ public class TPExpandableList<T> extends Fragment {
 
     private void calculateMinimizedHeight(int counter) {
         oldMinimizedHeight = minimizedHeight;
-        minimizedHeight = ((maxNumberOfShownItems < counter)? maxNumberOfShownItems : counter) * elementHeight + titleHeight;
+        minimizedHeight = Math.min(maxNumberOfShownItems, counter) * elementHeight + titleHeight;
         if(oldMinimizedHeight == 0) { oldMinimizedHeight = minimizedHeight; }
     }
 
