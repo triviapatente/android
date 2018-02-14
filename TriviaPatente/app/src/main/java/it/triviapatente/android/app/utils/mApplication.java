@@ -31,6 +31,7 @@ public class mApplication extends Application {
         BaseSocketManager.init(this);
         SharedTPPreferences.init(this);
         LabeledInputError.initAll(this);
+        Foreground.init(this);
     }
 
     public static mApplication getInstance() {
