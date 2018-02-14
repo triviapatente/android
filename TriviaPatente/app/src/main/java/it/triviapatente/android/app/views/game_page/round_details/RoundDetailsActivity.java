@@ -365,28 +365,25 @@ public class RoundDetailsActivity extends TPGameActivity {
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mInterstitialAd != null)
+            mInterstitialAd.setAdListener(null);
+    }
+    private void initAdView() {
+        mInterstitialAd = new InterstitialAd(RoundDetailsActivity.this);
+        mInterstitialAd.setAdUnitId(adMobInterstitialID);
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                mInterstitialAd.show();
+            }
+        });
+    }
+
     private void displayInterstitial() {
-        if(mInterstitialAd == null) {
-            // create interstitial
-            mInterstitialAd = new InterstitialAd(RoundDetailsActivity.this);
-            mInterstitialAd.setAdUnitId(adMobInterstitialID);
-            mInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdLoaded() {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mInterstitialAd.show();
-                                }
-                            });
-                        }
-                    }, 1000);
-                }
-            });
-        }
+        if(mInterstitialAd == null) initAdView();
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 }
