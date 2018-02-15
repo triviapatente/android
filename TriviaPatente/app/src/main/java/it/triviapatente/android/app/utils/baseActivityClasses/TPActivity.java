@@ -399,7 +399,7 @@ public class TPActivity extends AppCompatActivity {
         }) {
             @Override
             public void onNegativeButtonClick() {
-                SharedTPPreferences.deleteAll();
+                SharedTPPreferences.dropSession();
                 BaseSocketManager.disconnect();
                 backToFirstAccess();
             }
