@@ -8,5 +8,5 @@
     <dimen name="play_round_button_panel_inner_margin">20dp</dimen>
     <!-- quiz buttons -->
     <dimen name="play_round_button_panel_button_border">2.5dp</dimen>
-    <dimen name="play_round_button_panel_button_shadow">1dp</dimen>
+    <dimen name="play_round_button_panel_button_shadow">1.7dp</dimen>
 </resources>
