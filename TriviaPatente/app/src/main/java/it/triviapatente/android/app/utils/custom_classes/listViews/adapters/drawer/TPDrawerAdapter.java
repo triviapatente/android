@@ -42,13 +42,15 @@ public class TPDrawerAdapter extends ArrayAdapter<DrawerOption> {
             vi = LayoutInflater.from(getContext());
             if(option.optionType == drawer_options_type.image) {
                 User user = SharedTPPreferences.currentUser();
-                v = vi.inflate(R.layout.drawer_picture_element, null);
-                if(user.name != null || user.surname != null) {
-                    ((TextView) v.findViewById(R.id.name)).setText(user.name + " " + user.surname);
-                    v.findViewById(R.id.name).setVisibility(View.VISIBLE);
+                if(user != null) {
+                    v = vi.inflate(R.layout.drawer_picture_element, null);
+                    if (user.name != null || user.surname != null) {
+                        ((TextView) v.findViewById(R.id.name)).setText(user.name + " " + user.surname);
+                        v.findViewById(R.id.name).setVisibility(View.VISIBLE);
+                    }
+                    ((TextView) v.findViewById(R.id.username)).setText(user.username);
+                    TPUtils.injectUserImage(getContext(), user, (RoundedImageView) v.findViewById(R.id.bigProfilePicture));
                 }
-                ((TextView) v.findViewById(R.id.username)).setText(user.username);
-                TPUtils.injectUserImage(getContext(), user, (RoundedImageView) v.findViewById(R.id.bigProfilePicture));
             } else {
                 v = vi.inflate(R.layout.drawer_list_item, null);
                 if(position == getCount() - 1) v.findViewById(R.id.separator).setVisibility(View.GONE);

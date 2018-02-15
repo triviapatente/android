@@ -10,6 +10,7 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.views.access.FirstAccessActivity;
 import it.triviapatente.android.app.views.main_page.MainPageActivity;
+import it.triviapatente.android.models.auth.User;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -19,8 +20,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         // check if already logged in
         String token = SharedTPPreferences.getToken();
+        User user = SharedTPPreferences.currentUser();
         Intent myIntent;
-        if(!token.equals("")) {
+        if(!token.equals("") && user != null) {
             // open main page
             myIntent = new Intent(this, MainPageActivity.class);
             if(getIntent() != null && getIntent().getExtras() != null) {
