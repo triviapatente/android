@@ -71,7 +71,6 @@ public class FindOpponentActivity extends RankActivity {
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
     @BindView(R.id.no_users) TextView noUsersAlert;
-    @BindView(R.id.blurImageView) ImageView blurImageView;
     List<User> suggestedUsers;
     // friends not shown
     // TODO no more needed
@@ -250,7 +249,6 @@ public class FindOpponentActivity extends RankActivity {
     @OnClick(R.id.all_button)
     public void allButtonClick() {
         all = true;
-        blurImageView.setVisibility(View.GONE);
         searchBar.setText("");
         allButton.setBackground(allButtonSelected);
         friendsButton.setBackground(friendsButtonNotSelected);
@@ -279,7 +277,7 @@ public class FindOpponentActivity extends RankActivity {
             }
             loadingView.setVisibility(View.GONE);
 
-            playersList.post(new Runnable() {
+            /*playersList.post(new Runnable() {
                 @Override
                 public void run() {
                     Blurry.with(FindOpponentActivity.this)
@@ -289,7 +287,7 @@ public class FindOpponentActivity extends RankActivity {
                             .into(blurImageView);
                 }
             });
-            blurImageView.setVisibility(View.VISIBLE);
+            blurImageView.setVisibility(View.VISIBLE);*/
             facebookDialog.show();
         }
     }
