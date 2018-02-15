@@ -21,7 +21,7 @@
     <!--loading spin-->
     <dimen name="loading_view_size">75dp</dimen>
 
-    <dimen name="retry_connection_width">45dp</dimen>
+    <dimen name="retry_connection_width">55dp</dimen>
     <dimen name="retry_connection_height">55dp</dimen>
     <dimen name="details_quiz_name_margin">10dp</dimen>
     <dimen name="separator_size">0.5dp</dimen>
