@@ -113,8 +113,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                  if(response.success) {
                     if(response.ended != null && response.ended) {
                         gotoRoundDetails();
-                    } else {
-                        loadQuizzes();
                     }
                 }
             }
