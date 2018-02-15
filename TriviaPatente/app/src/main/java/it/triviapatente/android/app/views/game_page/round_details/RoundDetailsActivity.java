@@ -371,6 +371,12 @@ public class RoundDetailsActivity extends TPGameActivity {
         if(mInterstitialAd != null)
             mInterstitialAd.setAdListener(null);
     }
+
+    @Override
+    protected void customReinit() {
+        load();
+    }
+
     private void initAdView() {
         mInterstitialAd = new InterstitialAd(RoundDetailsActivity.this);
         mInterstitialAd.setAdUnitId(adMobInterstitialID);

@@ -47,6 +47,11 @@ public class ChooseCategoryActivity extends TPGameActivity {
         loadProposedCategories();
     }
 
+    @Override
+    protected void customReinit() {
+        //nothing particular to do
+    }
+
     private void loadProposedCategories() {
         proposedCategories.setLayoutManager(new LinearLayoutManager(this));
         proposedCategories.setOnTouchListener(new OnSwipeTouchListener(this));

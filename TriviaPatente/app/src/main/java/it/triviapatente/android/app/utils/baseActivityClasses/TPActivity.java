@@ -94,7 +94,7 @@ public class TPActivity extends AppCompatActivity {
     @BindInt(R.integer.days_delay_life_popover) int lifePopoverDelay;
     @BindInt(R.integer.days_delay_rate_popover) int ratePopoverDelay;
 
-    protected Boolean redirecting = false;
+    protected static Boolean redirecting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +102,10 @@ public class TPActivity extends AppCompatActivity {
         if(redirecting) overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
         currentUser = SharedTPPreferences.currentUser();
     }
+
+    protected void awakenFromBackground() {
+
+    };
 
     // touch handler
     @Override
@@ -291,6 +295,7 @@ public class TPActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if(!redirecting) awakenFromBackground();
         if(needsLeaveRoom()) {
             gameSocketManager.leave(new SocketCallback<Success>() {
                 @Override
@@ -299,6 +304,7 @@ public class TPActivity extends AppCompatActivity {
         }
         visible = true;
         if(drawerAdapter != null) drawerAdapter.notifyDataSetChanged(); // user data can be modified, take it again from shared preferences
+        redirecting = false;
     }
 
     @Override

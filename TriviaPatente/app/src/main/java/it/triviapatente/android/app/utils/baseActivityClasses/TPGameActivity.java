@@ -14,7 +14,10 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.Foreground;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
+import it.triviapatente.android.app.views.game_page.ChooseCategoryActivity;
 import it.triviapatente.android.app.views.game_page.FragmentGameHeader;
+import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
+import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
 import it.triviapatente.android.app.views.main_page.MainPageActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
@@ -28,7 +31,7 @@ import it.triviapatente.android.socket.modules.events.GameLeftEvent;
 /**
  * Created by Antonio on 04/01/17.
  */
-public class TPGameActivity extends TPActivity {
+public abstract class TPGameActivity extends TPActivity {
     // game data
     public User opponent;
     public Round currentRound;
@@ -45,13 +48,12 @@ public class TPGameActivity extends TPActivity {
         currentCategory = RetrofitManager.gson.fromJson(intent.getStringExtra(this.getString(R.string.extra_string_category)), Category.class);
         gameID = intent.getLongExtra(this.getString(R.string.extra_long_game), (currentRound == null)? -1 : currentRound.game_id);
         super.onCreate(savedInstanceState);
-        redirecting = false;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        joinAndListenUserLeft();
+        defaultReinit(false);
     }
 
     @Override
@@ -63,12 +65,12 @@ public class TPGameActivity extends TPActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void awakenFromBackground() {
+        super.awakenFromBackground();
         BaseSocketManager.connect(new SimpleCallback() {
             @Override
             public void execute() {
-                joinAndListenUserLeft();
+                defaultReinit(true);
             }
         }, new SimpleCallback() {
             @Override
@@ -88,6 +90,29 @@ public class TPGameActivity extends TPActivity {
         startActivityFromFragment(fragment, intent, requestCode, null);
     }
 
+    protected void gotoChooseCategory() {
+        Intent intent = new Intent(this, ChooseCategoryActivity.class);
+        intent.putExtra(this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
+        intent.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+        startActivity(intent);
+        finish();
+    }
+
+    protected void gotoPlayRound() {
+        Intent intent = new Intent(this, PlayRoundActivity.class);
+        intent.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+        intent.putExtra(this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
+        intent.putExtra(this.getString(R.string.extra_string_category), RetrofitManager.gson.toJson(currentCategory));
+        startActivity(intent);
+        finish();
+    }
+
+    protected void gotoRoundDetails() {
+        Intent intent = new Intent(this, RoundDetailsActivity.class);
+        intent.putExtra(this.getString(R.string.extra_long_game), gameID);
+        intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(opponent));
+        startActivity(intent);
+    }
 
 
     private void listenUserLeft() {
@@ -106,13 +131,14 @@ public class TPGameActivity extends TPActivity {
             }
         });
     }
-    protected void joinAndListenUserLeft() {
-        if(this instanceof RoundDetailsActivity) return;
-        if(gameID != -1)
+    protected abstract void customReinit();
+    protected void defaultReinit(final Boolean withCustom) {
+        if(gameID == -1) return;
         gameSocketManager.join(gameID, new SocketCallback<Success>() {
             @Override
             public void response(Success response) {
-                listenUserLeft();
+                if(!(TPGameActivity.this instanceof RoundDetailsActivity)) listenUserLeft();
+                if(withCustom) customReinit();
             }
         });
 

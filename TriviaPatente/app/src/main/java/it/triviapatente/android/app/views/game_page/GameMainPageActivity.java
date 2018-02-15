@@ -121,7 +121,7 @@ public class GameMainPageActivity extends TPGameActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    roundDetails();
+                    gotoRoundDetails();
                 }
             });
         }
@@ -132,7 +132,7 @@ public class GameMainPageActivity extends TPGameActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    playRound();
+                    gotoPlayRound();
                 }
             });
         }
@@ -176,6 +176,13 @@ public class GameMainPageActivity extends TPGameActivity {
             join_room();
         }
     }
+
+    @Override
+    protected void customReinit() {
+        init_listening();
+        init_round();
+    }
+
     public void processResponse(SuccessInitRound response) {
         if (response.ended != null && response.ended) {
             this.redirect("round_details");
@@ -221,13 +228,13 @@ public class GameMainPageActivity extends TPGameActivity {
     public void redirect(String state) {
         switch (state) {
             case "category":
-                this.chooseCategory();
+                gotoChooseCategory();
                 break;
             case "game":
-                this.playRound();
+                gotoPlayRound();
                 break;
             case "round_details":
-                this.roundDetails();
+                gotoRoundDetails();
                 break;
         }
     }
@@ -336,29 +343,7 @@ public class GameMainPageActivity extends TPGameActivity {
         updateWaitPage((currentRound == null)? offlineStatusLastRound : offlineStatus, whiteColor, mainColorLight);
     }
 
-    private void chooseCategory() {
-        Intent intent = new Intent(this, ChooseCategoryActivity.class);
-        intent.putExtra(this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
-        intent.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
-        startActivity(intent);
-        finish();
-    }
 
-    private void playRound() {
-        Intent intent = new Intent(this, PlayRoundActivity.class);
-        intent.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
-        intent.putExtra(this.getString(R.string.extra_string_round), RetrofitManager.gson.toJson(currentRound));
-        intent.putExtra(this.getString(R.string.extra_string_category), RetrofitManager.gson.toJson(currentCategory));
-        startActivity(intent);
-        finish();
-    }
-
-    private void roundDetails() {
-        Intent intent = new Intent(GameMainPageActivity.this, RoundDetailsActivity.class);
-        intent.putExtra(this.getString(R.string.extra_long_game), gameID);
-        intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(opponent));
-        startActivity(intent);
-    }
 
     @Override
     protected boolean needsSetHeader() {

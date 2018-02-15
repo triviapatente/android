@@ -7,19 +7,24 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.gson.Gson;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
+import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.game.Quiz;
 import it.triviapatente.android.models.responses.SuccessAnsweredCorrectly;
+import it.triviapatente.android.models.responses.SuccessInitRound;
 import it.triviapatente.android.models.responses.SuccessQuizzes;
 import java.util.List;
 import butterknife.BindView;
@@ -96,6 +101,22 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 mAdView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Override
+    protected void customReinit() {
+        gameSocketManager.init_round(gameID, new SocketCallback<SuccessInitRound>() {
+            @Override
+            public void response(SuccessInitRound response) {
+                 if(response.success) {
+                    if(response.ended != null && response.ended) {
+                        gotoRoundDetails();
+                    } else {
+                        loadQuizzes();
+                    }
+                }
             }
         });
     }
