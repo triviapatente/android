@@ -46,7 +46,9 @@ public class BaseSocketManager {
         return mSocket.connected();
     }
 
-    public static void disconnect() {
+    public static void disconnect()
+    {
+        joinedRooms.clear();
         mSocket.disconnect();
     }
 
