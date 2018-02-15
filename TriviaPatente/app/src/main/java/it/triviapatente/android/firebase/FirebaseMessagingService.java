@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
@@ -57,7 +57,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new Notification.Builder(this)
                                                 .setSmallIcon(R.mipmap.logo)
                                                 .setContentTitle(fcmNotification.getTitle())
                                                 .setContentText(fcmNotification.getBody())

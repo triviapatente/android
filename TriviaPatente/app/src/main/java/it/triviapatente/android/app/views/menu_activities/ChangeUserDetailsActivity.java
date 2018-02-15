@@ -7,8 +7,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.TextView;
+
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageActivity;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
@@ -116,7 +121,8 @@ public class ChangeUserDetailsActivity extends TPActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
             File photoFile = createCameraPhotoFile();
-            imageURI = Uri.fromFile(photoFile);
+            imageURI = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", photoFile);
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -138,20 +144,34 @@ public class ChangeUserDetailsActivity extends TPActivity {
         startActivityForResult(chooser, REQUEST_LOAD_IMAGE);
     }
 
+    private void startCropping() {
+        CropImage.activity(imageURI)
+                .setAllowFlipping(true)
+                .setAllowRotation(true)
+                .setAutoZoomEnabled(true)
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .setAspectRatio(1, 1)
+                .start(this);
 
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
-                    imageBitmap = getBitmap(imageURI);
+                    startCropping();
                     break;
                 case REQUEST_LOAD_IMAGE:
                     imageURI = data.getData();
-                    imageBitmap = getBitmap(imageURI);
+                    startCropping();
+                    break;
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    imageBitmap = getBitmap(result.getUri());
+                    if(imageBitmap != null)
+                        bigProfilePicture.setImageBitmap(imageBitmap);
+                    break;
             }
-            if(imageBitmap != null)
-                bigProfilePicture.setImageBitmap(imageBitmap);
         }
     }
     private Bitmap getBitmap(Uri uri) {
