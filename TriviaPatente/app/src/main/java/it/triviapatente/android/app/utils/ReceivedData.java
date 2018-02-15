@@ -19,19 +19,4 @@ public class ReceivedData {
 
     // recent games
     public static List<Game> recentGames = new ArrayList<>(0);
-    public static void updateGame(Game newGame) {
-        for(int i = 0; i < recentGames.size(); i++) {
-            if(recentGames.get(i).id.equals(newGame.id)) {
-                recentGames.set(i, newGame);
-            }
-        }
-        orderGames();
-    }
-    public static void addGame(Game newGame) {
-        recentGames.add(newGame);
-        orderGames();
-    }
-    public static void orderGames() {
-        Collections.sort(recentGames);
-    }
 }

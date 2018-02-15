@@ -252,7 +252,6 @@ public class GameMainPageActivity extends TPGameActivity {
                     Game game = response.body().game;
                     gameID = game.id;
                     opponent = response.body().user;
-                    ReceivedData.addGame(game);
                     createGameEvent(game);
                     setOpponentData();
                     join_room();
