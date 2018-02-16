@@ -177,8 +177,11 @@ public abstract class TPGameActivity extends TPActivity {
         // init fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         gameHeader = (FragmentGameHeader) fragmentManager.findFragmentById(R.id.gameHeader);
-        if(needsSetHeader()) gameHeader.setHeader(currentRound, currentCategory);
-        else gameHeader.initHeader();
+        if(needsSetHeader() && currentRound != null) {
+            gameHeader.setHeader(currentRound, currentCategory);
+        } else {
+            gameHeader.initHeader();
+        }
     }
 
     protected boolean needsSetHeader() { return true; }

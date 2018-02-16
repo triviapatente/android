@@ -337,7 +337,8 @@ public class RoundDetailsActivity extends TPGameActivity {
                             sectionList.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    sectionList.findViewHolderForAdapterPosition(answerMap.size() - (response.game.ended ? 0 : 1)).itemView.callOnClick();
+                                    int section = answerMap.size() - (response.game.ended ? 0 : 1);
+                                    sectionListener.onSelected(section, true);
                                 }
                             });
                             // display ads
