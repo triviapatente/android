@@ -57,8 +57,8 @@ public class RoundHolder extends RecyclerView.ViewHolder implements View.OnClick
             roundNumberView.setTextColor(Color.WHITE);
         }
     }
-    public void select(Boolean needsScroll) {
-        if(getAdapterPosition() == selectedHolder) return;
+    public void select(Boolean needsScroll, Boolean evenIfAlreadySelected) {
+        if(!evenIfAlreadySelected && getAdapterPosition() == selectedHolder) return;
         selectedHolder = getAdapterPosition();
         mAdapter.notifyDataSetChanged();
         clickCallback.onSelected(selectedHolder, needsScroll);
@@ -66,6 +66,6 @@ public class RoundHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        select(true);
+        select(true, false);
     }
 }

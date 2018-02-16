@@ -338,7 +338,9 @@ public class RoundDetailsActivity extends TPGameActivity {
                                 @Override
                                 public void run() {
                                     int section = answerMap.size() - (response.game.ended ? 0 : 1);
-                                    sectionListener.onSelected(section, true);
+                                    RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(section);
+                                    if (holder != null) holder.select(true, true);
+
                                 }
                             });
                             // display ads

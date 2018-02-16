@@ -45,7 +45,7 @@ public class RoundDetailsScrollListener extends RecyclerView.OnScrollListener {
         if(position != -1) {
             roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
             RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
-            if (holder != null) holder.select(false);
+            if (holder != null) holder.select(false, false);
         }
     }
 
