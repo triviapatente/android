@@ -9,9 +9,7 @@ import org.parceler.Parcel;
  * Created by Antonio on 22/10/16.
  */
 @Parcel
-public class SuccessUserToken extends Success {
-    @SerializedName("user")
-    public User user;
+public class SuccessUserToken extends SuccessUser {
     @SerializedName("token")
     public String token;
 

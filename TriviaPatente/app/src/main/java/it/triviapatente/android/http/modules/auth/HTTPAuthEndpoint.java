@@ -2,6 +2,7 @@ package it.triviapatente.android.http.modules.auth;
 
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.responses.Success;
+import it.triviapatente.android.models.responses.SuccessUser;
 import it.triviapatente.android.models.responses.SuccessUserToken;
 
 import java.util.List;
@@ -32,11 +33,11 @@ public interface HTTPAuthEndpoint {
 
     @FormUrlEncoded
     @POST("account/name/edit")
-    Call<User> changeName(@Field("name") String name);
+    Call<SuccessUser> changeName(@Field("name") String name);
 
     @FormUrlEncoded
     @POST("account/surname/edit")
-    Call<User> changeSurname(@Field("surname") String surname);
+    Call<SuccessUser> changeSurname(@Field("surname") String surname);
 
     @FormUrlEncoded
     @POST("auth/password/edit")

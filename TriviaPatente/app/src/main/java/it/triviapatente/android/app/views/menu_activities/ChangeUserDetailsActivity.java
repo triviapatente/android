@@ -35,6 +35,7 @@ import java.util.Date;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import it.triviapatente.android.models.responses.SuccessUser;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -202,35 +203,41 @@ public class ChangeUserDetailsActivity extends TPActivity {
         }
     }
 
+    private String getName() {
+        return nameInput.toString().trim();
+    }
+
+    private String getSurname() {
+        return surnameInput.toString().trim();
+    }
+
     // Name update
     private void nameUpdate() {
-        if(!nameInput.toString().equals("")) {
-            nameInput.hideLabel();
-            Call<User> call = RetrofitManager.getHTTPAuthEndpoint().changeName(nameInput.toString());
-            call.enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    user.name = nameInput.toString();
-                    SharedTPPreferences.saveUser(user);
-                    surnameUpdate();
-                }
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    confirmButton.stopLoading();
-                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+        final String name = getName();
+        nameInput.hideLabel();
+        Call<SuccessUser> call = RetrofitManager.getHTTPAuthEndpoint().changeName(name);
+        call.enqueue(new Callback<SuccessUser>() {
+            @Override
+            public void onResponse(Call<SuccessUser> call, Response<SuccessUser> response) {
+                user = response.body().user;
+                SharedTPPreferences.saveUser(user);
+                surnameUpdate();
+            }
+            @Override
+            public void onFailure(Call<SuccessUser> call, Throwable t) {
+                confirmButton.stopLoading();
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     confirmButton.startLoading();
                                     nameUpdate();
                                 }
-                            })
-                            .show();
-                }
-            });
-        } else {
-            surnameUpdate();
-        }
+                        })
+                        .show();
+            }
+        });
+
     }
 
     private void nameError() {
@@ -245,37 +252,34 @@ public class ChangeUserDetailsActivity extends TPActivity {
 
     // Surname update
     private void surnameUpdate() {
-        if(!surnameInput.toString().equals("")) {
-            surnameInput.hideLabel();
-            Call<User> call = RetrofitManager.getHTTPAuthEndpoint().changeSurname(surnameInput.toString());
-            call.enqueue(new TPCallback<User>() {
-                @Override
-                public void mOnResponse(Call<User> call, Response<User> response) {
-                    user.surname = surnameInput.toString();
-                    SharedTPPreferences.saveUser(user);
-                    imageUpdate();
-                }
-                @Override
-                public void mOnFailure(Call<User> call, Throwable t) {
-                    confirmButton.stopLoading();
-                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+        final String surname = getSurname();
+        surnameInput.hideLabel();
+        Call<SuccessUser> call = RetrofitManager.getHTTPAuthEndpoint().changeSurname(surname);
+        call.enqueue(new TPCallback<SuccessUser>() {
+            @Override
+            public void mOnResponse(Call<SuccessUser> call, Response<SuccessUser> response) {
+                user = response.body().user;
+                SharedTPPreferences.saveUser(user);
+                imageUpdate();
+            }
+            @Override
+            public void mOnFailure(Call<SuccessUser> call, Throwable t) {
+                confirmButton.stopLoading();
+                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     confirmButton.startLoading();
                                     surnameUpdate();
                                 }
-                            })
-                            .show();
+                        })
+                        .show();
                 }
                 @Override
                 public void then() {
 
                 }
-            });
-        } else {
-            imageUpdate();
-        }
+        });
     }
     private byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -296,7 +300,7 @@ public class ChangeUserDetailsActivity extends TPActivity {
                     if(response.isSuccessful()) {
                         String profileImageURL = TPUtils.getUserImageFromID(ChangeUserDetailsActivity.this, currentUser.id);
                         TPUtils.picasso.invalidate(profileImageURL);
-                        update();
+                        dataUpdatedCallback();
                     } else {
                         mOnFailure(call, null);
                     }
@@ -322,11 +326,11 @@ public class ChangeUserDetailsActivity extends TPActivity {
                 }
             });
         } else {
-            update();
+            dataUpdatedCallback();
         }
     }
 
-    private void update() {
+    private void dataUpdatedCallback() {
         confirmButton.stopLoading();
         // Back to previous page
         onBackPressed();
