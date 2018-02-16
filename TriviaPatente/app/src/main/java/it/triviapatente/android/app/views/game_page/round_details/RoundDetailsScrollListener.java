@@ -49,9 +49,16 @@ public class RoundDetailsScrollListener extends RecyclerView.OnScrollListener {
         }
     }
 
+    private int getLastRoundPosition() {
+        return (answerAdapter.getItemCount() / NUMBER_OF_QUESTIONS_PER_ROUND) - 1;
+    }
+
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-        if(newState == RecyclerView.SCROLL_STATE_IDLE)
+        int lastRound = getLastRoundPosition();
+        int firstVisiblePosition = answerLayout.findFirstVisibleItemPosition();
+        int firstVisiblePositionRound = firstVisiblePosition / NUMBER_OF_QUESTIONS_PER_ROUND;
+        if(newState == RecyclerView.SCROLL_STATE_IDLE && firstVisiblePositionRound != lastRound)
             sectionListener.onSelected(roundPosition, true);
     }
 }
