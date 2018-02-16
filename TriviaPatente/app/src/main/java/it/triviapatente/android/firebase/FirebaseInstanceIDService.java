@@ -8,6 +8,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.http.modules.base.HTTPBaseEndpoint;
 import it.triviapatente.android.http.utils.RetrofitManager;
+import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.responses.Success;
 import it.triviapatente.android.models.responses.SuccessUserToken;
 import retrofit2.Call;
@@ -28,16 +29,24 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
     public static void sendRegistration() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if(refreshedToken != null) {
+        if(refreshedToken != null && !alreadySent(refreshedToken)) {
             sendRegistration(refreshedToken);
         }
     }
-    private static void sendRegistration(String token) {
+    //chiamata che controlla se ho già inviato la richiesta per la registrazione di token per questo deviceId e user
+    private static Boolean alreadySent(String token) {
+        User user = SharedTPPreferences.currentUser();
         String deviceId = SharedTPPreferences.deviceId();
+        TokenRequest request = SharedTPPreferences.getLastTokenRequest();
+        return request != null && request.is(deviceId, token, user);
+    }
+    private static void sendRegistration(final String token) {
+        final String deviceId = SharedTPPreferences.deviceId();
         Call<Success> call = RetrofitManager.getHTTPBaseEndpoint().registerToPush("Android", token, deviceId);
         call.enqueue(new Callback<Success>() {
             @Override
             public void onResponse(Call<Success> call, Response<Success> response) {
+                SharedTPPreferences.saveTokenRequest(deviceId, token, SharedTPPreferences.currentUser());
                 Log.i("Registration token", "Success? " + response.isSuccessful());
             }
 

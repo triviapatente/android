@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import java.util.UUID;
 
 import it.triviapatente.android.R;
+import it.triviapatente.android.firebase.TokenRequest;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
 
@@ -16,7 +17,7 @@ import it.triviapatente.android.models.auth.User;
  */
 public class SharedTPPreferences {
     // shared preferences
-    private static String shared_TP, shared_token_key, shared_user_key;
+    private static String shared_TP, shared_token_key, shared_user_key, shared_last_token_request_key;
     private static SharedPreferences sharedPref;
 
     private static String uniqueID = null;
@@ -43,8 +44,24 @@ public class SharedTPPreferences {
         shared_TP = context.getResources().getString(R.string.shared_preferences);
         shared_token_key = context.getResources().getString(R.string.shared_token_key);
         shared_user_key = context.getString(R.string.shared_user);
+        shared_last_token_request_key = context.getString(R.string.shared_last_token_request_key);
 
         sharedPref = context.getSharedPreferences(shared_TP, Context.MODE_PRIVATE);
+    }
+    public static void saveTokenRequest(String deviceId, String token, User user) {
+        TokenRequest request = new TokenRequest(deviceId, token, user.id);
+        saveTokenRequest(request);
+    }
+    public static void saveTokenRequest(TokenRequest request) {
+        String value = request.serialize();
+        Editor editor = startEditTransaction();
+        editor.putString(shared_last_token_request_key, value);
+        editor.apply();
+    }
+    public static TokenRequest getLastTokenRequest() {
+        String value = sharedPref.getString(shared_last_token_request_key, null);
+        if(value == null) return null;
+        return TokenRequest.from(value);
     }
 
     public static void saveUser(User user) {

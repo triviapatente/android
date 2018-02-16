@@ -5,6 +5,7 @@
     <string name="shared_token_key">tp-session-token</string>
     <string name="device_id_key">tp-device-id</string>
     <string name="shared_user">current-user</string>
+    <string name="shared_last_token_request_key">last_token_request</string>
     <!-- data between activities -->
     <string name="extra_string_opponent">opponent</string>
     <string name="extra_string_from_game_options">from_game_options</string>
