@@ -94,14 +94,8 @@ public class RoundDetailsActivity extends TPGameActivity {
         @Override
         public void onSelected(int section, Boolean needsScroll) {
             if(response != null) {
-                if(section < answerMap.size()) {
-                    Round round = roundFor(section + 1);
-                    Category category = categoryFor(round);
-                    gameHeader.setHeader(round, category);
-                } else {
-                    gameHeader.endedGameHeader();
-                }
                 if(needsScroll) {
+                    answerList.stopScroll();
                     int target = getScrollPositionFor(section);
                     RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getApplicationContext()) {
                         @Override protected int getVerticalSnapPreference() {
@@ -113,9 +107,17 @@ public class RoundDetailsActivity extends TPGameActivity {
                             return new PointF(0, 0);
                         }
                     };
+                    scrollListener.updateRoundPosition(target);
                     smoothScroller.setTargetPosition(target);
                     answerLayout.startSmoothScroll(smoothScroller);
                 }
+            }
+            if(section < answerMap.size()) {
+                Round round = roundFor(section + 1);
+                Category category = categoryFor(round);
+                gameHeader.setHeader(round, category);
+            } else {
+                gameHeader.endedGameHeader();
             }
         }
     };
@@ -125,29 +127,7 @@ public class RoundDetailsActivity extends TPGameActivity {
     private LinearLayoutManager sectionLayout = new LinearLayoutManager(this);
     private RoundDetailsSectionAdapter sectionAdapter = new RoundDetailsSectionAdapter(this, sectionListener);
 
-    private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
-        private int roundPosition;
-        static final int scrollTollerance = 10;
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            if(dy < scrollTollerance && dy > -scrollTollerance ) return;
-            answerAdapter.up = dy < 0;
-            int position = (dy < 0)? answerLayout.findFirstVisibleItemPosition() : answerLayout.findLastVisibleItemPosition();
-            if(position != -1) {
-                roundPosition = position / NUMBER_OF_QUESTIONS_PER_ROUND;
-                RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(roundPosition);
-                if (holder != null) holder.select(false);
-            }
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            if(newState == RecyclerView.SCROLL_STATE_IDLE)
-                sectionListener.onSelected(roundPosition, true);
-        }
-    };
+    private RoundDetailsScrollListener scrollListener;
 
 
 
@@ -219,6 +199,8 @@ public class RoundDetailsActivity extends TPGameActivity {
         answerList.setLayoutManager(answerLayout);
         answerAdapter.setAnswerList(answerList);
         answerList.setAdapter(answerAdapter);
+        scrollListener = new RoundDetailsScrollListener(NUMBER_OF_QUESTIONS_PER_ROUND, answerList, sectionList);
+        scrollListener.setRoundDetailsSectionCallback(sectionListener);
         answerList.addOnScrollListener(scrollListener);
         fromGameOptions = getIntent().getBooleanExtra(extraKeyFromGame, false);
         this.decideToShowUserLeftMessage();
@@ -293,6 +275,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         detailsScore.set(RoundDetailsActivity.this, response.answers);
                         answerMap = computeMap();
                         answerAdapter.notifyDataSetChanged(response, opponent);
+                        scrollListener.refreshAdapter(answerAdapter);
                     }
                 });
             }
@@ -308,6 +291,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         response.partecipations = event.partecipations;
                         detailsScore.setResponse(response, RoundDetailsActivity.this);
                         answerAdapter.notifyDataSetChanged(response, opponent);
+                        scrollListener.refreshAdapter(answerAdapter);
                         sectionAdapter.notifyDataSetChanged(response, answerMap);
                     }
                 });
@@ -324,6 +308,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                         response.partecipations = event.partecipations;
                         detailsScore.setResponse(response, RoundDetailsActivity.this);
                         answerAdapter.notifyDataSetChanged(response, opponent);
+                        scrollListener.refreshAdapter(answerAdapter);
                         sectionAdapter.notifyDataSetChanged(response, answerMap);
                     }
                 });
@@ -348,6 +333,7 @@ public class RoundDetailsActivity extends TPGameActivity {
                             answerList.setVisibility(View.VISIBLE);
                             sectionAdapter.notifyDataSetChanged(response, answerMap);
                             answerAdapter.notifyDataSetChanged(response, opponent);
+                            scrollListener.refreshAdapter(answerAdapter);
                             sectionList.post(new Runnable() {
                                 @Override
                                 public void run() {
