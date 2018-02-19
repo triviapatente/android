@@ -99,7 +99,14 @@ public class TPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(redirecting) overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+        if(redirecting) {
+            Intent i = getIntent();
+            if(i != null && i.getFlags() == Intent.FLAG_ACTIVITY_CLEAR_TOP) {
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+            } else {
+                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+            }
+        }
         currentUser = SharedTPPreferences.currentUser();
     }
 
@@ -343,7 +350,6 @@ public class TPActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_right_out);
     }
 
     protected boolean needsLeaveRoom() {

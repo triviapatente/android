@@ -189,8 +189,9 @@ public abstract class TPGameActivity extends TPActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainPageActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_left_in,R.anim.slide_left_out);
+        super.onBackPressed();
     }
 
     @Override
