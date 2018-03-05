@@ -101,7 +101,6 @@ public class LoginFragment extends Fragment {
         initLoginButtonLayoutParams();
         // hide alert and forgot button
         alertMessageView.hideAlert();
-        hideForgotButton();
         // translate emoticon
         operationFailed = TPUtils.translateEmoticons(operationFailed);
         // terms and conditions
