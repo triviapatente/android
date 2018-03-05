@@ -37,6 +37,7 @@ public class FragmentGameOptions extends Fragment {
     TPGameActivity activity;
 
     @BindView(R.id.gameDetailsButton) Button gameDetailsButton;
+    @BindView(R.id.gameLeaveButton) Button gameLeaveButton;
 
     public FragmentGameOptions() {}
 
@@ -45,6 +46,19 @@ public class FragmentGameOptions extends Fragment {
         super.onAttach(context);
         this.activity = (TPGameActivity) context;
     }
+    private void applyEnabled() {
+        gameDetailsButton.setEnabled(isEnabled);
+        gameLeaveButton.setEnabled(isEnabled);
+    }
+    public void enable() {
+        isEnabled = true;
+        applyEnabled();
+    }
+    public void disable() {
+        isEnabled = false;
+        applyEnabled();
+    }
+    private Boolean isEnabled = true;
 
     private Boolean isFirstRound() {
         return activity.currentRound != null && activity.currentRound.number == 1;
@@ -62,6 +76,7 @@ public class FragmentGameOptions extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_options, container, false);
         ButterKnife.bind(this, view);
+        enable();
         return view;
     }
 

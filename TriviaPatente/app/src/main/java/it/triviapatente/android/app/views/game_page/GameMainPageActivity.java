@@ -191,8 +191,10 @@ public class GameMainPageActivity extends TPGameActivity {
             if (!isWaiting) {
                 this.redirect(response.waiting);
             } else if (response.isOpponentOnline != null && !response.isOpponentOnline) {
+                gameOptions.enable();
                 this.offline();
             } else {
+                gameOptions.enable();
                 switch (response.waiting) {
                     case "category":
                         this.waitingCategory();
@@ -296,6 +298,7 @@ public class GameMainPageActivity extends TPGameActivity {
     }
 
     private void join_room() {
+        gameOptions.disable();
         Log.i("join", "joining_room " + gameID);
         gameSocketManager.join(gameID, roomName, new SocketCallback<Success>() {
             @Override
