@@ -17,7 +17,11 @@ import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Cache;
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.images.TPGradientDrawable;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
@@ -25,6 +29,7 @@ import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Question;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -103,6 +108,14 @@ public class TPUtils {
     // picasso utils
     // TODO can be built as singleton instance instead: Picasso.setSingletonInstance(picasso); this way can be called as Picasso.load(...)
     public static Picasso picasso;
+    private static File getCachePath(Context ctx) {
+        File f = new File(ctx.getCacheDir(), "picasso");
+        f.mkdirs();
+        return f;
+    }
+    private static Cache getCache(Context ctx) {
+        return new LruCache(ctx);
+    }
     public static void initPicasso(final Context context) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.sslSocketFactory(RetrofitManager.getSSLContext().getSocketFactory(), RetrofitManager.trustAll);
@@ -119,6 +132,8 @@ public class TPUtils {
         });
         OkHttpClient client = httpClient.build();
         picasso = new Picasso.Builder(context)
+                .loggingEnabled(true)
+                .memoryCache(getCache(context))
                 .downloader(new OkHttp3Downloader(client))
                 .build();
 
