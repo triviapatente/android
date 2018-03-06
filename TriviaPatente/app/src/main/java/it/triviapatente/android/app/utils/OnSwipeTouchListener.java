@@ -38,7 +38,6 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            boolean result = false;
             try {
                 float diffY = e2.getY() - e1.getY();
                 float diffX = e2.getX() - e1.getX();
@@ -50,7 +49,6 @@ public class OnSwipeTouchListener implements OnTouchListener {
                             onSwipeLeft();
                         }
                     }
-                    result = true;
                 }
                 else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
@@ -59,12 +57,11 @@ public class OnSwipeTouchListener implements OnTouchListener {
                         onSwipeTop();
                     }
                 }
-                result = true;
 
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-            return result;
+            return false;
         }
     }
 
