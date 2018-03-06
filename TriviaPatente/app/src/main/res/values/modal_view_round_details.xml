@@ -7,9 +7,13 @@
     <dimen name="modal_view_round_details_score_label_height">40dp</dimen>
     <dimen name="modal_view_round_details_height">250dp</dimen>
     <dimen name="modal_view_round_details_width">320dp</dimen>
+    <dimen name="modal_view_round_details_winner_size">80dp</dimen>
+    <dimen name="modal_view_round_details_loser_size">60dp</dimen>
+    <dimen name="modal_view_round_details_loser_margin_top">10dp</dimen>
     <!-- game ended -->
     <dimen name="modal_view_round_details_height_game_ended">250dp</dimen>
     <string name="modal_view_round_details_message_win">Hai vinto!</string>
     <string name="modal_view_round_details_message_loss">Hai perso..</string>
     <string name="modal_view_round_details_message_draw">Hai pareggiato</string>
+
 </resources>

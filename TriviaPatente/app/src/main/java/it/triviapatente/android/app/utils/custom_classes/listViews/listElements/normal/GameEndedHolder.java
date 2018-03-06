@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.BindDimen;
+import butterknife.BindInt;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.TPUtils;
@@ -37,8 +40,13 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.loserEmojii) TextView loserEmojiiView;
     @BindView(R.id.winnerEmojii) TextView winnerEmojiiView;
 
+    @BindDimen(R.dimen.modal_view_round_details_loser_size) int loserSize;
+    @BindDimen(R.dimen.modal_view_round_details_winner_size) int winnerSize;
+    @BindDimen(R.dimen.modal_view_round_details_loser_margin_top) int loserTopMargin;
+
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
     @BindString(R.string.activity_round_details_emojii_loser) String loserEmojii;
+    @BindString(R.string.activity_round_details_emojii_draw) String drawEmojii;
     @BindView(R.id.playButton) PlayButton playButton;
     @BindView(R.id.incitationView) TextView incitationView;
 
@@ -52,11 +60,40 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     private Context context;
 
 
-    private void updateEmojiAndSet() {
+    private void initEmojii() {
         winnerEmojii = TPUtils.translateEmoticons(winnerEmojii);
         loserEmojii = TPUtils.translateEmoticons(loserEmojii);
-        winnerEmojiiView.setText(winnerEmojii);
-        loserEmojiiView.setText(loserEmojii);
+        drawEmojii = TPUtils.translateEmoticons(drawEmojii);
+    }
+    private void resizeImages(SuccessRoundDetails response) {
+        RelativeLayout.LayoutParams winnerParams = (RelativeLayout.LayoutParams) winnerImage.getLayoutParams();
+        RelativeLayout.LayoutParams loserParams = (RelativeLayout.LayoutParams) loserImage.getLayoutParams();
+        if (isDraw(response) || isAnnulled(response)) {
+            winnerParams.height = loserSize;
+            winnerParams.width = loserSize;
+            loserParams.height = loserSize;
+            loserParams.width = loserSize;
+            loserParams.topMargin = 0;
+
+        } else {
+            winnerParams.height = winnerSize;
+            winnerParams.width = winnerSize;
+            loserParams.height = loserSize;
+            loserParams.width = loserSize;
+            loserParams.topMargin = loserTopMargin;
+        }
+        winnerImage.setLayoutParams(winnerParams);
+        loserImage.setLayoutParams(loserParams);
+
+    }
+    private void setEmojii(SuccessRoundDetails response) {
+        if(isDraw(response) || isAnnulled(response)) {
+            winnerEmojiiView.setText(drawEmojii);
+            loserEmojiiView.setText(drawEmojii);
+        } else {
+            winnerEmojiiView.setText(winnerEmojii);
+            loserEmojiiView.setText(loserEmojii);
+        }
     }
 
     public GameEndedHolder(View itemView, Context ctx) {
@@ -64,7 +101,7 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         context = ctx;
         ButterKnife.bind(this, itemView);
         this.initView();
-        this.updateEmojiAndSet();
+        this.initEmojii();
     }
     private void initView() {
         int mainColor = ContextCompat.getColor(context, R.color.mainColor);
@@ -123,15 +160,21 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         return "" + increment;
     }
 
+    private boolean currentUserIsLeft(SuccessRoundDetails response) {
+        return isWinning(response) || isDraw(response) || isAnnulled(response);
+    }
+
     public void bind(SuccessRoundDetails response, User opponent) {
+        setEmojii(response);
+        resizeImages(response);
         titleView.setText(titleFor(response));
         Integer increment = getScoreIncrement(response);
         scoreIncrementView.setText(formatIncrement(increment));
         scoreIncrementView.setVisibility(View.VISIBLE);
         scoreIncrementArrow.setImageResource(arrowResourceFor(increment));
         scoreIncrementArrow.setVisibility(View.VISIBLE);
-        TPUtils.injectUserImage(context, isWinning(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage);
-        TPUtils.injectUserImage(context, isWinning(response) ? opponent : SharedTPPreferences.currentUser(), loserImage);
+        TPUtils.injectUserImage(context, currentUserIsLeft(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage);
+        TPUtils.injectUserImage(context, currentUserIsLeft(response) ? opponent : SharedTPPreferences.currentUser(), loserImage);
         if (isWinning(response) || isAnnulled(response)) playButton.setReplayNow();
         else playButton.setNewGame(true);
         playButton.setVisibility(View.VISIBLE);

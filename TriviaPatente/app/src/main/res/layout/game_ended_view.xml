@@ -49,15 +49,17 @@
             android:layout_height="wrap_content">
             <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/winnerImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp" />
+                android:layout_width="@dimen/modal_view_round_details_winner_size"
+                android:layout_height="@dimen/modal_view_round_details_winner_size" />
             <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                 android:id="@+id/loserImage"
                 android:layout_toRightOf="@id/winnerImage"
                 android:layout_toEndOf="@id/winnerImage"
-                android:layout_margin="10dp"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/modal_view_round_details_loser_margin_top"
+                android:layout_width="@dimen/modal_view_round_details_loser_size"
+                android:layout_height="@dimen/modal_view_round_details_loser_size" />
             <TextView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
