@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -114,7 +115,7 @@ public class RankActivity extends TPActivity {
                         mLayoutManager.findFirstCompletelyVisibleItemPosition(),
                         mLayoutManager.findLastCompletelyVisibleItemPosition()
                 );
-                if(loadable) {
+                if(loadable && users != null) {
                     if(dy < 0 && mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position != 1) {
                         loadable = false;
                         // scroll down on first item which is not the absolute first
@@ -310,7 +311,8 @@ public class RankActivity extends TPActivity {
     }
 
     protected void updateRankScrollVisibility(int firstPosition, int lastPosition) {
-        if(rankScroll == null || rankScrollContainer == null) return;
+        return;
+        /*if(rankScroll == null || rankScrollContainer == null) return;
         if(users != null) {
             int currentUserIndex = users.indexOf(currentUser);
             boolean currentUserVisible = false, firstUserVisible = false;
@@ -327,7 +329,7 @@ public class RankActivity extends TPActivity {
                 rankScrollContainer.setVisibility(View.VISIBLE);
                 updateRankScrollDirection(currentUserVisible); // show button, giving priority to current user option
             }
-        }
+        }*/
     }
 
     @OnClick(R.id.x_button)
