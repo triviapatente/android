@@ -18,6 +18,8 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.custom_classes.animation.ResizeAnimation;
 import it.triviapatente.android.app.utils.custom_classes.animation.TranslateAnimation;
+import it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
 import it.triviapatente.android.models.game.Quiz;
 
@@ -31,7 +33,7 @@ public class QuizHolder implements View.OnClickListener{
     private Animation fadeIn, fadeOut;
     private int resizeDuration = 200, fadeDuration = 100, imageSmallSize, imageBigSize;
     private TextView quizDescription;
-    private Button trueButton, falseButton;
+    private LoadingButton trueButton, falseButton;
     private View itemView;
     private Context context;
     private Quiz element;
@@ -52,8 +54,8 @@ public class QuizHolder implements View.OnClickListener{
         quizImage = (ImageView) itemView.findViewById(R.id.quizImage);
         quizDescription = (TextView) itemView.findViewById(R.id.quizDescription);
         quizDescriptionBox = (LinearLayout) itemView.findViewById(R.id.quizDescriptionBox);
-        trueButton = (Button) itemView.findViewById(R.id.trueButton);
-        falseButton = (Button) itemView.findViewById(R.id.falseButton);
+        trueButton = (LoadingButton) itemView.findViewById(R.id.trueButton);
+        falseButton = (LoadingButton) itemView.findViewById(R.id.falseButton);
         // image resize and translate animation
         setAnimations();
         // setting elements
@@ -177,7 +179,7 @@ public class QuizHolder implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         boolean answer;
-        Button clicked;
+        final LoadingButton clicked;
         switch (v.getId()) {
             case R.id.trueButton: { answer = true; clicked = trueButton; } break;
             case R.id.falseButton: { answer = false; clicked = falseButton; } break;
@@ -186,7 +188,13 @@ public class QuizHolder implements View.OnClickListener{
             }
             default:return;
         }
-        ((PlayRoundActivity) context).sendAnswer(answer, element.id);
+        ((PlayRoundActivity) context).sendAnswer(answer, element.id, new SimpleCallback() {
+
+            @Override
+            public void execute() {
+                clicked.stopLoading();
+            }
+        });
         setButtonClicked(clicked);
         // disable clicks
         setButtonClickable(false);
@@ -202,9 +210,10 @@ public class QuizHolder implements View.OnClickListener{
         }
     }
 
-    private void setButtonClicked(Button clicked) {
+    private void setButtonClicked(LoadingButton clicked) {
         clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.button_true_or_false_clicked));
         clicked.setTextColor(Color.WHITE);
+        clicked.startLoading();
     }
 
     private void setButtonClickable(boolean clickable) {

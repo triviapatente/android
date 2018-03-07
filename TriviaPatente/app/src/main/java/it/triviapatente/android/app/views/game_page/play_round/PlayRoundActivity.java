@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
@@ -47,6 +48,12 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
         @Override
         public void response(SuccessAnsweredCorrectly response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    responseCallback.execute();
+                }
+            });
             if(response.success) {
                 final int position = quizzesViewPager.getCurrentItem();
                 setButtonColorFromAnswer(position, response.correct_answer);
@@ -69,7 +76,6 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     startActivity(intent);
                     finish();
                 }
-
             }
         }
     };
@@ -218,8 +224,10 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
             }
         });
     }
+    private SimpleCallback responseCallback;
 
-    public void sendAnswer(boolean answer, long quiz_id) {
+    public void sendAnswer(boolean answer, long quiz_id, SimpleCallback responseCb) {
+        responseCallback = responseCb;
         int position = quizzesViewPager.getCurrentItem();
         Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
         currentQuiz.my_answer = answer;

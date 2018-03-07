@@ -55,25 +55,32 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/quiz_true_false_padding_vertical">
-
-            <Button
-                android:id="@+id/trueButton"
+            <RelativeLayout
+                android:layout_width="@dimen/quiz_true_false_button_size"
+                android:layout_height="@dimen/quiz_true_false_button_size">
+                <it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton
+                    android:id="@+id/trueButton"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_true_false"
+                    android:text="V"
+                    android:textColor="@color/main_color_on_white"
+                    android:textSize="@dimen/TPTextSizeLarge" />
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_width="@dimen/quiz_true_false_button_size"
                 android:layout_height="@dimen/quiz_true_false_button_size"
-                android:background="@drawable/button_true_false"
-                android:text="V"
-                android:textColor="@color/main_color_on_white"
-                android:textSize="@dimen/TPTextSizeLarge" />
+                android:layout_marginLeft="@dimen/quiz_true_false_margin">
 
-            <Button
-                android:id="@+id/falseButton"
-                android:layout_width="@dimen/quiz_true_false_button_size"
-                android:layout_height="@dimen/quiz_true_false_button_size"
-                android:background="@drawable/button_true_false"
-                android:text="F"
-                android:textColor="@color/main_color_on_white"
-                android:textSize="@dimen/TPTextSizeLarge"
-                android:layout_marginLeft="@dimen/quiz_true_false_margin"/>
+                <it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton
+                    android:id="@+id/falseButton"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_true_false"
+                    android:text="F"
+                    android:textColor="@color/main_color_on_white"
+                    android:textSize="@dimen/TPTextSizeLarge"/>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
