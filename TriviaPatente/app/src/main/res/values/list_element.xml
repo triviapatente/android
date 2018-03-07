@@ -2,6 +2,7 @@
 <resources>
     <!-- common between all the list items -->
     <dimen name="list_item_margin">13dp</dimen>
+    <dimen name="list_item_text_image_margin">3dp</dimen>
     <dimen name="list_item_profile_picture_size">40dp</dimen>
     <dimen name="list_footer_margin">20dp</dimen>
 </resources>
