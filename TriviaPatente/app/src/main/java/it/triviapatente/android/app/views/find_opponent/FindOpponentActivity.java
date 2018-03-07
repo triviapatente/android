@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
 import it.triviapatente.android.R;
 
 import it.triviapatente.android.app.utils.TPUtils;
@@ -65,8 +67,6 @@ public class FindOpponentActivity extends RankActivity {
     @BindColor(android.R.color.white) @ColorInt int whiteColor;
     // search
     @BindView(R.id.search_bar) EditText searchBar;
-    // loading
-    @BindView(R.id.loadingView) RelativeLayout loadingView;
     // players
     @BindView(R.id.playerList) RecyclerView playersList;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
@@ -106,6 +106,11 @@ public class FindOpponentActivity extends RankActivity {
             init(false);
         }
     }
+    @Override
+    protected void initRefreshLayout() {
+        refreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+        disableRefreshLayout(); //disable touch
+    }
 
     @Override
     protected void initSearchBar() {
@@ -140,7 +145,7 @@ public class FindOpponentActivity extends RankActivity {
         if(all) {
             if(username.equals("")) loadPlayers();
             else {
-                loadingView.setVisibility(View.VISIBLE);
+                startLoading();
                 Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
                 call.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
@@ -172,7 +177,7 @@ public class FindOpponentActivity extends RankActivity {
 
                     @Override
                     public void then() {
-                        loadingView.setVisibility(View.GONE);
+                        stopLoading();
                     }
                 });
             }
@@ -213,7 +218,7 @@ public class FindOpponentActivity extends RankActivity {
 
     @Override
     protected void loadPlayers() {
-        loadingView.setVisibility(View.VISIBLE);
+        startLoading();
         Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSuggestedUsers();
         call.enqueue(new TPCallback<SuccessUsers>() {
             @Override
@@ -241,7 +246,7 @@ public class FindOpponentActivity extends RankActivity {
                 // show other items
                 playersList.setVisibility(View.VISIBLE);
                 // stop loading
-                loadingView.setVisibility(View.GONE);
+                stopLoading();
             }
         });
     }
@@ -261,7 +266,7 @@ public class FindOpponentActivity extends RankActivity {
     public void friendsButtonClick() {
         all = false;
         searchBar.setText("");
-        loadingView.setVisibility(View.VISIBLE);
+        startLoading();
         friendsButton.setBackground(friendsButtonSelected);
         allButton.setBackground(allButtonNotSelected);
         allButton.setTextColor(mainColor);
@@ -275,7 +280,7 @@ public class FindOpponentActivity extends RankActivity {
                 initDialog();
                 firstTime = false;
             }
-            loadingView.setVisibility(View.GONE);
+            stopLoading();
 
             /*playersList.post(new Runnable() {
                 @Override

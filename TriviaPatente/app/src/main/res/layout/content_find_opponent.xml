@@ -16,13 +16,15 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/all_or_friends"
         android:layout_alignParentBottom="true">
-
-        <include layout="@layout/layout_loading_view_with_alpha"/>
-
-        <android.support.v7.widget.RecyclerView
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/playerList"/>
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/playerList"/>
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
         <TextView
             android:id="@+id/no_users"

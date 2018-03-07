@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -22,10 +23,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.OnSwipeTouchListener;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.TPCallback;
 import it.triviapatente.android.app.utils.custom_classes.listViews.adapters.TPListAdapter;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.DividerItemDecoration;
@@ -54,8 +59,8 @@ public class RankActivity extends TPActivity {
     @BindView(R.id.search_bar) EditText searchBar;
     @BindView(R.id.dummy_layout) LinearLayout dummyLayout;
     protected boolean all = true;
-    @BindView(R.id.loadingView) RelativeLayout loadingView;
     @BindView(R.id.playerList) RecyclerView playersList;
+    @BindView(R.id.swipeRefreshLayout) protected SwipyRefreshLayout refreshLayout;
     @BindDimen(R.dimen.player_list_item_height) int playerListItemHeight;
     @BindView(R.id.no_users) TextView noUsersAlert;
     @BindString(R.string.no_user_found) String noUsersAlertString;
@@ -65,10 +70,22 @@ public class RankActivity extends TPActivity {
     @Nullable @BindView(R.id.rank_scroll_container) ConstraintLayout rankScrollContainer;
     private boolean scrollToTop = true;
 
+    @BindColor(R.color.triviaColor1) @ColorInt int triviaColor1;
+    @BindColor(R.color.triviaColor2) @ColorInt int triviaColor2;
+    @BindColor(R.color.triviaColor3) @ColorInt int triviaColor3;
+    @BindColor(R.color.triviaColor4) @ColorInt int triviaColor4;
+
+
+
     @BindString(R.string.direction_down) String down;
     @BindString(R.string.direction_up) String up;
 
     private boolean absolute_last = false, loadable = true;
+    private void setLoadable(Boolean value) {
+        loadable = value;
+        if(loadable) enableRefreshLayout();
+        else disableRefreshLayout();
+    }
     private LinearLayoutManager mLayoutManager;
 
     @Override
@@ -77,13 +94,43 @@ public class RankActivity extends TPActivity {
         setContentView(R.layout.activity_rank);
         init(true);
     }
+    protected void disableRefreshLayout() {
+        refreshLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+    }
+    protected void enableRefreshLayout() {
+        refreshLayout.setOnTouchListener(null);
+    }
+    private void sharedRefreshLayoutInit() {
+        refreshLayout.setColorSchemeColors(triviaColor1, triviaColor2, triviaColor3, triviaColor4);
+        initRefreshLayout();
+    }
+    protected void initRefreshLayout() {
+        refreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
+        refreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                if(users != null) {
+                    if (direction == SwipyRefreshLayoutDirection.TOP) {
+                        loadPlayers(users.get(0).internalPosition, down, LoadAndScrollTo.no_scroll);
+                    } else {
+                        loadPlayers(users.get(users.size() - 1).internalPosition, up, LoadAndScrollTo.no_scroll);
+                    }
+                }
+            }
+        });
+    }
 
     protected void init(boolean paginationRequired) {
         // update unicode strings
         noUsersAlertString = TPUtils.translateEmoticons(noUsersAlertString);
         noUsersAlert.setText(noUsersAlertString);
-        // start loading
-        loadingView.setVisibility(View.VISIBLE);
+
+        sharedRefreshLayoutInit();
         initSearchBar();
         initPlayerList(paginationRequired);
         loadPlayers();
@@ -115,14 +162,17 @@ public class RankActivity extends TPActivity {
                         mLayoutManager.findFirstCompletelyVisibleItemPosition(),
                         mLayoutManager.findLastCompletelyVisibleItemPosition()
                 );
-                if(loadable && users != null) {
+                if(mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position == 1 ||
+                        mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && absolute_last) {
+                    disableRefreshLayout();
+                } else if(loadable && users != null) {
                     if(dy < 0 && mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position != 1) {
-                        loadable = false;
+                        setLoadable(false);
                         // scroll down on first item which is not the absolute first
                         // once per instance this is not true, the first time the first may be the absolute first
                         loadPlayers(users.get(0).internalPosition, down, LoadAndScrollTo.no_scroll);
                     } else if(dy > 0 && mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && !absolute_last) {
-                        loadable = false;
+                        setLoadable(false);
                         // scroll up on last item which is not the absolute last
                         // once per instance this is not true, the first time the last may be the absolute last
                         loadPlayers(users.get(users.size() - 1).internalPosition, up, LoadAndScrollTo.no_scroll);
@@ -139,10 +189,30 @@ public class RankActivity extends TPActivity {
         no_scroll
     }
 
-    protected void loadPlayers() {loadPlayers(null, null, LoadAndScrollTo.userPosition); }
-    protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position) {
+    protected void startLoading() {
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+            }
+        });
+    }
+    protected void stopLoading() {
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    protected void loadPlayers() {loadPlayers(null); }
+    protected void loadPlayers(SimpleCallback cb) {loadPlayers(null, null, LoadAndScrollTo.userPosition, cb); }
+    protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position) { loadPlayers(thresold, direction, position, null); }
+
+        protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position, final SimpleCallback cb) {
         noUsersAlert.setVisibility(View.GONE);
-        loadingView.setVisibility(View.VISIBLE);
+        startLoading();
         Call<RankPosition> call = RetrofitManager.getHTTPRankEndpoint().getUsers(thresold, direction);
         call.enqueue(new TPCallback<RankPosition>() {
             @Override
@@ -202,12 +272,16 @@ public class RankActivity extends TPActivity {
 
             @Override
             public void then() {
+                stopLoading();
+                if (cb != null) cb.execute();
                 // show other items
                 playersList.setVisibility(View.VISIBLE);
-                // stop loading
-                loadingView.setVisibility(View.GONE);
                 // allow to load more again
-                loadable = true;
+                setLoadable(true);
+                if (mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position == 1 ||
+                        mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && absolute_last) {
+                    disableRefreshLayout();
+                }
             }
         });
     }
@@ -251,7 +325,7 @@ public class RankActivity extends TPActivity {
         if(all) {
             if(username.equals("")) loadPlayers();
             else {
-                loadingView.setVisibility(View.VISIBLE);
+                startLoading();
                 Call<SuccessUsers> call = RetrofitManager.getHTTPRankEndpoint().getSearchResult(username);
                 call.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
@@ -283,7 +357,7 @@ public class RankActivity extends TPActivity {
 
                     @Override
                     public void then() {
-                        loadingView.setVisibility(View.GONE);
+                        stopLoading();
                     }
                 });
             }
@@ -295,12 +369,30 @@ public class RankActivity extends TPActivity {
     @Optional
     @OnClick(R.id.rank_scroll)
     public void rankScrollClick() {
-        users = null; // clean user list
-        absolute_last = false; // clean settings
+        SimpleCallback cb = new SimpleCallback() {
+            @Override
+            public void execute() {
+                updateRankScrollDirection(!scrollToTop);
+            }
+        };
         // load new list
-        if(scrollToTop) loadPlayers(0, up, LoadAndScrollTo.top);
-        else loadPlayers();
-        updateRankScrollDirection(!scrollToTop);
+        if(scrollToTop) {
+            if(users != null && users.size() > 0 && users.get(0).internalPosition == 1) playersList.scrollToPosition(0);
+            else {
+                users = null; // clean user list
+                absolute_last = false; // clean settings
+                loadPlayers(0, up, LoadAndScrollTo.top, cb);
+            }
+        }
+        else {
+            int currentUserIndex;
+            if(users != null && (currentUserIndex = users.indexOf(currentUser)) != -1) playersList.scrollToPosition(currentUserIndex);
+            else {
+                users = null; // clean user list
+                absolute_last = false; // clean settings
+                loadPlayers(cb);
+            }
+        }
     }
 
     protected void updateRankScrollDirection(boolean toTop) {
@@ -311,8 +403,7 @@ public class RankActivity extends TPActivity {
     }
 
     protected void updateRankScrollVisibility(int firstPosition, int lastPosition) {
-        return;
-        /*if(rankScroll == null || rankScrollContainer == null) return;
+        if(rankScroll == null || rankScrollContainer == null) return;
         if(users != null) {
             int currentUserIndex = users.indexOf(currentUser);
             boolean currentUserVisible = false, firstUserVisible = false;
@@ -327,9 +418,12 @@ public class RankActivity extends TPActivity {
             if(currentUserVisible && firstUserVisible) rankScrollContainer.setVisibility(View.GONE); // no need to show button
             else {
                 rankScrollContainer.setVisibility(View.VISIBLE);
-                updateRankScrollDirection(currentUserVisible); // show button, giving priority to current user option
+                if(currentUserVisible || currentUserIndex < firstPosition)
+                    updateRankScrollDirection(true); // show button, giving priority to current user option
+                else if(currentUserIndex > lastPosition)
+                    updateRankScrollDirection(false);
             }
-        }*/
+        }
     }
 
     @OnClick(R.id.x_button)
