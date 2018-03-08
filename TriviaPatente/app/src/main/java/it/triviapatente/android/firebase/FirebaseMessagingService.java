@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -42,6 +43,34 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         manager.cancel(gameId.intValue());
     }
+    public static void sendNotificationSTUB(Context context) {
+        Intent intent = new Intent(context, MainPageActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Notification.Builder builder = new Notification.Builder(context)
+                .setContentTitle("Prova")
+                .setContentText("Test")
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = builder.setSmallIcon(R.mipmap.logo).setColor(context.getResources().getColor(R.color.mainColor));
+        } else {
+            builder = builder.setSmallIcon(R.mipmap.logo);
+        }
+        Notification notification = builder.build();
+
+        notification.defaults |= Notification.DEFAULT_ALL;
+
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //fa il replace di quelle di game diversi
+        notificationManager.notify(0, notification);
+    }
     private void sendNotification(Map<String, String> data, RemoteMessage.Notification fcmNotification) {
         String  gameData = data.get(getString(R.string.firebase_message_game_key)),
                 opponentData = data.get(getString(R.string.firebase_message_opponent_key));
@@ -71,6 +100,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         //fa il replace di quelle di game diversi
+        notificationManager.cancel(game.id.intValue());
         notificationManager.notify(game.id.intValue(), notification);
     }
 }
