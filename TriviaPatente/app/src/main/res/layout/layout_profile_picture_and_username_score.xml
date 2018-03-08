@@ -3,8 +3,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/list_item_margin"
-    android:layout_marginStart="@dimen/list_item_margin"
     android:gravity="center_vertical">
 
     <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
