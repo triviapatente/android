@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="find_opponent_title">Ricerca avversario</string>
+    <string name="find_opponent_title">Cerca avversario</string>
     <!-- search -->
     <dimen name="search_height">30dp</dimen>
     <dimen name="search_margin">10dp</dimen>
