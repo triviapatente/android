@@ -151,17 +151,19 @@ public class RankActivity extends TPActivity {
         ));
 
     }
-
+    private void updateRankScrollVisibility() {
+        updateRankScrollVisibility(
+                mLayoutManager.findFirstCompletelyVisibleItemPosition(),
+                mLayoutManager.findLastCompletelyVisibleItemPosition()
+        );
+    }
     private void addPagination() {
         mLayoutManager = new LinearLayoutManager(this);
         playersList.setLayoutManager(mLayoutManager);
         playersList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(dy > 10 || dy < -10) updateRankScrollVisibility(
-                        mLayoutManager.findFirstCompletelyVisibleItemPosition(),
-                        mLayoutManager.findLastCompletelyVisibleItemPosition()
-                );
+                updateRankScrollVisibility();
                 if(mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position == 1 ||
                         mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && absolute_last) {
                     disableRefreshLayout();
@@ -205,7 +207,9 @@ public class RankActivity extends TPActivity {
             }
         });
     }
-
+    private int getNumberOfViewableItems() {
+        return playersList.getHeight() / playerListItemHeight;
+    }
     protected void loadPlayers() {loadPlayers(null); }
     protected void loadPlayers(SimpleCallback cb) {loadPlayers(null, null, LoadAndScrollTo.userPosition, cb); }
     protected void loadPlayers(final Integer thresold, final String direction, final LoadAndScrollTo position) { loadPlayers(thresold, direction, position, null); }
@@ -231,7 +235,7 @@ public class RankActivity extends TPActivity {
                     }
                     if(newUsers.size() > 0) {
                         setPlayersListItems(users);
-                        int scrollToPosition = 0, offset = playersList.getHeight() / playerListItemHeight;
+                        int scrollToPosition = 0, offset = getNumberOfViewableItems();
                         switch (position) {
                             case top: scrollToPosition = 0;break;
                             case bottom: scrollToPosition = users.size() - 1; break;
@@ -375,9 +379,13 @@ public class RankActivity extends TPActivity {
                 updateRankScrollDirection(!scrollToTop);
             }
         };
+        int offset = getNumberOfViewableItems();
         // load new list
         if(scrollToTop) {
-            if(users != null && users.size() > 0 && users.get(0).internalPosition == 1) playersList.scrollToPosition(0);
+            if(users != null && users.size() > 0 && users.get(0).internalPosition == 1) {
+                updateRankScrollVisibility(0,  offset);
+                playersList.scrollToPosition(0);
+            }
             else {
                 users = null; // clean user list
                 absolute_last = false; // clean settings
@@ -386,7 +394,10 @@ public class RankActivity extends TPActivity {
         }
         else {
             int currentUserIndex;
-            if(users != null && (currentUserIndex = users.indexOf(currentUser)) != -1) playersList.scrollToPosition(currentUserIndex);
+            if(users != null && (currentUserIndex = users.indexOf(currentUser)) != -1) {
+                updateRankScrollVisibility(currentUserIndex, currentUserIndex + offset);
+                playersList.scrollToPosition(currentUserIndex);
+            }
             else {
                 users = null; // clean user list
                 absolute_last = false; // clean settings
@@ -418,10 +429,8 @@ public class RankActivity extends TPActivity {
             if(currentUserVisible && firstUserVisible) rankScrollContainer.setVisibility(View.GONE); // no need to show button
             else {
                 rankScrollContainer.setVisibility(View.VISIBLE);
-                if(currentUserVisible || currentUserIndex < firstPosition)
-                    updateRankScrollDirection(true); // show button, giving priority to current user option
-                else if(currentUserIndex > lastPosition)
-                    updateRankScrollDirection(false);
+                if(!currentUserVisible && firstUserVisible) updateRankScrollDirection(false);
+                else  updateRankScrollDirection(true);
             }
         }
     }
