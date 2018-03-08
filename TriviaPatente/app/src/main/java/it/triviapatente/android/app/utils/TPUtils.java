@@ -10,10 +10,12 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -140,6 +142,31 @@ public class TPUtils {
         // Debug purposes
         // picasso.setIndicatorsEnabled(true);
         // picasso.setLoggingEnabled(true);
+    }
+    public static float getLineSpacing(TextView textView) {
+        return textView.getPaint().getFontSpacing() * textView.getLineSpacingMultiplier() + textView.getLineSpacingExtra();
+    }
+    public static int getMaxLinesFor(String text, TextView textView, int maxHeight) {
+        return getMaxLinesFor(text, textView.getMeasuredWidth(), maxHeight, textView.getTextSize(), getLineSpacing(textView));
+    }
+
+    public static int getMaxLinesFor(String text, int maxWidth, int maxHeight, float textSize, float lineSpacing) {
+        TextPaint p = new TextPaint();
+        p.setTextSize(textSize);
+        int i = 0;
+        int lines = 0;
+        //get line spacing, that is 25% of line height
+        Rect bounds = new Rect();
+        p.getTextBounds("Yy", 0, 2, bounds);
+        double currentHeight = 0;
+        //need to finish the string and to not exceed maxHeight
+        while(i < text.length()) {
+            if(currentHeight + bounds.height() > maxHeight) break;
+            i += p.breakText(text, i, text.length(), true, maxWidth, null);
+            lines++;
+            currentHeight += bounds.height() + lineSpacing;
+        }
+        return lines;
     }
     public static void injectUserImage(Context context, User user, RoundedImageView profilePicture) {
         injectUserImage(context, user, profilePicture, true);

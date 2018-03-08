@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ import butterknife.ButterKnife;
  * Created by donadev on 23/11/17.
  */
 
-public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
     @BindView(R.id.quizImageView) ImageView quizImageView;
     @BindView(R.id.quizNameView) TextView quizNameView;
     @BindView(R.id.quizTrueView) TextView quizTrueView;
@@ -62,12 +63,21 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         this.cellHeight = cellHeight;
         itemView.setOnClickListener(this);
         ButterKnife.bind(this, itemView);
+        quizNameView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     public void setQuizImageWidth(int width) {
         ViewGroup.LayoutParams params = quizImageView.getLayoutParams();
         params.width = width;
         quizImageView.setLayoutParams(params);
+    }
+    private void setMaxLines() {
+        String text = quizNameView.getText().toString();
+        int lines = TPUtils.getMaxLinesFor(text, quizNameView, this.cellHeight - quizNameViewMargin * 2);
+        quizNameView.setMaxLines(lines);
+    }
+    private void unsetMaxLines() {
+        quizNameView.setMaxLines(Integer.MAX_VALUE);
     }
 
     public void bind(Quiz quiz, User opponent) {
@@ -158,14 +168,22 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         if(params == null) params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
         if(expanded) {
 
-            float height = quizNameView.getLineHeight() * quizNameView.getLineCount() + quizNameViewMargin * 2;
+            float height = (quizNameView.getLineHeight() + TPUtils.getLineSpacing(quizNameView)) * quizNameView.getLineCount() + quizNameViewMargin * 2;
             if(height > this.cellHeight)
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            unsetMaxLines();
         } else {
+            setMaxLines();
             params.height = this.cellHeight;
         }
         itemView.setLayoutParams(params);
         isExpanded = expanded;
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        if(isExpanded) unsetMaxLines();
+        else setMaxLines();
     }
 }
 
