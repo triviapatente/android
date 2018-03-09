@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import it.triviapatente.android.R;
@@ -136,9 +137,19 @@ public abstract class TPGameActivity extends TPActivity {
         if(gameID == -1) return;
         gameSocketManager.join(gameID, new SocketCallback<Success>() {
             @Override
-            public void response(Success response) {
-                if(!(TPGameActivity.this instanceof RoundDetailsActivity)) listenUserLeft();
-                if(withCustom) customReinit();
+            public void response(final Success response) {
+                if(response.success) {
+                    if (!(TPGameActivity.this instanceof RoundDetailsActivity)) listenUserLeft();
+                    if (withCustom) customReinit();
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(response.timeout) Toast.makeText(getApplicationContext(), getString(R.string.httpConnectionError), Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    });
+                }
             }
         });
 

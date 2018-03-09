@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
@@ -93,6 +94,20 @@ public class GameMainPageActivity extends TPGameActivity {
                         currentCategory = response.category;
                         gameOptions.setRound(currentRound);
                         GameMainPageActivity.this.processResponse(response);
+                    }
+                });
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        init_round();
+                                    }
+                                })
+                                .show();
                     }
                 });
             }
@@ -302,10 +317,24 @@ public class GameMainPageActivity extends TPGameActivity {
         Log.i("join", "joining_room " + gameID);
         gameSocketManager.join(gameID, roomName, new SocketCallback<Success>() {
             @Override
-            public void response(Success response) {
+            public void response(final Success response) {
                 if(response.success) {
                     init_listening();
                     init_round();
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                    .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            join_room();
+                                        }
+                                    })
+                                    .show();
+                        }
+                    });
                 }
             }
         });

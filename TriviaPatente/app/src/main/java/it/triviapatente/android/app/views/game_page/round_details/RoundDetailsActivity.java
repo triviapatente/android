@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
@@ -204,7 +205,6 @@ public class RoundDetailsActivity extends TPGameActivity {
         answerList.addOnScrollListener(scrollListener);
         fromGameOptions = getIntent().getBooleanExtra(extraKeyFromGame, false);
         this.decideToShowUserLeftMessage();
-        this.load();
         this.joinAndListen();
     }
 
@@ -264,6 +264,8 @@ public class RoundDetailsActivity extends TPGameActivity {
     }
 
     public void listen() {
+        load();
+
         gameSocketManager.listenUserAnswered(new SocketCallback<QuestionAnsweredEvent>() {
             @Override
             public void response(final QuestionAnsweredEvent event) {
@@ -319,38 +321,47 @@ public class RoundDetailsActivity extends TPGameActivity {
         gameSocketManager.round_details(gameID, new SocketCallback<SuccessRoundDetails>() {
             @Override
             public void response(final SuccessRoundDetails response) {
-                if(response.success) {
-                    RoundDetailsActivity.this.response = response;
-                    answerMap = computeMap();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            setToolbarTitle(getToolbarTitle());
-                            detailsScore.set(RoundDetailsActivity.this, opponent, response.answers);
-                            detailsScore.setResponse(response, RoundDetailsActivity.this);
-                            sectionList.setVisibility(View.VISIBLE);
-                            detailsScore.getView().setVisibility(View.VISIBLE);
-                            answerList.setVisibility(View.VISIBLE);
-                            sectionAdapter.notifyDataSetChanged(response, answerMap);
-                            answerAdapter.notifyDataSetChanged(response, opponent);
-                            scrollListener.refreshAdapter(answerAdapter);
-                            sectionList.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    int section = answerMap.size() - (response.game.ended ? 0 : 1);
-                                    RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(section);
-                                    if (holder != null) holder.select(true, true);
+                            if (response.success) {
+                                RoundDetailsActivity.this.response = response;
+                                answerMap = computeMap();
+                                setToolbarTitle(getToolbarTitle());
+                                detailsScore.set(RoundDetailsActivity.this, opponent, response.answers);
+                                detailsScore.setResponse(response, RoundDetailsActivity.this);
+                                sectionList.setVisibility(View.VISIBLE);
+                                detailsScore.getView().setVisibility(View.VISIBLE);
+                                answerList.setVisibility(View.VISIBLE);
+                                sectionAdapter.notifyDataSetChanged(response, answerMap);
+                                answerAdapter.notifyDataSetChanged(response, opponent);
+                                scrollListener.refreshAdapter(answerAdapter);
+                                sectionList.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        int section = answerMap.size() - (response.game.ended ? 0 : 1);
+                                        RoundHolder holder = (RoundHolder) sectionList.findViewHolderForAdapterPosition(section);
+                                        if (holder != null) holder.select(true, true);
 
+                                    }
+                                });
+                                // display ads
+                                if (System.currentTimeMillis() - response.game.getUpdatedAtMillis() < 60 * 1000 && response.game.ended) {
+                                    displayInterstitial();
                                 }
-                            });
-                            // display ads
-                            if(System.currentTimeMillis() - response.game.getUpdatedAtMillis() < 60*1000 && response.game.ended) {
-                                displayInterstitial();
+                            } else {
+                                Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                                        .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                load();
+                                            }
+                                        })
+                                        .show();
                             }
                         }
                     });
                 }
-            }
         });
     }
 

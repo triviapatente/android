@@ -302,7 +302,7 @@ public class TPActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(!redirecting) awakenFromBackground();
+        if(!redirecting && !finished) awakenFromBackground();
         if(needsLeaveRoom()) {
             gameSocketManager.leave(new SocketCallback<Success>() {
                 @Override
@@ -312,6 +312,14 @@ public class TPActivity extends AppCompatActivity {
         visible = true;
         if(drawerAdapter != null) drawerAdapter.notifyDataSetChanged(); // user data can be modified, take it again from shared preferences
         redirecting = false;
+    }
+    protected Boolean finished = false;
+
+    @Override
+    public void finish() {
+        if(finished) return;
+        finished = true;
+        super.finish();
     }
 
     @Override

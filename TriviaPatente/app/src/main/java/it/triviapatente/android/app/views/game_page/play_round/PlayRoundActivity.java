@@ -2,14 +2,18 @@ package it.triviapatente.android.app.views.game_page.play_round;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.DrawableRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -47,11 +51,11 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
     // quiz send answer
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
         @Override
-        public void response(SuccessAnsweredCorrectly response) {
+        public void response(final SuccessAnsweredCorrectly response) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    responseCallback.execute();
+                    responseCallback.onReceiveValue(response.success);
                 }
             });
             if(response.success) {
@@ -76,6 +80,15 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     startActivity(intent);
                     finish();
                 }
+            } else if(response.status_code == 403){
+                finish();
+            } else if(response.timeout) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), getString(R.string.httpConnectionError), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }
     };
@@ -113,14 +126,23 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
 
     @Override
     protected void customReinit() {
+
         gameSocketManager.init_round(gameID, new SocketCallback<SuccessInitRound>() {
             @Override
-            public void response(SuccessInitRound response) {
+            public void response(final SuccessInitRound response) {
                  if(response.success) {
                     if(response.ended != null && response.ended) {
                         gotoRoundDetails();
                     }
-                }
+                } else {
+                     runOnUiThread(new Runnable() {
+                         @Override
+                         public void run() {
+                             if(response.timeout) Toast.makeText(getApplicationContext(), getString(R.string.httpConnectionError), Toast.LENGTH_LONG).show();
+                             finish();
+                         }
+                     });
+                 }
             }
         });
     }
@@ -169,18 +191,29 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         gameSocketManager.get_questions(currentRound.game_id, currentRound.id, new SocketCallback<SuccessQuizzes>() {
             @Override
             public void response(SuccessQuizzes response) {
-                final List<Quiz> quizzes = response.quizzes;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        quizzesAdapter = new QuizzesPagerAdapter(quizzes);
-                        quizzesViewPager.setAdapter(quizzesAdapter);
-                        initQuizPanelButtons();
-                        int position = getNextCurrentItem(0);
-                        quizButtons.get(position).callOnClick();
-                        quizzesViewPager.setCurrentItem(position);
-                    }
-                });
+                if(response.success) {
+                    final List<Quiz> quizzes = response.quizzes;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            quizzesAdapter = new QuizzesPagerAdapter(quizzes);
+                            quizzesViewPager.setAdapter(quizzesAdapter);
+                            initQuizPanelButtons();
+                            int position = getNextCurrentItem(0);
+                            quizButtons.get(position).callOnClick();
+                            quizzesViewPager.setCurrentItem(position);
+                        }
+                    });
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), httpConnectionError, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    loadQuizzes();
+                                }
+                            })
+                            .show();
+                }
             }
         });
     }
@@ -224,9 +257,9 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
             }
         });
     }
-    private SimpleCallback responseCallback;
+    private ValueCallback<Boolean> responseCallback;
 
-    public void sendAnswer(boolean answer, long quiz_id, SimpleCallback responseCb) {
+    public void sendAnswer(boolean answer, long quiz_id, ValueCallback<Boolean> responseCb) {
         responseCallback = responseCb;
         int position = quizzesViewPager.getCurrentItem();
         Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);

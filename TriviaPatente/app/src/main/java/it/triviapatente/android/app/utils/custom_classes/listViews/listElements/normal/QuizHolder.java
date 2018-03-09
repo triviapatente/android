@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -188,10 +189,11 @@ public class QuizHolder implements View.OnClickListener{
             }
             default:return;
         }
-        ((PlayRoundActivity) context).sendAnswer(answer, element.id, new SimpleCallback() {
+        ((PlayRoundActivity) context).sendAnswer(answer, element.id, new ValueCallback<Boolean>() {
 
             @Override
-            public void execute() {
+            public void onReceiveValue(Boolean success) {
+                if(!success) setButtonUnClicked(clicked);
                 clicked.stopLoading();
             }
         });
@@ -210,10 +212,15 @@ public class QuizHolder implements View.OnClickListener{
         }
     }
 
-    private void setButtonClicked(LoadingButton clicked) {
-        clicked.setBackground(ContextCompat.getDrawable(context, R.drawable.button_true_or_false_clicked));
-        clicked.setTextColor(Color.WHITE);
-        clicked.startLoading();
+    private void setButtonClicked(LoadingButton btn) {
+        btn.setBackground(ContextCompat.getDrawable(context, R.drawable.button_true_or_false_clicked));
+        btn.setTextColor(Color.WHITE);
+        btn.startLoading();
+    }
+
+    private void setButtonUnClicked(LoadingButton btn) {
+        btn.setBackground(ContextCompat.getDrawable(context, R.drawable.button_true_false));
+        btn.setTextColor(ContextCompat.getColor(context, R.color.main_color_on_white));
     }
 
     private void setButtonClickable(boolean clickable) {

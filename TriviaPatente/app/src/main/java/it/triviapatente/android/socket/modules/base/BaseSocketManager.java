@@ -1,6 +1,8 @@
 package it.triviapatente.android.socket.modules.base;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.util.Pair;
 
@@ -16,6 +18,7 @@ import it.triviapatente.android.firebase.FirebaseMessagingService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.responses.Success;
 
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +30,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -115,24 +119,61 @@ public class BaseSocketManager {
             return null;
         }
     }
+    private JSONObject getTimeoutResponseJSON() {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("success", false);
+            output.put("timeout", true);
+            output.put("status_code", 0);
+            return output;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+    private <T extends Success> T getTimeoutResponse(Class<T> outputClass) {
+        JSONObject object = getTimeoutResponseJSON();
+        return RetrofitManager.gson.fromJson(object.toString(), outputClass);
+    }
+    private <T extends Success> void callOnTimeout(final SocketCallback<T> cb, final Class<T> outputClass) {
+        T response = getTimeoutResponse(outputClass);
+        cb.response(response);
+    }
 
     public <T extends Success> void emit(final String path, final JSONObject parameters, final Class<T> outputClass, final SocketCallback<T> cb) {
-        listen(path, outputClass, new SocketCallback<T>() {
-            @Override
-            public void response(T response) {
-                // unregister from event
-                mSocket.off(path);
-                // check for 401 error
-                if(needsAuthentication(response)) {
-                    mApplication.getInstance().goToLoginPage();
-                } else {
-                    // propagate response
-                    cb.response(response);
-                }
-            }
-        });
         JSONObject body = generateBodyFrom(parameters);
-        mSocket.emit(path, body);
+        try {
+            final Emitter e = mSocket.emit(path, body);
+            final Handler handler = new Handler(Looper.getMainLooper());
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (e.hasListeners(path)) {
+                        e.off(path);
+                        callOnTimeout(cb, outputClass);
+                    }
+                }
+            }, timeout);
+            e.once(path, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    if (args.length > 0) {
+                        JSONObject data = (JSONObject) args[0];
+                        T response = RetrofitManager.gson.fromJson(data.toString(), outputClass);
+                        // check for 401 error
+                        if (needsAuthentication(response)) {
+                            mApplication.getInstance().goToLoginPage();
+                        } else {
+                            // propagate response
+                            cb.response(response);
+                        }
+                    }
+                }
+            });
+        } catch(WebsocketNotConnectedException e) {
+            callOnTimeout(cb, outputClass);
+        }
+
     }
     //metodo che a partire da parametri sfusi ottiene il body della richiesta socket con il token
     public JSONObject generateBodyFrom(JSONObject params) {
