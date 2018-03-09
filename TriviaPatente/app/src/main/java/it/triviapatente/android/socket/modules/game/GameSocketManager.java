@@ -84,11 +84,21 @@ public class GameSocketManager extends BaseSocketManager {
         super.listen("user_answered", QuestionAnsweredEvent.class, cb);
     }
     //listen_game_ended
-    public void listenGameEnded(SocketCallback<GameEndedEvent> cb) {
-        super.listen("game_ended", GameEndedEvent.class, cb);
+    public void listenGameEnded(final SocketCallback<GameEndedEvent> cb) {
+        super.listen("game_ended", GameEndedEvent.class, new SocketCallback<GameEndedEvent>() {
+            @Override
+            public void response(GameEndedEvent response) {
+                if(isJoined(response.game.id, "game")) cb.response(response);
+            }
+        });
     }
     //listen_game_left
-    public void listenGameLeft(SocketCallback<GameLeftEvent> cb) {
-        super.listen("user_left_game", GameLeftEvent.class, cb);
+    public void listenGameLeft(final SocketCallback<GameLeftEvent> cb) {
+        super.listen("user_left_game", GameLeftEvent.class, new SocketCallback<GameLeftEvent>() {
+            @Override
+            public void response(GameLeftEvent response) {
+                if(isJoined(response.game.id, "game")) cb.response(response);
+            }
+        });
     }
 }
