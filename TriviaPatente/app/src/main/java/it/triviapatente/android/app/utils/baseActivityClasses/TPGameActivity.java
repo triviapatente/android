@@ -98,6 +98,13 @@ public abstract class TPGameActivity extends TPActivity {
         startActivity(intent);
         finish();
     }
+    protected void goToGameMainPage() {
+        Intent intent = new Intent(this, GameMainPageActivity.class);
+        intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
+        intent.putExtra(getString(R.string.extra_long_game), gameID);
+        startActivity(intent);
+        finish();
+    }
 
     protected void gotoPlayRound() {
         Intent intent = new Intent(this, PlayRoundActivity.class);

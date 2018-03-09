@@ -123,7 +123,7 @@ public class ChooseCategoryActivity extends TPGameActivity {
                     ChooseCategoryActivity.this.startActivity(intent);
                     ChooseCategoryActivity.this.finish();
                 } else {
-                    if(response.status_code == 403) finish();
+                    if(response.status_code == 403) goToGameMainPage();
                     else if(response.timeout) Toast.makeText(getApplicationContext(), getString(R.string.httpConnectionError), Toast.LENGTH_LONG).show();
                 }
             }

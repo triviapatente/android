@@ -74,14 +74,11 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     });
                 } else {
                     // my round ended
-                    Intent intent = new Intent(PlayRoundActivity.this, GameMainPageActivity.class);
-                    intent.putExtra(getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));
-                    intent.putExtra(getString(R.string.extra_long_game), gameID);
-                    startActivity(intent);
-                    finish();
+                    goToGameMainPage();
+
                 }
             } else if(response.status_code == 403){
-                finish();
+                goToGameMainPage();
             } else if(response.timeout) {
                 runOnUiThread(new Runnable() {
                     @Override
