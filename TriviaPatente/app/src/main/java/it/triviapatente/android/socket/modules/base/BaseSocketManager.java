@@ -274,7 +274,7 @@ public class BaseSocketManager {
         }
     }
     public Boolean isJoined(Long id, String type) {
-        return id == joinedRooms.get(type);
+        return joinedRooms.get(type) != null && joinedRooms.get(type).equals(id);
     }
 
     public void stopListen(String... events) {

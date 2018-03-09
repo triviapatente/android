@@ -162,33 +162,6 @@ public abstract class TPGameActivity extends TPActivity {
 
     }
 
-    private void unlistenUserLeft() {
-        if(this instanceof RoundDetailsActivity) return;
-        gameSocketManager.stopListen(getString(R.string.socket_event_user_left));
-    }
-
-    @Override
-    public void startActivity(Intent intent) {
-        super.startActivity(intent);
-        unlistenUserLeft();
-    }
-
-    @Override
-    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-        unlistenUserLeft();
-    }
-    @Override
-    public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode) {
-        startActivityFromFragment(fragment, intent, requestCode, null);
-    }
-
-    @Override
-    public void startActivityFromFragment(android.support.v4.app.Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-        unlistenUserLeft();
-    }
-
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
