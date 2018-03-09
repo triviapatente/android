@@ -414,8 +414,9 @@ public class RankActivity extends TPActivity {
     }
 
     protected void updateRankScrollVisibility(int firstPosition, int lastPosition) {
-        if(rankScroll == null || rankScrollContainer == null) return;
-        if(users != null) {
+        if(searchBar.getText().length() > 0) rankScrollContainer.setVisibility(View.GONE);
+        else if(rankScroll == null || rankScrollContainer == null) return;
+        else if(users != null) {
             int currentUserIndex = users.indexOf(currentUser);
             boolean currentUserVisible = false, firstUserVisible = false;
             if(currentUserIndex <= lastPosition
