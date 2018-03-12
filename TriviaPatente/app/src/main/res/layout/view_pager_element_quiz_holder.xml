@@ -23,9 +23,10 @@
             android:layout_marginLeft="@dimen/quiz_description_box_padding_horizontal"
             android:layout_marginRight="@dimen/quiz_description_box_padding_horizontal">
 
-            <ImageView
+            <it.triviapatente.android.app.utils.custom_classes.images.TPExpandableImageView
                 android:id="@+id/quizImage"
                 android:layout_width="@dimen/quiz_image_size_small"
+                android:transitionName="expand"
                 android:layout_height="@dimen/quiz_image_size_small"
                 android:layout_marginRight="@dimen/quiz_description_margin"/>
 

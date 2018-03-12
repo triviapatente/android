@@ -61,7 +61,7 @@ public class QuizHolder implements View.OnClickListener{
         setAnimations();
         // setting elements
         quizDescription.setMovementMethod(new ScrollingMovementMethod()); // to allow scroll
-        quizImage.setOnClickListener(this);
+        //quizImage.setOnClickListener(this);
         trueButton.setOnClickListener(this);
         falseButton.setOnClickListener(this);
     }
@@ -186,6 +186,7 @@ public class QuizHolder implements View.OnClickListener{
             case R.id.falseButton: { answer = false; clicked = falseButton; } break;
             case R.id.quizImage: {
                 changeImageSize();
+                return;
             }
             default:return;
         }

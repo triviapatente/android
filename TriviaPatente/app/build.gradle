@@ -19,7 +19,6 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // SUPPORT
@@ -37,6 +36,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // GRAPHICAL
+    compile 'com.github.oxoooo:pull-back-layout:1.0.1'
+    compile 'com.github.oxoooo:touch-image-view:1.0.1'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
     compile 'jp.wasabeef:blurry:2.0.3'

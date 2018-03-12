@@ -282,8 +282,8 @@ public class RankActivity extends TPActivity {
                 playersList.setVisibility(View.VISIBLE);
                 // allow to load more again
                 setLoadable(true);
-                if (mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position == 1 ||
-                        mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && absolute_last) {
+                if (users != null && (mLayoutManager.findFirstVisibleItemPosition() == 0 && users.get(0).position == 1 ||
+                        mLayoutManager.findLastVisibleItemPosition() == users.size() - 1 && absolute_last)) {
                     disableRefreshLayout();
                 }
             }

@@ -341,6 +341,12 @@ public class TPActivity extends AppCompatActivity {
     }
 
     @Override
+    public void startActivity(Intent intent, @Nullable Bundle options) {
+        redirecting = true;
+        super.startActivity(intent, options);
+    }
+
+    @Override
     public void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
         redirecting = true;
         super.startActivityFromFragment(fragment, intent, requestCode, options);

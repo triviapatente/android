@@ -229,17 +229,6 @@ public class TPActionBar extends RelativeLayout {
 
     public void setBackButtonText(String text) { backButtonText.setText(text); }
 
-    public void setBackButtonOnClick(final Class<? extends Activity> nextActivityClass) {
-        backButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), nextActivityClass);
-                getContext().startActivity(intent);
-                ((Activity)getContext()).overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-            }
-        });
-    }
-
     // set action bar type
     private void setType() {
         switch (TPActionBarType.fromId(id)) {

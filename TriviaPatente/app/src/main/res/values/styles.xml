@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
@@ -6,6 +6,8 @@
         <item name="editTextStyle">@style/TPEditTextStyle</item>
         <item name="android:textViewStyle">@style/TPTextViewStyle</item>
         <item name="android:dialogTheme">@style/TPDialog</item>
+
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
         <!-- Action bar theme -->
         <item name="android:actionBarStyle">@style/TPActionBar</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
@@ -17,6 +19,19 @@
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
+    </style>
+
+    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">#2b000000</item> <!-- Or any transparency or color you need -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <style name="TPActionBar" parent="@android:style/Widget.ActionBar">
