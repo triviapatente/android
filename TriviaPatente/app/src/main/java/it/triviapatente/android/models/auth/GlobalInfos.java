@@ -16,4 +16,5 @@ public class GlobalInfos extends Success {
     // @SerializedName("stats") public List<Category> stats;
     @SerializedName("privacy_policy_last_update") public String privacy_policy_last_update;
     @SerializedName("terms_and_conditions_last_update") public String terms_and_conditions_last_update;
+    @SerializedName("training_stats") public TrainingStats trainingStats;
 }
