@@ -26,6 +26,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import it.triviapatente.android.http.modules.training.HTTPTrainingEndpoint;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -154,5 +155,10 @@ public class RetrofitManager {
     public static HTTPBaseEndpoint getHTTPBaseEndpoint() {
         if (httpBaseEndpoint == null) { httpBaseEndpoint = retrofit.create(HTTPBaseEndpoint.class); }
         return httpBaseEndpoint;
+    }
+    private static HTTPTrainingEndpoint httpTrainingEndpoint;
+    public static HTTPTrainingEndpoint getHttpTrainingEndpoint() {
+        if (httpTrainingEndpoint == null) { httpTrainingEndpoint = retrofit.create(HTTPTrainingEndpoint.class); }
+        return httpTrainingEndpoint;
     }
 }
