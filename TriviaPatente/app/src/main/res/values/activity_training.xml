@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_training_title">I tuoi risultati</string>
+    <dimen name="training_preview_border_width">2dp</dimen>
+    <dimen name="stats_net_height">100dp</dimen>
+    <fraction name="stats_net_cell_weight">0.24</fraction>
+    <string name="button_new_training_text">Nuovo questionario</string>
+    <dimen name="button_new_training_margin">15dp</dimen>
+    <dimen name="training_graph_fragment_height">30dp</dimen>
+    <dimen name="training_list_left_right_margin">25dp</dimen>
+    <dimen name="emptyview_bottom_margin">40dp</dimen>
+    <string name="training_list_header">Allenamenti svolti</string>
+    <dimen name="training_checkmark_margin">10dp</dimen>
+    <dimen name="training_single_circle_size">40dp</dimen>
+    <dimen name="training_single_circle_margin">5dp</dimen>
+    <string name="training_list_empty_message">In questa modalità puoi simulare una prova d’esame, e vedere a che punto sei con la preparazione, così puoi continuare a giocare mentre aspetti i tuoi amici!\nDopodiché continua a sfidarli, prepararsi con un amico aumenta la velocità di apprendimento 0x1f63b</string>
+</resources>
