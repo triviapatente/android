@@ -1,5 +1,6 @@
 package it.triviapatente.android.app.utils;
 
+import it.triviapatente.android.models.auth.TrainingStats;
 import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Game;
 
@@ -19,4 +20,7 @@ public class ReceivedData {
 
     // recent games
     public static List<Game> recentGames = new ArrayList<>(0);
+
+    //training stats
+    public static TrainingStats trainingStats = null;
 }

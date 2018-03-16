@@ -28,6 +28,7 @@ import it.triviapatente.android.app.utils.custom_classes.listViews.expandable_li
 import it.triviapatente.android.app.views.find_opponent.NewGameActivity;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.app.views.rank.RankActivity;
+import it.triviapatente.android.app.views.training.TrainingActivity;
 import it.triviapatente.android.firebase.FirebaseInstanceIDService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.GlobalInfos;
@@ -56,15 +57,13 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @BindString(R.string.main_page_title) String pageTitle;
     // loading
     @BindView(R.id.loadingView) RelativeLayout loadingView;
-    // buttons name
-    @BindString(R.string.button_rank) String rank;
-    @BindString(R.string.button_stats) String stats;
-    @BindString(R.string.button_shop) String shop;
+
     // options button
     @BindView(R.id.option_panel) LinearLayout optionPanel;
     @BindView(R.id.new_game)
     MainButton buttonNewGame;
     @BindView(R.id.stats) MainButton buttonShowStats;
+    @BindView(R.id.training) MainButton buttonTraining;
     @BindView(R.id.shop) MainButton buttonShop;
     @BindView(R.id.rank) MainButton buttonShowRank;
     // hints
@@ -179,6 +178,13 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         // ReceivedData.statsHints = response.stats;
         // ReceivedData.friends_rank_position = response.friends_rank_position;
         ReceivedData.global_rank_position = response.global_rank_position;
+        response.trainingStats.no_errors = 1000;
+        response.trainingStats.errors_12 = 2345;
+        response.trainingStats.errors_34 = 2324;
+        response.trainingStats.more_errors = 1223;
+        response.trainingStats.total = response.trainingStats.more_errors + response.trainingStats.errors_34 + response.trainingStats.errors_12 + response.trainingStats.no_errors;
+
+        ReceivedData.trainingStats = response.trainingStats;
         if (pushGame != null && pushUser != null) {
             pushRedirect();
         } else {
@@ -345,6 +351,11 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     @OnClick(R.id.rank)
     public void rankClick() {
         Intent i = new Intent(this, RankActivity.class);
+        startActivity(i);
+    }
+    @OnClick(R.id.training)
+    public void trainingClick() {
+        Intent i = new Intent(this, TrainingActivity.class);
         startActivity(i);
     }
 

@@ -14,7 +14,7 @@ import it.triviapatente.android.models.training.Training;
  */
 @Parcel
 public class SuccessTrainings {
-    @SerializedName("training")
+    @SerializedName("trainings")
     public List<Training> trainings;
     @SerializedName("stats")
     public TrainingStats stats;

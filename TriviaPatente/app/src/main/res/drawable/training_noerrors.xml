@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/greenOpaque"/>
+            <stroke android:width="@dimen/training_preview_border_width" android:color="@color/greenOpaqueDark"/>
+        </shape>
+    </item>
+    <item
+        android:right="@dimen/training_checkmark_margin"
+        android:left="@dimen/training_checkmark_margin"
+        android:top="@dimen/training_checkmark_margin"
+        android:bottom="@dimen/training_checkmark_margin"
+        android:drawable="@drawable/checkmark"/>
+</layer-list>

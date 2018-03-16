@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient">
+    <RelativeLayout
+        android:id="@+id/statsNet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stats_net_height">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="fitCenter"
+            android:layout_height="match_parent"
+            android:src="@drawable/stats_net"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="1"
+
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent" android:baselineAligned="false">
+                <fragment
+                    android:id="@+id/no_errors_viewer"
+                    tools:layout="@layout/fragment_training_stat_viewer"
+                    android:name="it.triviapatente.android.app.views.training.TrainingStatViewer"
+                    android:layout_weight="@fraction/stats_net_cell_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+                <fragment
+                    android:id="@+id/one_two_errors_viewer"
+                    tools:layout="@layout/fragment_training_stat_viewer"
+                    android:name="it.triviapatente.android.app.views.training.TrainingStatViewer"
+                    android:layout_weight="@fraction/stats_net_cell_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+                <fragment
+                    android:id="@+id/three_four_errors_viewer"
+                    tools:layout="@layout/fragment_training_stat_viewer"
+                    android:name="it.triviapatente.android.app.views.training.TrainingStatViewer"
+                    android:layout_weight="@fraction/stats_net_cell_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+                <fragment
+                    android:id="@+id/more_errors_viewer"
+                    tools:layout="@layout/fragment_training_stat_viewer"
+                    android:name="it.triviapatente.android.app.views.training.TrainingStatViewer"
+                    android:layout_weight="@fraction/stats_net_cell_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/newTrainingButton"
+        android:layout_margin="@dimen/button_new_training_margin"
+        android:layout_below="@id/statsNet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_new_training_text"
+        android:background="@drawable/button_green_big"/>
+    <RelativeLayout
+        android:layout_below="@id/newTrainingButton"
+        android:layout_above="@id/statsGraph"
+        android:layout_marginStart="@dimen/training_list_left_right_margin"
+        android:layout_marginLeft="@dimen/training_list_left_right_margin"
+        android:layout_marginEnd="@dimen/training_list_left_right_margin"
+        android:layout_marginRight="@dimen/training_list_left_right_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/trainingsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/training_list_header"/>
+        <TextView
+            android:id="@+id/emptyView"
+            android:gravity="center"
+            android:visibility="visible"
+            android:layout_below="@id/trainingsHeader"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/emptyview_bottom_margin"
+            android:text="@string/training_list_empty_message"
+            android:layout_height="match_parent"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/trainingsHeader"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:id="@+id/trainingList"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+    <fragment android:name="it.triviapatente.android.app.views.training.TrainingGraphFragment" android:layout_width="match_parent"
+        android:layout_height="@dimen/training_graph_fragment_height"
+        android:id="@+id/statsGraph"
+        android:layout_alignParentBottom="true"
+        tools:layout="@layout/fragment_training_graph" />
+</RelativeLayout>

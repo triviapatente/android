@@ -4,4 +4,5 @@
     <dimen name="TPTextSizeMedium">20sp</dimen>
     <dimen name="TPTextSizeSmall">15sp</dimen>
     <dimen name="TPTextSizeVerySmall">12sp</dimen>
+    <dimen name="TPTextSizeVeryVerySmall">9sp</dimen>
 </resources>

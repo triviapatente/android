@@ -38,6 +38,16 @@
         <it.triviapatente.android.app.utils.custom_classes.buttons.MainButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_page_button_height"
+            android:id="@+id/training"
+            android:background="@drawable/button_yellow"
+            android:layout_marginBottom="@dimen/element_margin"
+            custom:main_button_name="@string/button_training"
+            custom:main_button_image="@drawable/image_main_button_training"/>
+            custom:main_button_hint_rotation_speed="7500"/>
+
+        <it.triviapatente.android.app.utils.custom_classes.buttons.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_page_button_height"
             android:id="@+id/rank"
             android:background="@drawable/button_orange"
             android:layout_marginBottom="@dimen/element_margin"
@@ -49,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_page_button_height"
             android:id="@+id/stats"
-            android:background="@drawable/button_yellow"
+            android:background="@drawable/button_purple"
             android:layout_marginBottom="@dimen/element_margin"
             custom:main_button_name="@string/button_stats"
             custom:main_button_disabled="true"

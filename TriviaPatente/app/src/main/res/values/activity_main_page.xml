@@ -3,6 +3,7 @@
     <!-- main page strings -->
     <string name="main_page_title">Trivia Patente</string>
     <string name="button_new_game">Nuova partita</string>
+    <string name="button_training">Allenamento</string>
     <string name="button_rank">Classifica</string>
     <string name="button_stats">Statistiche</string>
     <string name="button_shop">Negozio</string>

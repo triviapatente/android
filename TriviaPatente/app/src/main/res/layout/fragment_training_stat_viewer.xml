@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="it.triviapatente.android.app.views.training.TrainingStatViewer">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/trainingStatsNumberViewer"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/TPTextSizeMedium"
+            android:text="12" />
+
+        <TextView
+            android:id="@+id/trainingStatsCaptionViewer"
+            android:gravity="center"
+            android:textSize="@dimen/TPTextSizeVeryVerySmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0 errori" />
+
+    </LinearLayout>
+
+</FrameLayout>

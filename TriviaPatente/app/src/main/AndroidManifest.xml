@@ -6,12 +6,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
     <application
-        android:name="it.triviapatente.android.app.utils.mApplication"
+        android:name=".app.utils.mApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -27,29 +28,32 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
-        <service
-            android:name=".firebase.FirebaseInstanceIDService">
+
+        <service android:name=".firebase.FirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".firebase.FirebaseMessagingService">
+        <service android:name=".firebase.FirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
-            android:name="it.triviapatente.android.app.views.access.FirstAccessActivity"
+            android:name=".app.views.access.FirstAccessActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name="it.triviapatente.android.app.views.main_page.MainPageActivity"
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".app.views.main_page.MainPageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.SplashScreenActivity"
+        <activity
+            android:name=".app.views.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,40 +61,55 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="it.triviapatente.android.app.views.find_opponent.NewGameActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.find_opponent.FindOpponentActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="it.triviapatente.android.app.views.game_page.GameMainPageActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.game_page.ChooseCategoryActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.AlphaView"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.game_page.ChatActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangeUserDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="it.triviapatente.android.app.views.access.login.CredentialsRecovery"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.menu_activities.ContactsActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.menu_activities.ChangePasswordActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="it.triviapatente.android.app.views.rank.RankActivity"
-            android:screenOrientation="portrait"/>
         <activity
-            android:name="it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity"
-            android:screenOrientation="portrait"
+            android:name=".app.views.find_opponent.NewGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.find_opponent.FindOpponentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.game_page.GameMainPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.game_page.ChooseCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.AlphaView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.game_page.play_round.PlayRoundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.game_page.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.menu_activities.ChangeUserDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.access.login.CredentialsRecovery"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.menu_activities.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.menu_activities.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.rank.RankActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.views.game_page.round_details.RoundDetailsActivity"
             android:label="@string/title_activity_round_details"
-            android:parentActivityName="it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity">
+            android:parentActivityName=".app.utils.baseActivityClasses.TPGameActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity" />
         </activity>
-        <activity android:name=".app.utils.custom_classes.images.TPFullScreenImageView" android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
+            android:name=".app.utils.custom_classes.images.TPFullScreenImageView"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name=".app.views.training.TrainingActivity"></activity>
     </application>
 
 </manifest>

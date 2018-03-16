@@ -1,0 +1,34 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:layout_height="40dp" android:baselineAligned="false">
+    <FrameLayout
+        android:id="@+id/noErrorsSection"
+        android:background="@color/green"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/onetwoErrorsSection"
+        android:background="@color/yellow"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/threefourErrorsSection"
+        android:background="@color/orange"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/moreErrorsSection"
+        android:background="@color/red"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

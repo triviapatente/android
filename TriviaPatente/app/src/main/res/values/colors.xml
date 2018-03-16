@@ -31,6 +31,8 @@
     <color name="orangeLight">#70FD9426</color>
     <color name="orange">#FD9426</color>
     <color name="orangeDark">#FD8426</color>
+    <color name="purple">#FB63FD</color>
+    <color name="purpleDark">#FB53FD</color>
     <color name="yellowLight">#70FECB2F</color>
     <color name="yellow">#FECB2F</color>
     <color name="yellowDark">#FEBB2F</color>
