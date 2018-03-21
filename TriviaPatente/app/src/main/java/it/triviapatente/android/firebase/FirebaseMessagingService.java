@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import it.triviapatente.android.R;
+import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.views.main_page.MainPageActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
@@ -48,6 +49,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     private void sendNotification(Map<String, String> data, RemoteMessage.Notification fcmNotification) {
         sendNotification(this, data, fcmNotification.getTitle(), fcmNotification.getBody());
     }
+    public static void stubNotification(Context ctx) {
+        Map<String, String> map = new HashMap<>();
+        map.put(ctx.getString(R.string.firebase_message_opponent_key), RetrofitManager.gson.toJson(SharedTPPreferences.currentUser()));
+        map.put(ctx.getString(R.string.firebase_message_game_key), RetrofitManager.gson.toJson(ReceivedData.recentGames.get(0)));
+        sendNotification(ctx, map, "Prova", "test");
+    }
     private static void sendNotification(Context ctx, Map<String, String> data, String title, String body) {
         String  gameData = data.get(ctx.getString(R.string.firebase_message_game_key)),
                 opponentData = data.get(ctx.getString(R.string.firebase_message_opponent_key));
@@ -63,15 +70,19 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Notification notification = new Notification.Builder(ctx)
-                                                .setSmallIcon(R.mipmap.logo)
+        Notification.Builder notificationBuilder = new Notification.Builder(ctx)
                                                 .setContentTitle(title)
                                                 .setContentText(body)
                                                 .setAutoCancel(true)
                                                 .setSound(defaultSoundUri)
-                                                .setContentIntent(pendingIntent)
-                                                .build();
-
+                                                .setContentIntent(pendingIntent);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setSmallIcon(R.drawable.notification_icon_reversed);
+            notificationBuilder.setColor(ctx.getResources().getColor(R.color.mainColor));
+        } else {
+            notificationBuilder.setSmallIcon(R.mipmap.logo);
+        }
+        Notification notification = notificationBuilder.build();
         notification.defaults |= Notification.DEFAULT_ALL;
 
         NotificationManager notificationManager =

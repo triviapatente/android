@@ -30,6 +30,7 @@ import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.app.views.rank.RankActivity;
 import it.triviapatente.android.app.views.training.TrainingActivity;
 import it.triviapatente.android.firebase.FirebaseInstanceIDService;
+import it.triviapatente.android.firebase.FirebaseMessagingService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.GlobalInfos;
 import it.triviapatente.android.models.auth.User;
@@ -94,7 +95,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         if (pushGameData != null)
             pushGame = RetrofitManager.gson.fromJson(pushGameData, Game.class);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
