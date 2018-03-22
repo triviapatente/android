@@ -56,10 +56,10 @@ public class TrainingActivity extends TPActivity {
     }
     private void updateViewsFromStats(TrainingStats stats) {
         graphFragment.setStats(stats);
-        noErrorsViewer.setValues(stats.no_errors, "0 errori");
-        errors12Viewer.setValues(stats.errors_12, "1-2 errori");
-        errors34Viewer.setValues(stats.errors_34, "3-4 errori");
-        moreErrorsViewer.setValues(stats.more_errors, "4+ errori");
+        noErrorsViewer.setValues(stats.no_errors, R.string.training_no_errors_caption);
+        errors12Viewer.setValues(stats.errors_12, R.string.training_errors_12_caption);
+        errors34Viewer.setValues(stats.errors_34, R.string.training_errors_34_caption);
+        moreErrorsViewer.setValues(stats.more_errors, R.string.training_more_errors_caption);
     }
     private void updateTrainings(List<Training> trainings) {
         mAdapter.setTrainings(trainings);
@@ -103,8 +103,7 @@ public class TrainingActivity extends TPActivity {
             @Override
             public void onResponse(Call<SuccessTrainings> call, Response<SuccessTrainings> response) {
                 SuccessTrainings output = response.body();
-                //updateFrom(output);
-                updateFrom(mockResponse());
+                updateFrom(output);
             }
 
             @Override

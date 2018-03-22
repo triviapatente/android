@@ -38,7 +38,7 @@ public class TrainingHolder extends RecyclerView.ViewHolder {
     private int getDrawableFor(Training training) {
         if(training.numberOfErrors == 0) return R.drawable.training_noerrors;
         else if(training.numberOfErrors > 0 && training.numberOfErrors <= 2) return R.drawable.training_12_errors;
-        else if(training.numberOfErrors > 2 && training.numberOfErrors < 4) return R.drawable.training_34_errors;
+        else if(training.numberOfErrors > 2 && training.numberOfErrors <= 4) return R.drawable.training_34_errors;
         else return R.drawable.training_more_errors;
     }
     public void bind(Training training, Context ctx) {

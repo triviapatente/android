@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_training_title">I tuoi risultati</string>
+    <string name="training_no_errors_caption">0 errori</string>
+    <string name="training_errors_12_caption">1&#8211;2 errori</string>
+    <string name="training_errors_34_caption">3&#8211;4 errori</string>
+    <string name="training_more_errors_caption">5+ errori</string>
+
     <dimen name="training_preview_border_width">2dp</dimen>
     <dimen name="stats_net_height">100dp</dimen>
     <fraction name="stats_net_cell_weight">0.24</fraction>
