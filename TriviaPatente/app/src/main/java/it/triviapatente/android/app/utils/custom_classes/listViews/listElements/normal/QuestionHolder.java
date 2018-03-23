@@ -65,7 +65,6 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(itemView);
         this.context = context;
         this.cellHeight = cellHeight;
-        itemView.setOnClickListener(this);
         ButterKnife.bind(this, itemView);
         quizNameView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
@@ -95,6 +94,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         return ContextCompat.getColor(context, android.R.color.transparent);
     }
     public void bindForTraining(Quiz quiz) {
+        itemView.setOnClickListener(null);
         noUserAnswersLayout();
         handleQuizImage(quiz);
         quizNameView.setText(quiz.question);
@@ -127,6 +127,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         }
     }
     public void bindForDetails(Quiz quiz, User opponent) {
+        itemView.setOnClickListener(this);
         this.opponent = opponent;
         handleQuizImage(quiz);
         quizNameView.setText(quiz.question);
