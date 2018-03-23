@@ -61,7 +61,7 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
 
         if(holder instanceof QuestionHolder) {
             Quiz quiz = response.quizzes.get(position);
-            ((QuestionHolder)holder).bind(quiz, opponent);
+            ((QuestionHolder)holder).bindForDetails(quiz, opponent);
         } else if(holder instanceof GameEndedHolder) {
             ((GameEndedHolder)holder).bind(response, opponent);
         }

@@ -3,12 +3,15 @@ package it.triviapatente.android.app.utils.custom_classes.listViews.listElements
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -39,6 +42,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
     @BindView(R.id.quizNameView) TextView quizNameView;
     @BindView(R.id.quizTrueView) TextView quizTrueView;
     @BindView(R.id.quizFalseView) TextView quizFalseView;
+    @BindView(R.id.answerImageLayout) LinearLayout userAnswersLayout;
     @BindViews({R.id.quizFirstTrueUser, R.id.quizSecondTrueUser}) RoundedImageView[] quizTrueImages;
     @BindViews({R.id.quizFirstFalseUser, R.id.quizSecondFalseUser}) RoundedImageView[] quizFalseImages;
 
@@ -71,6 +75,11 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         params.width = width;
         quizImageView.setLayoutParams(params);
     }
+    public void noUserAnswersLayout() {
+        ViewGroup.LayoutParams params = userAnswersLayout.getLayoutParams();
+        params.width = 50; //bordo
+        userAnswersLayout.setLayoutParams(params);
+    }
     private void setMaxLines() {
         String text = quizNameView.getText().toString();
         int lines = TPUtils.getMaxLinesFor(text, quizNameView, this.cellHeight - quizNameViewMargin * 2);
@@ -79,9 +88,21 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
     private void unsetMaxLines() {
         quizNameView.setMaxLines(Integer.MAX_VALUE);
     }
-
-    public void bind(Quiz quiz, User opponent) {
-        this.opponent = opponent;
+    public int getBackgroundColorForTraining(Quiz quiz) {
+        if (quiz.my_answer != quiz.answer) {
+            return ContextCompat.getColor(context, R.color.wrongQuizTrainingBackgroundColor);
+        }
+        return ContextCompat.getColor(context, android.R.color.transparent);
+    }
+    public void bindForTraining(Quiz quiz) {
+        noUserAnswersLayout();
+        handleQuizImage(quiz);
+        quizNameView.setText(quiz.question);
+        handleAnswer(quiz.answer);
+        itemView.setBackgroundColor(getBackgroundColorForTraining(quiz));
+        setExpanded(true);
+    }
+    private void handleQuizImage(Quiz quiz) {
         TPUtils.picasso.cancelRequest(quizImageView);
         if(quiz.image_id != null) {
             setQuizImageWidth(quizDefaultImageDimen);
@@ -90,9 +111,10 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         } else {
             setQuizImageWidth(0);
         }
-        quizNameView.setText(quiz.question);
-        if(quiz.answer != null) {
-            if(quiz.answer) {
+    }
+    private void handleAnswer(Boolean answer) {
+        if(answer != null) {
+            if(answer) {
                 correctGUI(quizTrueView);
                 incorrectGUI(quizFalseView);
             } else {
@@ -103,6 +125,12 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
             incorrectGUI(quizTrueView);
             incorrectGUI(quizFalseView);
         }
+    }
+    public void bindForDetails(Quiz quiz, User opponent) {
+        this.opponent = opponent;
+        handleQuizImage(quiz);
+        quizNameView.setText(quiz.question);
+        handleAnswer(quiz.answer);
         processAnswers(quiz.answers, quiz);
         setExpanded(false);
     }

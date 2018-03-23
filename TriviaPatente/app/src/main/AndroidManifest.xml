@@ -109,7 +109,8 @@
         <activity
             android:name=".app.utils.custom_classes.images.TPFullScreenImageView"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".app.views.training.TrainingActivity"></activity>
+        <activity android:name=".app.views.training.TrainingActivity" />
+        <activity android:name=".app.views.training.TrainingDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -34,7 +34,11 @@ import it.triviapatente.android.models.game.Question;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,7 +58,10 @@ public class TPUtils {
         //point is inside view bounds
         return area.contains(x, y);
     }
-
+    private static DateFormat onlyDateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+    public static String dateToSimpleFormat(Date date) {
+        return onlyDateFormat.format(date);
+    }
     public static void setDefaultFont(Context context,
                                       String staticTypefaceFieldName, String fontAssetName) {
         final Typeface regular = Typeface.createFromAsset(context.getAssets(),

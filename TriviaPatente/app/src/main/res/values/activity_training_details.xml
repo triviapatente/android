@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="training_details_title">Questionario</string>
+    <string name="training_details_errors_singular">In questo questionario hai fatto 1 errore</string>
+    <string name="training_details_errors_plural">In questo questionario hai fatto %errors% errori</string>
+    <string name="training_details_date">Svolto il %date%</string>
+    <string name="training_details_extra_training_key">training</string>
+    <color name="wrongQuizTrainingBackgroundColor">#eee54948</color>
+</resources>

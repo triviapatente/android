@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.triviapatente.android.R;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleItemCallback;
 import it.triviapatente.android.models.training.Training;
 
 /**
@@ -42,6 +43,17 @@ public class TrainingHolder extends RecyclerView.ViewHolder {
         else return R.drawable.training_more_errors;
     }
     public void bind(Training training, Context ctx) {
+        bind(training, ctx, null);
+    }
+    public void bind(final Training training, Context ctx, final SimpleItemCallback<Training> clickCallback) {
+        if(clickCallback != null) {
+            trainingErrorsPreview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickCallback.execute(training);
+                }
+            });
+        }
         trainingErrorsPreview.setBackground(getDrawableFor(training, ctx));
         if(training.numberOfErrors == 0) {
             trainingErrorsPreview.setText(null);

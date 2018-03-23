@@ -1,5 +1,6 @@
 package it.triviapatente.android.app.views.training;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleItemCallback;
 import it.triviapatente.android.http.modules.base.HTTPBaseEndpoint;
 import it.triviapatente.android.http.modules.training.HTTPTrainingEndpoint;
 import it.triviapatente.android.http.utils.RetrofitManager;
@@ -46,6 +48,15 @@ public class TrainingActivity extends TPActivity {
     private TrainingStatViewer moreErrorsViewer;
     private TrainingsAdapter mAdapter;
     private GridLayoutManager mManager;
+    private SimpleItemCallback<Training> trainingClickCallback = new SimpleItemCallback<Training>() {
+        @Override
+        public void execute(Training item) {
+            Intent i = new Intent(TrainingActivity.this, TrainingDetailsActivity.class);
+            i.putExtra(getString(R.string.training_details_extra_training_key), RetrofitManager.gson.toJson(item));
+            startActivity(i);
+        }
+    };
+
 
     private void initFragments() {
         graphFragment = (TrainingGraphFragment) getSupportFragmentManager().findFragmentById(R.id.statsGraph);
@@ -90,6 +101,7 @@ public class TrainingActivity extends TPActivity {
         initFragments();
         updateViewsFromStats(ReceivedData.trainingStats);
         mAdapter = new TrainingsAdapter(this);
+        mAdapter.setOnItemClickListener(trainingClickCallback);
         mManager = new GridLayoutManager(this, DEFAULT_SPAN_COUNT);
         trainingList.setLayoutManager(mManager);
         trainingList.setAdapter(mAdapter);

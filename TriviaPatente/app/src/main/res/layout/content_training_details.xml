@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context="it.triviapatente.android.app.views.training.TrainingDetailsActivity">
+    <LinearLayout
+        android:id="@+id/trainingHeader"
+        android:layout_margin="15dp"
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <include layout="@layout/training_errors_preview_holder"
+            android:id="@+id/trainingDetailsIcon"
+            android:layout_gravity="center"
+            android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="0.3"/>
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_weight="0.7"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/trainingDetailsErrors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/trainingDetailsDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/listHeader"
+        android:layout_below="@+id/trainingHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Domande"/>
+    <View
+        android:id="@+id/listHeaderSeparator"
+        android:layout_below="@id/listHeader"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.6"
+        android:background="@drawable/divider_line_alpha"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/listHeaderSeparator"
+        android:id="@+id/trainingDetailsQuestionList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

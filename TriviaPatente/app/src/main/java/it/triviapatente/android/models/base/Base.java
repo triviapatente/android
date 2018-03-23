@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import org.parceler.Parcel;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,13 +19,30 @@ import java.util.TimeZone;
 public abstract class Base {
     @SerializedName("createdAt") public String createdAt;
     @SerializedName("updatedAt") public String updatedAt;
+    private transient final SimpleDateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss ZZZZ" , Locale.ENGLISH);
+
+    public Date getCreatedAt() {
+        try {
+            return format.parse(createdAt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public Date getUpdatedAt() {
+        try {
+            return format.parse(updatedAt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public long getUpdatedAtMillis() {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss ZZZZ" , Locale.ENGLISH);
 
         long time = 0;
         try {
-            time = inputFormat.parse(updatedAt).getTime();
+            time = format.parse(updatedAt).getTime();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleItemCallback;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.TrainingHolder;
 import it.triviapatente.android.models.training.Training;
 
@@ -18,6 +19,11 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingHolder> {
 
     private List<Training> trainings;
     private Context ctx;
+    private SimpleItemCallback<Training> mItemClickListener;
+
+    public void setOnItemClickListener(SimpleItemCallback<Training> callback) {
+        this.mItemClickListener = callback;
+    }
 
     public TrainingsAdapter(Context ctx) {
         this.ctx = ctx;
@@ -36,7 +42,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingHolder> {
     @Override
     public void onBindViewHolder(@NonNull TrainingHolder trainingHolder, int i) {
         Training t = trainings.get(i);
-        trainingHolder.bind(t, ctx);
+        trainingHolder.bind(t, ctx, mItemClickListener);
     }
 
     @Override
