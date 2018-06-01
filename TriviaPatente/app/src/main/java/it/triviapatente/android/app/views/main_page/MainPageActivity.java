@@ -142,18 +142,11 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
             // on connect
             @Override
             public void execute() {
-                authSocketManager.global_infos(new SocketCallback<GlobalInfos>() {
+                global_infos();
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void response(final GlobalInfos response) {
-                        if (response.success) {
-                            authSocketManager.leave(new SocketCallback<Success>() {
-                                @Override
-                                public void response(Success leaveResponse) {
-                                    handleGlobalInfosOnUIThread(syncButton, response);
-                                }
-                            });
-
-                        } else { backToFirstAccessOnUIThread(); }
+                    public void run() {
+                        initGUI(syncButton);
                     }
                 });
             }
@@ -166,30 +159,43 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         });
 
     }
-    private void handleGlobalInfosOnUIThread(final View syncButton, final GlobalInfos response) {
-        runOnUiThread(new Runnable() {
+    private void global_infos() {
+        authSocketManager.global_infos(new SocketCallback<GlobalInfos>() {
             @Override
-            public void run() {
-                handleGlobalInfos(syncButton, response);
+            public void response(final GlobalInfos response) {
+                if (response.success) {
+                    authSocketManager.leave(new SocketCallback<Success>() {
+                        @Override
+                        public void response(Success leaveResponse) {
+                            handleGlobalInfosOnUIThread(response);
+                        }
+                    });
+
+                }
             }
         });
     }
-    private void handleGlobalInfos(final View syncButton, final GlobalInfos response) {
-        loadingView.setVisibility(View.GONE);
-        // init items
-        ReceivedData.statsHints = response.stats;
-        // ReceivedData.friends_rank_position = response.friends_rank_position;
-        ReceivedData.global_rank_position = response.global_rank_position;
-        response.trainingStats.no_errors = 1000;
-        response.trainingStats.errors_12 = 2345;
-        response.trainingStats.errors_34 = 2324;
-        response.trainingStats.more_errors = 1223;
-        response.trainingStats.total = response.trainingStats.more_errors + response.trainingStats.errors_34 + response.trainingStats.errors_12 + response.trainingStats.no_errors;
-
-        ReceivedData.trainingStats = response.trainingStats;
+    private void handleGlobalInfosOnUIThread(final GlobalInfos response) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                handleGlobalInfos(response);
+            }
+        });
+    }
+    private void initGUI(View syncButton) {
+        handlePush();
+        initOptionButtons();
+        // load recent games
+        loadRecentGames(syncButton);
+    }
+    private void handlePush() {
         if (pushGame != null && pushUser != null) {
             pushRedirect();
-        } else {
+        }
+    }
+    private void handleModals(GlobalInfos response) {
+        if (pushUser == null || pushGame == null) {
             // new terms or policy?
             boolean newTerms = false, newPolicy = false;
             if (currentUser.privacyPolicyLastUpdate == null)
@@ -209,9 +215,16 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                         response.privacy_policy_last_update
                 ).show();
         }
+    }
+    private void handleGlobalInfos(final GlobalInfos response) {
+        loadingView.setVisibility(View.GONE);
+        // init items
+        ReceivedData.statsHints = response.stats;
+        ReceivedData.global_rank_position = response.global_rank_position;
+        ReceivedData.trainingStats = response.trainingStats;
+        handlePush();
+        handleModals(response);
         initOptionButtons();
-        // load recent games
-        loadRecentGames(syncButton);
     }
 
     private void initOptionButtons() {
