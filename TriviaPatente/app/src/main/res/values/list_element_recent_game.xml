@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="recent_game_height">65dp</dimen>
+    <dimen name="recent_game_height">120dp</dimen>
+    <dimen name="recent_game_old_height">65dp</dimen>
     <dimen name="traffic_lights_height">40dp</dimen>
     <dimen name="traffic_lights_width">20dp</dimen>
     <!-- title -->
     <string name="recent_games">Partite recenti</string>
     <!-- status -->
     <string name="play_now_status">È il tuo turno!</string>
+    <string name="remaining_answers">%d domande rimaste</string>
+    <string name="remaining_answer">%d domanda rimasta</string>
+    <string name="you_won_status">Hai vinto!</string>
+    <string name="me">Tu</string>
+    <string name="me_winner">0x1F3C6 Tu</string>
+    <string name="opponent_winner">%s 0x1F3C6</string>
+    <string name="vs">VS</string>
+
+    <string name="opponent_won_status">Hai perso!</string>
+    <string name="tie_status">Pareggio!</string>
+    <string name="game_annulled_status">Partita annullata</string>
     <string name="details_status">È il suo turno..</string>
     <string name="new_game_status">Partita terminata</string>
     <string name="contact_status">Invito inviato!</string>

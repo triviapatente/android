@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/cellView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stats_cell">
+        <TextView
+            android:id="@+id/categoryNameView"
+            android:layout_above="@id/categoryPercentView"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/stats_hint"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="Testo prova"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/categoryPercentView"
+            android:layout_margin="10dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="@dimen/stats_percent"
+            android:textColor="@android:color/white"
+            android:text="Testo prova"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@id/categoryPercentView"
+            android:id="@+id/categoryInfoView"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/stats_info"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="Testo prova"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

@@ -18,4 +18,9 @@ public class Category extends CommonPK {
     @SerializedName("imagePath") public String imagePath;
 
     public Category() {}
+
+    public Integer getProgress() {
+        if(total_answers == 0) return 0;
+        else return correct_answers * 100 / total_answers;
+    }
 }

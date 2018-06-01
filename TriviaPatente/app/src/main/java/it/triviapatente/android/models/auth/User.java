@@ -60,6 +60,11 @@ public class User extends CommonPK {
         }
     }
 
+    public String getDisplayFirstName() {
+        if(name != null) return name;
+        return username;
+    }
+
     @Override
     public boolean equals(Object anotherObject) {
         if (!(anotherObject instanceof User)) {

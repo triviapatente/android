@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mainColorGradTop">#00d0FF</color>
+    <color name="mainColorGradTop2">#00d0FF</color>
+    <color name="mainColorGradTop">@color/mainColor</color>
     <color name="mainColorGradTopAlpha">#3000d0FF</color>
     <color name="mainColorGradBottom">#135E9A</color>
     <color name="mainColor">#00b0ff</color>
@@ -41,11 +42,18 @@
     <color name="redDark">#FC0D39</color>
     <color name="redOpaque">#E74C3C</color>
     <color name="redOpaqueDark">#EF1C39</color>
+    <color name="redButton">#cc4a59</color>
+    <color name="redButtonDark">#c04050</color>
     <color name="grey">#CDCCCE</color>
     <color name="greyDark">#9B9B9B</color>
     <color name="quizTextColor">#3C5A95</color>
     <color name="blueOpaque">#6583BE</color>
     <color name="blueOpaqueDark">#5876B0</color>
+
+    <color name="stats_bad">@color/mainColor</color>
+    <color name="stats_medium">#ff9500</color>
+    <color name="stats_good">#ffcc00</color>
+    <color name="stats_perfect">#4cd964</color>
 
     <color name="triviaColor1">@color/mainColor</color>
     <color name="triviaColor2">#42d451</color>

@@ -29,7 +29,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
     public static void sendRegistration() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if(refreshedToken != null && !alreadySent(refreshedToken)) {
+        if(refreshedToken != null) {// && !alreadySent(refreshedToken)) {
             sendRegistration(refreshedToken);
         }
     }

@@ -10,7 +10,7 @@
     <string name="firebase_message_game_key">game</string>
     <string name="firebase_message_opponent_key">opponent</string>
     <!-- NETWORKING -->
-    <string name="baseUrl">https://triviapatente.it:8000/</string>
+    <string name="baseUrl">https://triviapatente.it:8080/</string>
     <string name="privacy_policy_path">ws/privacyPolicy</string>
     <string name="terms_path">ws/terms</string>
     <string name="store_path">/ws/store_page/android</string>
@@ -23,5 +23,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_stats_list">StatsListActivity</string>
 
 </resources>

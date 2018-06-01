@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_list_title">Statistiche</string>
+    <string name="stats_answered_question">su %d quiz affrontato</string>
+    <string name="stats_answered_questions">su %d quiz affrontati</string>
+    <dimen name="stats_hint">16sp</dimen>
+    <dimen name="stats_percent">26sp</dimen>
+    <dimen name="stats_info">14sp</dimen>
+    <dimen name="stats_cell">120dp</dimen>
+
+</resources>

@@ -110,7 +110,10 @@
             android:name=".app.utils.custom_classes.images.TPFullScreenImageView"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".app.views.training.TrainingActivity" />
-        <activity android:name=".app.views.training.TrainingDetailsActivity"></activity>
+        <activity android:name=".app.views.training.TrainingDetailsActivity" />
+        <activity
+            android:name=".app.views.stats.StatsListActivity"
+            android:label="@string/title_activity_stats_list"></activity>
     </application>
 
 </manifest>

@@ -21,13 +21,13 @@
     <dimen name="main_page_image_size">30dp</dimen>
     <dimen name="main_button_margin">20dp</dimen>
     <dimen name="main_button_margin_horizontal">15dp</dimen>
+    <dimen name="game_button_margin_top">60dp</dimen>
     <!-- server down alert -->
     <string name="server_down_message">Spiacenti, impossibile connettersi al server 0x1F605</string>
 
     <!-- dialog -->
     <dimen name="modal_hearts_infinite_image_size">70dp</dimen>
-    <string name="modal_hearts_infinite_text">Un anno nuovo sta cominciando, per questo abbiamo pensato di regalare a chi si iscrive in questo periodo un’esperienza di gioco senza limitazioni!
-        \n Fallo sapere ai tuoi amici 0x1F609</string>
+    <string name="modal_hearts_infinite_text">Goditi l\'esperienza gratuita di TriviaPatente! Il servizio ti permette di usufruire di tutte le modalità di gioco in maniera gratuita, in modo da permetterti di prepararti al meglio senza spendere! 0x1F609</string>
     <string name="modal_hearts_infinite_text_not_show">Non mostrare più</string>
     <dimen name="modal_hearts_infinite_margin">25dp</dimen>
     <dimen name="modal_hearts_infinite_margin_little">10dp</dimen>

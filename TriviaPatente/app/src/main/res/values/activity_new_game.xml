@@ -3,7 +3,7 @@
     <!-- new game dimens -->
     <dimen name="new_game_option_panel_margin">30dp</dimen>
     <dimen name="new_game_option_panel_title_margin">10dp</dimen>
-    <dimen name="new_game_button_height">100dp</dimen>
+    <dimen name="new_game_button_height">120dp</dimen>
     <dimen name="new_game_coming_soon_width">160dp</dimen>
     <!-- strings -->
     <string name="find_your_opponent">Cerca avversario</string>

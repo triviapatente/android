@@ -30,6 +30,7 @@ import it.triviapatente.android.app.utils.custom_classes.listViews.expandable_li
 import it.triviapatente.android.app.views.find_opponent.NewGameActivity;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.app.views.rank.RankActivity;
+import it.triviapatente.android.app.views.stats.StatsListActivity;
 import it.triviapatente.android.app.views.training.TrainingActivity;
 import it.triviapatente.android.firebase.FirebaseInstanceIDService;
 import it.triviapatente.android.firebase.FirebaseMessagingService;
@@ -67,7 +68,6 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     MainButton buttonNewGame;
     @BindView(R.id.stats) MainButton buttonShowStats;
     @BindView(R.id.training) MainButton buttonTraining;
-    @BindView(R.id.shop) MainButton buttonShop;
     @BindView(R.id.rank) MainButton buttonShowRank;
     // hints
     @BindString(R.string.friends) String friendRankHint;
@@ -177,7 +177,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     private void handleGlobalInfos(final View syncButton, final GlobalInfos response) {
         loadingView.setVisibility(View.GONE);
         // init items
-        // ReceivedData.statsHints = response.stats;
+        ReceivedData.statsHints = response.stats;
         // ReceivedData.friends_rank_position = response.friends_rank_position;
         ReceivedData.global_rank_position = response.global_rank_position;
         response.trainingStats.no_errors = 1000;
@@ -226,7 +226,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
             // build hints
             hintsStrings.clear();
             for(Category c : ReceivedData.statsHints) {
-                hintsStrings.add(c.hint + ": " + (c.correct_answers/((c.total_answers == 0)?1:c.total_answers)) + "%");
+                hintsStrings.add(c.hint + ": " + c.getProgress() + "%");
             }
             // set hints
             buttonShowStats.setHintText(listConverter(hintsStrings));
@@ -346,10 +346,11 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         Intent intent = new Intent(this, NewGameActivity.class);
         startActivity(intent);
     }
-    @OnClick(R.id.shop)
-    public void shopClick() {}
     @OnClick(R.id.stats)
-    public void statsClick() {}
+    public void statsClick() {
+        Intent i = new Intent(this, StatsListActivity.class);
+        startActivity(i);
+    }
     @OnClick(R.id.rank)
     public void rankClick() {
         Intent i = new Intent(this, RankActivity.class);

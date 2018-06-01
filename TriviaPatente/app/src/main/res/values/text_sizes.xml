@@ -2,6 +2,7 @@
 <resources>
     <dimen name="TPTextSizeLarge">23sp</dimen>
     <dimen name="TPTextSizeMedium">20sp</dimen>
+    <dimen name="TPTextSizeMedium1">18sp</dimen>
     <dimen name="TPTextSizeSmall">15sp</dimen>
     <dimen name="TPTextSizeVerySmall">12sp</dimen>
     <dimen name="TPTextSizeVeryVerySmall">9sp</dimen>
