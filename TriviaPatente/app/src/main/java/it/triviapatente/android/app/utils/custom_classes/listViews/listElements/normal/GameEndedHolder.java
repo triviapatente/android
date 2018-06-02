@@ -38,6 +38,7 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.loserImage) RoundedImageView loserImage;
     @BindView(R.id.loserEmojii) TextView loserEmojiiView;
     @BindView(R.id.winnerEmojii) TextView winnerEmojiiView;
+    @BindView(R.id.gameExpiredLabel) TextView gameExpiredLabel;
 
     @BindDimen(R.dimen.modal_view_round_details_loser_size) int loserSize;
     @BindDimen(R.dimen.modal_view_round_details_winner_size) int winnerSize;
@@ -177,5 +178,6 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         playButton.setVisibility(View.VISIBLE);
         incitationView.setVisibility(View.GONE);
         playButton.sendInvite(opponent);
+        gameExpiredLabel.setVisibility(View.VISIBLE); // game expired ? VISIBLE : GONE
     }
 }

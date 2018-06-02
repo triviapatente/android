@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/rounded_big_white_box">
+        android:background="@drawable/rounded_big_white_box"
+        android:id="@+id/linearLayout">
         <TextView
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
@@ -106,4 +107,16 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/gameExpiredLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/game_ended_game_epired_text_horizontal_margin"
+        android:layout_marginRight="@dimen/game_ended_game_epired_text_horizontal_margin"
+        android:layout_marginTop="@dimen/game_ended_game_epired_text_top_margin"
+        android:text="@string/game_ended_expired_game"
+        android:textAlignment="center" />
 </RelativeLayout>
