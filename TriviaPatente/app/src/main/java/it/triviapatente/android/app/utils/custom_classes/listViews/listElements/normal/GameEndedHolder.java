@@ -178,6 +178,6 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         playButton.setVisibility(View.VISIBLE);
         incitationView.setVisibility(View.GONE);
         playButton.sendInvite(opponent);
-        gameExpiredLabel.setVisibility(View.VISIBLE); // game expired ? VISIBLE : GONE
+        gameExpiredLabel.setVisibility(response.game.expired ? View.VISIBLE : View.GONE);
     }
 }
