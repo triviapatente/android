@@ -8,6 +8,8 @@
     <color name="mainColorDark">#0182FF</color>
     <color name="mainColorDark2">#0170FF</color>
     <color name="mainColorDark2Alpha">#300170FF</color>
+    <color name="quizButtonBackground">#e9f8fe</color>
+    <color name="quizButtonBackgroundWithAlpha">#aae9f8fe</color>
     <color name="mainColorPressed">#00a0ff</color>
     <color name="menuColor">#2D91E0</color>
     <color name="menuColorDark">#2D81E0</color>

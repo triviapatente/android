@@ -5,77 +5,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
 
-    <fragment
-        android:name="it.triviapatente.android.app.views.game_page.FragmentGameHeader"
-        android:id="@+id/gameHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/play_round_content_margin"/>
-
-    <LinearLayout
-        android:id="@+id/quizPanel"
-        android:layout_below="@+id/gameHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
-
-        <!-- quiz buttons -->
-        <Button
-            android:layout_width="@dimen/play_round_button_panel_button_size"
-            android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/firstQuizButton"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_play_round_no_answer_selected"
-            android:padding="0dp"
-            android:gravity="center"
-            android:textSize="@dimen/TPTextSizeMedium"/>
-
-        <Button
-            android:layout_width="@dimen/play_round_button_panel_button_size"
-            android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/secondQuizButton"
-            android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-            android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_play_round_no_answer"
-            android:padding="0dp"
-            android:gravity="center"
-            android:textSize="@dimen/TPTextSizeMedium"/>
-
-        <Button
-            android:layout_width="@dimen/play_round_button_panel_button_size"
-            android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/thirdQuizButton"
-            android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-            android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_play_round_no_answer"
-            android:padding="0dp"
-            android:gravity="center"
-            android:textSize="@dimen/TPTextSizeMedium"/>
-
-        <Button
-            android:layout_width="@dimen/play_round_button_panel_button_size"
-            android:layout_height="@dimen/play_round_button_panel_button_size"
-            android:id="@+id/fourthQuizButton"
-            android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-            android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_play_round_no_answer"
-            android:padding="0dp"
-            android:gravity="center"
-            android:textSize="@dimen/TPTextSizeMedium"/>
-
-    </LinearLayout>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/quizzes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/play_round_content_margin"
         android:layout_marginBottom="@dimen/play_round_content_margin"
-        android:layout_below="@id/quizPanel"
         android:layout_above="@id/gameOptions"/>
 
     <fragment

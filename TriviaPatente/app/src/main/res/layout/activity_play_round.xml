@@ -7,16 +7,16 @@
     android:id="@+id/activityContainer"
     tools:context="it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity">
     <include
-        layout="@layout/toolbar"
+        layout="@layout/play_round_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:id="@+id/toolbar"/>
+        android:id="@+id/toolbar_layout"/>
 
     <include layout="@layout/content_play_round"
         android:id="@+id/game_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/toolbar_layout"
         android:layout_above="@+id/adView"/>
 
     <com.google.android.gms.ads.AdView

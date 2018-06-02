@@ -5,19 +5,68 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_centerInParent="true"
-        android:layout_height="@dimen/quiz_box_height"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginRight="@dimen/quiz_box_margin_horizontal"
         android:layout_marginLeft="@dimen/quiz_box_margin_horizontal"
         android:background="@drawable/rounded_white_box"
+        android:padding="@dimen/quiz_padding"
         android:orientation="vertical">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/roundNameView"
+                    android:textSize="@dimen/TPTextSizeVerySmall"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/header_quiz_height"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                    android:layout_alignParentLeft="true"
+                    android:text="Round 1"/>
+                <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
+                    android:id="@+id/categoryImageView"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_margin="5dp"
+                    android:layout_toLeftOf="@id/categoryNameView"
+                    android:layout_toStartOf="@id/categoryNameView"/>
+                <TextView
+                    android:id="@+id/categoryNameView"
+                    android:textSize="@dimen/TPTextSizeVerySmall"
+                    android:textColor="@color/vpi__bright_foreground_disabled_holo_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/header_quiz_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="Opponent"/>
+            </RelativeLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
+                android:id="@+id/opponentImageView"
+                android:layout_width="@dimen/header_quiz_height"
+                android:layout_height="@dimen/header_quiz_height" />
+            <TextView
+                android:id="@+id/opponentNameView"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="@dimen/TPTextSizeVerySmall"
+                android:textColor="@color/vpi__bright_foreground_disabled_holo_light"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/header_quiz_height"
+                android:text="Categoria 1"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/quizDescriptionBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/quiz_description_box_padding_vertical"
             android:layout_marginLeft="@dimen/quiz_description_box_padding_horizontal"
@@ -25,29 +74,19 @@
 
             <it.triviapatente.android.app.utils.custom_classes.images.TPExpandableImageView
                 android:id="@+id/quizImage"
-                android:layout_width="@dimen/quiz_image_size_small"
-                android:transitionName="expand"
-                android:layout_height="@dimen/quiz_image_size_small"
-                android:layout_marginRight="@dimen/quiz_description_margin"/>
+                android:layout_width="@dimen/quiz_image_size_big"
+                android:layout_height="@dimen/quiz_image_size_big"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/quizDescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textSize="@dimen/TPTextSizeSmall"
                 android:textColor="@color/quizTextColor"
                 android:scrollbars = "vertical"/>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/mainColor"
-            android:layout_marginLeft="@dimen/quiz_separator_margin_horizontal"
-            android:layout_marginRight="@dimen/quiz_separator_margin_horizontal"
-            android:layout_marginTop="@dimen/quiz_description_box_padding_vertical"
-            android:layout_marginBottom="@dimen/quiz_true_false_padding_vertical"/>
 
         <LinearLayout
             android:id="@+id/quizAnswerBox"
@@ -57,30 +96,33 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/quiz_true_false_padding_vertical">
             <RelativeLayout
-                android:layout_width="@dimen/quiz_true_false_button_size"
-                android:layout_height="@dimen/quiz_true_false_button_size">
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/quiz_true_false_height">
                 <it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton
                     android:id="@+id/trueButton"
                     android:layout_height="match_parent"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/quiz_true_false_width"
                     android:background="@drawable/button_true_false"
-                    android:text="V"
+                    android:text="Vero"
+                    android:textStyle="bold"
                     android:textColor="@color/main_color_on_white"
-                    android:textSize="@dimen/TPTextSizeLarge" />
+                    android:textSize="@dimen/TPTextSizeMedium" />
             </RelativeLayout>
             <RelativeLayout
-                android:layout_width="@dimen/quiz_true_false_button_size"
-                android:layout_height="@dimen/quiz_true_false_button_size"
-                android:layout_marginLeft="@dimen/quiz_true_false_margin">
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/quiz_true_false_height"
+                android:layout_marginLeft="@dimen/quiz_true_false_margin"
+                android:layout_marginStart="@dimen/quiz_true_false_margin">
 
                 <it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton
                     android:id="@+id/falseButton"
                     android:layout_height="match_parent"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/quiz_true_false_width"
                     android:background="@drawable/button_true_false"
-                    android:text="F"
+                    android:text="Falso"
+                    android:textStyle="bold"
                     android:textColor="@color/main_color_on_white"
-                    android:textSize="@dimen/TPTextSizeLarge"/>
+                    android:textSize="@dimen/TPTextSizeMedium"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

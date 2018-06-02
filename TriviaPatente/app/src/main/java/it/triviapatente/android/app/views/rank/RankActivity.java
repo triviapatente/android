@@ -302,7 +302,7 @@ public class RankActivity extends TPActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    RankActivity.this.doSearch(searchBar.getText().toString());
+                    RankActivity.this.callSearch(searchBar.getText().toString());
                     TPUtils.hideKeyboard(RankActivity.this, dummyLayout);
                 }
                 return false;
@@ -319,9 +319,21 @@ public class RankActivity extends TPActivity {
             public void afterTextChanged(Editable s) {
                 if(s.toString().equals("")) {
                     loadPlayers();
+                } else {
+                    RankActivity.this.callSearch(searchBar.getText().toString());
                 }
             }
         });
+    }
+
+    protected Call<SuccessUsers> searchCall;
+
+    protected void callSearch(String username) {
+        if(searchCall != null && searchCall.isExecuted()) {
+            if(refreshLayout.isRefreshing()) stopLoading();
+            searchCall.cancel();
+        }
+        doSearch(username);
     }
 
     // TODO unificando qua e in find opponent la chiamata al backend si può togliere l'override di la (per @donadev)
@@ -330,8 +342,8 @@ public class RankActivity extends TPActivity {
             if(username.equals("")) loadPlayers();
             else {
                 startLoading();
-                Call<SuccessUsers> call = RetrofitManager.getHTTPRankEndpoint().getSearchResult(username);
-                call.enqueue(new TPCallback<SuccessUsers>() {
+                searchCall = RetrofitManager.getHTTPRankEndpoint().getSearchResult(username);
+                searchCall.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
                     public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                         if(response.code() == 200) {
@@ -353,7 +365,7 @@ public class RankActivity extends TPActivity {
                                 .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        doSearch(username);
+                                        callSearch(username);
                                     }
                                 })
                                 .show();

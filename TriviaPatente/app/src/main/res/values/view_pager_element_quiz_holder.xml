@@ -2,13 +2,16 @@
 <resources>
     <dimen name="quiz_box_height">275dp</dimen>
     <dimen name="quiz_image_size_small">60dp</dimen>
+    <dimen name="header_quiz_height">20dp</dimen>
+    <dimen name="quiz_padding">10dp</dimen>
     <dimen name="quiz_image_size_big">150dp</dimen>
     <dimen name="quiz_description_margin">20dp</dimen>
     <dimen name="quiz_separator_margin_horizontal">15dp</dimen>
     <dimen name="quiz_box_margin_horizontal">20dp</dimen>
     <dimen name="quiz_box_margin_vertical">35dp</dimen>
-    <dimen name="quiz_true_false_button_size">50dp</dimen>
-    <dimen name="quiz_true_false_margin">30dp</dimen>
+    <dimen name="quiz_true_false_margin">15dp</dimen>
+    <dimen name="quiz_true_false_width">120dp</dimen>
+    <dimen name="quiz_true_false_height">30dp</dimen>
     <dimen name="quiz_true_false_padding_vertical">15dp</dimen>
     <dimen name="quiz_description_box_padding_vertical">10dp</dimen>
     <dimen name="quiz_description_box_padding_horizontal">20dp</dimen>

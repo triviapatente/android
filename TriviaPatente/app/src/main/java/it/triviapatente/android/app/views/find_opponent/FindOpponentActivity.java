@@ -146,8 +146,8 @@ public class FindOpponentActivity extends RankActivity {
             if(username.equals("")) loadPlayers();
             else {
                 startLoading();
-                Call<SuccessUsers> call = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
-                call.enqueue(new TPCallback<SuccessUsers>() {
+                searchCall = RetrofitManager.getHTTPGameEndpoint().getSearchResult(username);
+                searchCall.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
                     public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
                         if(response.code() == 200) {
@@ -169,7 +169,7 @@ public class FindOpponentActivity extends RankActivity {
                                 .setAction(httpConnectionErrorRetryButton, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        doSearch(username);
+                                        callSearch(username);
                                     }
                                 })
                                 .show();

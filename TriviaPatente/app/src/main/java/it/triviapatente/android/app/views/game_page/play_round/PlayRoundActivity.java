@@ -2,15 +2,19 @@ package it.triviapatente.android.app.views.game_page.play_round;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.Toast;
@@ -44,10 +48,10 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
     @BindViews({R.id.firstQuizButton, R.id.secondQuizButton, R.id.thirdQuizButton, R.id.fourthQuizButton}) List<Button> quizButtons;
     QuizzesPagerAdapter quizzesAdapter;
     // quiz button background management
-    @DrawableRes int noAnswerSelectedRes = R.drawable.button_play_round_no_answer_selected, noAnswerRes = R.drawable.button_play_round_no_answer,
-                     redRes = R.drawable.button_play_round_red, redSelectedRes = R.drawable.button_play_round_red_selected,
-                     greenRes = R.drawable.button_play_round_green, greenSelectedRes = R.drawable.button_play_round_green_selected;
-    Pair<Drawable, Drawable>[] quizButtonsBackgrounds;
+    @DrawableRes int noAnswerRes = R.drawable.button_play_round_no_answer,
+                     redRes = R.drawable.button_play_round_red,
+                     greenRes = R.drawable.button_play_round_green;
+    Drawable[] quizButtonsBackgrounds;
     // quiz send answer
     SocketCallback<SuccessAnsweredCorrectly> answerSocketCallback = new SocketCallback<SuccessAnsweredCorrectly>() {
         @Override
@@ -161,26 +165,22 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
     }
 
     private void initQuizPanelButtons() {
-        quizButtonsBackgrounds = new Pair[quizButtons.size()];
+        quizButtonsBackgrounds = new Drawable[quizButtons.size()];
         for(int position = 0; position < quizButtons.size(); position++) {
             Button b = quizButtons.get(position);
             b.setOnClickListener(this);
             Quiz quiz = quizzesAdapter.quizzesList.get(position);
             b.setText(String.valueOf(currentRound.number * 4 + position - 3)); // as (number - 1) * 4 + position + 1
-            @DrawableRes int backgroundRes, backgroundSelectedRes;
+            @DrawableRes int backgroundRes;
             if(quiz.my_answer == null) {
                 backgroundRes = noAnswerRes;
-                backgroundSelectedRes = noAnswerSelectedRes;
             } else if(quiz.answered_correctly == true) {
                 backgroundRes = greenRes;
-                backgroundSelectedRes = greenSelectedRes;
             } else {
                 backgroundRes = redRes;
-                backgroundSelectedRes = redSelectedRes;
             }
-            Pair<Drawable, Drawable> backgroundPair = new Pair<>(ContextCompat.getDrawable(this, backgroundRes), ContextCompat.getDrawable(this, backgroundSelectedRes));
-            quizButtonsBackgrounds[position] = backgroundPair;
-            b.setBackground(backgroundPair.first);
+            quizButtonsBackgrounds[position] = ContextCompat.getDrawable(this, backgroundRes);
+            b.setBackground(quizButtonsBackgrounds[position]);
         }
     }
 
@@ -193,12 +193,13 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            quizzesAdapter = new QuizzesPagerAdapter(quizzes);
+                            quizzesAdapter = new QuizzesPagerAdapter(quizzes, currentRound, currentCategory, opponent);
                             quizzesViewPager.setAdapter(quizzesAdapter);
                             initQuizPanelButtons();
                             int position = getNextCurrentItem(0);
                             quizButtons.get(position).callOnClick();
                             quizzesViewPager.setCurrentItem(position);
+                            setSelected(position);
                         }
                     });
                 } else {
@@ -215,10 +216,10 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         });
     }
 
-    Integer lastSelectedButtonPosition = null;
+    int lastSelectedButtonPosition = -1;
     @Override
     public void onClick(View v) {
-        int position;
+        final int position;
         switch (v.getId()) {
             case R.id.firstQuizButton: position = 0; break;
             case R.id.secondQuizButton: position = 1; break;
@@ -226,12 +227,29 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
             case R.id.fourthQuizButton: position = 3; break;
             default: return;
         }
+        if(lastSelectedButtonPosition == position) return;
         quizzesViewPager.setCurrentItem(position);
-        if(lastSelectedButtonPosition != null) {
-            quizButtons.get(lastSelectedButtonPosition).setBackground(quizButtonsBackgrounds[lastSelectedButtonPosition].first);
+        if(lastSelectedButtonPosition != -1) {
+            quizButtons.get(lastSelectedButtonPosition).setBackground(quizButtonsBackgrounds[lastSelectedButtonPosition]);
+            clearSelection(lastSelectedButtonPosition);
         }
+        setSelected(position);
         lastSelectedButtonPosition = position;
-        quizButtons.get(position).setBackground(quizButtonsBackgrounds[position].second);
+    }
+    private final float BIG_SCALE = 1.3f;
+    private final float DEFAULT_SCALE = 1;
+    private final int BIG_ELEVATION = 2;
+    private final int DEFAULT_ELEVATION = 0;
+    private int DURATION = 300;
+    private Interpolator interpolator = new AccelerateDecelerateInterpolator();
+    private void setSelected(int position) {
+        ViewCompat.setElevation(quizButtons.get(position), BIG_ELEVATION);
+        quizButtons.get(position).animate().scaleX(BIG_SCALE).scaleY(BIG_SCALE).setInterpolator(interpolator).setDuration(DURATION);
+    }
+    private void clearSelection(int position) {
+        ViewCompat.setElevation(quizButtons.get(position), DEFAULT_ELEVATION);
+
+        quizButtons.get(position).animate().scaleX(DEFAULT_SCALE).scaleY(DEFAULT_SCALE).setInterpolator(interpolator).setDuration(DURATION);
     }
 
     private void setButtonColorFromAnswer(final int position, final boolean isCorrect) {
@@ -241,16 +259,11 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                 @DrawableRes int backgroundRes, backgroundSelectedRes;
                 if(isCorrect) {
                     backgroundRes = greenRes;
-                    backgroundSelectedRes = greenSelectedRes;
                 } else {
                     backgroundRes = redRes;
-                    backgroundSelectedRes = redSelectedRes;
                 }
-                Pair<Drawable, Drawable> backgroundPair = new Pair<>(ContextCompat.getDrawable(
-                        PlayRoundActivity.this, backgroundRes), ContextCompat.getDrawable(PlayRoundActivity.this, backgroundSelectedRes)
-                );
-                quizButtonsBackgrounds[position] = backgroundPair;
-                quizButtons.get(position).setBackground(backgroundPair.second);
+                quizButtonsBackgrounds[position] = ContextCompat.getDrawable(
+                        PlayRoundActivity.this, backgroundRes);
             }
         });
     }

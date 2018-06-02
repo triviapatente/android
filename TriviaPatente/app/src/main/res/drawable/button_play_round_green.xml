@@ -7,7 +7,7 @@
         android:top="@dimen/play_round_button_panel_button_shadow"
         android:bottom="@dimen/play_round_button_panel_button_shadow">
         <shape android:shape="oval">
-            <solid android:color="@color/greenOpaqueDark"/>
+            <solid android:color="@android:color/white"/>
             <stroke
                 android:width="@dimen/play_round_button_panel_button_border"
                 android:color="@color/greenOpaqueDark"/>
@@ -15,7 +15,7 @@
     </item>
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/greenOpaque"/>
+            <solid android:color="@android:color/white"/>
             <stroke
                 android:width="@dimen/play_round_button_panel_button_border"
                 android:color="@color/greenOpaqueDark"/>

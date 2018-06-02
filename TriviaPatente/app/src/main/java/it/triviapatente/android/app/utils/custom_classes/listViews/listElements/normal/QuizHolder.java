@@ -15,14 +15,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.custom_classes.animation.ResizeAnimation;
 import it.triviapatente.android.app.utils.custom_classes.animation.TranslateAnimation;
 import it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
+import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
 import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
+import it.triviapatente.android.models.auth.User;
+import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Quiz;
+import it.triviapatente.android.models.game.Round;
 
 /**
  * Created by Antonio on 24/12/16.
@@ -36,14 +44,25 @@ public class QuizHolder implements View.OnClickListener{
     private TextView quizDescription;
     private LoadingButton trueButton, falseButton;
     private View itemView;
+    private TextView roundNameView;
+    private TextView categoryNameView;
+    private RoundedImageView categoryImageView;
+    private TextView opponentNameView;
+    private RoundedImageView opponentImageView;
     private Context context;
     private Quiz element;
+    private Round round;
+    private Category category;
+    private User opponent;
     private LinearLayout quizDescriptionBox;
     private String baseUrl;
 
-    public QuizHolder(PlayRoundActivity context, Quiz quizElement) {
+    public QuizHolder(PlayRoundActivity context, Quiz quizElement, Round round, Category category, User opponent) {
         itemView = LayoutInflater.from(context).inflate(R.layout.view_pager_element_quiz_holder, null, false);
         this.context = context;
+        this.round = round;
+        this.category = category;
+        this.opponent = opponent;
         init();
         bind(quizElement);
     }
@@ -57,6 +76,11 @@ public class QuizHolder implements View.OnClickListener{
         quizDescriptionBox = (LinearLayout) itemView.findViewById(R.id.quizDescriptionBox);
         trueButton = (LoadingButton) itemView.findViewById(R.id.trueButton);
         falseButton = (LoadingButton) itemView.findViewById(R.id.falseButton);
+        roundNameView = itemView.findViewById(R.id.roundNameView);
+        categoryNameView = itemView.findViewById(R.id.categoryNameView);
+        categoryImageView = itemView.findViewById(R.id.categoryImageView);
+        opponentNameView = itemView.findViewById(R.id.opponentNameView);
+        opponentImageView = itemView.findViewById(R.id.opponentImageView);
         // image resize and translate animation
         setAnimations();
         // setting elements
@@ -64,6 +88,12 @@ public class QuizHolder implements View.OnClickListener{
         //quizImage.setOnClickListener(this);
         trueButton.setOnClickListener(this);
         falseButton.setOnClickListener(this);
+
+        roundNameView.setText("Round " + round.number);
+        categoryNameView.setText(category.hint);
+        opponentNameView.setText(opponent.toString());
+        TPUtils.picasso.load(TPUtils.getCategoryImageFromID(context, category.id)).into(categoryImageView);
+        TPUtils.injectUserImage(context, opponent, opponentImageView);
     }
 
     private void setAnimations() {
@@ -170,9 +200,9 @@ public class QuizHolder implements View.OnClickListener{
 
     public void alreadyAnswered(boolean answer) {
         if(answer) {
-            setButtonClicked(trueButton);
+            setButtonClicked(trueButton, false);
         } else {
-            setButtonClicked(falseButton);
+            setButtonClicked(falseButton, false);
         }
         setButtonClickable(false);
     }
@@ -198,7 +228,7 @@ public class QuizHolder implements View.OnClickListener{
                 clicked.stopLoading();
             }
         });
-        setButtonClicked(clicked);
+        setButtonClicked(clicked, true);
         // disable clicks
         setButtonClickable(false);
     }
@@ -213,10 +243,10 @@ public class QuizHolder implements View.OnClickListener{
         }
     }
 
-    private void setButtonClicked(LoadingButton btn) {
+    private void setButtonClicked(LoadingButton btn, Boolean loading) {
         btn.setBackground(ContextCompat.getDrawable(context, R.drawable.button_true_or_false_clicked));
         btn.setTextColor(Color.WHITE);
-        btn.startLoading();
+        if(loading) btn.startLoading();
     }
 
     private void setButtonUnClicked(LoadingButton btn) {

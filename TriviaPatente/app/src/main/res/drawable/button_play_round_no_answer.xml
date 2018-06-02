@@ -2,18 +2,18 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/grey"/>
+            <solid android:color="@android:color/white"/>
             <stroke
                 android:width="@dimen/play_round_button_panel_button_border"
-                android:color="@color/greyDark"/>
+                android:color="@color/grey"/>
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/greyDark"/>
+            <solid android:color="@android:color/white"/>
             <stroke
                 android:width="@dimen/play_round_button_panel_button_border"
-                android:color="@color/greyDark"/>
+                android:color="@color/grey"/>
         </shape>
     </item>
 </selector>

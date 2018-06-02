@@ -39,13 +39,13 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:textSize="@dimen/TPTextSizeMedium1"/>
+                android:textSize="@dimen/TPTextSizeMedium"/>
 
             <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/TPTextSizeSmall"
+                android:textSize="@dimen/TPTextSizeVerySmall"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textColor="@color/vpi__bright_foreground_disabled_holo_light"/>
@@ -80,6 +80,7 @@
             android:id="@+id/opponent_name_view"
             android:textColor="@color/vpi__bright_foreground_disabled_holo_light"
             android:gravity="center"
+            android:textSize="@dimen/TPTextSizeVerySmall"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <LinearLayout
@@ -120,6 +121,7 @@
             android:layout_marginRight="@dimen/list_item_margin"
             android:layout_marginEnd="@dimen/list_item_margin"
             android:gravity="center"
+            android:textSize="@dimen/TPTextSizeVerySmall"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:textColor="@color/vpi__bright_foreground_disabled_holo_light"

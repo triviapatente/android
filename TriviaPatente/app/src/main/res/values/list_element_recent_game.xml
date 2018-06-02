@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="recent_game_height">120dp</dimen>
+    <dimen name="recent_game_height">100dp</dimen>
     <dimen name="recent_game_old_height">65dp</dimen>
     <dimen name="traffic_lights_height">40dp</dimen>
     <dimen name="traffic_lights_width">20dp</dimen>

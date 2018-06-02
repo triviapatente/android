@@ -7,7 +7,7 @@
     <string name="button_rank">Classifica</string>
     <string name="button_stats">Statistiche</string>
     <string name="button_shop">Negozio</string>
-    <dimen name="main_page_button_height">50dp</dimen>
+    <dimen name="main_page_button_height">45dp</dimen>
 
     <string name="extra_firebase_opponent_param">extra_firebase_opponent</string>
     <string name="extra_firebase_game_param">extra_firebase_game</string>
@@ -17,7 +17,7 @@
     <string name="friends">Amici: </string>
     <string name="friendsNotAvailable">Entra con facebook!</string>
     <!-- main page dimen -->
-    <dimen name="main_page_option_margin">25dp</dimen>
+    <dimen name="main_page_option_margin">15dp</dimen>
     <dimen name="main_page_image_size">30dp</dimen>
     <dimen name="main_button_margin">20dp</dimen>
     <dimen name="main_button_margin_horizontal">15dp</dimen>

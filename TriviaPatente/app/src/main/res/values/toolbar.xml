@@ -16,7 +16,7 @@
     <string name="drawerLogoutOption">Logout</string>
     <dimen name="drawerBigPictureSize">125dp</dimen>
 
-    <dimen name="tp_toolbar_height">70dp</dimen>
+    <dimen name="tp_toolbar_height">50dp</dimen>
     <dimen name="back_button_width">10dp</dimen>
     <dimen name="back_button_height">17dp</dimen>
     <dimen name="tp_toolbar_margin">11dp</dimen>

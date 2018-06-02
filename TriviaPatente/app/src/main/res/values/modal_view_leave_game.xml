@@ -11,5 +11,5 @@
     <dimen name="modal_view_leave_game_button_height">35dp</dimen>
     <dimen name="modal_view_leave_game_button_margin_inner">20dp</dimen>
     <string name="modal_view_leave_game_button_stay_text">Rimani</string>
-    <string name="modal_view_leave_game_button_exit_text">Esci</string>
+    <string name="modal_view_leave_game_button_exit_text">Arrenditi</string>
 </resources>

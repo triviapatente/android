@@ -12,6 +12,7 @@
     <dimen name="circle_indicator_size">4.5dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
     <dimen name="corner_big_radius">15dp</dimen>
+    <dimen name="corner_bigger_radius">25dp</dimen>
     <dimen name="quotes_width">300dp</dimen>
     <!--alert box-->
     <dimen name="alert_height">100dp</dimen>
