@@ -1,6 +1,7 @@
 package it.triviapatente.android.app.views.game_page;
 
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +11,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -38,6 +43,8 @@ public class FragmentGameOptions extends Fragment {
 
     @BindView(R.id.gameDetailsButton) Button gameDetailsButton;
     @BindView(R.id.gameLeaveButton) Button gameLeaveButton;
+    @BindView(R.id.gameBellButton) Button gameBellButton;
+    @BindView(R.id.gameBellTextView) TextView gameBellTextView;
 
     public FragmentGameOptions() {}
 
@@ -49,6 +56,7 @@ public class FragmentGameOptions extends Fragment {
     private void applyEnabled() {
         gameDetailsButton.setEnabled(isEnabled);
         gameLeaveButton.setEnabled(isEnabled);
+        gameBellButton.setEnabled(isEnabled);
     }
     public void enable() {
         isEnabled = true;
@@ -66,9 +74,13 @@ public class FragmentGameOptions extends Fragment {
     private int getGameDetailsButtonVisibility() {
         return isFirstRound() ? View.GONE : View.VISIBLE;
     }
+    private int getGameBellButtonVisibility() {
+        return isFirstRound() ? View.GONE : View.VISIBLE;
+    }
     public void setRound(Round round) {
         activity.currentRound = round;
         gameDetailsButton.setVisibility(getGameDetailsButtonVisibility());
+        gameBellButton.setVisibility(getGameBellButtonVisibility());
     }
 
     @Override
@@ -77,6 +89,7 @@ public class FragmentGameOptions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_options, container, false);
         ButterKnife.bind(this, view);
         enable();
+        gameBellTextView.setText("Da completare con tempo rimanente");
         return view;
     }
 
@@ -108,6 +121,17 @@ public class FragmentGameOptions extends Fragment {
         activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
         //showing modal
         showGameLeaveModal();
+    }
+
+    @OnClick(R.id.gameBellButton)
+    public void gameBellButtonClick() {
+        ObjectAnimator
+                .ofFloat(gameBellButton, "rotation", 0, 25, -25, 25, -25, 0)
+                .setDuration(800)
+                .start();
+
+        // TODO:
+        gameBellTextView.setText("Avversario notificato oppure no?"); // stringhe già create game_user_notification_user_already_notified, game_user_notification_user_notified
     }
 
     private void showGameLeaveModal() {

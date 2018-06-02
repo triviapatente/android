@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/gameOptions"
     android:gravity="center_horizontal">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gameOptions"
+        android:gravity="center_horizontal">
 
     <!--<Button
         android:id="@+id/gameChatButton"
@@ -21,9 +27,27 @@
         android:layout_marginRight="@dimen/button_game_panel_inner_margin"/>
 
     <Button
+        android:id="@+id/gameBellButton"
+        android:layout_width="@dimen/button_game_panel_size"
+        android:layout_height="@dimen/button_game_panel_size"
+        android:layout_marginRight="@dimen/button_game_panel_inner_margin"
+        android:background="@drawable/button_game_bell" />
+
+    <Button
         android:id="@+id/gameLeaveButton"
         android:layout_width="@dimen/button_game_panel_size"
         android:layout_height="@dimen/button_game_panel_size"
         android:background="@drawable/button_game_leave"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/gameBellTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/game_options_text_margin_top"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/game_user_notification_user_already_notified" />
 
 </LinearLayout>
