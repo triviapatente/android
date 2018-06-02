@@ -59,6 +59,6 @@ public class PlayerRankHolder extends TPHolder<User> {
         else if(element.position == 3) positionTextField.setText(TPUtils.translateEmoticons(context.getString(R.string.third_position)));
         else positionTextField.setText(String.valueOf(element.position));
         // set score
-        scoreTextField.setText(String.valueOf(element.score));
+        scoreTextField.setText(String.valueOf(element.score).concat(" km percorsi"));
     }
 }

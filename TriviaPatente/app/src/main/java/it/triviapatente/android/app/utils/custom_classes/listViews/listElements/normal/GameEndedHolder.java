@@ -34,7 +34,6 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.titleView) TextView titleView;
     @BindView(R.id.scoreIncrementView) TextView scoreIncrementView;
-    @BindView(R.id.scoreIncrementArrow) ImageView scoreIncrementArrow;
     @BindView(R.id.winnerImage) RoundedImageView winnerImage;
     @BindView(R.id.loserImage) RoundedImageView loserImage;
     @BindView(R.id.loserEmojii) TextView loserEmojiiView;
@@ -169,10 +168,8 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         resizeImages(response);
         titleView.setText(titleFor(response));
         Integer increment = getScoreIncrement(response);
-        scoreIncrementView.setText(formatIncrement(increment));
+        scoreIncrementView.setText(formatIncrement(increment).concat(" km"));
         scoreIncrementView.setVisibility(View.VISIBLE);
-        scoreIncrementArrow.setImageResource(arrowResourceFor(increment));
-        scoreIncrementArrow.setVisibility(View.VISIBLE);
         TPUtils.injectUserImage(context, currentUserIsLeft(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage);
         TPUtils.injectUserImage(context, currentUserIsLeft(response) ? opponent : SharedTPPreferences.currentUser(), loserImage);
         if (isWinning(response) || isAnnulled(response)) playButton.setReplayNow();

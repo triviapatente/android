@@ -56,10 +56,10 @@
             android:id="@+id/recentGameButton"
             android:layout_width="@dimen/play_button_width"
             android:layout_height="@dimen/play_button_heigth"
-            android:padding="0dp"
             android:layout_marginRight="@dimen/list_item_margin"
-            android:textSize="@dimen/TPTextSizeSmall"
-            android:textAlignment="center" />
+            android:padding="0dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/TPTextSizeSmall" />
 
     </LinearLayout>
     <SeekBar
