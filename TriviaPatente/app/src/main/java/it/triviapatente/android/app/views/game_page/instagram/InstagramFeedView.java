@@ -1,11 +1,9 @@
-package it.triviapatente.android.app.views.game_page;
+package it.triviapatente.android.app.views.game_page.instagram;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -19,8 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import it.triviapatente.android.R;
-import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.QuizHolder;
-import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
 import it.triviapatente.android.models.game.Quiz;
 
 /**

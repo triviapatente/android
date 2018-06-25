@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.ValueCallback;
 
 import it.triviapatente.android.R;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.QuizSheetCallback;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.GameEndedHolder;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.QuestionHolder;
 import it.triviapatente.android.models.auth.User;
@@ -23,14 +25,17 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private Context context;
     private RecyclerView answerList;
+    private QuizSheetCallback onItemSelect;
     public void setAnswerList(RecyclerView candidate) {
         this.answerList = candidate;
     }
     private SuccessRoundDetails response;
     private User opponent;
-
     public RoundDetailsQuestionAdapter(Context context) {
         this.context = context;
+    }
+    public void setOnItemSelectListener(QuizSheetCallback onItemSelect) {
+        this.onItemSelect = onItemSelect;
     }
 
     public void notifyDataSetChanged(SuccessRoundDetails response, User opponent) {
@@ -42,7 +47,7 @@ public class RoundDetailsQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_QUESTION)
-            return QuestionHolder.newHolder(context, answerList.getHeight() / 4);
+            return QuestionHolder.newHolder(context, answerList.getHeight() / 4, onItemSelect);
         else
             return GameEndedHolder.newHolder(context, answerList.getHeight());
     }

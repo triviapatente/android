@@ -1,4 +1,4 @@
-package it.triviapatente.android.app.views.game_page;
+package it.triviapatente.android.app.views.game_page.instagram;
 
 import android.app.Fragment;
 import android.os.Bundle;

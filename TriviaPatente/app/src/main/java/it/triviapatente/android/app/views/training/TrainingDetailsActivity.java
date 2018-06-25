@@ -18,6 +18,7 @@ import butterknife.BindView;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.QuizSheetCallback;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.TrainingHolder;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsQuestionAdapter;
 import it.triviapatente.android.http.utils.RetrofitManager;
@@ -34,6 +35,7 @@ public class TrainingDetailsActivity extends TPActivity {
     @BindView(R.id.trainingDetailsDate) TextView trainingDetailsDate;
     @BindView(R.id.trainingDetailsIcon) View trainingDetailsIcon;
     @BindView(R.id.trainingDetailsQuestionList) RecyclerView questionList;
+    @BindView(R.id.roundDetailsSheet) View roundDetailsSheet;
 
     @BindString(R.string.training_details_date) String detailsDate;
     @BindString(R.string.training_details_errors_plural) String errorsPlural;
@@ -95,7 +97,7 @@ public class TrainingDetailsActivity extends TPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_details);
-        mAdapter = new TrainingDetailsAdapter(this);
+        mAdapter = new TrainingDetailsAdapter(this, new QuizSheetCallback(roundDetailsSheet));
         mManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         questionList.setLayoutManager(mManager);
         questionList.addItemDecoration(getDivider());

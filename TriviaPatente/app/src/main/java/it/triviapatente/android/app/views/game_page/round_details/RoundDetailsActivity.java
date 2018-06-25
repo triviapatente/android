@@ -5,20 +5,29 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.ValueCallback;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
+
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.QuizSheetCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.RoundDetailsSectionCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.RoundHolder;
@@ -49,6 +58,8 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     @BindView(R.id.sectionList) RecyclerView sectionList;
     @BindView(R.id.answerList) RecyclerView answerList;
+    @BindView(R.id.roundDetailsSheet) View roundDetailsBottomSheet;
+
     @BindString(R.string.activity_round_details_emojii_winner) String winnerEmojii;
     @BindString(R.string.activity_round_details_user_has_left) String opponentHasLeftMessage;
     @BindString(R.string.activity_round_details_user_annulled) String opponentAnnulledMessage;
@@ -199,6 +210,7 @@ public class RoundDetailsActivity extends TPGameActivity {
         sectionList.setAdapter(sectionAdapter);
         answerList.setLayoutManager(answerLayout);
         answerAdapter.setAnswerList(answerList);
+        answerAdapter.setOnItemSelectListener(new QuizSheetCallback(roundDetailsBottomSheet));
         answerList.setAdapter(answerAdapter);
         scrollListener = new RoundDetailsScrollListener(NUMBER_OF_QUESTIONS_PER_ROUND, answerList, sectionList);
         scrollListener.setRoundDetailsSectionCallback(sectionListener);

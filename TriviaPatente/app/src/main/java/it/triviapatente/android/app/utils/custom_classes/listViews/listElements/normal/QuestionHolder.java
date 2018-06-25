@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.ValueCallback;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.TPUtils;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.QuizSheetCallback;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Question;
@@ -37,7 +39,7 @@ import butterknife.ButterKnife;
  * Created by donadev on 23/11/17.
  */
 
-public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class QuestionHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.quizImageView) ImageView quizImageView;
     @BindView(R.id.quizNameView) TextView quizNameView;
     @BindView(R.id.quizTrueView) TextView quizTrueView;
@@ -53,20 +55,21 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
     private Context context;
     private User currentUser = SharedTPPreferences.currentUser();
     private User opponent;
+    private QuizSheetCallback onSelectItem;
 
     private int cellHeight;
 
-    public static QuestionHolder newHolder(Context context, int cellHeight) {
+    public static QuestionHolder newHolder(Context context, int cellHeight, QuizSheetCallback onSelectItem) {
         View v = LayoutInflater.from(context).inflate(R.layout.gamedetails_quiz_view_holder, null, false);
-        return new QuestionHolder(context, v, cellHeight);
+        return new QuestionHolder(context, v, cellHeight, onSelectItem);
 
     }
-    public QuestionHolder(Context context, View itemView, int cellHeight) {
+    public QuestionHolder(Context context, View itemView, int cellHeight, QuizSheetCallback onSelectItem) {
         super(itemView);
         this.context = context;
         this.cellHeight = cellHeight;
+        this.onSelectItem = onSelectItem;
         ButterKnife.bind(this, itemView);
-        quizNameView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     public void setQuizImageWidth(int width) {
@@ -94,13 +97,12 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         return ContextCompat.getColor(context, android.R.color.transparent);
     }
     public void bindForTraining(Quiz quiz) {
-        itemView.setOnClickListener(null);
+        bindInit(quiz);
         noUserAnswersLayout();
         handleQuizImage(quiz);
         quizNameView.setText(quiz.question);
         handleAnswer(quiz.answer);
         itemView.setBackgroundColor(getBackgroundColorForTraining(quiz));
-        setExpanded(true);
     }
     private void handleQuizImage(Quiz quiz) {
         TPUtils.picasso.cancelRequest(quizImageView);
@@ -126,14 +128,22 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
             incorrectGUI(quizFalseView);
         }
     }
-    public void bindForDetails(Quiz quiz, User opponent) {
-        itemView.setOnClickListener(this);
+    private void bindInit(final Quiz quiz) {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onSelectItem != null) onSelectItem.onReceiveValue(quiz);
+            }
+        });
+    }
+    public void bindForDetails(final Quiz quiz, User opponent) {
+        bindInit(quiz);
+        setExpanded(false);
         this.opponent = opponent;
         handleQuizImage(quiz);
         quizNameView.setText(quiz.question);
         handleAnswer(quiz.answer);
         processAnswers(quiz.answers, quiz);
-        setExpanded(false);
     }
     public void correctGUI(TextView view) {
         view.setBackgroundResource(R.drawable.details_circle_correct_background);
@@ -188,10 +198,10 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     private Boolean isExpanded = false;
 
-    @Override
+    /*@Override
     public void onClick(View v) {
         setExpanded(!isExpanded);
-    }
+    }*/
     public void setExpanded(Boolean expanded) {
         ViewGroup.LayoutParams params = itemView.getLayoutParams();
         if(params == null) params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
@@ -209,10 +219,10 @@ public class QuestionHolder extends RecyclerView.ViewHolder implements View.OnCl
         isExpanded = expanded;
     }
 
-    @Override
+    /*@Override
     public void onGlobalLayout() {
         if(isExpanded) unsetMaxLines();
         else setMaxLines();
-    }
+    }*/
 }
 

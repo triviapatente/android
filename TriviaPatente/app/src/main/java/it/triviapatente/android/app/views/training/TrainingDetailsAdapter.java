@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import it.triviapatente.android.app.utils.custom_classes.callbacks.QuizSheetCallback;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.QuestionHolder;
 import it.triviapatente.android.models.game.Quiz;
 import it.triviapatente.android.models.responses.SuccessQuizzes;
@@ -16,8 +17,10 @@ import it.triviapatente.android.models.responses.SuccessQuizzes;
 public class TrainingDetailsAdapter extends RecyclerView.Adapter<QuestionHolder> {
     private Context context;
     private SuccessQuizzes response;
-    public TrainingDetailsAdapter(Context ctx) {
+    private QuizSheetCallback cb;
+    public TrainingDetailsAdapter(Context ctx, QuizSheetCallback cb) {
         this.context = ctx;
+        this.cb = cb;
     }
     public void setResponse(SuccessQuizzes response) {
         this.response = response;
@@ -26,7 +29,7 @@ public class TrainingDetailsAdapter extends RecyclerView.Adapter<QuestionHolder>
     @NonNull
     @Override
     public QuestionHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return QuestionHolder.newHolder(context, i);
+        return QuestionHolder.newHolder(context, i, cb);
     }
 
     @Override

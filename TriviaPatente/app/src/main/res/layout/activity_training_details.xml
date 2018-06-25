@@ -12,4 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"/>
+
+    <include
+        android:id="@+id/roundDetailsSheet"
+        layout="@layout/round_details_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>
