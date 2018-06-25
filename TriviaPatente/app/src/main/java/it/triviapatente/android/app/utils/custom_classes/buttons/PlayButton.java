@@ -8,6 +8,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +16,15 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.User;
+import it.triviapatente.android.models.game.Game;
 
 /**
  * Created by Antonio on 12/11/16.
  */
-public class PlayButton extends Button implements View.OnClickListener {
+public class PlayButton extends AppCompatButton implements View.OnClickListener {
     // TODO get custom attributes from xml to set state
     // on click
-    Long gameID;
+    Game game;
     User opponent;
     boolean new_game;
 
@@ -38,12 +40,6 @@ public class PlayButton extends Button implements View.OnClickListener {
 
     public PlayButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setOnClickListener(this);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public PlayButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         setOnClickListener(this);
     }
 
@@ -93,8 +89,8 @@ public class PlayButton extends Button implements View.OnClickListener {
         new_game = true;
     }
 
-    public void goToGame(Long gameID, User user) {
-        this.gameID = gameID;
+    public void goToGame(Game game, User user) {
+        this.game = game;
         this.opponent = user;
         new_game = false;
     }
@@ -105,8 +101,8 @@ public class PlayButton extends Button implements View.OnClickListener {
         Context context = getContext();
         if(new_game) {
             intent.putExtra(context.getString(R.string.extra_boolean_game), true);
-        } else if(gameID != null) {
-            intent.putExtra(context.getString(R.string.extra_long_game), gameID);
+        } else if(game != null) {
+            intent.putExtra(context.getString(R.string.extra_string_game), RetrofitManager.gson.toJson(game));
         }
         if(opponent != null) {
             intent.putExtra(context.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(opponent));

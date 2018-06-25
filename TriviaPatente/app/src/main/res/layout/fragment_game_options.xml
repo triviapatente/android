@@ -47,7 +47,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/game_options_text_margin_top"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/game_user_notification_user_already_notified" />
+        android:gravity="center" />
 
 </LinearLayout>

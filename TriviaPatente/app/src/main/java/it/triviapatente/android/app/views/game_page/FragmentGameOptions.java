@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import butterknife.BindInt;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
@@ -28,6 +30,7 @@ import it.triviapatente.android.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
 import it.triviapatente.android.http.modules.game.HTTPGameEndpoint;
 import it.triviapatente.android.http.utils.RetrofitManager;
+import it.triviapatente.android.models.game.Game;
 import it.triviapatente.android.models.game.Round;
 import it.triviapatente.android.models.responses.Success;
 import it.triviapatente.android.models.responses.SuccessDecrement;
@@ -36,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentGameOptions extends Fragment {
@@ -46,12 +50,17 @@ public class FragmentGameOptions extends Fragment {
     @BindView(R.id.gameBellButton) Button gameBellButton;
     @BindView(R.id.gameBellTextView) TextView gameBellTextView;
 
+    @BindInt(R.integer.defaultBellInfoDelay) int defaultBellInfoDelay;
+    private Game game;
+    private Long maxAge;
+    private Boolean ticklingEnabled = false;
     public FragmentGameOptions() {}
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.activity = (TPGameActivity) context;
+        this.ticklingEnabled = false;
     }
     private void applyEnabled() {
         gameDetailsButton.setEnabled(isEnabled);
@@ -75,12 +84,19 @@ public class FragmentGameOptions extends Fragment {
         return isFirstRound() ? View.GONE : View.VISIBLE;
     }
     private int getGameBellButtonVisibility() {
-        return isFirstRound() ? View.GONE : View.VISIBLE;
+        return ticklingEnabled && !isFirstRound() ? View.VISIBLE : View.GONE;
     }
     public void setRound(Round round) {
         activity.currentRound = round;
         gameDetailsButton.setVisibility(getGameDetailsButtonVisibility());
         gameBellButton.setVisibility(getGameBellButtonVisibility());
+        gameBellTextView.setVisibility(getGameBellButtonVisibility());
+    }
+    public void enableTickling(Game game, Long maxAge) {
+        this.game = game;
+        this.ticklingEnabled = true;
+        this.maxAge = maxAge;
+        setDefaultBellInfoText();
     }
 
     @Override
@@ -89,7 +105,7 @@ public class FragmentGameOptions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_options, container, false);
         ButterKnife.bind(this, view);
         enable();
-        gameBellTextView.setText("Da completare con tempo rimanente");
+        setDefaultBellInfoText();
         return view;
     }
 
@@ -123,6 +139,26 @@ public class FragmentGameOptions extends Fragment {
         showGameLeaveModal();
     }
 
+    private void onTickleError() {
+        Snackbar.make(getView(), R.string.httpConnectionError, Snackbar.LENGTH_LONG).setAction(R.string.httpConnectionErrorRetryButton, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameBellButtonClick();
+            }
+        }).show();
+    }
+    private void setDefaultBellInfoText() {
+        if(ticklingEnabled) gameBellTextView.setText(game.getExpirationDescription(getContext(), maxAge));
+    }
+    private void setBellInfoText(int textId) {
+        gameBellTextView.setText(textId);
+        gameBellTextView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setDefaultBellInfoText();
+            }
+        }, defaultBellInfoDelay);
+    }
     @OnClick(R.id.gameBellButton)
     public void gameBellButtonClick() {
         ObjectAnimator
@@ -130,8 +166,24 @@ public class FragmentGameOptions extends Fragment {
                 .setDuration(800)
                 .start();
 
-        // TODO:
-        gameBellTextView.setText("Avversario notificato oppure no?"); // stringhe già create game_user_notification_user_already_notified, game_user_notification_user_notified
+        if(activity.currentRound.alreadyTickled) setBellInfoText(R.string.game_user_notification_user_already_notified);
+        else {
+            RetrofitManager.getHTTPGameEndpoint().tickleGame(activity.currentRound.id).enqueue(new Callback<Success>() {
+                @Override
+                public void onResponse(Call<Success> call, Response<Success> response) {
+                    if (response.body().success) {
+                        setBellInfoText(R.string.game_user_notification_user_notified);
+                    } else {
+                        onTickleError();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Success> call, Throwable t) {
+                    onTickleError();
+                }
+            });
+        }
     }
 
     private void showGameLeaveModal() {

@@ -7,4 +7,5 @@
     <integer name="days_delay_life_popover">13</integer>
     <integer name="days_delay_rate_popover">17</integer>
     <integer name="number_of_rounds">5</integer>
+    <integer name="defaultBellInfoDelay">1000</integer>
 </resources>

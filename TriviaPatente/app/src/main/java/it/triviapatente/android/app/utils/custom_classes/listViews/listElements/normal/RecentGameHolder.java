@@ -76,7 +76,7 @@ public class RecentGameHolder extends TPHolder<Game> {
     @Override
     public void bind(Game element) {
         User opponent = new User(element.opponent_id, element.opponent_username, element.opponent_name, element.opponent_surname, element.opponent_image);
-        playButton.goToGame(element.id, opponent);
+        playButton.goToGame(element, opponent);
         myScoreView.setText(element.myScore + "");
         opponentScoreView.setText(element.opponentScore + "");
         progressBar.setMax(numberOfQuestions);

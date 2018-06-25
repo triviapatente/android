@@ -27,6 +27,7 @@ import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
 import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
+import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Game;
 import it.triviapatente.android.models.responses.RoundUserData;
 import it.triviapatente.android.models.responses.Success;
@@ -81,6 +82,8 @@ public class GameMainPageActivity extends TPGameActivity {
 
     @BindInt(R.integer.number_of_rounds) int numberOfRounds;
 
+    private Game game;
+
     private Boolean isWaiting = false;
     // sockets callbacks
     SocketCallback roundInitCallback = new SocketCallback<SuccessInitRound>() {
@@ -93,6 +96,7 @@ public class GameMainPageActivity extends TPGameActivity {
                         currentRound = response.round;
                         currentCategory = response.category;
                         gameOptions.setRound(currentRound);
+                        gameOptions.enableTickling(game, response.maxAge);
                         GameMainPageActivity.this.processResponse(response);
                     }
                 });
@@ -169,6 +173,11 @@ public class GameMainPageActivity extends TPGameActivity {
 
     private Boolean needsNewGame;
 
+    private void getIntentData() {
+        game = RetrofitManager.gson.fromJson(getIntent().getStringExtra(this.getString(R.string.extra_string_game)), Game.class);
+        if(game != null) gameID = game.id;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,6 +196,7 @@ public class GameMainPageActivity extends TPGameActivity {
         needsNewGame = intent.getBooleanExtra(getString(R.string.extra_boolean_game), false);
         if(needsNewGame) { createGame(); }
         else {
+            getIntentData();
             setOpponentData();
             join_room();
         }
@@ -273,7 +283,7 @@ public class GameMainPageActivity extends TPGameActivity {
             @Override
             public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
                 if(response.code() == 200 && response.body().success) {
-                    Game game = response.body().game;
+                    game = response.body().game;
                     gameID = game.id;
                     opponent = response.body().user;
                     createGameEvent(game);

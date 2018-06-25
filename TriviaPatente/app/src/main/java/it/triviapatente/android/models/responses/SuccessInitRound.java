@@ -23,4 +23,5 @@ public class SuccessInitRound extends Success {
     @SerializedName("opponent_online") public Boolean isOpponentOnline;
     @SerializedName("waiting_for") public User waiting_for;
     @SerializedName("category") public Category category;
+    @SerializedName("max_age") public Long maxAge;
 }

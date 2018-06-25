@@ -19,4 +19,7 @@
     <dimen name="game_header_margin">25dp</dimen>
     <dimen name="game_header_margin_right_image">10dp</dimen>
     <dimen name="game_header_image_size">25dp</dimen>
+    <string name="less_than_hour_expiration">La partità scadrà automaticamente in meno di un\'ora</string>
+    <string name="explicit_expiration_single">La partità scadrà automaticamente tra %d ora</string>
+    <string name="explicit_expiration_plural">La partità scadrà automaticamente tra %d ore</string>
 </resources>

@@ -30,6 +30,10 @@ public interface HTTPGameEndpoint {
     @GET("game/users/suggested")
     Call<SuccessUsers> getSuggestedUsers();
 
+    @FormUrlEncoded
+    @POST("game/tickle")
+    Call<Success> tickleGame(@Field("round") long round_id);
+
     @GET("game/users/search")
     Call<SuccessUsers> getSearchResult(@Query("query") String query);
 

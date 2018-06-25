@@ -26,21 +26,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_change_user_details_margin">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_centerHorizontal="true">
                 <it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView
                     android:id="@+id/bigProfilePicture"
+                    android:layout_centerInParent="true"
                     android:layout_width="@dimen/activity_change_user_details_picture_size"
-                    android:layout_height="@dimen/activity_change_user_details_picture_size"
-                    android:layout_marginRight="@dimen/activity_change_user_details_picture_margin_from_buttons"/>
+                    android:layout_height="@dimen/activity_change_user_details_picture_size"/>
                 <!-- Take picture buttons -->
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/bigProfilePicture"
+                    android:layout_toRightOf="@id/bigProfilePicture"
+                    android:layout_marginStart="@dimen/activity_change_user_details_picture_button_left_margin"
+                    android:layout_marginLeft="@dimen/activity_change_user_details_picture_button_left_margin"
                     android:orientation="vertical">
                     <Button
                         android:id="@+id/takeFromCameraButton"
@@ -56,7 +57,6 @@
                         android:layout_marginBottom="@dimen/activity_change_user_details_picture_button_margin"
                         android:background="@drawable/button_gallery"/>
                 </LinearLayout>
-            </LinearLayout>
         </RelativeLayout>
 
         <TextView

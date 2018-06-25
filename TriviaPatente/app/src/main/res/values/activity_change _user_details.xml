@@ -4,9 +4,10 @@
     <string name="activity_change_user_details_picture_upload_error">Errore nel caricamento della nuova immagine profilo, riprova!</string>
     <string name="activity_change_user_details_picture_chooser_title">Seleziona il file</string>
     <!-- Picture -->
-    <dimen name="activity_change_user_details_picture_size">157dp</dimen>
+    <dimen name="activity_change_user_details_picture_size">220dp</dimen>
     <dimen name="activity_change_user_details_picture_button_size">50dp</dimen>
-    <dimen name="activity_change_user_details_picture_button_margin">19dp</dimen>
+    <dimen name="activity_change_user_details_picture_button_left_margin">-25dp</dimen>
+    <dimen name="activity_change_user_details_picture_button_margin">10dp</dimen>
     <dimen name="activity_change_user_details_picture_margin_from_buttons">40dp</dimen>
     <!-- Name & Surname -->
     <dimen name="activity_change_user_details_field_height">45dp</dimen>
@@ -20,7 +21,7 @@
     <string name="activity_change_user_details_surname_modified">Cognome modificato</string>
     <string name="activity_change_user_details_name_and_surname_modified">Nome e cognome modificati</string>
     <!-- Overall -->
-    <dimen name="activity_change_user_details_margin">30dp</dimen>
+    <dimen name="activity_change_user_details_margin">20dp</dimen>
     <!-- Confirm -->
     <string name="activity_change_user_details_confirm_button_text">Conferma</string>
 

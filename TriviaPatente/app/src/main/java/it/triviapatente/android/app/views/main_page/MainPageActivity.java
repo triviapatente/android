@@ -120,7 +120,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     private void pushRedirect() {
         Intent i = new Intent(this, GameMainPageActivity.class);
         i.putExtra(this.getString(R.string.extra_string_opponent), RetrofitManager.gson.toJson(pushUser));
-        i.putExtra(this.getString(R.string.extra_long_game), pushGame.id);
+        i.putExtra(this.getString(R.string.extra_string_game), RetrofitManager.gson.toJson(pushGame));
 
         startActivity(i);
     }

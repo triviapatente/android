@@ -1,9 +1,15 @@
 package it.triviapatente.android.models.game;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+
+import it.triviapatente.android.R;
 import it.triviapatente.android.models.base.CommonPK;
 
 import org.parceler.Parcel;
+
+import java.util.Date;
 
 /**
  * Created by Antonio on 22/10/16.
@@ -24,6 +30,24 @@ public class Game extends CommonPK {
     @SerializedName("opponent_score") public Integer opponentScore;
     @SerializedName("remaining_answers_count") public Integer remainingAnswersCount;
     @SerializedName("expired") public Boolean expired;
-
     public Game() {}
+
+    public Long getRemainingTime(Long maxAge) {
+        Date creation = getCreatedAt();
+        if(maxAge == null || creation == null) return (long) (60 * 60);
+
+        return maxAge - (new Date().getTime() - creation.getTime());
+    }
+    public String getExpirationDescription(Context ctx, Long maxAge) {
+        Long remaining = getRemainingTime(maxAge);
+        if(remaining < 0) return "";
+        Long hour = (long) 60 * 60;
+        if(remaining < hour) return ctx.getString(R.string.less_than_hour_expiration);
+        Integer hours = (int) (remaining / hour);
+        if(hours == 1) {
+            return ctx.getString(R.string.explicit_expiration_single).replace("%d", "" + hours);
+        } else {
+            return ctx.getString(R.string.explicit_expiration_plural).replace("%d", "" + hours);
+        }
+    }
 }

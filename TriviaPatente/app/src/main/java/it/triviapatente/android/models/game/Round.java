@@ -18,5 +18,8 @@ public class Round extends CommonPK {
     @SerializedName("dealer_id")
     public Long dealer_id;
 
+    @SerializedName("alreadyTickled")
+    public Boolean alreadyTickled;
+
     public Round() {}
 }
