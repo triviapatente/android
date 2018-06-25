@@ -148,7 +148,7 @@ public class FragmentGameOptions extends Fragment {
         }).show();
     }
     private void setDefaultBellInfoText() {
-        if(ticklingEnabled) gameBellTextView.setText(game.getExpirationDescription(getContext(), maxAge));
+        if(ticklingEnabled && game != null) gameBellTextView.setText(game.getExpirationDescription(getContext(), maxAge));
     }
     private void setBellInfoText(int textId) {
         gameBellTextView.setText(textId);
