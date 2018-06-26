@@ -24,6 +24,7 @@ import it.triviapatente.android.app.utils.custom_classes.callbacks.TPCallback;
 import it.triviapatente.android.app.utils.custom_classes.animation.circleLoading.Circle;
 import it.triviapatente.android.app.utils.custom_classes.animation.circleLoading.CircleRotatingAnimation;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
+import it.triviapatente.android.app.views.game_page.instagram.InstagramFeedView;
 import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
 import it.triviapatente.android.http.utils.RetrofitManager;
@@ -49,6 +50,7 @@ public class GameMainPageActivity extends TPGameActivity {
     @BindView(R.id.waitPage) RelativeLayout waitPage;
     @BindView(R.id.bigProfilePicture) RoundedImageView profilePicture;
     private FragmentGameOptions gameOptions;
+    private InstagramFeedView instagramFeed;
     // status
     @BindView(R.id.status) TextView gameStatus;
     @BindString(R.string.wait_page_offline_status) String offlineStatus;
@@ -190,6 +192,7 @@ public class GameMainPageActivity extends TPGameActivity {
         playingStatusLastRound = TPUtils.translateEmoticons(playingStatusLastRound);
 
         gameOptions = (FragmentGameOptions) getSupportFragmentManager().findFragmentById(R.id.gameOptions);
+        instagramFeed = (InstagramFeedView) getSupportFragmentManager().findFragmentById(R.id.instagramFeedView);
         //init
         startLoading();
         Intent intent = getIntent();

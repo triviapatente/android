@@ -23,6 +23,7 @@
     <color name="disabledWhiteLight">#33ffffff</color>
     <color name="enabledWhiteLight">#99ffffff</color>
     <color name="backgroundFiltered">#70000000</color>
+    <color name="buttonBlack">#99000000</color>
     <color name="errorColor">#CD2D33</color>
     <color name="alertBackground">#FFF2B3</color>
     <color name="greenLight">#7053D769</color>

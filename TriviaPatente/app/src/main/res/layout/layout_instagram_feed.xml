@@ -7,32 +7,66 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/postsViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </android.support.v4.view.ViewPager>
-
+        android:layout_height="match_parent" />
+    <ImageButton
+        android:id="@+id/instaFeedButtonClose"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:scaleType="centerInside"
+        android:layout_width="@dimen/instagram_feed_change_button_size"
+        android:layout_height="@dimen/instagram_feed_change_button_size"
+        android:layout_margin="@dimen/instagram_feed_change_button_margin"
+        android:background="@drawable/black_circle_background"
+        android:src="@drawable/baseline_clear_white_24" />
+    <ImageButton
+        android:id="@+id/instaFeedButtonPrev"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:scaleType="centerInside"
+        android:layout_width="@dimen/instagram_feed_change_button_size"
+        android:layout_height="@dimen/instagram_feed_change_button_size"
+        android:layout_margin="@dimen/instagram_feed_change_button_margin"
+        android:background="@drawable/black_circle_background"
+        android:src="@drawable/baseline_chevron_left_white_24" />
+    <ImageButton
+        android:id="@+id/instaFeedButtonNext"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="centerInside"
+        android:layout_width="@dimen/instagram_feed_change_button_size"
+        android:layout_height="@dimen/instagram_feed_change_button_size"
+        android:layout_margin="@dimen/instagram_feed_change_button_margin"
+        android:background="@drawable/black_circle_background"
+        android:src="@drawable/baseline_chevron_right_white_24"/>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/instagram_feed_change_button_margin"
+        android:id="@+id/profileLayout"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/instaFeedButtonPrev"
-            android:layout_width="@dimen/instagram_feed_change_button_width"
-            android:layout_height="wrap_content"
-            android:text="P" />
-
-        <Space
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/instaFeedButtonNext"
-            android:layout_width="@dimen/instagram_feed_change_button_width"
-            android:layout_height="wrap_content"
-            android:text="N" />
+            android:layout_height="@dimen/instagram_icon_size"
+            android:text="@string/instagram_user"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="2"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/instagram_user_size"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/instagram_icon_margin"
+            android:layout_marginEnd="@dimen/instagram_icon_margin"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:src="@drawable/instagram"
+            android:layout_width="@dimen/instagram_icon_size"
+            android:layout_height="@dimen/instagram_icon_size" />
     </LinearLayout>
+
+
 </RelativeLayout>

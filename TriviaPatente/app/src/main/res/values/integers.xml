@@ -8,4 +8,6 @@
     <integer name="days_delay_rate_popover">17</integer>
     <integer name="number_of_rounds">5</integer>
     <integer name="defaultBellInfoDelay">1000</integer>
+    <integer name="instagramGalleryDelay">5000</integer>
+    <integer name="instagramGalleryRepeatDelay">5000</integer>
 </resources>

@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import it.triviapatente.android.R;
 
@@ -62,21 +63,19 @@ public class Circle extends View {
     private void init() {
         // circle over
         paintOver = new Paint();
-        paintOver.setAntiAlias(true);
         paintOver.setStyle(Paint.Style.STROKE);
         paintOver.setStrokeWidth(stroke_width);
         paintOver.setColor(colorOver);
         // circle under
         paintUnder = new Paint();
-        paintUnder.setAntiAlias(true);
         paintUnder.setStyle(Paint.Style.STROKE);
         paintUnder.setStrokeWidth(stroke_width);
         paintUnder.setColor(colorUnder);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
         if (rect == null) {
             float s1 = stroke_width / 2, s2 = canvas.getHeight() - stroke_width / 2 + 1;
             rect = new RectF(s1, s1, s2, s2);

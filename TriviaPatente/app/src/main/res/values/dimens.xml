@@ -31,6 +31,9 @@
     <dimen name="game_ended_game_epired_text_top_margin">-20dp</dimen>
     <dimen name="game_ended_game_epired_text_horizontal_margin">40dp</dimen>
     <dimen name="game_options_text_margin_top">10dp</dimen>
-    <dimen name="insta_feed_change_button_width" />
-    <dimen name="instagram_feed_change_button_width">30dp</dimen>
+    <dimen name="instagram_feed_change_button_size">25dp</dimen>
+    <dimen name="instagram_feed_change_button_margin">10dp</dimen>
+    <dimen name="instagram_icon_size">30dp</dimen>
+    <dimen name="instagram_icon_margin">10dp</dimen>
+    <dimen name="instagram_user_size">12sp</dimen>
 </resources>

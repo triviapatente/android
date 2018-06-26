@@ -15,6 +15,8 @@
     <string name="terms_path">ws/terms</string>
     <string name="store_path">/ws/store_page/android</string>
     <string name="download_link">https://www.triviapatente.it/#download</string>
+    <string name="instagram_user">\@triviapatente</string>
+    <string name="instagram_url">https://www.instagram.com/triviapatente/</string>
 
     <!-- CONNECTION ERROR -->
     <string name="old_session">Sessione scaduta. Accedi per continuare</string>

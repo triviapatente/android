@@ -14,6 +14,7 @@
     <string name="game_header_waiting_subtitle">Attendi..</string>
     <!-- dimens -->
     <dimen name="big_profile_picture_size">200dp</dimen>
+    <dimen name="instagram_view_size">260dp</dimen>
     <dimen name="wait_page_margin">50dp</dimen>
     <dimen name="game_header_inner_margin">15dp</dimen>
     <dimen name="game_header_margin">25dp</dimen>

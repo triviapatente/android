@@ -44,9 +44,17 @@
         custom:stroke_width="5dp"
         custom:circle_colorOver="@android:color/white"
         custom:circle_colorUnder="@color/mainColorLight"
-        android:translationZ="10dp"
         android:layout_alignTop="@+id/bigProfilePicture"
-        android:layout_alignLeft="@+id/bigProfilePicture"/>
+        android:layout_alignLeft="@+id/bigProfilePicture"
+        android:layout_alignStart="@+id/bigProfilePicture"/>
+    <fragment
+        android:id="@+id/instagramFeedView"
+        android:name="it.triviapatente.android.app.views.game_page.instagram.InstagramFeedView"
+        android:layout_width="@dimen/instagram_view_size"
+        android:layout_height="@dimen/instagram_view_size"
+        android:layout_marginTop="-30dp"
+        android:layout_alignTop="@+id/bigProfilePicture"
+        android:layout_centerHorizontal="true"/>
 
     <fragment
         android:name="it.triviapatente.android.app.views.game_page.FragmentGameOptions"
@@ -63,13 +71,5 @@
         android:background="@color/mainColor"
         android:visibility="gone"
         android:translationZ="100dp"/>
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="it.triviapatente.android.app.views.game_page.instagram.InstagramFeedView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
 
 </RelativeLayout>
