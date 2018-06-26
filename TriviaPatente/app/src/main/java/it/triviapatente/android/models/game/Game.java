@@ -35,8 +35,8 @@ public class Game extends CommonPK {
     public Long getRemainingTime(Long maxAge) {
         Date creation = getCreatedAt();
         if(maxAge == null || creation == null) return (long) (60 * 60);
-
-        return maxAge - (new Date().getTime() - creation.getTime());
+        Long offset = (new Date().getTime() - creation.getTime()) / 1000;
+        return maxAge - offset;
     }
     public String getExpirationDescription(Context ctx, Long maxAge) {
         Long remaining = getRemainingTime(maxAge);
