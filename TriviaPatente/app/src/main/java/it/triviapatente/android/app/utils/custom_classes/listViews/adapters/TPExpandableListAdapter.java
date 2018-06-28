@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.ValueCallback;
 
+import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.TPHolder;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.footer.TPFooter;
 import it.triviapatente.android.app.utils.custom_classes.listViews.expandable_list.TPExpandableList;
@@ -22,6 +24,12 @@ public class TPExpandableListAdapter<T> extends TPListAdapter<T> {
                                    @LayoutRes int footerLayout, Class<? extends TPFooter> footerClass,
                                    int elementHeight, TPExpandableList<T> expandableList) {
         super(context, list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, expandableList.listView);
+        this.expandableList = expandableList;
+    }
+    public TPExpandableListAdapter(Context context, List<T> list,
+                                   @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                                   int elementHeight, TPExpandableList<T> expandableList) {
+        super(context, list, holderLayout, holderClass, R.layout.ghost_layout, null, elementHeight, expandableList.listView);
         this.expandableList = expandableList;
     }
 

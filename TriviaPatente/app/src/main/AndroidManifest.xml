@@ -113,7 +113,8 @@
         <activity android:name=".app.views.training.TrainingDetailsActivity" />
         <activity
             android:name=".app.views.stats.StatsListActivity"
-            android:label="@string/title_activity_stats_list"></activity>
+            android:label="@string/title_activity_stats_list" />
+        <activity android:name=".app.views.stats.StatDetailActivity"></activity>
     </application>
 
 </manifest>

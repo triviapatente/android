@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.widget.TableRow;
 
 import it.triviapatente.android.R;
@@ -27,6 +28,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     protected Class<? extends TPHolder<T>> holderClass;
     protected RecyclerView recyclerView;
     protected int extraElements;
+    private ValueCallback<T> onSelectItem;
     public ComputeFooterHeightManager computeFooterHeightManager = new ComputeFooterHeightManager();
 
     public TPListAdapter(Context context, List<T> list,
@@ -45,6 +47,11 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
         this.recyclerView = recyclerView;
     }
 
+
+    public void setOnItemSelectListener(ValueCallback<T> onSelectItem) {
+        this.onSelectItem = onSelectItem;
+    }
+
     protected RecyclerView.ViewHolder createFooterHolder() {
         try {
             return footerClass.getConstructor(View.class).newInstance(LayoutInflater.from(context).inflate(footerLayout, null));
@@ -54,7 +61,9 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     protected RecyclerView.ViewHolder createNormalHolder() {
         View v = LayoutInflater.from(context).inflate(holderLayout, null);
         try {
-            return holderClass.getConstructor(View.class).newInstance(v);
+            TPHolder holder = (TPHolder) holderClass.getConstructor(View.class).newInstance(v);
+            holder.setOnItemSelectListener(onSelectItem);
+            return holder;
         } catch (Exception e) { return createNormalHolderWithCustomConstructor(v); }
     }
 

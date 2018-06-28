@@ -1,5 +1,6 @@
 package it.triviapatente.android.app.views.stats;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +15,7 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
+import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.GlobalInfos;
 import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.socket.modules.base.BaseSocketManager;
@@ -34,7 +36,9 @@ public class StatsListActivity extends TPActivity {
         mAdapter = new StatsAdapter(ReceivedData.statsHints, new ValueCallback<Category>() {
             @Override
             public void onReceiveValue(Category category) {
-
+                Intent i = new Intent(StatsListActivity.this, StatDetailActivity.class);
+                i.putExtra(getString(R.string.extra_string_category), RetrofitManager.gson.toJson(category));
+                startActivity(i);
             }
         });
         mRecyclerView.setAdapter(mAdapter);

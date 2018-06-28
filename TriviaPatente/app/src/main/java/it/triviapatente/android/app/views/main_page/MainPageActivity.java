@@ -105,6 +105,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         recentGames = (TPExpandableList<Game>) getSupportFragmentManager().findFragmentById(R.id.recentGames);
         recentGames.setSyncButtonOnClickListner(this);
         recentGames.setTitles(recentGamesTitle, recentGamesAlternativeTitle);
+        recentGames.enableDivider();
         updateRecentGames();
         getPushValues();
         baseSocketManager.listen(getString(R.string.socket_event_recent_game), ActionRecentGame.class, new SocketCallback<ActionRecentGame>() {

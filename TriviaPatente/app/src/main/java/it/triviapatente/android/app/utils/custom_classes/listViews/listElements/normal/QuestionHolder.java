@@ -22,6 +22,7 @@ import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.QuizSheetCallback;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
+import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.TPHolder;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Question;
 import it.triviapatente.android.models.game.Quiz;
@@ -39,7 +40,7 @@ import butterknife.ButterKnife;
  * Created by donadev on 23/11/17.
  */
 
-public class QuestionHolder extends RecyclerView.ViewHolder {
+public class QuestionHolder extends TPHolder<Quiz> {
     @BindView(R.id.quizImageView) ImageView quizImageView;
     @BindView(R.id.quizNameView) TextView quizNameView;
     @BindView(R.id.quizTrueView) TextView quizTrueView;
@@ -55,7 +56,6 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
     private Context context;
     private User currentUser = SharedTPPreferences.currentUser();
     private User opponent;
-    private QuizSheetCallback onSelectItem;
 
     private int cellHeight;
 
@@ -63,6 +63,11 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
         View v = LayoutInflater.from(context).inflate(R.layout.gamedetails_quiz_view_holder, null, false);
         return new QuestionHolder(context, v, cellHeight, onSelectItem);
 
+    }
+    public QuestionHolder(View itemView) {
+        super(itemView);
+        this.context = itemView.getContext();
+        ButterKnife.bind(this, itemView);
     }
     public QuestionHolder(Context context, View itemView, int cellHeight, QuizSheetCallback onSelectItem) {
         super(itemView);
@@ -85,7 +90,7 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
     private void setMaxLines() {
         String text = quizNameView.getText().toString();
         int lines = TPUtils.getMaxLinesFor(text, quizNameView, this.cellHeight - quizNameViewMargin * 2);
-        quizNameView.setMaxLines(lines);
+        if(quizNameView.getMaxLines() != lines) quizNameView.setMaxLines(lines);
     }
     private void unsetMaxLines() {
         quizNameView.setMaxLines(Integer.MAX_VALUE);
@@ -95,6 +100,9 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
             return ContextCompat.getColor(context, R.color.wrongQuizTrainingBackgroundColor);
         }
         return ContextCompat.getColor(context, android.R.color.transparent);
+    }
+    public int getBackgroundColorForWrongAnswers() {
+        return ContextCompat.getColor(context, R.color.wrongQuizTrainingBackgroundColor);
     }
     public void bindForTraining(Quiz quiz) {
         bindInit(quiz);
@@ -139,11 +147,20 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
     public void bindForDetails(final Quiz quiz, User opponent) {
         bindInit(quiz);
         setExpanded(false);
+        quizNameView.setText(quiz.question);
         this.opponent = opponent;
         handleQuizImage(quiz);
-        quizNameView.setText(quiz.question);
         handleAnswer(quiz.answer);
         processAnswers(quiz.answers, quiz);
+    }
+    public void bindForWrongAnswers(final Quiz quiz) {
+        bindInit(quiz);
+        quizNameView.setMaxLines(3);
+        quizNameView.setText(quiz.question);
+        handleQuizImage(quiz);
+        handleAnswer(quiz.answer);
+        processAnswer(quiz);
+        itemView.setBackgroundColor(getBackgroundColorForWrongAnswers());
     }
     public void correctGUI(TextView view) {
         view.setBackgroundResource(R.drawable.details_circle_correct_background);
@@ -171,6 +188,11 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
                 falseUsers.add(opponent);
             }
         }
+    }
+    public void processAnswer(Quiz quiz) {
+        quizTrueImages[0].setImageBitmap(null);
+        quizFalseImages[0].setImageBitmap(null);
+        TPUtils.injectUserImage(context, currentUser, !quiz.answer ? quizTrueImages[0] : quizFalseImages[0], true);
     }
     public void processAnswers(List<Question> answers, Quiz quiz) {
         trueUsers = new ArrayList<>();
@@ -217,6 +239,11 @@ public class QuestionHolder extends RecyclerView.ViewHolder {
         }
         itemView.setLayoutParams(params);
         isExpanded = expanded;
+    }
+
+    @Override
+    public void bind(Quiz element) {
+        bindForWrongAnswers(element);
     }
 
     /*@Override

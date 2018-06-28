@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,10 +52,12 @@ public class TPExpandableList<T> extends Fragment {
     public mLinearLayoutManager listLayoutManager;
     private int maxNumberOfShownItems;
     private TPExpandableListOnSwipeListener headerSwipeListener;
+    private ValueCallback<T> onSelectItem;
     // separator color
     @BindColor(R.color.mainColor) @ColorInt int mainColor;
     @BindColor(R.color.mainColorGradTop) @ColorInt int gradientTopColor;
     @BindColor(R.color.mainColorDark2) @ColorInt int gradientBottomColor;
+
     // header titles
     String alternativeTitle, defaultTitle;
 
@@ -74,7 +77,6 @@ public class TPExpandableList<T> extends Fragment {
         ButterKnife.bind(this, v);
         listTitle.setTextColor(Color.WHITE);
         // listCounter.setTextColor(Color.WHITE);
-        listView.addItemDecoration(new DividerItemDecoration(mainColor, v.getWidth()));
         listLayoutManager = new mLinearLayoutManager(getContext());
         listView.setLayoutManager(listLayoutManager);
         TPExpandableListOnSwipeListener swipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
@@ -85,6 +87,17 @@ public class TPExpandableList<T> extends Fragment {
         headerSwipeListener = new TPExpandableListOnSwipeListener(getContext(), this);
         headerSwipeListener.needScrollWithOffset = true;
         return v;
+    }
+
+    public void enableDivider(int color) {
+        listView.addItemDecoration(new DividerItemDecoration(color, getView().getWidth()));
+    }
+    public void enableDivider() {
+        enableDivider(mainColor);
+    }
+
+    public void setOnItemSelectListener(ValueCallback<T> onSelectItem) {
+        this.onSelectItem = onSelectItem;
     }
 
     public void setSyncButtonOnClickListner(View.OnClickListener onClickListner) {
@@ -103,6 +116,15 @@ public class TPExpandableList<T> extends Fragment {
                          int elementHeight) {
         this.elementHeight = elementHeight;
         adapter = new TPExpandableListAdapter<>(getContext(), list, holderLayout, holderClass, footerLayout, footerClass, elementHeight, this);
+        listView.swapAdapter(adapter, false);
+        listHeader.setVisibility(View.VISIBLE);
+    }
+    public void setItems(List<T> list,
+                         @LayoutRes int holderLayout, Class<? extends TPHolder<T>> holderClass,
+                         int elementHeight) {
+        this.elementHeight = elementHeight;
+        adapter = new TPExpandableListAdapter<>(getContext(), list, holderLayout, holderClass, elementHeight, this);
+        adapter.setOnItemSelectListener(onSelectItem);
         listView.swapAdapter(adapter, false);
         listHeader.setVisibility(View.VISIBLE);
     }

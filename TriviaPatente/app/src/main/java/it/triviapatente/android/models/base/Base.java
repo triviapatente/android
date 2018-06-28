@@ -19,7 +19,7 @@ import java.util.TimeZone;
 public abstract class Base {
     @SerializedName("createdAt") public String createdAt;
     @SerializedName("updatedAt") public String updatedAt;
-    private transient final SimpleDateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss ZZZZ" , Locale.ENGLISH);
+    public static transient final SimpleDateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss ZZZZ" , Locale.ENGLISH);
 
     public Date getCreatedAt() {
         try {

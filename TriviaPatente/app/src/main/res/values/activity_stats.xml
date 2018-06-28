@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="category_status_perfect">Congratulazioni!\nLa tua media è da promozione!\nContinua così!</string>
+    <string name="category_status_good">La tua media è da promozione, ma puoi fare ancora meglio!</string>
+    <string name="category_status_medium">Cerca di alzare la tua media! Puoi esercitarti sfidando i tuoi amici!</string>
+    <string name="category_status_bad">Devi assolutamente migliorare, esercitati di più sfidando i tuoi amici!</string>
+    <dimen name="progressPercentageSize">19sp</dimen>
+    <dimen name="progressTextSize">15sp</dimen>
+    <string name="stats_error_singular">%d errore</string>
+    <string name="stats_error_plural">%d errori</string>
+    <string name="wrong_answer_list_title_full">Quiz sbagliati</string>
+    <string name="wrong_answer_list_title_empty">Nessun quiz sbagliato</string>
+    <dimen name="wrong_answer_height">90dp</dimen>
+</resources>

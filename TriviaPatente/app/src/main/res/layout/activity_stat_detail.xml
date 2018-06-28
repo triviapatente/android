@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="it.triviapatente.android.app.views.stats.StatDetailActivity">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainColorDark2">
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/background_gradient"
+            android:id="@+id/mainContentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_margin="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/progressTextView"/>
+
+            <TextView
+                android:id="@+id/hintTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <fragment
+            android:id="@+id/wrongAnswersLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/mainContentLayout"
+            android:layout_alignParentBottom="true"
+            android:name="it.triviapatente.android.app.utils.custom_classes.listViews.expandable_list.TPExpandableList"/>
+    </RelativeLayout>
+
+
+    <include
+        android:id="@+id/wrongAnswersSheet"
+        layout="@layout/round_details_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>
