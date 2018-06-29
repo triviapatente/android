@@ -2,44 +2,40 @@ package it.triviapatente.android.app.views.training;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
+import it.triviapatente.android.app.utils.custom_classes.DialogBottomSheet;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleItemCallback;
-import it.triviapatente.android.http.modules.base.HTTPBaseEndpoint;
-import it.triviapatente.android.http.modules.training.HTTPTrainingEndpoint;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.TrainingStats;
-import it.triviapatente.android.models.responses.SuccessTraining;
 import it.triviapatente.android.models.responses.SuccessTrainings;
 import it.triviapatente.android.models.training.Training;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrainingActivity extends TPActivity {
+public class TrainingListActivity extends TPActivity {
     @BindString(R.string.activity_training_title) String title;
     @BindView(R.id.trainingList) RecyclerView trainingList;
     @BindView(R.id.emptyView) TextView emptyView;
+    @BindView(R.id.trainingBottomSheet) View trainingBottomSheet;
     @BindString(R.string.training_list_empty_message) String emptyMessage;
     TrainingGraphFragment graphFragment;
     private TrainingStatViewer noErrorsViewer;
@@ -51,12 +47,48 @@ public class TrainingActivity extends TPActivity {
     private SimpleItemCallback<Training> trainingClickCallback = new SimpleItemCallback<Training>() {
         @Override
         public void execute(Training item) {
-            Intent i = new Intent(TrainingActivity.this, TrainingDetailsActivity.class);
+            Intent i = new Intent(TrainingListActivity.this, TrainingDetailsActivity.class);
             i.putExtra(getString(R.string.training_details_extra_training_key), RetrofitManager.gson.toJson(item));
             startActivity(i);
         }
     };
 
+    @OnClick(R.id.newTrainingButton)
+    void goToTraining() {
+        getBottomSheet().show();
+    }
+
+    private void redirectToTraining(Boolean random) {
+        Intent i = new Intent(this, TrainActivity.class);
+        i.putExtra(getString(R.string.extra_string_random), random);
+        startActivity(i);
+    }
+
+    private DialogBottomSheet getBottomSheet() {
+        final DialogBottomSheet sheet = new DialogBottomSheet(trainingBottomSheet);
+        sheet.setContent(R.string.new_training_title, R.string.new_training_content);
+        sheet.setFirstAction(R.string.new_training_action1, DialogBottomSheet.ButtonType.BLUE, new SimpleCallback() {
+            @Override
+            public void execute() {
+                sheet.dismiss();
+                redirectToTraining(false);
+            }
+        });
+        sheet.setSecondAction(R.string.new_training_action2, DialogBottomSheet.ButtonType.BLUE, new SimpleCallback() {
+            @Override
+            public void execute() {
+                sheet.dismiss();
+                redirectToTraining(true);
+            }
+        });
+        return sheet;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        load();
+    }
 
     private void initFragments() {
         graphFragment = (TrainingGraphFragment) getSupportFragmentManager().findFragmentById(R.id.statsGraph);
@@ -73,6 +105,7 @@ public class TrainingActivity extends TPActivity {
         moreErrorsViewer.setValues(stats.more_errors, R.string.training_more_errors_caption);
     }
     private void updateTrainings(List<Training> trainings) {
+        Collections.sort(trainings);
         mAdapter.setTrainings(trainings);
         emptyView.setVisibility(trainings.isEmpty() ? View.VISIBLE : View.GONE);
         trainingList.setVisibility(trainings.isEmpty() ? View.GONE : View.VISIBLE);
@@ -97,7 +130,7 @@ public class TrainingActivity extends TPActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_training);
+        setContentView(R.layout.activity_training_list);
         initFragments();
         updateViewsFromStats(ReceivedData.trainingStats);
         mAdapter = new TrainingsAdapter(this);
@@ -107,7 +140,6 @@ public class TrainingActivity extends TPActivity {
         trainingList.setAdapter(mAdapter);
         emptyMessage = TPUtils.translateEmoticons(emptyMessage);
         emptyView.setText(emptyMessage);
-        load();
     }
     private void load() {
         Call<SuccessTrainings> request = RetrofitManager.getHttpTrainingEndpoint().getTrainings();

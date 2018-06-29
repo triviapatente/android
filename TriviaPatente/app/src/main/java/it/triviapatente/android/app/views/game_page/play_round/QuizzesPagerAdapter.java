@@ -4,6 +4,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.utils.custom_classes.listViews.listElements.normal.QuizHolder;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Category;
@@ -21,12 +22,30 @@ public class QuizzesPagerAdapter extends PagerAdapter {
     private Round round;
     private Category category;
     private User opponent;
+    private Boolean trainMode;
 
     public QuizzesPagerAdapter(List<Quiz> quizzesList, Round round, Category category, User opponent) {
         this.quizzesList = quizzesList;
         this.round = round;
         this.category = category;
         this.opponent = opponent;
+        this.trainMode = false;
+    }
+
+    public int numberOfAnswered() {
+        int n = 0;
+        for(Quiz q : quizzesList) if(q.my_answer != null) n++;
+        return n;
+    }
+    public int find(Long id) {
+        for(int n = 0; n <  quizzesList.size(); n++) {
+            if(quizzesList.get(n).id.equals(id)) return n;
+        }
+        return -1;
+    }
+    public QuizzesPagerAdapter(List<Quiz> quizzesList) {
+        this.quizzesList = quizzesList;
+        this.trainMode = true;
     }
 
     @Override
@@ -41,7 +60,9 @@ public class QuizzesPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(final ViewGroup container, int position) {
-        QuizHolder quizHolder = new QuizHolder((PlayRoundActivity) container.getContext(), quizzesList.get(position), round, category, opponent);
+        TPActivity activity = (TPActivity) container.getContext();
+        Quiz quiz = quizzesList.get(position);
+        QuizHolder quizHolder = new QuizHolder(activity, quiz, round, trainMode ? quiz.getCategory() : category, opponent, trainMode);
         View itemView = quizHolder.getItemView();
         container.addView(itemView);
         return itemView;

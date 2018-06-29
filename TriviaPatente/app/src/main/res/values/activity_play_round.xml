@@ -3,8 +3,9 @@
     <!-- banner -->
     <dimen name="banner_height">50dp</dimen>
     <!-- content -->
-    <dimen name="play_round_content_margin">25dp</dimen>
+    <dimen name="play_round_content_margin">20dp</dimen>
     <dimen name="play_round_button_panel_button_size">30dp</dimen>
+    <dimen name="play_round_button_panel_cell_size">50dp</dimen>
     <dimen name="play_round_button_panel_background_width">165dp</dimen>
     <dimen name="play_round_button_panel_layout_width">205dp</dimen>
     <dimen name="play_round_button_background_margin">15dp</dimen>

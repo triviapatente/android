@@ -25,6 +25,7 @@ import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
+import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.TPCallback;
 import it.triviapatente.android.app.utils.custom_classes.dialogs.TPLeaveDialog;
 import it.triviapatente.android.app.views.game_page.round_details.RoundDetailsActivity;
@@ -43,7 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentGameOptions extends Fragment {
-    TPGameActivity activity;
+    TPActivity activity;
 
     @BindView(R.id.gameDetailsButton) Button gameDetailsButton;
     @BindView(R.id.gameLeaveButton) Button gameLeaveButton;
@@ -59,7 +60,7 @@ public class FragmentGameOptions extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity = (TPGameActivity) context;
+        this.activity = (TPActivity) context;
         this.ticklingEnabled = false;
     }
     private void applyEnabled() {
@@ -75,19 +76,32 @@ public class FragmentGameOptions extends Fragment {
         isEnabled = false;
         applyEnabled();
     }
+    private Boolean isGameActivity() {
+        return (activity instanceof TPGameActivity);
+    }
+    private TPGameActivity getGameActivity() {
+        if(isGameActivity()) return (TPGameActivity)activity;
+        return null;
+    }
     private Boolean isEnabled = true;
 
     private Boolean isFirstRound() {
-        return activity.currentRound != null && activity.currentRound.number == 1;
+        if(isGameActivity()) return getGameActivity().currentRound != null && getGameActivity().currentRound.number == 1;
+        return null;
     }
     private int getGameDetailsButtonVisibility() {
-        return isFirstRound() ? View.GONE : View.VISIBLE;
+        return isGameActivity() && !isFirstRound() ? View.VISIBLE : View.GONE;
     }
     private int getGameBellButtonVisibility() {
-        return ticklingEnabled && !isFirstRound() ? View.VISIBLE : View.GONE;
+        return isGameActivity() && ticklingEnabled && !isFirstRound() ? View.VISIBLE : View.GONE;
     }
     public void setRound(Round round) {
-        activity.currentRound = round;
+        if(isGameActivity()) {
+            getGameActivity().currentRound = round;
+        }
+        updateButtonVisibility();
+    }
+    private void updateButtonVisibility() {
         gameDetailsButton.setVisibility(getGameDetailsButtonVisibility());
         gameBellButton.setVisibility(getGameBellButtonVisibility());
         gameBellTextView.setVisibility(getGameBellButtonVisibility());
@@ -105,7 +119,11 @@ public class FragmentGameOptions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_options, container, false);
         ButterKnife.bind(this, view);
         enable();
-        setDefaultBellInfoText();
+        if(isGameActivity()) {
+            setDefaultBellInfoText();
+        } else {
+            updateButtonVisibility();
+        }
         return view;
     }
 
@@ -123,20 +141,32 @@ public class FragmentGameOptions extends Fragment {
         gotoRoundDetails(false);
     }
     public void gotoRoundDetails(Boolean mainOnBackPressed) {
-        //showing modal
-        Intent intent = new Intent(getContext(), RoundDetailsActivity.class);
-        intent.putExtra(getString(R.string.extra_long_game), activity.gameID);
-        intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(activity.opponent));
-        intent.putExtra(getString(R.string.extra_string_from_game_options), !mainOnBackPressed);
-        startActivity(intent);
+        if(isGameActivity()) {
+            //showing modal
+            Intent intent = new Intent(getContext(), RoundDetailsActivity.class);
+            intent.putExtra(getString(R.string.extra_long_game), getGameActivity().gameID);
+            intent.putExtra(getString(R.string.extra_string_opponent), new Gson().toJson(getGameActivity().opponent));
+            intent.putExtra(getString(R.string.extra_string_from_game_options), !mainOnBackPressed);
+            startActivity(intent);
+        } else {
+
+        }
+    }
+    private SimpleCallback leaveGameCallback;
+    public void enableTrainMode(SimpleCallback leaveGameCallback) {
+        this.leaveGameCallback = leaveGameCallback;
     }
 
     @OnClick(R.id.gameLeaveButton)
     public void gameLeaveButtonClick() {
-        TPUtils.blurContainerIntoImageView(activity, activity.activityContainer, activity.blurredBackgroundView);
-        activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
-        //showing modal
-        showGameLeaveModal();
+        if(isGameActivity()) {
+            TPUtils.blurContainerIntoImageView(activity, activity.activityContainer, activity.blurredBackgroundView);
+            activity.blurredBackgroundContainer.setVisibility(View.VISIBLE);
+            //showing modal
+            showGameLeaveModal();
+        } else {
+            leaveGameCallback.execute();
+        }
     }
 
     private void onTickleError() {
@@ -161,14 +191,15 @@ public class FragmentGameOptions extends Fragment {
     }
     @OnClick(R.id.gameBellButton)
     public void gameBellButtonClick() {
+        if(!isGameActivity()) return;
         ObjectAnimator
                 .ofFloat(gameBellButton, "rotation", 0, 25, -25, 25, -25, 0)
                 .setDuration(800)
                 .start();
 
-        if(activity.currentRound.alreadyTickled) setBellInfoText(R.string.game_user_notification_user_already_notified);
+        if(getGameActivity().currentRound.alreadyTickled) setBellInfoText(R.string.game_user_notification_user_already_notified);
         else {
-            RetrofitManager.getHTTPGameEndpoint().tickleGame(activity.currentRound.id).enqueue(new Callback<Success>() {
+            RetrofitManager.getHTTPGameEndpoint().tickleGame(getGameActivity().currentRound.id).enqueue(new Callback<Success>() {
                 @Override
                 public void onResponse(Call<Success> call, Response<Success> response) {
                     if (response.body().success) {
@@ -187,8 +218,9 @@ public class FragmentGameOptions extends Fragment {
     }
 
     private void showGameLeaveModal() {
+        if(!isGameActivity()) return;
         final HTTPGameEndpoint httpGameEndpoint = RetrofitManager.getHTTPGameEndpoint();
-        httpGameEndpoint.getLeaveDecrement(activity.gameID).enqueue(new TPCallback<SuccessDecrement>() {
+        httpGameEndpoint.getLeaveDecrement(getGameActivity().gameID).enqueue(new TPCallback<SuccessDecrement>() {
             @Override
             public void mOnResponse(Call<SuccessDecrement> call, Response<SuccessDecrement> response) {
                 if(response.body().success) {
@@ -200,7 +232,7 @@ public class FragmentGameOptions extends Fragment {
                     }) {
                         @Override
                         public void onNegativeButtonClick() {
-                            httpGameEndpoint.leaveGame(activity.gameID).enqueue(new TPCallback<Success>() {
+                            httpGameEndpoint.leaveGame(getGameActivity().gameID).enqueue(new TPCallback<Success>() {
                                 @Override
                                 public void mOnResponse(Call<Success> call, Response<Success> response) {
                                     if(response.body().success) {
@@ -249,6 +281,10 @@ public class FragmentGameOptions extends Fragment {
             @Override
             public void then() {}
         });
+    }
+
+    public void fromLeaveToComplete() {
+        gameLeaveButton.setBackgroundResource(R.drawable.button_game_complete);
     }
 
 }

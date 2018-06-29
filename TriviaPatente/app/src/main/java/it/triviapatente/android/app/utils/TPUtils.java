@@ -68,6 +68,12 @@ public class TPUtils {
                 fontAssetName);
         replaceFont(staticTypefaceFieldName, regular);
     }
+    public static int getRelativeLeft(View myView, View rootView) {
+        if (myView.getParent() == rootView)
+            return myView.getLeft();
+        else
+            return myView.getLeft() + getRelativeLeft((View) myView.getParent(), rootView);
+    }
     public static int manipulateColor(int color, float factor) {
         int a = Color.alpha(color);
         int r = Math.round(Color.red(color) * factor);

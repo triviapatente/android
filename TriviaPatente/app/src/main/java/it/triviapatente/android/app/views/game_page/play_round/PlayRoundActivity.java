@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPGameActivity;
+import it.triviapatente.android.app.utils.baseActivityClasses.TPPlayHandler;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SocketCallback;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
@@ -68,7 +69,7 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                 Quiz currentQuiz = quizzesAdapter.quizzesList.get(position);
                 currentQuiz.answered_correctly = response.correct_answer;
                 quizzesAdapter.quizzesList.set(position, currentQuiz);
-                final int nextPosition = getNextCurrentItem(position);
+                final int nextPosition = TPPlayHandler.getNextCurrentItem(quizzesAdapter, position);
                 if(nextPosition != position) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -196,10 +197,10 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
                             quizzesAdapter = new QuizzesPagerAdapter(quizzes, currentRound, currentCategory, opponent);
                             quizzesViewPager.setAdapter(quizzesAdapter);
                             initQuizPanelButtons();
-                            int position = getNextCurrentItem(0);
+                            int position = TPPlayHandler.getNextCurrentItem(quizzesAdapter, 0);
                             quizButtons.get(position).callOnClick();
                             quizzesViewPager.setCurrentItem(position);
-                            setSelected(position);
+                            TPPlayHandler.setSelected(quizButtons.get(position));
                         }
                     });
                 } else {
@@ -231,25 +232,10 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         quizzesViewPager.setCurrentItem(position);
         if(lastSelectedButtonPosition != -1) {
             quizButtons.get(lastSelectedButtonPosition).setBackground(quizButtonsBackgrounds[lastSelectedButtonPosition]);
-            clearSelection(lastSelectedButtonPosition);
+            TPPlayHandler.clearSelection(quizButtons.get(lastSelectedButtonPosition));
         }
-        setSelected(position);
+        TPPlayHandler.setSelected(quizButtons.get(position));
         lastSelectedButtonPosition = position;
-    }
-    private final float BIG_SCALE = 1.3f;
-    private final float DEFAULT_SCALE = 1;
-    private final int BIG_ELEVATION = 2;
-    private final int DEFAULT_ELEVATION = 0;
-    private int DURATION = 300;
-    private Interpolator interpolator = new AccelerateDecelerateInterpolator();
-    private void setSelected(int position) {
-        ViewCompat.setElevation(quizButtons.get(position), BIG_ELEVATION);
-        quizButtons.get(position).animate().scaleX(BIG_SCALE).scaleY(BIG_SCALE).setInterpolator(interpolator).setDuration(DURATION);
-    }
-    private void clearSelection(int position) {
-        ViewCompat.setElevation(quizButtons.get(position), DEFAULT_ELEVATION);
-
-        quizButtons.get(position).animate().scaleX(DEFAULT_SCALE).scaleY(DEFAULT_SCALE).setInterpolator(interpolator).setDuration(DURATION);
     }
 
     private void setButtonColorFromAnswer(final int position, final boolean isCorrect) {
@@ -278,14 +264,4 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
         gameSocketManager.answer(currentRound.game_id, currentRound.id, quiz_id, answer, answerSocketCallback);
     }
 
-    private int getNextCurrentItem(int position) {
-        int counter = 0, numberOfItems = quizzesAdapter.quizzesList.size();
-        for(int nextPos = position; counter < numberOfItems; counter++) {
-            int nextPosition = (nextPos + counter) % numberOfItems;
-            if(quizzesAdapter.quizzesList.get(nextPosition).my_answer == null) {
-                return nextPosition;
-            }
-        }
-        return position;
-    }
 }

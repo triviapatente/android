@@ -62,6 +62,7 @@
     <color name="triviaColor2">#42d451</color>
     <color name="triviaColor3">#f6e318</color>
     <color name="triviaColor4">#fb4e09</color>
+    <color name="bottomSheetBackground">#44000000</color>
 
     <color name="disabledOptionColor">#400182FF</color>
 

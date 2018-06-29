@@ -2,23 +2,41 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_gradient">
+    android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/quizzes"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/play_round_content_margin"
-        android:layout_marginBottom="@dimen/play_round_content_margin"
-        android:layout_above="@id/gameOptions"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/adView"
+        android:background="@drawable/background_gradient">
 
-    <fragment
-        android:name="it.triviapatente.android.app.views.game_page.FragmentGameOptions"
-        android:id="@+id/gameOptions"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/quizzes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/play_round_content_margin"
+            android:layout_marginBottom="@dimen/play_round_content_margin"
+            android:layout_above="@id/gameOptions"/>
+
+        <fragment
+            android:name="it.triviapatente.android.app.views.game_page.FragmentGameOptions"
+            android:id="@+id/gameOptions"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/play_round_content_margin"/>
+    </RelativeLayout>
+
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/play_round_content_margin"/>
-
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_banner">
+    </com.google.android.gms.ads.AdView>
 </RelativeLayout>

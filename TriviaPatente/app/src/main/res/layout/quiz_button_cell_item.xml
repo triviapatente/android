@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/play_round_button_panel_cell_size"
+    android:layout_height="@dimen/play_round_button_panel_cell_size">
+    <RelativeLayout
+        android:layout_width="@dimen/play_round_button_panel_cell_size"
+        android:layout_centerInParent="true"
+        android:background="@color/quizButtonBackgroundWithAlpha"
+        android:layout_height="30dp"/>
+    <Button
+        android:layout_margin="5dp"
+        android:layout_width="@dimen/play_round_button_panel_button_size"
+        android:layout_height="@dimen/play_round_button_panel_button_size"
+        android:id="@+id/quizButton"
+        android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+        android:background="@drawable/button_play_round_no_answer_selected"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/TPTextSizeVerySmall"/>
+
+</RelativeLayout>

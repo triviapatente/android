@@ -16,5 +16,6 @@
     <string name="extra_long_game">game_id</string>
     <string name="extra_string_round">round</string>
     <string name="extra_string_category">category</string>
+    <string name="extra_string_random">random</string>
     <string name="extra_string_game">game</string>
 </resources>

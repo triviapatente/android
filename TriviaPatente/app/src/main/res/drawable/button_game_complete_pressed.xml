@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/greenDark"/>
+            <stroke android:width="@dimen/button_game_panel_border" android:color="@color/greenDark"/>
+        </shape>
+    </item>
+    <item
+        android:right="@dimen/button_game_leave_symbol_margin_horizontal"
+        android:left="@dimen/button_game_leave_symbol_margin_horizontal"
+        android:top="@dimen/button_game_leave_symbol_margin_vertical"
+        android:bottom="@dimen/button_game_leave_symbol_margin_vertical"
+        android:drawable="@drawable/checkmark"/>
+</layer-list>

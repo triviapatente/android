@@ -4,7 +4,7 @@
     <dimen name="quiz_image_size_small">60dp</dimen>
     <dimen name="header_quiz_height">20dp</dimen>
     <dimen name="quiz_padding">10dp</dimen>
-    <dimen name="quiz_image_size_big">150dp</dimen>
+    <dimen name="quiz_image_size_big">110dp</dimen>
     <dimen name="quiz_description_margin">20dp</dimen>
     <dimen name="quiz_separator_margin_horizontal">15dp</dimen>
     <dimen name="quiz_box_margin_horizontal">20dp</dimen>

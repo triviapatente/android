@@ -1,12 +1,8 @@
 package it.triviapatente.android.app.views.main_page;
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -15,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.ReceivedData;
-import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.TPUtils;
 import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.utils.custom_classes.buttons.MainButton;
@@ -31,9 +26,8 @@ import it.triviapatente.android.app.views.find_opponent.NewGameActivity;
 import it.triviapatente.android.app.views.game_page.GameMainPageActivity;
 import it.triviapatente.android.app.views.rank.RankActivity;
 import it.triviapatente.android.app.views.stats.StatsListActivity;
-import it.triviapatente.android.app.views.training.TrainingActivity;
+import it.triviapatente.android.app.views.training.TrainingListActivity;
 import it.triviapatente.android.firebase.FirebaseInstanceIDService;
-import it.triviapatente.android.firebase.FirebaseMessagingService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.auth.GlobalInfos;
 import it.triviapatente.android.models.auth.User;
@@ -372,7 +366,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
     }
     @OnClick(R.id.training)
     public void trainingClick() {
-        Intent i = new Intent(this, TrainingActivity.class);
+        Intent i = new Intent(this, TrainingListActivity.class);
         startActivity(i);
     }
 

@@ -22,6 +22,10 @@ public class Category extends CommonPK {
     @SerializedName("imagePath") public String imagePath;
 
     public Category() {}
+    public Category(Long id, String hint) {
+        this.id = id;
+        this.hint = hint;
+    }
     public int getBackground() {
         Integer progress = getProgress();
         if(progress < 75) return R.drawable.button_stats_bad;

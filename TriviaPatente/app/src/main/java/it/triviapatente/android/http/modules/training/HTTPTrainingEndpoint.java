@@ -1,5 +1,7 @@
 package it.triviapatente.android.http.modules.training;
 
+import com.google.gson.JsonObject;
+
 import java.util.Map;
 
 import it.triviapatente.android.models.responses.RankPosition;
@@ -32,5 +34,5 @@ public interface HTTPTrainingEndpoint {
     Call<SuccessQuizzes> getQuestions(@Query("random") Boolean random);
 
     @POST("training/new")
-    Call<SuccessTraining> answer(@Body Map<Long, Boolean> answers);
+    Call<SuccessTraining> answer(@Body JsonObject answers);
 }

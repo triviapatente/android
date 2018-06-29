@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".app.views.game_page.round_details.RoundDetailsActivity"
+    android:layout_width="match_parent"
+    android:id="@+id/trainingBottomSheet"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/backgroundOpacityLayer"
+        android:background="@color/bottomSheetBackground"
+        android:layout_width="match_parent"
+        android:alpha="0"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="true"
+        android:id="@+id/dialogBottomSheetLayout"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        android:background="@android:color/white"
+        android:padding="20dp"
+        app:behavior_peekHeight="0dp">
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:id="@+id/dialogBottomSheetProgress" />
+        <LinearLayout
+            android:id="@+id/dialogBottomSheetInternalLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/dialogBottomSheetImageView"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/dialogBottomSheetTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/greyDark" />
+            <TextView
+                android:id="@+id/dialogBottomSheetMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="11sp"
+                android:textColor="@android:color/black" />
+            <Button
+                android:id="@+id/dialogBottomSheetAction1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/button_true_or_false_clicked"
+                android:layout_margin="5dp"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"/>
+            <Button
+                android:id="@+id/dialogBottomSheetAction2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/button_true_or_false_clicked"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

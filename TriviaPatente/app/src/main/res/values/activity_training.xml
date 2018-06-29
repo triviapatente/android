@@ -18,5 +18,27 @@
     <dimen name="training_checkmark_margin">10dp</dimen>
     <dimen name="training_single_circle_size">40dp</dimen>
     <dimen name="training_single_circle_margin">5dp</dimen>
+    <string name="new_training_title">Nuovo questionario</string>
+    <string name="new_training_content">Vuoi un questionario personalizzato in base alle tue precedenti prestazioni oppure casuale?</string>
+    <string name="new_training_action1">Questionario personalizzato</string>
+    <string name="new_training_action2">Questionario casuale</string>
+    <string name="new_training_action3">Chiudi</string>
+    <string name="training_expiration_title">Tempo scaduto</string>
+    <string name="training_expiration_content_singular">Il tempo a tua disposizione per completare il questionario è finito. Hai risposto a %d domanda.</string>
+    <string name="training_expiration_content_plural">Il tempo a tua disposizione per completare il questionario è finito. Hai risposto a %d domande.</string>
+    <string name="training_expiration_content_all">Il tempo a tua disposizione per completare il questionario è finito. Hai risposto a tutte le domande.</string>
+    <string name="training_expiration_action1">Concludi questionario</string>
+    <string name="training_expiration_action2">Cancella</string>
+    <string name="training_leave_title">Concludi allenamento</string>
+    <string name="training_leave_content_singular">Sei sicuro di voler uscire dall\'allenamento? Hai risposto a %d domanda.</string>
+    <string name="training_leave_content_plural">Sei sicuro di voler uscire dall\'allenamento? Hai risposto a %d domande.</string>
+    <string name="training_leave_content_all">Sei sicuro di voler uscire dall\'allenamento? Hai risposto a tutte le domande.</string>
+    <string name="training_leave_action1">Esci e salva</string>
+    <string name="training_leave_action2">Esci e annulla</string>
+    <string name="training_completion_title">Allenamento completato</string>
+    <string name="training_completion_content">Hai risposto a tutte le domande dell\'allenamento 0x1F44F</string>
+    <string name="training_completion_action1">Vedi i risultati</string>
+    <string name="training_completion_action2">Riguarda le domande</string>
+
     <string name="training_list_empty_message">In questa modalità puoi simulare una prova d’esame, e vedere a che punto sei con la preparazione, così puoi continuare a giocare mentre aspetti i tuoi amici!\nDopodiché continua a sfidarli, prepararsi con un amico aumenta la velocità di apprendimento 0x1f63b</string>
 </resources>

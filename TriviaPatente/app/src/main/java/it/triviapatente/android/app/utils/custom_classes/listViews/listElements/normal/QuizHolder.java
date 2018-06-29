@@ -21,12 +21,14 @@ import org.w3c.dom.Text;
 
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.TPUtils;
+import it.triviapatente.android.app.utils.baseActivityClasses.TPActivity;
 import it.triviapatente.android.app.utils.custom_classes.animation.ResizeAnimation;
 import it.triviapatente.android.app.utils.custom_classes.animation.TranslateAnimation;
 import it.triviapatente.android.app.utils.custom_classes.buttons.LoadingButton;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
 import it.triviapatente.android.app.utils.custom_classes.images.RoundedImageView;
 import it.triviapatente.android.app.views.game_page.play_round.PlayRoundActivity;
+import it.triviapatente.android.app.views.training.TrainActivity;
 import it.triviapatente.android.models.auth.User;
 import it.triviapatente.android.models.game.Category;
 import it.triviapatente.android.models.game.Quiz;
@@ -56,13 +58,15 @@ public class QuizHolder implements View.OnClickListener{
     private User opponent;
     private LinearLayout quizDescriptionBox;
     private String baseUrl;
+    private Boolean trainMode;
 
-    public QuizHolder(PlayRoundActivity context, Quiz quizElement, Round round, Category category, User opponent) {
+    public QuizHolder(TPActivity context, Quiz quizElement, Round round, Category category, User opponent, Boolean trainMode) {
         itemView = LayoutInflater.from(context).inflate(R.layout.view_pager_element_quiz_holder, null, false);
         this.context = context;
         this.round = round;
         this.category = category;
         this.opponent = opponent;
+        this.trainMode = trainMode;
         init();
         bind(quizElement);
     }
@@ -88,12 +92,14 @@ public class QuizHolder implements View.OnClickListener{
         //quizImage.setOnClickListener(this);
         trueButton.setOnClickListener(this);
         falseButton.setOnClickListener(this);
-
-        roundNameView.setText("Round " + round.number);
+        roundNameView.setText(round != null ? "Round " + round.number : "Questionario");
         categoryNameView.setText(category.hint);
-        opponentNameView.setText(opponent.toString());
+        if(opponent != null) {
+            opponentNameView.setText(opponent.toString());
+            TPUtils.injectUserImage(context, opponent, opponentImageView);
+        }
+        opponentNameView.setVisibility(opponent == null ? View.GONE : View.VISIBLE);
         TPUtils.picasso.load(TPUtils.getCategoryImageFromID(context, category.id)).into(categoryImageView);
-        TPUtils.injectUserImage(context, opponent, opponentImageView);
     }
 
     private void setAnimations() {
@@ -204,7 +210,7 @@ public class QuizHolder implements View.OnClickListener{
         } else {
             setButtonClicked(falseButton, false);
         }
-        setButtonClickable(false);
+        if(!trainMode) setButtonClickable(false);
     }
 
     @Override
@@ -220,17 +226,23 @@ public class QuizHolder implements View.OnClickListener{
             }
             default:return;
         }
-        ((PlayRoundActivity) context).sendAnswer(answer, element.id, new ValueCallback<Boolean>() {
+        if(!trainMode) {
+            ((PlayRoundActivity) context).sendAnswer(answer, element.id, new ValueCallback<Boolean>() {
 
-            @Override
-            public void onReceiveValue(Boolean success) {
-                if(!success) setButtonUnClicked(clicked);
-                clicked.stopLoading();
-            }
-        });
-        setButtonClicked(clicked, true);
+                @Override
+                public void onReceiveValue(Boolean success) {
+                    if (!success) setButtonUnClicked(clicked);
+                    clicked.stopLoading();
+                }
+            });
+        } else {
+            setButtonUnClicked(trueButton);
+            setButtonUnClicked(falseButton);
+            ((TrainActivity) context).setAnswer(element, answer);
+        }
+        setButtonClicked(clicked, !trainMode);
         // disable clicks
-        setButtonClickable(false);
+        if(!trainMode) setButtonClickable(false);
     }
 
     private void changeImageSize() {
