@@ -94,9 +94,10 @@ public class QuizHolder implements View.OnClickListener{
         falseButton.setOnClickListener(this);
         roundNameView.setText(round != null ? "Round " + round.number : "Questionario");
         categoryNameView.setText(category.hint);
+        //categoryImageView.setBorder(R.color.greyDark, 2);
         if(opponent != null) {
             opponentNameView.setText(opponent.toString());
-            TPUtils.injectUserImage(context, opponent, opponentImageView);
+            TPUtils.injectUserImage(context, opponent, opponentImageView, false);
         }
         opponentNameView.setVisibility(opponent == null ? View.GONE : View.VISIBLE);
         TPUtils.picasso.load(TPUtils.getCategoryImageFromID(context, category.id)).into(categoryImageView);

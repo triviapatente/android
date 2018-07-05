@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/TPTextSizeSmall"
+        android:textSize="@dimen/TPTextSizeMedium"
         android:text="@string/new_game_option_title"/>
 
     <Button

@@ -13,62 +13,69 @@
             android:layout_width="@dimen/play_round_button_panel_layout_width"
             android:layout_height="@dimen/tp_toolbar_height"
             android:gravity="center">
+
             <View
-                android:layout_width="@dimen/play_round_button_panel_background_width"
-                android:layout_height="@dimen/play_round_button_panel_button_size"
-                android:background="@drawable/quiz_chooser_background"/>
+                android:layout_width="168dp"
+                android:layout_height="@dimen/play_round_button_panel_view_size"
+                android:background="@drawable/quiz_chooser_background" />
             <!-- quiz buttons -->
             <Button
-                android:layout_width="@dimen/play_round_button_panel_button_size"
-                android:layout_height="@dimen/play_round_button_panel_button_size"
                 android:id="@+id/firstQuizButton"
-                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
-                android:background="@drawable/button_play_round_no_answer_selected"
-                android:padding="0dp"
-                android:gravity="center"
-                android:textSize="@dimen/TPTextSizeVerySmall"/>
-
-            <Button
                 android:layout_width="@dimen/play_round_button_panel_button_size"
                 android:layout_height="@dimen/play_round_button_panel_button_size"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/button_play_round_no_answer_selected"
+                android:gravity="center"
+                android:padding="0dp"
+                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                android:textSize="@dimen/TPTextSizeVerySmall" />
+
+            <Button
                 android:id="@+id/secondQuizButton"
-                android:layout_toRightOf="@id/firstQuizButton"
+                android:layout_width="@dimen/play_round_button_panel_button_size"
+                android:layout_height="@dimen/play_round_button_panel_button_size"
+                android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
+                android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
+                android:layout_marginTop="1dp"
                 android:layout_toEndOf="@id/firstQuizButton"
-                android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-                android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
-                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                android:layout_toRightOf="@id/firstQuizButton"
                 android:background="@drawable/button_play_round_no_answer_selected"
-                android:padding="0dp"
                 android:gravity="center"
-                android:textSize="@dimen/TPTextSizeVerySmall"/>
+                android:padding="0dp"
+                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                android:textSize="@dimen/TPTextSizeVerySmall" />
 
             <Button
-                android:layout_width="@dimen/play_round_button_panel_button_size"
-                android:layout_height="@dimen/play_round_button_panel_button_size"
                 android:id="@+id/thirdQuizButton"
-                android:layout_toRightOf="@id/secondQuizButton"
-                android:layout_toEndOf="@id/secondQuizButton"
-                android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
-                android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
-                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
-                android:background="@drawable/button_play_round_no_answer_selected"
-                android:padding="0dp"
-                android:gravity="center"
-                android:textSize="@dimen/TPTextSizeVerySmall"/>
-
-            <Button
                 android:layout_width="@dimen/play_round_button_panel_button_size"
                 android:layout_height="@dimen/play_round_button_panel_button_size"
-                android:id="@+id/fourthQuizButton"
-                android:layout_toRightOf="@id/thirdQuizButton"
-                android:layout_toEndOf="@id/thirdQuizButton"
                 android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
                 android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
-                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                android:layout_marginTop="1dp"
+                android:layout_toEndOf="@id/secondQuizButton"
+                android:layout_toRightOf="@id/secondQuizButton"
                 android:background="@drawable/button_play_round_no_answer_selected"
-                android:padding="0dp"
                 android:gravity="center"
-                android:textSize="@dimen/TPTextSizeVerySmall"/>
+                android:padding="0dp"
+                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                android:textSize="@dimen/TPTextSizeVerySmall" />
+
+            <Button
+                android:id="@+id/fourthQuizButton"
+                android:layout_width="@dimen/play_round_button_panel_button_size"
+                android:layout_height="@dimen/play_round_button_panel_button_size"
+                android:layout_marginLeft="@dimen/play_round_button_panel_inner_margin"
+                android:layout_marginStart="@dimen/play_round_button_panel_inner_margin"
+                android:layout_marginTop="1dp"
+                android:layout_toEndOf="@id/thirdQuizButton"
+                android:layout_toRightOf="@id/thirdQuizButton"
+                android:background="@drawable/button_play_round_no_answer_selected"
+                android:gravity="center"
+                android:padding="0dp"
+                android:paddingRight="0dp"
+                android:textColor="@color/vpi__bright_foreground_disabled_holo_dark"
+                android:textSize="@dimen/TPTextSizeVerySmall" />
 
         </RelativeLayout>
 

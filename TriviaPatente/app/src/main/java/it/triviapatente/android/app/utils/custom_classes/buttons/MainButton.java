@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -123,6 +124,7 @@ public class MainButton extends RelativeLayout {
                     myText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.TPTextSizeVerySmall));
                     myText.setTextColor(textSwitcherColor);
                     myText.setSingleLine(true);
+                    myText.setHeight(R.dimen.main_page_button_height);
                     myText.setEllipsize(TextUtils.TruncateAt.MIDDLE);
                     return myText;
                 }

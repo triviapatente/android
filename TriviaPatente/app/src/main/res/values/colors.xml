@@ -48,6 +48,7 @@
     <color name="redButton">#cc4a59</color>
     <color name="redButtonDark">#c04050</color>
     <color name="grey">#CDCCCE</color>
+    <color name="greyLight">#EAEAEA</color>
     <color name="greyDark">#9B9B9B</color>
     <color name="quizTextColor">#3C5A95</color>
     <color name="blueOpaque">#6583BE</color>

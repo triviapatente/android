@@ -11,7 +11,7 @@
     <dimen name="quiz_box_margin_vertical">35dp</dimen>
     <dimen name="quiz_true_false_margin">15dp</dimen>
     <dimen name="quiz_true_false_width">120dp</dimen>
-    <dimen name="quiz_true_false_height">30dp</dimen>
+    <dimen name="quiz_true_false_height">34dp</dimen>
     <dimen name="quiz_true_false_padding_vertical">15dp</dimen>
     <dimen name="quiz_description_box_padding_vertical">10dp</dimen>
     <dimen name="quiz_description_box_padding_horizontal">20dp</dimen>

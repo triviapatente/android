@@ -112,7 +112,7 @@ public class RecentGameHolder extends TPHolder<Game> {
         if(element.opponent_name != null && element.opponent_surname != null) {
             setUsernameText(element.opponent_name + " " + element.opponent_surname);
         } else { setUsernameText(element.opponent_username); }
-        TPUtils.injectUserImage(context, opponent, profilePicture);
+        TPUtils.injectUserImage(context, opponent, profilePicture, false);
     }
     private String getRemainingAnswerText(Game g) {
         int templateId = g.remainingAnswersCount == 1 ? R.string.remaining_answer : R.string.remaining_answers;

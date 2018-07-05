@@ -45,6 +45,7 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.6.+'
+    compile 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
     // TESTS
     testCompile 'junit:junit:4.12'
     // ADS

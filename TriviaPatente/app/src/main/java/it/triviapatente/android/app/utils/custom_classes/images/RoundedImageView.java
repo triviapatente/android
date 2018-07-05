@@ -63,7 +63,7 @@ public class RoundedImageView extends android.support.v7.widget.AppCompatImageVi
         Bitmap b = TPUtils.drawableToBitmap(drawable);
         if(b == null) return;
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
-        int dim = Math.min(getWidth(), getHeight());
+        int dim = Math.min(getWidth(), getHeight()) - 1;
 
         Bitmap roundBitmap = getCroppedBitmap(bitmap, dim);
 
