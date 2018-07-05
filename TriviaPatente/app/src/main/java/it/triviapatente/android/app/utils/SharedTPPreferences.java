@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 
+import java.util.Date;
 import java.util.UUID;
 
 import it.triviapatente.android.R;
@@ -17,7 +18,7 @@ import it.triviapatente.android.models.auth.User;
  */
 public class SharedTPPreferences {
     // shared preferences
-    private static String shared_TP, shared_token_key, shared_user_key, shared_last_token_request_key;
+    private static String shared_TP, shared_token_key, shared_user_key, shared_last_token_request_key, shared_insta_feed_last_show;
     private static SharedPreferences sharedPref;
 
     private static String uniqueID = null;
@@ -45,6 +46,7 @@ public class SharedTPPreferences {
         shared_token_key = context.getResources().getString(R.string.shared_token_key);
         shared_user_key = context.getString(R.string.shared_user);
         shared_last_token_request_key = context.getString(R.string.shared_last_token_request_key);
+        shared_insta_feed_last_show = "last_insta_show";
 
         sharedPref = context.getSharedPreferences(shared_TP, Context.MODE_PRIVATE);
     }
@@ -74,6 +76,21 @@ public class SharedTPPreferences {
     public static User currentUser() {
         String userString = sharedPref.getString(shared_user_key, "");
         return RetrofitManager.gson.fromJson(userString, User.class);
+    }
+
+    public static void saveInstaLastShow(Date date) {
+        long timestamp = date.getTime();
+        Editor editor = startEditTransaction();
+        editor.putLong(shared_insta_feed_last_show, timestamp);
+        editor.apply();
+    }
+
+    public static Date getInstaLastShow() {
+        long ts = sharedPref.getLong(shared_insta_feed_last_show, 0);
+        if (ts != 0) {
+            return new Date(ts);
+        }
+        return null;
     }
 
     public static void saveToken(String token) {

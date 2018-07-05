@@ -16,9 +16,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import javax.xml.datatype.Duration;
 
 import butterknife.BindInt;
 import butterknife.BindString;
@@ -26,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import it.triviapatente.android.R;
+import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.http.modules.base.HTTPBaseEndpoint;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.base.IGImage;
@@ -67,6 +72,7 @@ public class InstagramFeedView extends Fragment {
         v.setVisibility(View.GONE);
     }
     public void show() {
+        SharedTPPreferences.saveInstaLastShow(new Date());
         getView().setVisibility(View.VISIBLE);
     }
 
@@ -130,7 +136,18 @@ public class InstagramFeedView extends Fragment {
     public void onStart() {
         super.onStart();
         if(postsAdapter != null && postsAdapter.getCount() > 0)  scheduleAutoScroll();
-        else scheduleLoad();
+
+        // if more than 8 hours have passed
+        Date now = new Date();
+        Date last = SharedTPPreferences.getInstaLastShow();
+
+        if (last == null || getDateDiff(last, now, TimeUnit.HOURS) >= 8) {
+            scheduleLoad();
+        }
+    }
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
     private void scheduleLoad() {
         if(timer != null) timer.cancel();
