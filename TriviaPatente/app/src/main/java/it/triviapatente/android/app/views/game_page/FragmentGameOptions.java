@@ -86,7 +86,10 @@ public class FragmentGameOptions extends Fragment {
     private Boolean isEnabled = true;
 
     private Boolean isFirstRound() {
-        if(isGameActivity()) return getGameActivity().currentRound != null && getGameActivity().currentRound.number == 1;
+        if(isGameActivity()) {
+            boolean res = getGameActivity().currentRound != null && getGameActivity().currentRound.number == 1;
+            return res;
+        }
         return null;
     }
     private int getGameDetailsButtonVisibility() {
@@ -121,9 +124,8 @@ public class FragmentGameOptions extends Fragment {
         enable();
         if(isGameActivity()) {
             setDefaultBellInfoText();
-        } else {
-            updateButtonVisibility();
         }
+        updateButtonVisibility();
         return view;
     }
 

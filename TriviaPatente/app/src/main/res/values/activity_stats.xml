@@ -8,6 +8,7 @@
     <dimen name="progressPercentageSize">19sp</dimen>
     <dimen name="progressTextSize">15sp</dimen>
     <string name="stats_error_singular">%d errore</string>
+    <string name="stats_no_answers">0 quiz</string>
     <string name="stats_error_plural">%d errori</string>
     <string name="wrong_answer_list_title_full">Quiz sbagliati</string>
     <string name="wrong_answer_list_title_empty">Nessun quiz sbagliato</string>

@@ -118,6 +118,9 @@ public class StatDetailActivity extends TPActivity {
                 if(errors > 0) {
                     suffix = "\n" + getString(errors == 1 ? R.string.stats_error_singular : R.string.stats_error_plural).replace("%d", String.valueOf(errors));
                 }
+                if (progress.totalAnswers == 0) {
+                    suffix = "\n" + getString(R.string.stats_no_answers);
+                }
                 return humanReadableFormat.format(date) + suffix;
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -129,6 +132,7 @@ public class StatDetailActivity extends TPActivity {
         @Override
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
             if(entry.getData() == null) return ""; //ghost entry
+            if ((int)value == 0) return "";
             return String.valueOf((int)value);
         }
     };
