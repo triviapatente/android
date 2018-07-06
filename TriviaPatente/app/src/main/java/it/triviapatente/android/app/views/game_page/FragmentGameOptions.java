@@ -180,7 +180,7 @@ public class FragmentGameOptions extends Fragment {
         }).show();
     }
     private void setDefaultBellInfoText() {
-        if(ticklingEnabled && game != null) gameBellTextView.setText(game.getExpirationDescription(getContext(), maxAge));
+        if (game != null) gameBellTextView.setText(game.getExpirationDescription(getContext(), maxAge));
     }
     private void setBellInfoText(int textId) {
         gameBellTextView.setText(textId);
@@ -204,10 +204,15 @@ public class FragmentGameOptions extends Fragment {
             RetrofitManager.getHTTPGameEndpoint().tickleGame(getGameActivity().currentRound.id).enqueue(new Callback<Success>() {
                 @Override
                 public void onResponse(Call<Success> call, Response<Success> response) {
-                    if (response.body().success) {
+
+                    if (response.body() != null && response.body().success) {
                         setBellInfoText(R.string.game_user_notification_user_notified);
                     } else {
-                        onTickleError();
+                        if (response.raw() != null && response.raw().code() == 403) {
+                            setBellInfoText(R.string.game_user_notification_user_already_notified);
+                        } else {
+                            onTickleError();
+                        }
                     }
                 }
 
@@ -225,7 +230,7 @@ public class FragmentGameOptions extends Fragment {
         httpGameEndpoint.getLeaveDecrement(getGameActivity().gameID).enqueue(new TPCallback<SuccessDecrement>() {
             @Override
             public void mOnResponse(Call<SuccessDecrement> call, Response<SuccessDecrement> response) {
-                if(response.body().success) {
+                if(response.isSuccessful() && response.body().success) {
                     new TPLeaveDialog(activity, response.body().decrement, new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
@@ -237,7 +242,7 @@ public class FragmentGameOptions extends Fragment {
                             httpGameEndpoint.leaveGame(getGameActivity().gameID).enqueue(new TPCallback<Success>() {
                                 @Override
                                 public void mOnResponse(Call<Success> call, Response<Success> response) {
-                                    if(response.body().success) {
+                                    if(response.isSuccessful() && response.body().success) {
                                         gotoRoundDetails(true);
                                     } else {
                                         mOnFailure(null, null);

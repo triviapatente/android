@@ -105,8 +105,8 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
     }
     private void initView() {
         int mainColor = ContextCompat.getColor(context, R.color.mainColor);
-        winnerImage.setBorder(mainColor);
-        loserImage.setBorder(mainColor);
+        //winnerImage.setBorder(mainColor);
+        //loserImage.setBorder(mainColor);
     }
     private int getScore(SuccessRoundDetails response, Boolean mine) {
         int score = 0;
@@ -171,8 +171,8 @@ public class GameEndedHolder extends RecyclerView.ViewHolder {
         Integer increment = getScoreIncrement(response);
         scoreIncrementView.setText(formatIncrement(increment).concat(" km"));
         scoreIncrementView.setVisibility(View.VISIBLE);
-        TPUtils.injectUserImage(context, currentUserIsLeft(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage);
-        TPUtils.injectUserImage(context, currentUserIsLeft(response) ? opponent : SharedTPPreferences.currentUser(), loserImage);
+        TPUtils.injectUserImage(context, currentUserIsLeft(response) ? SharedTPPreferences.currentUser() : opponent, winnerImage, false);
+        TPUtils.injectUserImage(context, currentUserIsLeft(response) ? opponent : SharedTPPreferences.currentUser(), loserImage, false);
         if (isWinning(response) || isAnnulled(response)) playButton.setReplayNow();
         else playButton.setNewGame(true);
         playButton.setVisibility(View.VISIBLE);

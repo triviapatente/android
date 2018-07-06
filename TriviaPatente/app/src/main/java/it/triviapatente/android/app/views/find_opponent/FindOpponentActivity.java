@@ -150,7 +150,7 @@ public class FindOpponentActivity extends RankActivity {
                 searchCall.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
                     public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
-                        if(response.code() == 200) {
+                        if(response.isSuccessful()) {
                             if(response.body().users.size() == 0) {
                                 setPlayersListItems(new ArrayList<User>());
                                 playersList.setVisibility(View.GONE);
@@ -223,7 +223,7 @@ public class FindOpponentActivity extends RankActivity {
         call.enqueue(new TPCallback<SuccessUsers>() {
             @Override
             public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
-                if(response.code() == 200 && response.body().success && response.body().users != null) {
+                if(response.isSuccessful() && response.body().success && response.body().users != null) {
                     suggestedUsers = response.body().users;
                     setPlayersListItems(suggestedUsers);
                 }

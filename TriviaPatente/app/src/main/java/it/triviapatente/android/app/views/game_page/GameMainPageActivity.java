@@ -197,6 +197,7 @@ public class GameMainPageActivity extends TPGameActivity {
         startLoading();
         Intent intent = getIntent();
         needsNewGame = intent.getBooleanExtra(getString(R.string.extra_boolean_game), false);
+        gameOptions.disable();
         if(needsNewGame) { createGame(); }
         else {
             getIntentData();
@@ -285,7 +286,7 @@ public class GameMainPageActivity extends TPGameActivity {
         call.enqueue(new TPCallback<SuccessGameUser>() {
             @Override
             public void mOnResponse(Call<SuccessGameUser> call, Response<SuccessGameUser> response) {
-                if(response.code() == 200 && response.body().success) {
+                if(response.isSuccessful() && response.body().success) {
                     game = response.body().game;
                     gameID = game.id;
                     opponent = response.body().user;

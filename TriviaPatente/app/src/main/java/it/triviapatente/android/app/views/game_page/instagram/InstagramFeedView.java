@@ -106,17 +106,7 @@ public class InstagramFeedView extends Fragment {
             });
         }
     };
-    private TimerTask scrollTask = new TimerTask() {
-        @Override
-        public void run() {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(postsViewPager != null) goToNextPostClick();
-                }
-            });
-        }
-    };
+    private TimerTask scrollTask = null;
 
     private Timer timer;
 
@@ -157,6 +147,17 @@ public class InstagramFeedView extends Fragment {
     private void scheduleAutoScroll() {
         if(timer != null) timer.cancel();
         timer = new Timer();
+        scrollTask = new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(postsViewPager != null) goToNextPostClick();
+                    }
+                });
+            }
+        };
         timer.schedule(scrollTask, 0, instagramGalleryRepeatDelay);
     }
 

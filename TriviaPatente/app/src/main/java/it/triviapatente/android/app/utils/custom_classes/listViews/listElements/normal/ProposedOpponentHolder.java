@@ -43,11 +43,11 @@ public class ProposedOpponentHolder extends TPHolder<User> {
     @Override
     public void bind(User element) {
         // set image
-        TPUtils.injectUserImage(context, element, profilePicture);
+        TPUtils.injectUserImage(context, element, profilePicture, false);
         // set username or, if possible, name and surname
         usernameTextField.setText(element.toString());
         // set score
-        scoreTextField.setText(String.valueOf(element.score));
+        scoreTextField.setText(String.valueOf(element.score).concat(context.getString(R.string.km_run)) );
         // set appropriate button
         if(element.last_game_won == null || element.last_game_won) {
             playButton.setPlayNow();

@@ -61,7 +61,7 @@ public class RegisterPresenter {
                 @Override
                 public void mOnResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
                     // response received
-                    if (response.code() == 200) {
+                    if (response.isSuccessful()) {
                         // auth success
                         // do not stop loading if success
                         doThen = false;

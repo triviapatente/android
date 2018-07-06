@@ -50,7 +50,7 @@ public class PlayerRankHolder extends TPHolder<User> {
             usernameTextField.setTextColor(ContextCompat.getColor(context, android.R.color.black));
         }
         // set image
-        TPUtils.injectUserImage(context, element, profilePicture);
+        TPUtils.injectUserImage(context, element, profilePicture, false);
         // set username or, if possible, name and surname
         usernameTextField.setText(element.toString());
         // set position
@@ -59,6 +59,6 @@ public class PlayerRankHolder extends TPHolder<User> {
         else if(element.position == 3) positionTextField.setText(TPUtils.translateEmoticons(context.getString(R.string.third_position)));
         else positionTextField.setText(String.valueOf(element.position));
         // set score
-        scoreTextField.setText(String.valueOf(element.score).concat(" km percorsi"));
+        scoreTextField.setText(String.valueOf(element.score).concat(context.getString(R.string.km_run)));
     }
 }

@@ -221,7 +221,7 @@ public class RankActivity extends TPActivity {
         call.enqueue(new TPCallback<RankPosition>() {
             @Override
             public void mOnResponse(Call<RankPosition> call, Response<RankPosition> response) {
-                if(response.code() == 200 && response.body().rank != null) {
+                if(response.isSuccessful() && response.body().rank != null) {
                     List<User> newUsers = response.body().rank;
                     if(newUsers.size() == 0) { absolute_last = true; } // must be the bottom pagination
                     else if(users == null) { users = newUsers; } // all the users are loaded now
@@ -346,7 +346,7 @@ public class RankActivity extends TPActivity {
                 searchCall.enqueue(new TPCallback<SuccessUsers>() {
                     @Override
                     public void mOnResponse(Call<SuccessUsers> call, Response<SuccessUsers> response) {
-                        if(response.code() == 200) {
+                        if(response.isSuccessful()) {
                             if(response.body().users.size() == 0) {
                                 setPlayersListItems(new ArrayList<User>());
                                 playersList.setVisibility(View.GONE);

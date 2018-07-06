@@ -105,7 +105,7 @@ public class ContactsActivity extends TPActivity {
             call.enqueue(new TPCallback<Success>() {
                 @Override
                 public void mOnResponse(Call<Success> call, Response<Success> response) {
-                    if(response.body().success) {
+                    if(response.isSuccessful() && response.body().success) {
                         Toast.makeText(ContactsActivity.this, messageSentString, Toast.LENGTH_SHORT).show();
                         messageEditText.setText("");
                     }

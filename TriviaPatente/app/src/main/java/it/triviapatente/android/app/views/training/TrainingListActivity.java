@@ -146,8 +146,10 @@ public class TrainingListActivity extends TPActivity {
         request.enqueue(new Callback<SuccessTrainings>() {
             @Override
             public void onResponse(Call<SuccessTrainings> call, Response<SuccessTrainings> response) {
-                SuccessTrainings output = response.body();
-                updateFrom(output);
+                if (response.isSuccessful()) {
+                    SuccessTrainings output = response.body();
+                    updateFrom(output);
+                }
             }
 
             @Override

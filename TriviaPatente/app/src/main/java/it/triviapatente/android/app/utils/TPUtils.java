@@ -219,7 +219,10 @@ public class TPUtils {
         return context.getString(R.string.baseUrl)+ "quiz/image/" + ID;
     }
 
-    public static String getCategoryImageFromID(Context context, long ID) {
+    public static String getCategoryImageFromID(Context context, Long ID) {
+        if (ID == null) {
+            return null;
+        }
         return context.getString(R.string.baseUrl)+ "category/image/" + ID;
     }
 

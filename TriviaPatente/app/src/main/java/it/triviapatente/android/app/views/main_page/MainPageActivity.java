@@ -267,7 +267,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
         call.enqueue(new TPCallback<SuccessGames>() {
             @Override
             public void mOnResponse(Call<SuccessGames> call, Response<SuccessGames> response) {
-                if(response.code() == 200 && response.body().success) {
+                if(response.isSuccessful() && response.body().success) {
                     if(response.body().recent_games != null) {
                         ReceivedData.recentGames = response.body().recent_games;
                         //ReceivedData.orderGames();

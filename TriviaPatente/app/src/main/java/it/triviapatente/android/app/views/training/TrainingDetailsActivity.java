@@ -70,8 +70,12 @@ public class TrainingDetailsActivity extends TPActivity {
         call.enqueue(new Callback<SuccessQuizzes>() {
             @Override
             public void onResponse(Call<SuccessQuizzes> call, Response<SuccessQuizzes> response) {
-                SuccessQuizzes value = response.body();
-                mAdapter.setResponse(value);
+                if (response.isSuccessful()) {
+                    SuccessQuizzes value = response.body();
+                    mAdapter.setResponse(value);
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), R.string.httpConnectionError, Snackbar.LENGTH_INDEFINITE).show();
+                }
             }
 
             @Override

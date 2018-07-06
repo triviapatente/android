@@ -142,7 +142,7 @@ public class TrainActivity extends TPActivity {
             @Override
             public void onResponse(Call<SuccessTraining> call, Response<SuccessTraining> response) {
                 sheet.stopLoading();
-                if(response.isSuccessful() && response.body().success) {
+                if(response.isSuccessful() && response.isSuccessful() && response.body().success) {
                     if(goToDetails) {
                         Intent i = new Intent(TrainActivity.this, TrainingDetailsActivity.class);
                         i.putExtra(getString(R.string.training_details_extra_training_key), RetrofitManager.gson.toJson(response.body().training));
@@ -334,7 +334,7 @@ public class TrainActivity extends TPActivity {
         RetrofitManager.getHttpTrainingEndpoint().getQuestions(random).enqueue(new Callback<SuccessQuizzes>() {
             @Override
             public void onResponse(Call<SuccessQuizzes> call, Response<SuccessQuizzes> response) {
-                if(response.isSuccessful() && response.body().success) {
+                if(response.isSuccessful() && response.isSuccessful() && response.body().success) {
                     List<Quiz> quizzes = response.body().quizzes;
                     quizzesAdapter = new QuizzesPagerAdapter(quizzes);
                     quizzesViewPager.setAdapter(quizzesAdapter);

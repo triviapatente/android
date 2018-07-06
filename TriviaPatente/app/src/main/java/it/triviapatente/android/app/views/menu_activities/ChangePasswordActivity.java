@@ -85,7 +85,7 @@ public class ChangePasswordActivity extends TPActivity {
             public void mOnResponse(Call<SuccessUserToken> call, Response<SuccessUserToken> response) {
                 if(response.code() == 403) {
                     oldPasswordInput.showLabel(wrong_pwd);
-                } else if(response.code() == 200 && response.body().success) {
+                } else if(response.isSuccessful() && response.body().success) {
                     SharedTPPreferences.saveToken(response.body().token);
                     finish();
                 }

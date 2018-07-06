@@ -289,7 +289,7 @@ public class StatDetailActivity extends TPActivity {
     private Callback<CategoryDetail> requestCallback = new Callback<CategoryDetail>() {
         @Override
         public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
-            if(response.isSuccessful() && response.body().success) {
+            if(response.isSuccessful() && response.isSuccessful() && response.body().success) {
                 categoryDetail = response.body();
                 refreshGUI();
             } else {

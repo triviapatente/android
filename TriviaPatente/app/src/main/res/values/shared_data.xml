@@ -18,4 +18,6 @@
     <string name="extra_string_category">category</string>
     <string name="extra_string_random">random</string>
     <string name="extra_string_game">game</string>
+
+    <string name="km_run"> km percorsi</string>
 </resources>

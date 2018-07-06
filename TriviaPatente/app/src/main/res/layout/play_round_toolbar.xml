@@ -15,7 +15,7 @@
             android:gravity="center">
 
             <View
-                android:layout_width="168dp"
+                android:layout_width="167dp"
                 android:layout_height="@dimen/play_round_button_panel_view_size"
                 android:background="@drawable/quiz_chooser_background" />
             <!-- quiz buttons -->

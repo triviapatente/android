@@ -219,9 +219,13 @@ public class ChangeUserDetailsActivity extends TPActivity {
         call.enqueue(new Callback<SuccessUser>() {
             @Override
             public void onResponse(Call<SuccessUser> call, Response<SuccessUser> response) {
-                user = response.body().user;
-                SharedTPPreferences.saveUser(user);
-                surnameUpdate();
+                if (response.isSuccessful()) {
+                    user = response.body().user;
+                    SharedTPPreferences.saveUser(user);
+                    surnameUpdate();
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), R.string.httpConnectionError, Snackbar.LENGTH_INDEFINITE).show();
+                }
             }
             @Override
             public void onFailure(Call<SuccessUser> call, Throwable t) {

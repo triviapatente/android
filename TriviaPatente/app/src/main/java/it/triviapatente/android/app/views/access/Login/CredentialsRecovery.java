@@ -76,7 +76,7 @@ public class CredentialsRecovery extends TPActivity {
                 public void mOnResponse(Call<Success> call, Response<Success> response) {
                     if(response.code() == 404) {
                         Toast.makeText(CredentialsRecovery.this, no_user_matching, Toast.LENGTH_SHORT).show();
-                    } else if(response.code() == 200 && response.body().success) {
+                    } else if(response.isSuccessful() && response.body().success) {
                         Toast.makeText(CredentialsRecovery.this, mail_sent, Toast.LENGTH_SHORT).show();
                         finish();
                     }
