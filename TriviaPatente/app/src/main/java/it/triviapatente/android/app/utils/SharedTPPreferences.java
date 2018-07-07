@@ -51,6 +51,7 @@ public class SharedTPPreferences {
         sharedPref = context.getSharedPreferences(shared_TP, Context.MODE_PRIVATE);
     }
     public static void saveTokenRequest(String deviceId, String token, User user) {
+        if(user == null) return;
         TokenRequest request = new TokenRequest(deviceId, token, user.id);
         saveTokenRequest(request);
     }

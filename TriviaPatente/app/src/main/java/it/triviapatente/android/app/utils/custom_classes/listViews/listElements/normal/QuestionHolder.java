@@ -2,6 +2,7 @@ package it.triviapatente.android.app.utils.custom_classes.listViews.listElements
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import butterknife.BindDrawable;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.TPUtils;
@@ -48,6 +51,9 @@ public class QuestionHolder extends TPHolder<Quiz> {
     @BindView(R.id.answerImageLayout) LinearLayout userAnswersLayout;
     @BindViews({R.id.quizFirstTrueUser, R.id.quizSecondTrueUser}) RoundedImageView[] quizTrueImages;
     @BindViews({R.id.quizFirstFalseUser, R.id.quizSecondFalseUser}) RoundedImageView[] quizFalseImages;
+
+    @BindDrawable(R.drawable.details_circle_correct_background) Drawable correctBackground;
+    @BindDrawable(R.drawable.details_circle_incorrect_background) Drawable incorrectBackground;
 
     @BindDimen(R.dimen.quiz_image_size_small) int quizDefaultImageDimen;
     @BindDimen(R.dimen.details_quiz_name_margin) int quizNameViewMargin;
@@ -104,14 +110,7 @@ public class QuestionHolder extends TPHolder<Quiz> {
     public int getBackgroundColorForWrongAnswers() {
         return ContextCompat.getColor(context, R.color.wrongQuizTrainingBackgroundColor);
     }
-    public void bindForTraining(Quiz quiz) {
-        bindInit(quiz);
-        noUserAnswersLayout();
-        handleQuizImage(quiz);
-        quizNameView.setText(quiz.question);
-        handleAnswer(quiz.answer);
-        itemView.setBackgroundColor(getBackgroundColorForTraining(quiz));
-    }
+
     private void handleQuizImage(Quiz quiz) {
         TPUtils.picasso.cancelRequest(quizImageView);
         if(quiz.image_id != null) {
@@ -137,12 +136,20 @@ public class QuestionHolder extends TPHolder<Quiz> {
         }
     }
     private void bindInit(final Quiz quiz) {
-        itemView.setOnClickListener(new View.OnClickListener() {
+        quizNameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(onSelectItem != null) onSelectItem.onReceiveValue(quiz);
             }
         });
+    }
+    public void bindForTraining(Quiz quiz) {
+        bindInit(quiz);
+        noUserAnswersLayout();
+        handleQuizImage(quiz);
+        quizNameView.setText(quiz.question);
+        handleAnswer(quiz.answer);
+        itemView.setBackgroundColor(getBackgroundColorForTraining(quiz));
     }
     public void bindForDetails(final Quiz quiz, User opponent) {
         bindInit(quiz);
@@ -155,7 +162,7 @@ public class QuestionHolder extends TPHolder<Quiz> {
     }
     public void bindForWrongAnswers(final Quiz quiz) {
         bindInit(quiz);
-        quizNameView.setMaxLines(3);
+        if(quizNameView.getMaxLines() != 3) quizNameView.setMaxLines(3);
         quizNameView.setText(quiz.question);
         handleQuizImage(quiz);
         handleAnswer(quiz.answer);
@@ -163,11 +170,11 @@ public class QuestionHolder extends TPHolder<Quiz> {
         itemView.setBackgroundColor(getBackgroundColorForWrongAnswers());
     }
     public void correctGUI(TextView view) {
-        view.setBackgroundResource(R.drawable.details_circle_correct_background);
+        view.setBackground(correctBackground);
         view.setTextColor(mainColor);
     }
     public void incorrectGUI(TextView view) {
-        view.setBackgroundResource(R.drawable.details_circle_incorrect_background);
+        view.setBackground(incorrectBackground);
         view.setTextColor(Color.WHITE);
     }
     private List<User> trueUsers = new ArrayList<>();
