@@ -127,7 +127,7 @@ public class RecentGameHolder extends TPHolder<Game> {
 
     private void setSummary(Game g) {
         playButton.setSummary();
-        String text = null;
+        String text;
         if(!g.started) {
             text = context.getString(R.string.game_annulled_status);
         } else if(g.winner_id != null) {

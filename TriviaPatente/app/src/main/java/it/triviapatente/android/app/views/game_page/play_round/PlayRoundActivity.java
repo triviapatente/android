@@ -175,7 +175,7 @@ public class PlayRoundActivity extends TPGameActivity implements View.OnClickLis
             @DrawableRes int backgroundRes;
             if(quiz.my_answer == null) {
                 backgroundRes = noAnswerRes;
-            } else if(quiz.answered_correctly == true) {
+            } else if(quiz.answered_correctly) {
                 backgroundRes = greenRes;
             } else {
                 backgroundRes = redRes;

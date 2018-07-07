@@ -34,7 +34,7 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="@color/mainColor"
-            android:textSize="@dimen/TPTextSizeSmall"/>
+            android:textSize="@dimen/TPTextSizeVerySmall"/>
 
     </LinearLayout>
 

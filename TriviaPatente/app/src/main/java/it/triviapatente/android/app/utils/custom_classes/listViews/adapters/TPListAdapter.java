@@ -120,7 +120,7 @@ public class TPListAdapter<T> extends RecyclerView.Adapter {
     } // not provided
 
     private boolean isPositionFooter(int position) {
-        return (footerLayout == 0)? false : position == items.size();
+        return footerLayout != 0 && position == items.size();
     }
 
     public class VIEW_TYPES {

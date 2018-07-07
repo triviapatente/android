@@ -23,8 +23,6 @@
     <string name="httpConnectionError">Errore di connessione..</string>
     <string name="httpConnectionErrorRetryButton">Riprova</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_stats_list">StatsListActivity</string>
     <string name="game_ended_expired_game">Il tempo per completare la partita è scaduto</string>
     <string name="game_user_notification_user_notified">Avversario notificato!</string>

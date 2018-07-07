@@ -70,6 +70,6 @@ public class User extends CommonPK {
         if (!(anotherObject instanceof User)) {
             return false;
         }
-        return this.id == ((User) anotherObject).id;
+        return this.id.equals(((User) anotherObject).id);
     }
 }

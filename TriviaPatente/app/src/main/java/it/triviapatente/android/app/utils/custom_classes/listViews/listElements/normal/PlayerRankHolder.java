@@ -38,7 +38,7 @@ public class PlayerRankHolder extends TPHolder<User> {
 
     @Override
     public void bind(User element) {
-        if(element.id == SharedTPPreferences.currentUser().id) {
+        if(SharedTPPreferences.currentUser().id.equals(element.id)) {
             itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.mainColor));
             positionTextField.setTextColor(ContextCompat.getColor(context, android.R.color.white));
             scoreTextField.setTextColor(ContextCompat.getColor(context, android.R.color.white));

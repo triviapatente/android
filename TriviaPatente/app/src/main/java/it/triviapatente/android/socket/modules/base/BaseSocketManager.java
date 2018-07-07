@@ -265,7 +265,7 @@ public class BaseSocketManager {
             this.emit("join_room", params, Success.class, new SocketCallback<Success>() {
                 @Override
                 public void response(Success response) {
-                    if (response.success == true) {
+                    if (response.success) {
                         joinedRooms.put(type, id);
                     }
                     handler.response(response);
