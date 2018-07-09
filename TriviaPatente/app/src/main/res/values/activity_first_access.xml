@@ -58,6 +58,10 @@
 
     <string name="modal_privacy_terms_privacyPolicy_title">Privacy Policy</string>
     <string name="modal_privacy_terms_terms_title">Termini e Condizioni</string>
+    <string name="modal_privacy_terms_drop_title">Cancella account</string>
+    <string name="modal_privacy_terms_revoke_title">Rimuovi consensi</string>
+    <string name="modal_privacy_terms_get_data_title">Ottieni i tuoi dati</string>
+
     <string name="modal_privacy_terms_back_title">Annulla</string>
     <string name="modal_privacy_terms_title">Cosa vuoi consultare?</string>
     <string name="modal_privacy_terms_message">Non farci causa 0x1F602</string>

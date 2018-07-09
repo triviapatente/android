@@ -22,9 +22,9 @@ public class TrainingStatViewer extends Fragment {
     public TrainingStatViewer() {
         // Required empty public constructor
     }
-    public void setValues(int number, int caption) {
+    public void setValues(int number, int caption, Context ctx) {
         this.numberViewer.setText(String.format(Locale.getDefault(), "%d", number));
-        this.captionViewer.setText(getContext().getResources().getText(caption));
+        this.captionViewer.setText(ctx.getString(caption));
     }
 
     @Override

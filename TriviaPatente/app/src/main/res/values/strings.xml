@@ -12,6 +12,10 @@
     <!-- NETWORKING -->
     <string name="baseUrl">https://triviapatente.it:8080/</string>
     <string name="privacy_policy_path">ws/privacyPolicy</string>
+    <string name="get_data_path">ws/redirect/get-data</string>
+    <string name="drop_account_path">ws/redirect/drop-user</string>
+    <string name="revoke_permissions_path">ws/redirect/revoke-permissions</string>
+
     <string name="terms_path">ws/terms</string>
     <string name="store_path">/ws/store_page/android</string>
     <string name="download_link">https://www.triviapatente.it/#download</string>

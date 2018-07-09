@@ -92,6 +92,50 @@
         android:background="@android:color/white"/>
 
     <Button
+        android:id="@+id/getDataButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_privacy_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_privacy_terms_get_data_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
+        android:id="@+id/revokeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_privacy_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_privacy_terms_revoke_title"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
+        android:id="@+id/dropAccountButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/modal_privacy_infinite_margin_little"
+        android:background="@drawable/modal_confirmed_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TPTextSizeMedium"
+        android:text="@string/modal_privacy_terms_drop_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@android:color/white"/>
+
+    <Button
         android:id="@+id/backButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

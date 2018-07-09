@@ -212,15 +212,17 @@ public class TPUtils {
     }
 
     public static String getUserImageFromID(Context context, long ID) {
+        if(context == null) return null;
         return context.getString(R.string.baseUrl)+ "account/image/" + ID;
     }
 
     public static String getQuizImageFromID(Context context, long ID) {
+        if(context == null) return null;
         return context.getString(R.string.baseUrl)+ "quiz/image/" + ID;
     }
 
     public static String getCategoryImageFromID(Context context, Long ID) {
-        if (ID == null) {
+        if (ID == null || context == null) {
             return null;
         }
         return context.getString(R.string.baseUrl)+ "category/image/" + ID;

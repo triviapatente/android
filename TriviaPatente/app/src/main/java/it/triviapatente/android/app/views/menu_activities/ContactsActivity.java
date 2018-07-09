@@ -36,6 +36,7 @@ public class ContactsActivity extends TPActivity {
     @BindString(R.string.activity_contacts_terms_and_conditions2) String terms_and_conditions2;
     @BindString(R.string.activity_contacts_terms_and_conditions3) String terms_and_conditions3;
     @BindString(R.string.activity_contacts_terms_and_conditions4) String terms_and_conditions4;
+    @BindString(R.string.activity_contacts_terms_and_conditions5) String terms_and_conditions5;
     @BindColor(R.color.greenTermsAndConditions) int green;
     @BindView(R.id.terms_and_conditions) TextView termsandconditionsLink;
 
@@ -70,7 +71,7 @@ public class ContactsActivity extends TPActivity {
     }
 
     private void setTermsAndPolicyText() {
-        String str = terms_and_conditions1 + terms_and_conditions2 + terms_and_conditions3 + terms_and_conditions4;
+        String str = terms_and_conditions1 + terms_and_conditions2 + terms_and_conditions3 + terms_and_conditions4 + terms_and_conditions5;
         Spannable spannable = new SpannableString(str);
         String lower = terms_and_conditions1;
         String upper = terms_and_conditions1 + terms_and_conditions2;

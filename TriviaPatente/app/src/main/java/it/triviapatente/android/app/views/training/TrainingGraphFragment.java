@@ -30,6 +30,7 @@ public class TrainingGraphFragment extends Fragment {
     }
 
     private float getSectionWeight(TrainingStats stats, FrameLayout section) {
+        if(stats == null) return 0;
         if(stats.total == 0) return 0;
         switch (section.getId()) {
             case R.id.noErrorsSection: return (float)stats.no_errors / stats.total;

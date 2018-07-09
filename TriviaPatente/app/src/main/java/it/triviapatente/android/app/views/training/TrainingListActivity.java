@@ -99,10 +99,10 @@ public class TrainingListActivity extends TPActivity {
     }
     private void updateViewsFromStats(TrainingStats stats) {
         graphFragment.setStats(stats);
-        noErrorsViewer.setValues(stats.no_errors, R.string.training_no_errors_caption);
-        errors12Viewer.setValues(stats.errors_12, R.string.training_errors_12_caption);
-        errors34Viewer.setValues(stats.errors_34, R.string.training_errors_34_caption);
-        moreErrorsViewer.setValues(stats.more_errors, R.string.training_more_errors_caption);
+        noErrorsViewer.setValues(stats.no_errors, R.string.training_no_errors_caption, this);
+        errors12Viewer.setValues(stats.errors_12, R.string.training_errors_12_caption, this);
+        errors34Viewer.setValues(stats.errors_34, R.string.training_errors_34_caption, this);
+        moreErrorsViewer.setValues(stats.more_errors, R.string.training_more_errors_caption, this);
     }
     private void updateTrainings(List<Training> trainings) {
         Collections.sort(trainings);

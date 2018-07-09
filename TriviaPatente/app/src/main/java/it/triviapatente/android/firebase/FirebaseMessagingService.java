@@ -59,7 +59,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         String  gameData = data.get(ctx.getString(R.string.firebase_message_game_key)),
                 opponentData = data.get(ctx.getString(R.string.firebase_message_opponent_key));
         Game game = RetrofitManager.gson.fromJson(gameData, Game.class);
-        if(game.id.equals(BaseSocketManager.joinedRooms.get("game"))) return;
+        if(game != null && game.id.equals(BaseSocketManager.joinedRooms.get("game"))) return;
         Intent intent = new Intent(ctx, MainPageActivity.class);
 
         intent.putExtra(ctx.getString(R.string.extra_firebase_game_param), gameData);

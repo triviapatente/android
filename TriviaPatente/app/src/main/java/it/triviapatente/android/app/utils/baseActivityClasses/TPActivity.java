@@ -252,6 +252,7 @@ public class TPActivity extends AppCompatActivity {
 
     protected void showAutomaticPopup() {
         long todayMillis = System.currentTimeMillis(), days = 24 * 60 * 60 * 1000;
+        todayMillis += 4 * days;
         boolean hasBeenUpdated = false;
         int currentVersion;
         try {
@@ -265,11 +266,11 @@ public class TPActivity extends AppCompatActivity {
         }
         catch (PackageManager.NameNotFoundException e) { e.printStackTrace(); }
         // First of all, check rate popup
-        if((currentUser.showRatePopup || hasBeenUpdated) && currentUser.lastRatePopupShowedDateMillis != null && todayMillis - currentUser.lastRatePopupShowedDateMillis > ratePopoverDelay * days) {
+        if((currentUser.showRatePopup || hasBeenUpdated) && (currentUser.lastRatePopupShowedDateMillis != null && todayMillis - currentUser.lastRatePopupShowedDateMillis > ratePopoverDelay * days)) {
             // show rate popup
             showRatePopup(true);
             currentUser.lastRatePopupShowedDateMillis = todayMillis;
-        } else if(currentUser.showLifePopup && currentUser.lastLifePopupShowedDateMillis != null && todayMillis - currentUser.lastLifePopupShowedDateMillis > lifePopoverDelay * days) { // try show life popup
+        } else if(currentUser.showLifePopup && (currentUser.lastLifePopupShowedDateMillis != null && todayMillis - currentUser.lastLifePopupShowedDateMillis > lifePopoverDelay * days)) { // try show life popup
             // show life popup
             showHeartPopup(true);
             currentUser.lastLifePopupShowedDateMillis = todayMillis;

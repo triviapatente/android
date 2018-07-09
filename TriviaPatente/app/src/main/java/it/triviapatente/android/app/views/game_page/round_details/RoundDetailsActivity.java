@@ -284,12 +284,14 @@ public class RoundDetailsActivity extends TPGameActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(response.answers == null) response.answers = new ArrayList<>(); // can be null
-                        response.answers.add(event.answer);
-                        detailsScore.set(RoundDetailsActivity.this, response.answers);
-                        answerMap = computeMap();
-                        answerAdapter.notifyDataSetChanged(response, opponent);
-                        scrollListener.refreshAdapter(answerAdapter);
+                        if(response != null && response.game != null) {
+                            if (response.answers == null) response.answers = new ArrayList<>(); // can be null
+                            response.answers.add(event.answer);
+                            detailsScore.set(RoundDetailsActivity.this, response.answers);
+                            answerMap = computeMap();
+                            answerAdapter.notifyDataSetChanged(response, opponent);
+                            scrollListener.refreshAdapter(answerAdapter);
+                        }
                     }
                 });
             }
@@ -300,13 +302,15 @@ public class RoundDetailsActivity extends TPGameActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        response.game.ended = true;
-                        response.game.winner_id = event.winnerId;
-                        response.partecipations = event.partecipations;
-                        detailsScore.setResponse(response, RoundDetailsActivity.this);
-                        answerAdapter.notifyDataSetChanged(response, opponent);
-                        scrollListener.refreshAdapter(answerAdapter);
-                        sectionAdapter.notifyDataSetChanged(response, answerMap);
+                        if(response != null && response.game != null) {
+                            response.game.ended = true;
+                            response.game.winner_id = event.winnerId;
+                            response.partecipations = event.partecipations;
+                            detailsScore.setResponse(response, RoundDetailsActivity.this);
+                            answerAdapter.notifyDataSetChanged(response, opponent);
+                            scrollListener.refreshAdapter(answerAdapter);
+                            sectionAdapter.notifyDataSetChanged(response, answerMap);
+                        }
                     }
                 });
             }
@@ -317,13 +321,15 @@ public class RoundDetailsActivity extends TPGameActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        response.game.ended = true;
-                        response.game.winner_id = event.winnerId;
-                        response.partecipations = event.partecipations;
-                        detailsScore.setResponse(response, RoundDetailsActivity.this);
-                        answerAdapter.notifyDataSetChanged(response, opponent);
-                        scrollListener.refreshAdapter(answerAdapter);
-                        sectionAdapter.notifyDataSetChanged(response, answerMap);
+                        if(response != null && response.game != null) {
+                            response.game.ended = true;
+                            response.game.winner_id = event.winnerId;
+                            response.partecipations = event.partecipations;
+                            detailsScore.setResponse(response, RoundDetailsActivity.this);
+                            answerAdapter.notifyDataSetChanged(response, opponent);
+                            scrollListener.refreshAdapter(answerAdapter);
+                            sectionAdapter.notifyDataSetChanged(response, answerMap);
+                        }
                     }
                 });
             }
