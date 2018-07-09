@@ -3,7 +3,7 @@
     <string name="activity_contacts_title">Contattaci</string>
     <dimen name="map_margin_bottom">50dp</dimen>
 
-    <string name="developers">Luigi Donadel ● Antonio Terpin ● Gabriel Ciulei</string>
+    <string name="developers">Luigi Donadel ● Gabriel Ciulei ● Antonio Terpin</string>
     <dimen name="developers_margin">15dp</dimen>
     <dimen name="activity_contacts_terms_and_conditions_margin">15dp</dimen>
     <dimen name="activity_contacts_separator_bottom_margin_horizontal">80dp</dimen>

@@ -95,18 +95,6 @@ public class InstagramFeedView extends Fragment {
 
     }
 
-    private TimerTask showTask = new TimerTask() {
-        @Override
-        public void run() {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    loadPosts();
-                }
-            });
-        }
-    };
-    private TimerTask scrollTask = null;
 
     private Timer timer;
 
@@ -143,12 +131,22 @@ public class InstagramFeedView extends Fragment {
     private void scheduleLoad() {
         if(timer != null) timer.cancel();
         timer = new Timer();
-        timer.schedule(showTask, instagramGalleryDelay);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadPosts();
+                    }
+                });
+            }
+        }, instagramGalleryDelay);
     }
     private void scheduleAutoScroll() {
         if(timer != null) timer.cancel();
         timer = new Timer();
-        scrollTask = new TimerTask() {
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 getActivity().runOnUiThread(new Runnable() {
@@ -158,8 +156,7 @@ public class InstagramFeedView extends Fragment {
                     }
                 });
             }
-        };
-        timer.schedule(scrollTask, 0, instagramGalleryRepeatDelay);
+        }, 0, instagramGalleryRepeatDelay);
     }
 
     @Nullable

@@ -60,16 +60,20 @@ public class RoundedImageView extends android.support.v7.widget.AppCompatImageVi
             return;
         }
         //Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-        Bitmap b = TPUtils.drawableToBitmap(drawable);
-        if(b == null) return;
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
         int dim = Math.min(getWidth(), getHeight()) - 1;
+        try {
+            Bitmap b = TPUtils.drawableToBitmap(drawable);
+            if (b == null) return;
+            Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
 
-        Bitmap roundBitmap = getCroppedBitmap(bitmap, dim);
+            Bitmap roundBitmap = getCroppedBitmap(bitmap, dim);
 
-        fillPaint.setStyle(Paint.Style.FILL);
+            fillPaint.setStyle(Paint.Style.FILL);
 
-        canvas.drawBitmap(roundBitmap, 0, 0, fillPaint);
+            canvas.drawBitmap(roundBitmap, 0, 0, fillPaint);
+        } catch(OutOfMemoryError e) {
+
+        }
         if(borderColor != null) {
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(borderWidth);

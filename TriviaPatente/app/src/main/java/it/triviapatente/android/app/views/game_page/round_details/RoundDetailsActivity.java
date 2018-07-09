@@ -232,7 +232,7 @@ public class RoundDetailsActivity extends TPGameActivity {
 
     @Override
     protected String getToolbarTitle() {
-        if(opponent != null) return opponent.username;
+        if(opponent != null) return opponent.toString();
         return activityTitle;
     }
 
