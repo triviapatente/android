@@ -3,10 +3,10 @@
 
     <!-- ADS -->
     <string name="admob_appid">ca-app-pub-6517751265585915~1509769900</string>
-    <string name="admob_banner">ca-app-pub-3940256099942544/6300978111</string>
-    <!--<string name="admob_banner">ca-app-pub-6517751265585915/4001179171</string>--> <!-- PRODUCTION -->
-    <string name="admob_interstitial">ca-app-pub-3940256099942544/1033173712</string>
-    <!--<string name="admob_interstitial">ca-app-pub-6517751265585915/1375015830</string>--> <!-- PRODUCTION -->
+    <!--<string name="admob_banner">ca-app-pub-3940256099942544/6300978111</string>-->
+    <string name="admob_banner">ca-app-pub-6517751265585915/4001179171</string> <!-- PRODUCTION -->
+    <!--<string name="admob_interstitial">ca-app-pub-3940256099942544/1033173712</string> -->
+    <string name="admob_interstitial">ca-app-pub-6517751265585915/1375015830</string> <!-- PRODUCTION -->
     <string name="firebase_message_game_key">game</string>
     <string name="firebase_message_opponent_key">opponent</string>
     <!-- NETWORKING -->
