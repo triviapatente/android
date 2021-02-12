@@ -10,7 +10,7 @@
 <a name="intro"></a>
 ## Introduction
 TriviaPatente is a mobile application that makes it easier and funnier to learn the theory of the driving license, connecting you with your friends.
-Developed the Android app in Java.
+This repository contains the Android application written in Java.
 |TODO SOME SCREENSHOTS|TODO SOME SCREENSHOTS|TODO SOME SCREENSHOTS|
 |:----- |:----- |:----- |
 ||||
@@ -42,7 +42,7 @@ can drop an [email](mailto:antonio.terpin@gmail.com) to help us:
 + Documentation
 + Set up contribution workflow
 ### Authors
-This project was initially started by [Luigi Donadel](https://github.com/donadev) and [Antonio Terpin](https://github.com/antonioterpin), and greatly improved thanks to the help of [Gabriel Ciulei](https://github.com/gabrielciulei).
+This project was initially started by [Luigi Donadel](https://github.com/donadev) and [Antonio Terpin](https://github.com/antonioterpin).
 
 <a name="license"><a/>
 ## License
