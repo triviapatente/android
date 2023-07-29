@@ -98,6 +98,7 @@ public class TrainingListActivity extends TPActivity {
         moreErrorsViewer = (TrainingStatViewer) getSupportFragmentManager().findFragmentById(R.id.more_errors_viewer);
     }
     private void updateViewsFromStats(TrainingStats stats) {
+        if(stats == null) return;
         graphFragment.setStats(stats);
         noErrorsViewer.setValues(stats.no_errors, R.string.training_no_errors_caption, this);
         errors12Viewer.setValues(stats.errors_12, R.string.training_errors_12_caption, this);
