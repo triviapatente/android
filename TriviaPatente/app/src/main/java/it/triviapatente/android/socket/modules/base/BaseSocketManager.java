@@ -6,9 +6,9 @@ import android.os.Looper;
 import android.util.Log;
 import android.util.Pair;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 import it.triviapatente.android.R;
 import it.triviapatente.android.app.utils.SharedTPPreferences;
 import it.triviapatente.android.app.utils.custom_classes.callbacks.SimpleCallback;
@@ -18,7 +18,6 @@ import it.triviapatente.android.firebase.FirebaseMessagingService;
 import it.triviapatente.android.http.utils.RetrofitManager;
 import it.triviapatente.android.models.responses.Success;
 
-import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +61,6 @@ public class BaseSocketManager {
     private static IO.Options getIO() throws KeyManagementException, NoSuchAlgorithmException {
         IO.Options opts = new IO.Options();
         opts.secure = true;
-        opts.sslContext = RetrofitManager.getSSLContext();
         return opts;
     }
     public static void init(Context context) {
@@ -170,7 +168,7 @@ public class BaseSocketManager {
                     }
                 }
             });
-        } catch(WebsocketNotConnectedException e) {
+        } catch(Exception e) {
             callOnTimeout(cb, outputClass);
         }
 

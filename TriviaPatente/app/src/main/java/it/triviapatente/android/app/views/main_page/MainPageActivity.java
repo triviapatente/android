@@ -273,7 +273,7 @@ public class MainPageActivity extends TPActivity implements View.OnClickListener
                         //ReceivedData.orderGames();
                     }
                     updateRecentGames();
-                    // stop loading
+                    loadingView.setVisibility(View.GONE);
                 }
             }
 
