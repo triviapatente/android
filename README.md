@@ -56,8 +56,8 @@ This project was developed with ❤️ and a giant dose of curiosity and passion
 ||Authors|
 |:----- |:----- |
 |<img src="https://avatars.githubusercontent.com/u/7453120?v=4" alt="drawing" width="50"/>|[Luigi Donadel](https://github.com/donadev)|
-|<img src="https://media.licdn.com/dms/image/C4D03AQGvkKpgIYl6jg/profile-displayphoto-shrink_200_200/0/1517931535631?e=1695859200&v=beta&t=uiddasmwI5VnP5TYdeuWd57geP_DArgR7vONoI901hk" alt="drawing" width="50"/>|[Gabriel Ciulei](https://www.linkedin.com/in/gabriel-ciulei)|
 |<img src="https://avatars.githubusercontent.com/u/20773447?v=4" alt="drawing" width="50"/>|[Antonio Terpin](https://github.com/antonioterpin)|
+|<img src="https://media.licdn.com/dms/image/C4D03AQGvkKpgIYl6jg/profile-displayphoto-shrink_200_200/0/1517931535631?e=1695859200&v=beta&t=uiddasmwI5VnP5TYdeuWd57geP_DArgR7vONoI901hk" alt="drawing" width="50"/>|[Gabriel Ciulei](https://www.linkedin.com/in/gabriel-ciulei)|
 
 <a name="license"><a/>
 ## License
